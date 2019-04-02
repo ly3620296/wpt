@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF" monitorInterval="30">
+    <!--级别 All<Trace<Debug<Info<Warn<Error<Fatal<OFF-->
+    <Properties>
+        <Property name="LOG_HOME">logs_wx</Property>
+        <property name="ERROR_LOG_FILE_NAME">${LOG_HOME}/error</property>
+        <property name="WARN_LOG_FILE_NAME">${LOG_HOME}/warn</property>
+        <property name="INFO_LOG_FILE_NAME">${LOG_HOME}/info</property>
+        <property name="DEBUG_LOG_FILE_NAME">${LOG_HOME}/debug</property>
+
+        <property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t](%C.%M:%L) %msg%n</property>
+    </Properties>
+
+    <Appenders>
+        <!--这个输出控制台的配置 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- 控制台只输出level及以上级别的信息(onMatch),其他的直接拒绝(onMismatch) -->
+            <ThresholdFilter level="info" onMatch="ACCEPT"
+                             onMismatch="DENY"/>
+            <!-- 输出日志的格式 -->
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+        <RollingFile name="RollingFileDebug" fileName="${DEBUG_LOG_FILE_NAME}/debug.log"
+                     filePattern="${DEBUG_LOG_FILE_NAME}/$${date:yyyy}/$${date:yyyy-MM}/%d{yyyy-MM-dd}-debug.log">
+            <Filters>
+                <!--设置只输出级别为debug的日志-->
+                <ThresholdFilter level="debug"/>
+                <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss} [%thread] [%C.%M] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="RollingFileInfo" fileName="${INFO_LOG_FILE_NAME}/info.log"
+                     filePattern="${INFO_LOG_FILE_NAME}/$${date:yyyy}/$${date:yyyy-MM}/%d{yyyy-MM-dd}-info.log">
+            <Filters>
+                <!--设置只输出级别为info的日志-->
+                <ThresholdFilter level="info"/>
+                <ThresholdFilter level="warn" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss} [%thread] [%C.%M] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingFile>
+
+
+        <RollingFile name="RollingFileWarn" fileName="${WARN_LOG_FILE_NAME}/warn.log"
+                     filePattern="${WARN_LOG_FILE_NAME}/$${date:yyyy}/$${date:yyyy-MM}/%d{yyyy-MM-dd}-warn.log">
+            <Filters>
+                <!--设置只输出级别为warn的日志-->
+                <ThresholdFilter level="warn"/>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss} [%thread] [%C.%M] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingFile>
+
+
+        <RollingFile name="RollingFileError" fileName="${ERROR_LOG_FILE_NAME}/error.log"
+                     filePattern="${ERROR_LOG_FILE_NAME}/$${date:yyyy}/$${date:yyyy-MM}/%d{yyyy-MM-dd}-error.log">
+            <Filters>
+                <!--设置只输出级别为error的日志-->
+                <ThresholdFilter level="error"/>
+                <ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss} [%thread] [%C.%M] %m%n"/>
+
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingFile>
+
+
+    </Appenders>
+    <Loggers>
+        <root level="all">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileDebug"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+        </root>
+    </Loggers>
+</Configuration>

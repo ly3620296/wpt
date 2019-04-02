@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<database>
+    <druid>　　
+        <dataSource>main</dataSource>
+        <dbType>oracle</dbType>
+        <driver>oracle.jdbc.driver.OracleDriver</driver>
+        <jdbcUrl>jdbc:oracle:thin:@10.161.253.240:1521:KEANDB</jdbcUrl>
+        <!--<jdbcUrl>jdbc:oracle:thin:@172.18.1.251:1521:KEANDB</jdbcUrl>-->
+        <username>weixin</username>
+        <password>weixin</password>
+        <!--<jdbcUrl> jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=10.163.41.85)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=10.163.41.87)(PORT=1521))(LOAD_BALANCE=no)(FAILOVER=YES))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=wapdb)))</jdbcUrl>-->
+        <!--<username>weixin</username>-->
+        <!--<password>cgb4#12sX</password>-->
+        <!--初始化时建立物理连接的个数-->
+        <initialSize>2</initialSize>
+        <!--最大连接池数量-->
+        <maxActive>100</maxActive>
+        <!--是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。-->
+        <poolPreparedStatements>true</poolPreparedStatements>
+        <!--要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100-->
+        <maxOpenPreparedStatements>100</maxOpenPreparedStatements>
+        <!--用来检测连接是否有效的sql，要求是一个查询语句。-->
+        <validationQuery>select sysdate from dual</validationQuery>
+        <!--建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。-->
+        <testWhileIdle>true</testWhileIdle>
+    </druid>
+</database>
