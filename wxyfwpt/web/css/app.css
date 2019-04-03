@@ -1,0 +1,319 @@
+.app{
+	width: 100%;
+	 
+}
+/*body{
+	  background: #ff9f66;
+}*/
+.tcDiv{
+	width: 100%;
+	position: relative;
+}
+.bg{
+	width: 100%;
+	
+}
+.tc{
+	width: 100%;
+}
+.tclist{
+	width: 100%;
+}
+.tc .name{
+	width: 100%;
+	height: 30px;
+	position: relative;
+	text-align: center;
+	border-top: 1px solid #eaeaea;
+	border-bottom: 1px solid #eaeaea;
+	background: #ddd;
+	
+}
+.tc .name p{
+	line-height: 30px;
+	/*padding-left: 10px;*/
+	font-size: 12px;
+	
+}
+.tc .name img{
+	width: 60%;
+}
+.tc .name .more{
+	width: 15%;
+    position: absolute;
+    right: 1%;
+    top: 17%;
+}
+
+.tc ul{
+	overflow: hidden;
+	text-align: center;
+	margin-top: -1px;
+	margin-bottom: -1px;
+}
+
+.tc li{
+    width: 32.7%;
+    float: left;
+    /* padding: 0 0.6%; */
+    border: 1px solid #e2e2e2;
+    padding: 10px 0;
+
+}
+.tc li img{
+	width: 40%;
+}
+.tc li p{
+	width: 100%;
+	text-align: center;
+	font-size: 12px;
+	line-height: 26px;
+}
+.hkxc{
+	width: 100%;
+	position: relative;
+}
+.hkxc .tc{
+	position: absolute;
+	top: 0;
+}
+.app2{
+	width: 100%;
+}
+.app2 .header{
+	width: 100%;
+	text-align: center;
+	padding: 5% 0;
+}
+.app2 .selectDiv span{
+	font-size: 14px;
+	color: #333;
+	vertical-align: middle;
+}
+.app2 .selectDiv  select{
+    font-size: 14px;
+    padding: 2% 5%;
+    border: 1px solid #999999;
+    border-radius: 8px;
+    width: 40%;
+    outline: none;
+}
+.app2 .sescdiv{
+	width: 100%;
+	text-align: center;
+	padding: 5% 0;
+}
+.app2 .sescdiv input{
+	width: 40%;
+	font-size: 14px;
+	padding: 2% 5%;
+	border: 1px solid #0092f7;
+	border-radius:8px ;
+	outline: none;
+}
+.app2 .sescdiv  a{
+	width: 22%;
+	color: #FFFFFF;
+	padding: 2% ;
+	display: inline-block;
+	background: #0092f7;
+	border: 1px solid #0092f7;
+	border-radius:8px ;
+	text-align: center;
+}
+.app2 .contter{
+	width: 100%;
+	text-align: center;
+	border-top: 1px solid #d6d5d5;
+}
+.app2 .contter .li1{
+    width: 90%;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid #29a3f8;
+    background: url(../img/ttt1.png) left top no-repeat;
+    background-size:9% ;
+    background-color: #e7f3ff;   
+}
+.app2 .contter li .p1{
+	width: 70%;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #3eacf7;
+    line-height: 36px;
+    font-weight: bold;
+    text-align: left;
+}
+.app2 .contter li .a1{
+	width: 29%;
+	text-align: center;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #FFFFFF;
+    display: inline-block;
+    background: #3eacf7;
+    float: right;
+    border-radius: 5px;
+}
+.app2 .contter .li2{
+    width: 90%;
+    overflow: hidden;      
+    border-radius: 5px;
+    border: 1px solid #ffaf58;
+    background: url(../img/ttt2.png) left top no-repeat;
+    background-size:9% ;
+    background-color: #fdf6e4;  
+}
+.app2 .contter li .p2{
+	width: 70%;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #ea7900;
+    line-height: 36px;
+    font-weight: bold;
+    text-align: left;
+}
+.app2 .contter li .a2{
+	width: 29%;
+	text-align: center;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #FFFFFF;
+    display: inline-block;
+    background: #ff9f31;
+    float: right;
+    border-radius: 5px;
+}
+
+.app2 .contter li{
+	padding: 2%;
+	margin: 5% 3%;
+}
+.app2 .contter .li3{
+    width: 90%;
+    overflow: hidden;    
+    border-radius: 5px;
+    border: 1px solid #fe4f6c;
+    background: url(../img/ttt3.png) left top no-repeat;
+    background-size:9% ;
+    background-color: #ffe9ec;
+   }
+.app2 .contter li .p3{
+	width: 70%;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #f92848;
+    line-height: 36px;
+    font-weight: bold;
+     text-align: left;
+}
+.app2 .contter li .a3{
+	width: 29%;
+	text-align: center;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #FFFFFF;
+    display: inline-block;
+    background: #ff5c77;
+    float: right;
+    border-radius: 5px;
+}
+.app2 .fhDiv{
+	width: 100%;
+	padding: 15px 0;
+	position: relative;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+	color: #343434;
+	border-bottom: 1px solid #EEEEEE;
+}
+.app2 .fhDiv img{
+    width: 20px;
+    position: absolute;
+    left: 3%;
+    top: 6px;
+}
+
+
+.swiper-wrapper img{
+	width: 100%;
+}
+
+.peopleMessage{
+	width: 100%;
+	padding: 3% 0;
+	overflow: hidden;
+}
+
+.peopleMessage .xing{
+	width: 45px;
+	height: 45px;
+	text-align: center;
+	line-height: 45px;
+	color: #FFFFFF;
+	background: url(../img/text1.png);
+	background-size:100% 100% ;
+	display: inline-block;
+	margin-left: 3%;
+}
+.peopleText{
+	width: 60%;
+	display: inline-block;
+	vertical-align: middle;
+}
+.peopleText .p1{
+	font-size: 16px;
+	line-height: 20px;
+	text-indent: 15px;
+}
+.peopleText .p2{
+	font-size: 14px;
+	color: #999999;
+	line-height: 20px;
+	text-indent: 15px;
+}
+.gfzmImg{
+	width: 15%;
+	vertical-align: middle;
+}
+
+
+
+body{
+	padding-bottom:50px ;
+}
+
+.footer-nav {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+    background: #fff;
+   /* display: none;*/
+    border-top: 1px solid #ddd;
+}
+.footer-nav ul li {
+    float: left;
+    width: 25%;
+    text-align: center;
+   
+    font-size: 12px;
+    line-height: 16px;
+    padding: 2px 0;
+}
+.footer-nav ul li img{
+	width: 30%;
+}
+.footer-nav ul li p{
+	text-align: center;
+	font-size: 12px;
+}
+.footer-nav ul li:last-child {
+    border-right: 0;
+}
+
