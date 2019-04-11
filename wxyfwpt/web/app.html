@@ -48,8 +48,8 @@
                 <div class="name">
                     <p>教务教学</p>
                 </div>
-                <ul>
-                    <li>
+                <ul id="wpt_main">
+                    <li lay-href="module/education/course/courseDemo.jsp">
                         <img src="img/icon_chakebiao.png"/>
 
                         <p>查课表</p>
@@ -209,8 +209,18 @@
     </ul>
 </div>
 <script src="js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js-lib/base.js" type="text/javascript" charset="utf-8"></script>
 <script src="js-lib/swiper/swiper-3.4.2.min.js" type="text/javascript" charset="utf-8"></script>
 <script>
+
+    $(function () {
+        $("#wpt_main>li").on("click", function () {
+            var my_li = $(this);
+            var lay_href = my_li.attr("lay-href");
+            console.log(wpt_serverName + lay_href);
+            window.location.href = wpt_serverName + lay_href;
+        })
+    })
     var mySwiper = new Swiper('.swiper-container', {
         direction: 'horizontal',
         loop: true,
