@@ -5,9 +5,9 @@
         <dataSource>main</dataSource>
         <dbType>oracle</dbType>
         <driver>oracle.jdbc.driver.OracleDriver</driver>
-        <jdbcUrl>jdbc:oracle:thin:@10.161.253.240:1521:KEANDB</jdbcUrl>
-        <username>weixin</username>
-        <password>weixin</password>
+        <jdbcUrl>jdbc:oracle:thin:@124.235.118.6:1521:orcl</jdbcUrl>
+        <username>ldwpt</username>
+        <password>ldwpt</password>
         <!--初始化时建立物理连接的个数-->
         <initialSize>2</initialSize>
         <!--最大连接池数量-->

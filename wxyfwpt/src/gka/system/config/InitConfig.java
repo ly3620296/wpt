@@ -44,7 +44,7 @@ public class InitConfig extends JFinalConfig {
      * @param plugins
      */
     public void configPlugin(Plugins plugins) {
-//        DbConfig.datebaseUse(plugins, document);
+        DbConfig.datebaseUse(plugins, document);
     }
 
     /**
