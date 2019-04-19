@@ -1,0 +1,31 @@
+.layui-input-block{
+	width: 96%;
+    margin: 2%;
+    min-height: 36px;
+}
+.titledddiv{
+	width: 100%;
+	position: fixed;
+	top: 0%;
+	z-index: 99;
+	
+}
+body{
+	padding-top: 40px;
+	/*padding-top: 40px;*/
+    background: #e4e4e4;
+}
+.fh-icon{
+	    width: 17px;
+    position: absolute;
+    left: 3%;
+    top: 8px;
+}
+.titleName{
+	width: 100%;
+	line-height: 40px;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-align: center;
+	background: #5FB878;
+}

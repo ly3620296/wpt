@@ -1,0 +1,44 @@
+body{
+	background: #e2e2e2;
+}
+.logon{
+	width: 100%;
+	position: relative;
+}
+.login ul{
+	width: 94%;
+	margin: 3%;
+}
+.login ul li{
+	width: 100%;
+	height: 40px;
+	margin: 4.5% 0;
+	background: #FFFFFF;
+	border-radius: 5px;
+}
+.login ul li input{
+	border: none;
+	height: 39px;
+	width: 70%;
+	outline: none;
+}
+.login ul li a{
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	color: #FFFAF6;
+	background: #2fa71b;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 5px;
+}
+.login ul li label{
+	display: inline-block;
+	width: 20%;
+	text-align: center;
+	font-size: 13px;
+}
+.login ul li span{
+	font-size: 14px;
+	color: #0088ff;
+}

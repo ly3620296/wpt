@@ -1,0 +1,75 @@
+.xxtable {
+	width: 100%;
+    border: 1px solid #fff;
+    /*去掉表格之间的空隙*/
+    border-collapse:collapse;
+   /* margin: 100px auto;*/
+}
+.titleName{
+	width: 100%;
+	line-height: 40px;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-align: center;
+	background: #5FB878;
+}
+
+.xxtable caption {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.xxtable th,td{
+    border: 1px solid #ccc;
+    width: 80px;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.xxtable th{
+    color: #FFF9EC;
+    background: #009688;
+}
+.xxtable tr td:nth-child(1){
+	background: #6fa7a1;
+	color: #FFF9EC;
+}
+.titledddiv{
+	width: 100%;
+	position: fixed;
+	top: 0%;
+	z-index: 99;
+	
+}
+body{
+	padding-top: 40px;
+	/*padding-top: 40px;*/
+    background: #e4e4e4;
+}
+/*模拟对角线*/
+.xxtable .out{
+    border-top:40px solid #009688 ;/*上边框宽度等于表格第一行行高*/
+    width:0px;/*让容器宽度为0*/
+    height:0px;/*让容器高度为0*/
+    border-left:80px solid #6fa7a1 ;/*左边框宽度等于表格第一行第一格宽度*/
+    position:relative;/*让里面的两个子容器绝对定位*/
+}
+
+.xxtable b{
+    font-style:normal;
+    display:block;
+    position:absolute;
+    top:-40px;
+    left:-40px;
+    width:50px;
+}
+
+.xxtable em{
+    font-style: normal;
+    display: block;
+    position: absolute;
+    top: -29px;
+    left: -74px;
+    width: 55px;
+}
