@@ -8,7 +8,7 @@
           <element id="module-output" name="wxyfwpt" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="wpt" />
+          <element id="library" level="project" name="lib" />
         </element>
       </element>
     </root>

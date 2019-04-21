@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jfinal/jfinal-gka-3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log/log4j-1.2.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/db/druid-1.0.29.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/db/ojdbc6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log/log4j-core-2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json/fastjson-1.2.31.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log/log4j-api-2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../apache-tomcat-8.5.37/lib/servlet-api.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
