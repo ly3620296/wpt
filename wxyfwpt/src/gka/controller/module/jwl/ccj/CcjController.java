@@ -16,7 +16,7 @@ import java.util.Map;
 
 @ControllerBind(controllerKey = "/jwl/ccj")
 public class CcjController extends Controller {
-    private gka.controller.module.jwl.ccj.ccjDao ccjDao = new ccjDao();
+    private CcjDao ccjDao = new CcjDao();
 
     /**
      * 成绩页初始化
