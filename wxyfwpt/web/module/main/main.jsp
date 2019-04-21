@@ -1,5 +1,7 @@
 <%@ page import="gka.resource.Constant" %>
+<%@ page import="gka.controller.login.WptUserInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +11,22 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/app.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/swiper.css"/>
-
-    <title></title>
+    <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="<%=Constant.server_name%>js-lib/swiper/swiper-3.4.2.min.js" type="text/javascript"
+            charset="utf-8"></script>
+    <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
+            charset="utf-8"></script>
+    <title>首页</title>
 </head>
 <body>
+<jsp:include page="/common/auth.jsp"></jsp:include>
+<%
+    WptUserInfo wptUser = (WptUserInfo) session.getAttribute("wptUserInfo");
+    if (wptUser == null) {
+        wptUser = new WptUserInfo();
+    }
+%>
 <div class="app">
     <div class="swiper-container swiper-container-horizontal">
         <div class="swiper-wrapper">
@@ -34,9 +48,16 @@
         <img class="xing" src="<%=Constant.server_name%>img/icon_houqin.png"/>
 
         <div class="peopleText">
-            <p class="p1">姓名：李小狗</p>
 
-            <p class="p1">学号：13944402683</p>
+            <p class="p1"><%=wptUser.getXm()%>
+            </p>
+            <p class="p1"><%=wptUser.getZymc()%>
+            </p>
+            <p class="p1"><%=wptUser.getJgmc()%>
+            </p>
+            <p class="p1"><%=wptUser.getZh()%>
+            </p>
+
         </div>
 
     </div>
@@ -50,12 +71,12 @@
                     <p>我的常用</p>
                 </div>
                 <ul id="wpt_main">
-                    <li lay-href="module/education/course/courseDemo.jsp">
+                    <li lay-href="module/fwzx/jwl/xskb/xskb.jsp">
                         <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
 
                         <p>查课表</p>
                     </li>
-                    <li>
+                    <li lay-href="module/fwzx/jwl/ccj/ccj.jsp">
                         <img src="<%=Constant.server_name%>img/icon_chachengji.png"/>
 
                         <p>查成绩</p>
@@ -95,58 +116,13 @@
 
                         <p>课堂签到</p>
                     </li>
-
                 </ul>
             </div>
-
-
         </div>
     </div>
-
 </div>
-
-
-<div class="footer-nav" style="display: block;">
-    <ul class="footer-menu">
-        <li>
-            <a href="app.html">
-                <img src="img/icon-bottom1.png"/>
-            </a>
-
-            <p>首页</p>
-        </li>
-        <li>
-            <a href="fwzxapp.html">
-                <img src="img/icon-bottom2.png"/>
-            </a>
-
-            <p>服务中心</p>
-        </li>
-        <li>
-            <img src="img/icon-bottom3.png"/>
-
-            <p>通讯录</p>
-        </li>
-        <li>
-            <img src="img/icon-bottom4.png"/>
-
-            <p>我的</p>
-        </li>
-    </ul>
-</div>
-<script src="<%=Constant.server_name%>js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-
-<script src="js/swper.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var mySwiper = new Swiper('.swiper-container', {
-        direction: 'horizontal',
-        loop: true,
-        // 如果需要分页器
-        pagination: '.swiper-pagination',
-        autoplay: 3000
-    })
-</script>
-
+<jsp:include page="/common/foot.jsp"></jsp:include>
+<script src="<%=Constant.server_name%>module/main/main.js" type="text/javascript"></script>
 
 </body>
 </html>

@@ -10,9 +10,10 @@ import com.jfinal.plugin.activerecord.Record;
  */
 public class LoginDao {
 
-    public boolean loginValidate(String account, String password) {
-        String sql = "SELECT ZH FROM  WPT_YH WHERE ZH=? AND KL=?";
+    public Record loginValidate(String account, String password) {
+        String sql = "SELECT ZH,XM,XB,MZ,ZZMM,ZJLX,ZJHM,JGDM,JGMC,ZYDM,ZYMC,BJDM,BJMC,NJDM,NJMC,XZ,SFZX,XJZT,LXDH,YX ,JSDM,JSMC  FROM  WPT_YH WHERE ZH=? AND KL=?";
         Record re = Db.findFirst(sql, account, password);
-        return re != null;
+        return re;
     }
+
 }
