@@ -18,16 +18,17 @@ import java.io.StringWriter;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.*;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 
 public class WXPayUtil {
 
     private static final String SYMBOLS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     private static final Random RANDOM = new SecureRandom();
+
+    private static final String AB = "abcdefghijklmnopqrstuvwxyz";
+    private static Random ran = new Random();
 
     /**
      * XML格式字符串转换为Map
@@ -264,6 +265,31 @@ public class WXPayUtil {
             sb.append(Integer.toHexString((item & 0xFF) | 0x100).substring(1, 3));
         }
         return sb.toString().toUpperCase();
+    }
+
+    /**
+     * 针对微信支付生成商户订单号，为了避免微信商户订单号重复（下单单位支付），
+     *
+     * @return
+     */
+    public static String generateOrder() {
+        StringBuffer orderSNBuffer = new StringBuffer();
+        orderSNBuffer.append(System.currentTimeMillis());
+        orderSNBuffer.append(getRandomString(7));
+        return orderSNBuffer.toString();
+    }
+
+    /**
+     * 获取随机字符串
+     *
+     * @param len
+     * @return
+     */
+    private static String getRandomString(int len) {
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(AB.charAt(ran.nextInt(AB.length())));
+        return sb.toString();
     }
 
     /**

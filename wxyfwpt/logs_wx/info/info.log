@@ -1,0 +1,60 @@
+2019-04-22 16:32:06 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:32:06 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,inDrFsdK1BMEdQ5du2g1g1wYp8BGFKhs,1555921926,3224,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,76692D752A65D151F9276E06833753B0B395D85EE1D2360C73059915C9294CEF
+2019-04-22 16:32:06 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,inDrFsdK1BMEdQ5du2g1g1wYp8BGFKhs,1555921926,3224,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,76692D752A65D151F9276E06833753B0B395D85EE1D2360C73059915C9294CEF
+2019-04-22 16:32:06 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:34:18 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:34:18 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,lS4aSnc1jlYhE4nriKxaqkKAiWkV8IZk,1555922058,2728,http://api.mch.weixin.qq.com,true,6000,8000,1,0,0,DC8F76F787B69DB58BDB68280A47E14D3E3E9391C0111227C45BC3EFC21E7B85
+2019-04-22 16:34:18 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,lS4aSnc1jlYhE4nriKxaqkKAiWkV8IZk,1555922058,2728,http://api.mch.weixin.qq.com,true,6000,8000,1,0,0,DC8F76F787B69DB58BDB68280A47E14D3E3E9391C0111227C45BC3EFC21E7B85
+2019-04-22 16:34:18 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:35:07 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:35:07 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,B6ETTvFwl1p7ucUYb2NwV2KZ6pkGFsvR,1555922107,2713,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,49D8A972341112C7A58B8D3455F1B611DE3D783775B7234D8921F43EE879E72D
+2019-04-22 16:35:07 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,B6ETTvFwl1p7ucUYb2NwV2KZ6pkGFsvR,1555922107,2713,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,49D8A972341112C7A58B8D3455F1B611DE3D783775B7234D8921F43EE879E72D
+2019-04-22 16:35:07 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:39:32 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:39:32 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,Y8aymopmGFcXKV4icpxCGJCKpcxGTjNG,1555922372,2740,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,F22F1A5CD4E0F2B8D076ECBDD8D155E3EF70519D76E87CA6B6713F098E515F55
+2019-04-22 16:39:32 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,Y8aymopmGFcXKV4icpxCGJCKpcxGTjNG,1555922372,2740,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,F22F1A5CD4E0F2B8D076ECBDD8D155E3EF70519D76E87CA6B6713F098E515F55
+2019-04-22 16:39:32 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:41:00 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:41:00 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,ugqbZ668OV4bxvl3N2KLQkPqMSDshwbG,1555922460,2747,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,5CD5D7D367D850A3E1D6AD250F0E6D6EC30CDFF88BC60CD81E4A39C2ED9ADB5C
+2019-04-22 16:41:00 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,ugqbZ668OV4bxvl3N2KLQkPqMSDshwbG,1555922460,2747,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,5CD5D7D367D850A3E1D6AD250F0E6D6EC30CDFF88BC60CD81E4A39C2ED9ADB5C
+2019-04-22 16:41:00 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:49:15 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:49:15 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,ruDahQ1UXSjiNDQeS90tWhG5TOGc2xat,1555922955,2728,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,E5AEE3FCDDDC2B4A153CD113B91CB92DB3589FBCB14B47CF05FF223D199CA782
+2019-04-22 16:49:15 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,ruDahQ1UXSjiNDQeS90tWhG5TOGc2xat,1555922955,2728,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,E5AEE3FCDDDC2B4A153CD113B91CB92DB3589FBCB14B47CF05FF223D199CA782
+2019-04-22 16:49:15 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:55:08 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:55:08 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,xj2QnvHgEuBSEz3Z5uEuQxBQ36pDlT9s,1555923308,2735,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,65F7A88E94F53FAEA25ED8AE5178F564418F6E9BABCFC2549795616ACAFEF011
+2019-04-22 16:55:08 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,xj2QnvHgEuBSEz3Z5uEuQxBQ36pDlT9s,1555923308,2735,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,65F7A88E94F53FAEA25ED8AE5178F564418F6E9BABCFC2549795616ACAFEF011
+2019-04-22 16:55:08 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:55:37 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:55:37 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,O4iGVSMpIixOQCMfBvTXGRIcORov70QV,1555923337,2809,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,D5FC1FF35D6E1C0907095534A9A819F742DC1C43BF250548C634570794F32125
+2019-04-22 16:55:37 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,O4iGVSMpIixOQCMfBvTXGRIcORov70QV,1555923337,2809,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,D5FC1FF35D6E1C0907095534A9A819F742DC1C43BF250548C634570794F32125
+2019-04-22 16:55:37 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:56:35 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:56:35 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,rSARfNr1h23PupGSnQ65btwlGq8Etivc,1555923395,2760,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,C43F54C49B22B7D1C45ECE6676930BC40583B743BE56F7B635E05C8E22E85C08
+2019-04-22 16:56:35 [pool-3-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,rSARfNr1h23PupGSnQ65btwlGq8Etivc,1555923395,2760,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,C43F54C49B22B7D1C45ECE6676930BC40583B743BE56F7B635E05C8E22E85C08
+2019-04-22 16:56:35 [pool-3-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:56:52 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:56:52 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,0raww7U0B5VnkhfIV4ooxvGNihdBTmEZ,1555923412,2734,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,DED87A41DC2B4FE36E6DDE509763D04D54B9E5692EE6A80C87CE0712DDDE42C4
+2019-04-22 16:56:52 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,0raww7U0B5VnkhfIV4ooxvGNihdBTmEZ,1555923412,2734,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,DED87A41DC2B4FE36E6DDE509763D04D54B9E5692EE6A80C87CE0712DDDE42C4
+2019-04-22 16:56:52 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:58:17 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:58:17 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,4D8SrwSjt4rrrqC5sbkcgVNZzmA5ZjOQ,1555923497,2781,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,D03CBC653380205D5DF45B9948B78E658425058F2FB9515F8776154AFAD6EB22
+2019-04-22 16:58:17 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,4D8SrwSjt4rrrqC5sbkcgVNZzmA5ZjOQ,1555923497,2781,https://api.mch.weixin.qq.com,true,6000,8000,1,0,0,D03CBC653380205D5DF45B9948B78E658425058F2FB9515F8776154AFAD6EB22
+2019-04-22 16:58:17 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 16:58:57 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 16:58:57 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,FKYDwnKeDKMm2IIJHtwq8IMwxCA5uT3s,1555923537,2772,https://api.mch.weixin.qq.com,false,6000,8000,1,0,0,3754BB0BE5AD8006072F3C1FBE6C585AEC98F5029921286841A7E6303CD9A99F
+2019-04-22 16:58:57 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,FKYDwnKeDKMm2IIJHtwq8IMwxCA5uT3s,1555923537,2772,https://api.mch.weixin.qq.com,false,6000,8000,1,0,0,3754BB0BE5AD8006072F3C1FBE6C585AEC98F5029921286841A7E6303CD9A99F
+2019-04-22 16:58:57 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 17:02:29 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 17:02:29 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,qnI5PcWHxDgUYVCf0ADXyimk3S8eQMuE,1555923749,1090,api.mch.weixin.qq.com,false,6000,8000,0,0,0,EB7F07C2C091A00A429E53A39D1D2621C1D9796E21D36C58BAFEF3FAD3ED508C
+2019-04-22 17:02:29 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,qnI5PcWHxDgUYVCf0ADXyimk3S8eQMuE,1555923749,1090,api.mch.weixin.qq.com,false,6000,8000,0,0,0,EB7F07C2C091A00A429E53A39D1D2621C1D9796E21D36C58BAFEF3FAD3ED508C
+2019-04-22 17:02:29 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 17:03:11 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 17:03:11 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,on5hBz9a3tNLuW5G4sLqjixiXOSbrojs,1555923791,700,api.mch.weixin.qq.com,true,6000,8000,0,0,0,413EF9FBC0E19C7D88AD6018E80EF3FF4324287618F0C0FA88403AD394FCE88F
+2019-04-22 17:03:11 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,on5hBz9a3tNLuW5G4sLqjixiXOSbrojs,1555923791,700,api.mch.weixin.qq.com,true,6000,8000,0,0,0,413EF9FBC0E19C7D88AD6018E80EF3FF4324287618F0C0FA88403AD394FCE88F
+2019-04-22 17:03:11 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
+2019-04-22 17:03:34 [main] [gka.pay.wxpay.WXPayReport.<init>] report worker num: 6
+2019-04-22 17:03:34 [main] [gka.pay.wxpay.WXPayReport.report] report v1,WXPaySDK/3.0.9,I3YxgTYAFVlFPz07pXiAZNgQbT4IADe9,1555923814,664,api.mch.weixin.qq.com,true,6000,8000,0,0,0,31236DC01097C11A6AB98970AA0B3AD5F629B4457682BB9AB40D881858ECBB23
+2019-04-22 17:03:34 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] get first report msg: v1,WXPaySDK/3.0.9,I3YxgTYAFVlFPz07pXiAZNgQbT4IADe9,1555923814,664,api.mch.weixin.qq.com,true,6000,8000,0,0,0,31236DC01097C11A6AB98970AA0B3AD5F629B4457682BB9AB40D881858ECBB23
+2019-04-22 17:03:34 [pool-2-thread-1] [gka.pay.wxpay.WXPayReport$2.run] try get remain report msg
