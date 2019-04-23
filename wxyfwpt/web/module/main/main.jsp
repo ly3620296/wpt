@@ -26,6 +26,10 @@
     if (wptUser == null) {
         wptUser = new WptUserInfo();
     }
+    String role = wptUser.getJsdm();
+    if (role == null || "".equals(role)) {
+        role = "02";
+    }
 %>
 <div class="app">
     <div class="swiper-container swiper-container-horizontal">
@@ -44,43 +48,68 @@
 
 
     <div class="peopleMessage">
-
         <img class="xing" src="<%=Constant.server_name%>img/icon_houqin.png"/>
 
         <div class="peopleText">
-
             <p class="p1"><%=wptUser.getXm()%>
             </p>
+            <%
+                if (role.equals("02")) {
+            %>
             <p class="p1"><%=wptUser.getZymc()%>
             </p>
+            <%
+                }
+            %>
             <p class="p1"><%=wptUser.getJgmc()%>
             </p>
+
             <p class="p1"><%=wptUser.getZh()%>
             </p>
-
         </div>
-
     </div>
 
 
     <div class="tcDiv">
-
         <div class="tclist">
             <div class="tc">
                 <div class="name">
                     <p>我的常用</p>
                 </div>
                 <ul id="wpt_main">
+                    <%
+                        if (role.equals("02")) {
+                    %>
                     <li lay-href="module/fwzx/jwl/xskb/xskb.jsp">
                         <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
 
                         <p>查课表</p>
                     </li>
+                    <%
+                    } else if (role.equals("01")) {
+                    %>
+                    <li lay-href="module/fwzx/jwl/jskb/jskb.jsp">
+                        <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
+
+                        <p>查课表</p>
+                    </li>
+                    <%
+                        }
+                    %>
+
+                    <%
+                        if (role.equals("02")) {
+                    %>
                     <li lay-href="module/fwzx/jwl/ccj/ccj.jsp">
                         <img src="<%=Constant.server_name%>img/icon_chachengji.png"/>
 
                         <p>查成绩</p>
                     </li>
+                    <%
+                        }
+                    %>
+
+
                     <li>
                         <img src="<%=Constant.server_name%>img/icon_xysq.png"/>
 

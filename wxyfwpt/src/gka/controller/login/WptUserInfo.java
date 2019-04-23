@@ -4,7 +4,7 @@ package gka.controller.login;
  * 用户基本信息
  */
 public class WptUserInfo {
-    private String zh;    //账号
+    private String zh;    //账号 学号或工号
     private String xm;    //姓名
     private String xb;    //性别
     private String mz;    //民族

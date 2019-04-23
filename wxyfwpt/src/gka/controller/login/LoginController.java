@@ -63,7 +63,7 @@ public class LoginController extends Controller {
         userInfo.setBdzc(record.getStr("BDZC"));
         userInfo.setLxdh(record.getStr("LXDH"));
         userInfo.setYx(record.getStr(" YX"));
-        userInfo.setJsdm(record.getStr("JSDMC"));
+        userInfo.setJsdm(record.getStr("JSDM"));
         userInfo.setJsmc(record.getStr("JSMC"));
         getSession().setAttribute("wptUserInfo", userInfo);
     }

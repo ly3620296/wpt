@@ -23,6 +23,10 @@
     if (wptUser == null) {
         wptUser = new WptUserInfo();
     }
+    String role = wptUser.getJsdm();
+    if (role == null || "".equals(role)) {
+        role = "02";
+    }
 %>
 <div class="app">
     <div class="tcDiv">
@@ -33,16 +37,36 @@
                     <p>教务类</p>
                 </div>
                 <ul>
+                    <%
+                        if (role.equals("02")) {
+                    %>
                     <li lay-href="module/fwzx/jwl/xskb/xskb.jsp">
                         <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
 
                         <p>查课表</p>
                     </li>
+                    <%
+                    } else if (role.equals("01")) {
+                    %>
+                    <li lay-href="module/fwzx/jwl/jskb/jskb.jsp">
+                        <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
+
+                        <p>查课表</p>
+                    </li>
+                    <%
+                        }
+                    %>
+                    <%
+                        if (role.equals("02")) {
+                    %>
                     <li lay-href="module/fwzx/jwl/ccj/ccj.jsp">
                         <img src="<%=Constant.server_name%>img/icon_chachengji.png"/>
 
                         <p>查成绩</p>
                     </li>
+                    <%
+                        }
+                    %>
                     <li>
                         <img src="<%=Constant.server_name%>img/icon_kjscx.png"/>
 

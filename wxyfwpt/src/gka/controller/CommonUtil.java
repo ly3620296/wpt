@@ -1,29 +1,29 @@
-package gka;
+package gka.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * @Auther ly
- * @Date 2019/4/2
- * @Describe
- */
-public class aaa {
-    public static void main(String[] args) {
-        formatZc("1,2,3,4,5,6,7,8,10,11,12");
-        System.out.println(formatZc("2,4,6,8"));
-        System.out.println(formatZc("1,2,4,6,8"));
-        System.out.println(formatZc("1,3,4,6,8"));
-        System.out.println(formatZc("1,2,3,4"));
-        formatZc("1,2,3,4,6,7,8,9,11,13,15,17,19,21,22,23");
-        formatZc("1,3,4,6,7,9,10,11,12,13,15,17,18,19");
-        formatZc("1,2,3,5,6,7,8,10,11,12");
-        formatZc("1,2,3,5");
-        formatZc("1,4,7,8,9,11,15,18,20,22,25,29,31,33,34,35");
-        formatZc("1,4,7,8,9,11,15,18,20,22,25,29,31,33,34,35,36,38,40,42");
-        formatZc("1,4,7,8,9,11,15,18,20,22,25,29,31,33,34,35,36,38,39,41,42,43");
+public class CommonUtil {
+
+    /**
+     * 初始化课表二位数组
+     *
+     * @param kb
+     * @return
+     */
+    public static String[][] initArray(String[][] kb) {
+        for (int i = 0; i < kb.length; i++) {
+            for (int j = 0; j < kb[i].length; j++) {
+                kb[i][j] = "";
+            }
+        }
+        return kb;
     }
 
+    /**
+     * 格式化周次
+     *
+     * @param zc
+     * @return
+     */
     public static String formatZc(String zc) {
         StringBuffer zcBuffer = new StringBuffer();
         String[] zcs = zc.split(",");
@@ -91,7 +91,7 @@ public class aaa {
                             } else {
                                 zcBuffer.append(zcs[curr] + "-" + zcs[zcsLen - 1] + "(单)");
                             }
-                        }else{
+                        } else {
                             zcBuffer.append(zcs[curr] + "-" + zcs[zcsLen - 1]);
                         }
                     }
@@ -112,7 +112,6 @@ public class aaa {
                 }
             }
         }
-        System.out.println(zcBuffer);
         return zcBuffer.toString();
     }
 }
