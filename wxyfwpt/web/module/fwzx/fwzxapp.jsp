@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>/css/app.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>/css/swiper.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.css"/>
     <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
             charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/swiper/swiper-3.4.2.min.js" type="text/javascript"

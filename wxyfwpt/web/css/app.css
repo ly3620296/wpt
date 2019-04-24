@@ -9,6 +9,46 @@ body{
 /*body{
 	  background: #ff9f66;
 }*/
+
+.gg-list{
+	width: 94%;
+	margin: 3%;
+	height: 300px;
+	overflow-y: scroll;
+}
+.gg-list li{
+	padding: 7px 0;
+	border-radius: 5px;
+	border-left: 4px solid #009688;
+	background: #FFFFFF;
+	margin-bottom: 15px;
+}
+.gg-list li .title{
+	width: 96%;
+	margin-left: 2%;
+	line-height: 26px;
+	height: 26px;
+	font-size: 14px;
+	color: #333333;
+	font-weight: bold;
+}
+.gg-list li .cont{
+	width: 96%;
+	margin-left: 2%;
+	line-height: 26px;
+	height: 26px;
+	font-size: 12px;
+	color: #666666;
+}
+.gg-list li .time{
+	width: 96%;
+	margin-left: 2%;
+	line-height: 26px;
+	height: 26px;
+	font-size: 12px;
+	color: #666666;
+	text-align: right;
+}
 .tcDiv{
 	width: 100%;
 	position: relative;
@@ -25,7 +65,7 @@ body{
 }
 .tc .name{
 	       width: 100%;
-    height: 30px;
+    height: 36px;
     position: relative;
     text-align: center;
     border-top: 1px solid #eaeaea;
@@ -35,10 +75,23 @@ body{
 	
 }
 .tc .name p{
-	line-height: 30px;
+	line-height: 36px;
 	/*padding-left: 10px;*/
 	font-size: 14px;
 	
+}
+.tc .name  .btnbj{
+	display: inline-block;
+    background: #15a8f4;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 20px;
+    height: 20px;
+    position: absolute;
+    top: 8px;
+    right: 2%;
+    padding: 0 7px;
+    border-radius: 5px;
 }
 .tc .name img{
 	width: 60%;
@@ -261,23 +314,27 @@ body{
 	line-height: 45px;
 	color: #FFFFFF;
 	/*background: url(../img/text1.png);*/
-	
+	vertical-align: middle;
 	display: inline-block;
 	margin-left: 3%;
 }
 .peopleText{
-	width: 60%;
+	width: 78%;
 	display: inline-block;
 	vertical-align: middle;
 }
 .peopleText .p1{
+    width: 50%;
+    float: left;
 	font-size: 12px;
 	line-height: 20px;
 	text-indent: 15px;
 }
 .peopleText .p2{
-	font-size: 14px;
-	color: #999999;
+    width: 50%;
+    float: left;
+	font-size: 12px;
+	/*color: #999999;*/
 	line-height: 20px;
 	text-indent: 15px;
 }
@@ -290,35 +347,6 @@ body{
 
 
 
-.footer-nav {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 2;
-    background: #fff;
-   /* display: none;*/
-    border-top: 1px solid #ddd;
-}
-.footer-nav ul li {
-    float: left;
-    width: 25%;
-    text-align: center;
-   
-    font-size: 12px;
-    line-height: 16px;
-    padding: 2px 0;
-}
-.footer-nav ul li img{
-	width: 30%;
-}
-.footer-nav ul li p{
-	text-align: center;
-	font-size: 12px;
-}
-.footer-nav ul li:last-child {
-    border-right: 0;
-}
 
 
 .tableTab .textlist{

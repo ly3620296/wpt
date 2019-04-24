@@ -1,5 +1,6 @@
 body{
-	background: #e2e2e2;
+	background: #fdfdfd
+;
 }
 .logon{
 	width: 100%;
@@ -41,4 +42,44 @@ body{
 .login ul li span{
 	font-size: 14px;
 	color: #0088ff;
+}
+
+
+
+.footer-nav {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+    background: #fff;
+   /* display: none;*/
+    border-top: 1px solid #ddd;
+}
+.footer-nav ul li {
+    float: left;
+    width: 25%;
+    text-align: center;
+   
+    font-size: 24px;
+    line-height: 16px;
+    padding: 2px 0;
+}
+.footer-nav ul li  i{
+	display: inline-block;
+	margin: 3px 0;
+	color:#9a9a9a ;
+}
+.footer-nav ul li .active{
+	color: #5FB878;
+}
+.footer-nav ul li img{
+	width: 30%;
+}
+.footer-nav ul li p{
+	text-align: center;
+	font-size: 12px;
+}
+.footer-nav ul li:last-child {
+    border-right: 0;
 }

@@ -1,0 +1,62 @@
+.message{
+	width: 100%;
+	position: relative;
+}
+.message .nav{
+	width: 94%;
+	margin: 3%;
+	border: 1px solid #5FB878;
+	overflow: hidden;
+	border-radius: 5px;
+}
+.message .nav li{
+	width: 50%;
+	text-align: center;
+	color: #5FB878;
+	background: #FFFFFF;
+	height: 28px;
+	line-height: 28px;
+	float: left;
+}
+.message .nav .liactive{
+	color: #ffffff;
+	background: #5FB878;
+}
+.message  .messagediv{
+	width: 94%;
+	margin: 3%;
+}
+
+
+.message  .messagediv  li{
+	padding: 7px 0;
+	border: 1px solid #666666;
+	border-radius: 5px;
+	margin-bottom: 3%;
+}
+.message  .messagediv .title{
+	width: 94%;
+    margin-left: 3%;
+    font-size: 14px;
+    color: #000;
+    line-height: 26px;
+    font-weight: bold;
+	
+}
+.message  .messagediv .time{
+	width: 94%;
+	margin-left: 3%;
+	font-size: 14px;
+	color: #666;
+	line-height: 26px;
+}
+.message  .messagediv .people{
+	width: 94%;
+	margin-left: 3%;
+	font-size: 14px;
+	color: #666;
+	text-align: right;
+	line-height: 26px;
+}
+
+

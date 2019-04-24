@@ -10,7 +10,9 @@
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/app.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/swiper.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.css"/>
     <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
             charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/swiper/swiper-3.4.2.min.js" type="text/javascript"
@@ -61,10 +63,10 @@
             <%
                 }
             %>
-            <p class="p1"><%=wptUser.getJgmc()%>
+            <p class="p2"><%=wptUser.getJgmc()%>
             </p>
 
-            <p class="p1"><%=wptUser.getZh()%>
+            <p class="p2"><%=wptUser.getZh()%>
             </p>
         </div>
     </div>
@@ -75,6 +77,7 @@
             <div class="tc">
                 <div class="name">
                     <p>我的常用</p>
+                    <a class="btnbj">编辑</a>
                 </div>
                 <ul id="wpt_main">
                     <%
@@ -149,6 +152,47 @@
             </div>
         </div>
     </div>
+
+
+    <div class="tc">
+        <div class="name">
+            <p>公告</p>
+        </div>
+    </div>
+    <ul class="gg-list">
+        <li>
+            <p class="title">四六级考试</p>
+
+            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+            <p class="time">2017-05-02</p>
+        </li>
+        <li>
+            <p class="title">四六级考试</p>
+
+            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+            <p class="time">2017-05-02</p>
+        </li>
+        <li>
+            <p class="title">四六级考试</p>
+
+            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+            <p class="time">2017-05-02</p>
+        </li>
+        <li>
+            <p class="title">四六级考试</p>
+
+            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+            <p class="time">2017-05-02</p>
+        </li>
+        <li>
+            <p class="title">四六级考试</p>
+
+            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+            <p class="time">2017-05-02</p>
+        </li>
+    </ul>
+
+</div>
 </div>
 <jsp:include page="/common/foot.jsp"></jsp:include>
 <script src="<%=Constant.server_name%>module/main/main.js" type="text/javascript"></script>
