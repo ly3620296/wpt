@@ -327,7 +327,8 @@ body{
 	margin-left: 3%;
 }
 .peopleText{
-	width: 60%;
+	width: 80%;
+    overflow: hidden;
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -335,10 +336,14 @@ body{
 	font-size: 12px;
 	line-height: 20px;
 	text-indent: 15px;
+    width: 50%;
+    float: left;
 }
 .peopleText .p2{
-	font-size: 14px;
-	color: #999999;
+    width: 50%;
+    float: left;
+	font-size: 12px;
+	/*color: #999999;*/
 	line-height: 20px;
 	text-indent: 15px;
 }
