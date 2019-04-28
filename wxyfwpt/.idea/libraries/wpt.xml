@@ -8,6 +8,8 @@
       <root url="jar://$PROJECT_DIR$/lib/jfinal/jfinal-gka-3.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/json/fastjson-1.2.31.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/log/log4j-1.2.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/wxpay/httpcore-4.4.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/wxpay/httpclient-4.5.3.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

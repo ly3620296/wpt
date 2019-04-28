@@ -46,7 +46,7 @@ public class CommonDao {
      * @return 查询当前学年学期一共有多少周次
      */
     public static String[] currXnxqZcs(String currXnxq) {
-        String sql = "SELECT DISTINCT(ZC) ZC FROM V_WPT_XT  WHERE XNXQ=? ORDER BY ZC ASC";
+        String sql = "SELECT DISTINCT(ZC) ZC FROM V_WPT_XL  WHERE XNXQ=? ORDER BY ZC ASC";
         List<Record> re = Db.find(sql, currXnxq);
         String[] zcs = null;
         if (re != null) {
@@ -66,12 +66,12 @@ public class CommonDao {
      */
     public static String currXnxqZc(String currDate, String currXnxq) {
         String currZc = "";
-        String sql = "SELECT ZC FROM V_WPT_XT WHERE RQ=? AND XNXQ=?";
+        String sql = "SELECT ZC FROM V_WPT_XL WHERE RQ=? AND XNXQ=?";
         Record re = Db.findFirst(sql, currDate, currXnxq);
         if (re != null) {
             currZc = re.getStr("ZC");
         } else {
-            sql = "SELECT  MAX(RQ) MAXRQ,MIN(RQ),MAX(ZC) MAXZC,MIN(ZC) MINZC  FROM  V_WPT_XT WHERE XNXQ=?";
+            sql = "SELECT  MAX(RQ) MAXRQ,MIN(RQ),MAX(ZC) MAXZC,MIN(ZC) MINZC  FROM  V_WPT_XL WHERE XNXQ=?";
             re = Db.findFirst(sql, currXnxq);
             //当前学年学期最校历表中最后一天
             String maxRq = re.getStr("MAXRQ");

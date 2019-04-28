@@ -31,7 +31,7 @@ public class XskbController extends Controller {
             String currXnxq = (String) getSession().getAttribute("currXnxq");
             WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
             int currXq = DateUtil.getCurrXq();
-            //当前学年学期对应所有周次
+            //当前日期对应的周次
             String currZc = CommonDao.currXnxqZc(simpleDateFormat.format(new Date()), currXnxq);
             //当前学年学期一共有多少周次
             String[] zcs = CommonDao.currXnxqZcs(currXnxq);

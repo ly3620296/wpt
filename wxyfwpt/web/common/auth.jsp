@@ -10,7 +10,7 @@
     else {
         window.stop();
     }
-    window.location.href = wpt_serverName+"index.jsp";
+    window.location.href = wpt_serverName;
 </script>
 <%
     }

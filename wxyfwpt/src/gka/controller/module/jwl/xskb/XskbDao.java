@@ -2,9 +2,11 @@ package gka.controller.module.jwl.xskb;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
+import gka.controller.CommonUtil;
 import gka.kit.ArrayUtil;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,16 +18,23 @@ public class XskbDao {
     public List<Record> xskb(String xh, String xnxq, HttpSession session) {
         List<Record> xskbList = (List<Record>) session.getAttribute("xskbList");
         if (xskbList == null) {
-            String sql = "SELECT KCMC,SKDD,RKJSXM,KHFS,ZC,XQ,JC FROM WPT_XSKB  WHERE XNXQ=? AND XH=?";
+            String sql = "SELECT KCMC,SKDD,RKJSXM,KHFS,ZC,XQ,JC FROM V_WPT_XSKB  WHERE XNXQ=? AND XH=?";
             xskbList = Db.find(sql, xnxq, xh);
             session.setAttribute("xskbList", xskbList);
         }
         return xskbList;
     }
 
+    /**
+     * 获得二位数组课表 插件需要
+     *
+     * @param xskbList
+     * @param currZc
+     * @return
+     */
     public String[][] getKbArray(List<Record> xskbList, String currZc) {
         String[][] xskb = new String[7][12];
-        initArray(xskb);
+        CommonUtil.initArray(xskb);
         //循环7天
         for (int i = 1; i <= 7; i++) {
             for (int j = 0; j < xskbList.size(); j++) {
@@ -42,7 +51,7 @@ public class XskbDao {
                         String kcmc = re.getStr("KCMC");
                         String skdd = re.getStr("SKDD");
                         for (int k = Integer.parseInt(jcs[0]); k <= Integer.parseInt(jcs[1]); k++) {
-                            xskb[i - 1][k - 1] = kcmc + "@" + skdd + "_n_" + re.getStr("RKJSXM") + "_n_" + re.getStr("KHFS") + "_n_" + re.getStr("ZC");
+                            xskb[i - 1][k - 1] = kcmc + "@" + skdd + "_n_" + re.getStr("RKJSXM") + "_n_" + re.getStr("KHFS") + "_n_" + CommonUtil.formatZc(re.getStr("ZC"));
                         }
                     }
                 }
@@ -52,12 +61,4 @@ public class XskbDao {
     }
 
 
-    public String[][] initArray(String[][] xskb) {
-        for (int i = 0; i < xskb.length; i++) {
-            for (int j = 0; j < xskb[i].length; j++) {
-                xskb[i][j] = "";
-            }
-        }
-        return xskb;
-    }
 }

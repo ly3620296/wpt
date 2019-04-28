@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>/css/app.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>/css/swiper.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.css"/>
     <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
             charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/swiper/swiper-3.4.2.min.js" type="text/javascript"
@@ -17,11 +19,18 @@
     <title>服务中心</title>
 </head>
 <body>
-<jsp:include page="/common/auth.jsp"></jsp:include>
+<%--<jsp:include page="/common/auth.jsp"></jsp:include>--%>
 <%
     WptUserInfo wptUser = (WptUserInfo) session.getAttribute("wptUserInfo");
+    wptUser=new  WptUserInfo ();
+    wptUser.setJsdm("1111");
+    wptUser.setJsdm("01");
     if (wptUser == null) {
         wptUser = new WptUserInfo();
+    }
+    String role = wptUser.getJsdm();
+    if (role == null || "".equals(role)) {
+        role = "01";
     }
 %>
 <div class="app">
@@ -33,16 +42,36 @@
                     <p>教务类</p>
                 </div>
                 <ul>
+                    <%
+                        if (role.equals("02")) {
+                    %>
                     <li lay-href="module/fwzx/jwl/xskb/xskb.jsp">
                         <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
 
                         <p>查课表</p>
                     </li>
+                    <%
+                    } else if (role.equals("01")) {
+                    %>
+                    <li lay-href="module/fwzx/jwl/jskb/jskb.jsp">
+                        <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
+
+                        <p>查课表</p>
+                    </li>
+                    <%
+                        }
+                    %>
+                    <%
+                        if (role.equals("02")) {
+                    %>
                     <li lay-href="module/fwzx/jwl/ccj/ccj.jsp">
                         <img src="<%=Constant.server_name%>img/icon_chachengji.png"/>
 
                         <p>查成绩</p>
                     </li>
+                    <%
+                        }
+                    %>
                     <li>
                         <img src="<%=Constant.server_name%>img/icon_kjscx.png"/>
 

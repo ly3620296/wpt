@@ -10,7 +10,9 @@
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/app.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/swiper.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.css"/>
     <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
             charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/swiper/swiper-3.4.2.min.js" type="text/javascript"
@@ -25,6 +27,10 @@
     WptUserInfo wptUser = (WptUserInfo) session.getAttribute("wptUserInfo");
     if (wptUser == null) {
         wptUser = new WptUserInfo();
+    }
+    String role = wptUser.getJsdm();
+    if (role == null || "".equals(role)) {
+        role = "02";
     }
 %>
 <div class="app">
@@ -44,43 +50,69 @@
 
 
     <div class="peopleMessage">
-
         <img class="xing" src="<%=Constant.server_name%>img/icon_houqin.png"/>
 
         <div class="peopleText">
-
             <p class="p1"><%=wptUser.getXm()%>
             </p>
+            <%
+                if (role.equals("02")) {
+            %>
             <p class="p1"><%=wptUser.getZymc()%>
             </p>
-            <p class="p1"><%=wptUser.getJgmc()%>
-            </p>
-            <p class="p1"><%=wptUser.getZh()%>
+            <%
+                }
+            %>
+            <p class="p2"><%=wptUser.getJgmc()%>
             </p>
 
+            <p class="p2"><%=wptUser.getZh()%>
+            </p>
         </div>
-
     </div>
 
 
     <div class="tcDiv">
-
         <div class="tclist">
             <div class="tc">
                 <div class="name">
                     <p>我的常用</p>
+                    <a href="<%=Constant.server_name%>module/my/wdcy.jsp" class="btnbj">编辑</a>
                 </div>
                 <ul id="wpt_main">
+                    <%
+                        if (role.equals("02")) {
+                    %>
                     <li lay-href="module/fwzx/jwl/xskb/xskb.jsp">
                         <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
 
                         <p>查课表</p>
                     </li>
+                    <%
+                    } else if (role.equals("01")) {
+                    %>
+                    <li lay-href="module/fwzx/jwl/jskb/jskb.jsp">
+                        <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
+
+                        <p>查课表</p>
+                    </li>
+                    <%
+                        }
+                    %>
+
+                    <%
+                        if (role.equals("02")) {
+                    %>
                     <li lay-href="module/fwzx/jwl/ccj/ccj.jsp">
                         <img src="<%=Constant.server_name%>img/icon_chachengji.png"/>
 
                         <p>查成绩</p>
                     </li>
+                    <%
+                        }
+                    %>
+
+
                     <li>
                         <img src="<%=Constant.server_name%>img/icon_xysq.png"/>
 
@@ -120,6 +152,47 @@
             </div>
         </div>
     </div>
+
+
+    <div class="tc">
+        <div class="name">
+            <p>公告</p>
+        </div>
+    </div>
+    <ul class="gg-list">
+        <li>
+            <p class="title">四六级考试</p>
+
+            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+            <p class="time">2017-05-02</p>
+        </li>
+        <li>
+            <p class="title">四六级考试</p>
+
+            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+            <p class="time">2017-05-02</p>
+        </li>
+        <li>
+            <p class="title">四六级考试</p>
+
+            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+            <p class="time">2017-05-02</p>
+        </li>
+        <li>
+            <p class="title">四六级考试</p>
+
+            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+            <p class="time">2017-05-02</p>
+        </li>
+        <li>
+            <p class="title">四六级考试</p>
+
+            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+            <p class="time">2017-05-02</p>
+        </li>
+    </ul>
+
+</div>
 </div>
 <jsp:include page="/common/foot.jsp"></jsp:include>
 <script src="<%=Constant.server_name%>module/main/main.js" type="text/javascript"></script>
