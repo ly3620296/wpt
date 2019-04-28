@@ -19,15 +19,18 @@
     <title>服务中心</title>
 </head>
 <body>
-<jsp:include page="/common/auth.jsp"></jsp:include>
+<%--<jsp:include page="/common/auth.jsp"></jsp:include>--%>
 <%
     WptUserInfo wptUser = (WptUserInfo) session.getAttribute("wptUserInfo");
+    wptUser=new  WptUserInfo ();
+    wptUser.setJsdm("1111");
+    wptUser.setJsdm("01");
     if (wptUser == null) {
         wptUser = new WptUserInfo();
     }
     String role = wptUser.getJsdm();
     if (role == null || "".equals(role)) {
-        role = "02";
+        role = "01";
     }
 %>
 <div class="app">
