@@ -30,6 +30,7 @@ public class XskbController extends Controller {
         try {
             String currXnxq = (String) getSession().getAttribute("currXnxq");
             WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+            //当前日期是星期几
             int currXq = DateUtil.getCurrXq();
             //当前日期对应的周次
             String currZc = CommonDao.currXnxqZc(simpleDateFormat.format(new Date()), currXnxq);

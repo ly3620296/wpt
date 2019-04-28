@@ -94,9 +94,9 @@ public class CommonDao {
 
     private static String getXq(String xq) {
         if (xq.equals("12")) {
-            xq = "1";
-        } else if (xq.equals("3")) {
             xq = "2";
+        } else if (xq.equals("3")) {
+            xq = "1";
         } else {
             xq = "0";
         }
