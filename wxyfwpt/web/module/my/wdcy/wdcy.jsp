@@ -21,13 +21,13 @@
     <style type="text/css">
         .layui-unselect {
             display: none;
-
         }
 
         .layui-tab-title li {
             color: #0099db !important;
         }
-        .tc li .fa-plus-square{
+
+        .tc li .fa-plus-square {
             color: #18ec63;
         }
 
@@ -43,7 +43,6 @@
             border-bottom: 1px solid #0099db !important;
         }
     </style>
-
     <title>我的常用</title>
 </head>
 <body>
@@ -53,7 +52,7 @@
             <div class="tc">
                 <div class="name">
                     <p>我的常用</p>
-                    <a class="btnbj">完成</a>
+                    <a class="btnbj" href="<%=Constant.server_name%>module/main/main.jsp">完成</a>
                 </div>
                 <ul id="myMenu">
 

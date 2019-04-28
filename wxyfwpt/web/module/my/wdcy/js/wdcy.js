@@ -1,7 +1,7 @@
 var layer
 var loadIndex;
 layui.use(['layer', 'element'], function () {
-     layer = layui.layer
+    layer = layui.layer
     var element = layui.element;
     $.ajax({
         url: wpt_serverName + "my/wdcy",
@@ -19,10 +19,10 @@ layui.use(['layer', 'element'], function () {
                     var myMenu = data.myMenu;
                     if (myMenu.length > 0) {
                         for (var a = 0; a < myMenu.length; a++) {
-                            var html_myMenu = '<li id="my_'+myMenu[a].ID+'"> ' +
+                            var html_myMenu = '<li id="my_' + myMenu[a].ID + '"> ' +
                                 '<img src="' + wpt_serverName + myMenu[a].IMG + '"/>' +
                                 '<i class="fa fa-minus-square" onclick="re(this)" id="' + myMenu[a].ID + '"></i> ' +
-                                '<p>'+myMenu[a].NAME+'</p> ' +
+                                '<p>' + myMenu[a].NAME + '</p> ' +
                                 '</li>'
                             $("#myMenu").append(html_myMenu)
                         }
@@ -44,10 +44,33 @@ layui.use(['layer', 'element'], function () {
                                 $("#tab_change").append(tab_change)
                                 $("#menu_html").append(menu_html)
                             } else {
-                                var this_menu = '<li><i class="fa fa-plus-square" onclick="add(this)" id="' + allMenu[i].ID + '"></i>' +
-                                    '<img src="' + wpt_serverName + allMenu[i].IMG + '"/>' +
-                                    '<p>' + allMenu[i].NAME + '</p></li>'
-                                $("#fa_" + allMenu[i].FATHER).append(this_menu)
+                                var id = allMenu[i].ID;
+                                var bool=false;
+                                if (myMenu.length > 0) {
+                                    for (var a = 0; a < myMenu.length; a++) {
+                                        var my_id = myMenu[a].ID;
+                                        if (id == my_id) {
+                                            bool=true;
+                                            break
+                                        }
+                                    }
+                                    if(bool){
+                                        var this_menu = '<li><i class="fa fa-minus-square" onclick="re(this)" id="' + allMenu[i].ID + '"></i>' +
+                                            '<img src="' + wpt_serverName + allMenu[i].IMG + '"/>' +
+                                            '<p>' + allMenu[i].NAME + '</p></li>'
+                                        $("#fa_" + allMenu[i].FATHER).append(this_menu)
+                                    }else{
+                                        var this_menu = '<li><i class="fa fa-plus-square" onclick="add(this)" id="' + allMenu[i].ID + '"></i>' +
+                                            '<img src="' + wpt_serverName + allMenu[i].IMG + '"/>' +
+                                            '<p>' + allMenu[i].NAME + '</p></li>'
+                                        $("#fa_" + allMenu[i].FATHER).append(this_menu)
+                                    }
+                                } else {
+                                    var this_menu = '<li><i class="fa fa-plus-square" onclick="add(this)" id="' + allMenu[i].ID + '"></i>' +
+                                        '<img src="' + wpt_serverName + allMenu[i].IMG + '"/>' +
+                                        '<p>' + allMenu[i].NAME + '</p></li>'
+                                    $("#fa_" + allMenu[i].FATHER).append(this_menu)
+                                }
                             }
                         }
                         //onclick="add(this)"
@@ -88,7 +111,7 @@ function add(str) {
                 if (code == "0") {
                     $(str).attr("class", "fa fa-minus-square")
                     $(str).attr("onclick", "re(this)")
-                    $("#myMenu").append('<li id="my_'+th_id+'">'+$(str).parent().html()+'</li>')
+                    $("#myMenu").append('<li id="my_' + th_id + '">' + $(str).parent().html() + '</li>')
                 } else {
                     layer.msg(msg, {anim: 6, time: 2000});
                 }
@@ -103,7 +126,7 @@ function add(str) {
 
 function re(str) {
     var th_id = $(str).attr("id")
-         console.log(th_id)
+    console.log(th_id)
     $.ajax({
         url: wpt_serverName + "my/wdcy/reMyMenu",
         type: 'post',
@@ -118,9 +141,9 @@ function re(str) {
                 var code = data.returnInfo.return_code;
                 var msg = data.returnInfo.return_msg;
                 if (code == "0") {
-                    $("#my_"+th_id).remove()
-                    $("#"+th_id).attr("class", "fa fa-plus-square")
-                    $("#"+th_id).attr("onclick", "add(this)")
+                    $("#my_" + th_id).remove()
+                    $("#" + th_id).attr("class", "fa fa-plus-square")
+                    $("#" + th_id).attr("onclick", "add(this)")
                 } else {
                     layer.msg(msg, {anim: 6, time: 2000});
                 }

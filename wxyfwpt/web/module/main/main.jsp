@@ -77,7 +77,7 @@
             <div class="tc">
                 <div class="name">
                     <p>我的常用</p>
-                    <a href="<%=Constant.server_name%>module/my/wdcy.jsp" class="btnbj">编辑</a>
+                    <a href="<%=Constant.server_name%>module/my/wdcy/wdcy.jsp" class="btnbj">编辑</a>
                 </div>
                 <ul id="wpt_main">
                     <%
