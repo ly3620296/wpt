@@ -25,7 +25,6 @@ var week = ['一', '二', '三', '四', '五', '六', '日'];
 
 layui.use('form', function () {
     var form = layui.form;
-
     form.on('select(xskb_zc)', function (data) {
         $.ajax({
             url: wpt_serverName + "jwl/xskb/xskbByzc",
