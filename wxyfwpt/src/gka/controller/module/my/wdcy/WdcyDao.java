@@ -12,6 +12,18 @@ public class WdcyDao {
         return menu;
     }
 
+    public List<Record> allParentMenu(String qx) {
+        String sql = "SELECT * FROM WPT_MENU WHERE STATE=? AND FATHER=? AND QX IN('00',?) ORDER BY V_LEVEL";
+        List<Record> menu = Db.find(sql, "1", "0", qx);
+        return menu;
+    }
+
+    public List<Record> childMenu(String qx, String parId) {
+        String sql = "SELECT * FROM WPT_MENU WHERE STATE=? AND FATHER=? AND QX IN('00',?) ORDER BY V_LEVEL";
+        List<Record> menu = Db.find(sql, "1", parId, qx);
+        return menu;
+    }
+
     public List<Record> myMenu(String xh) {
         String sql = "select t.* from wpt_menu t,wpt_wdcy a where t.id=a.menuid and xh=? order by a.time";
         List<Record> menu = Db.find(sql, xh);
@@ -34,6 +46,7 @@ public class WdcyDao {
         Record menu = Db.findFirst(sql, xh, MenuId);
         return menu;
     }
+
     public List<Record> checkMyMenuSum(String xh) {
         String sql = "select * from wpt_wdcy where xh=?";
         List<Record> menu = Db.find(sql, xh);

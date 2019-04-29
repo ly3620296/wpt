@@ -30,7 +30,7 @@
 </div>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/wpt/foot.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         var url = window.location.href;
         if (url.search("module/main/main.jsp") != -1) {
             $(".footer-menu li").eq(0).find("i").addClass("active");
