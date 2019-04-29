@@ -108,6 +108,7 @@ body{
 	text-align: center;
 	margin-top: -1px;
 	margin-bottom: -1px;
+    min-height: 100px;
 }
 
 .tc li{
@@ -117,6 +118,7 @@ body{
     border: 1px solid #e2e2e2;
     padding: 10px 0;
     position: relative;
+    min-height: 90px;
 
 }
 .tc li i{

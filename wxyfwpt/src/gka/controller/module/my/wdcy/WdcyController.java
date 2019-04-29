@@ -25,8 +25,9 @@ public class WdcyController extends Controller {
         Map<String, Object> result = new HashMap<String, Object>();
         ReturnInfo returnInfo = new ReturnInfo();
         try {
-            String qx = "01";
-            String xh = "111111";
+            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+            String xh = wptUserInfo.getZh();
+            String qx = wptUserInfo.getJsdm();
             List allMenu = wdcyDao.allMenu(qx);
             List myMenu = wdcyDao.myMenu(xh);
             result.put("allMenu", allMenu);
@@ -46,7 +47,8 @@ public class WdcyController extends Controller {
         Map<String, Object> result = new HashMap<String, Object>();
         ReturnInfo returnInfo = new ReturnInfo();
         try {
-            String xh = "111111";
+            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+            String xh = wptUserInfo.getZh();
             String menuId = getPara("id");
             Record rs = wdcyDao.checkMyMenu(xh, menuId);
             if (rs == null) {
@@ -78,17 +80,19 @@ public class WdcyController extends Controller {
         Map<String, Object> result = new HashMap<String, Object>();
         ReturnInfo returnInfo = new ReturnInfo();
         try {
-            String xh = "111111";
+
+            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+            String xh = wptUserInfo.getZh();
             String menuId = getPara("id");
-//            Record rs = wdcyDao.checkMyMenu(xh,menuId);
-//            if(rs==null){
-            wdcyDao.reMyMenu(xh, menuId);
-            returnInfo.setReturn_code("0");
-            returnInfo.setReturn_msg("success");
-//            }   else {
-//                returnInfo.setReturn_code("0001");
-//                returnInfo.setReturn_msg("此菜单已经被您设置成常用了!");
-//            }
+            List list = wdcyDao.checkMyMenuSum(xh);
+            if (list.size() <= 1) {
+                returnInfo.setReturn_code("0001");
+                returnInfo.setReturn_msg("常用按钮至少要保留一个菜单!");
+            } else {
+                wdcyDao.reMyMenu(xh, menuId);
+                returnInfo.setReturn_code("0");
+                returnInfo.setReturn_msg("success");
+            }
         } catch (Exception e) {
             returnInfo.setReturn_code("-999");
             returnInfo.setReturn_msg("服务繁忙，请稍后重试！");
@@ -96,8 +100,5 @@ public class WdcyController extends Controller {
         }
         result.put("returnInfo", returnInfo);
         renderJson(result);
-
     }
-
-
 }

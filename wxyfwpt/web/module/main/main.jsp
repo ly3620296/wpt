@@ -80,74 +80,7 @@
                     <a href="<%=Constant.server_name%>module/my/wdcy/wdcy.jsp" class="btnbj">编辑</a>
                 </div>
                 <ul id="wpt_main">
-                    <%
-                        if (role.equals("02")) {
-                    %>
-                    <li lay-href="module/fwzx/jwl/xskb/xskb.jsp">
-                        <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
 
-                        <p>查课表</p>
-                    </li>
-                    <%
-                    } else if (role.equals("01")) {
-                    %>
-                    <li lay-href="module/fwzx/jwl/jskb/jskb.jsp">
-                        <img src="<%=Constant.server_name%>img/icon_chakebiao.png"/>
-
-                        <p>查课表</p>
-                    </li>
-                    <%
-                        }
-                    %>
-
-                    <%
-                        if (role.equals("02")) {
-                    %>
-                    <li lay-href="module/fwzx/jwl/ccj/ccj.jsp">
-                        <img src="<%=Constant.server_name%>img/icon_chachengji.png"/>
-
-                        <p>查成绩</p>
-                    </li>
-                    <%
-                        }
-                    %>
-
-
-                    <li>
-                        <img src="<%=Constant.server_name%>img/icon_xysq.png"/>
-
-                        <p>校园社区</p>
-                    </li>
-                    <li>
-                        <img src="<%=Constant.server_name%>img/icon_chakaoshi.png"/>
-
-                        <p>查考试</p>
-                    </li>
-                    <li>
-                        <img src="<%=Constant.server_name%>img/icon_cet.png"/>
-
-                        <p>四六级查询</p>
-                    </li>
-                    <li>
-                        <img src="<%=Constant.server_name%>img/icon_xiaoli.png"/>
-
-                        <p>校历</p>
-                    </li>
-                    <li>
-                        <img src="<%=Constant.server_name%>img/icon_kthd.png"/>
-
-                        <p>课堂互动</p>
-                    </li>
-                    <li>
-                        <img src="<%=Constant.server_name%>img/icon_ktp.png"/>
-
-                        <p>课堂派</p>
-                    </li>
-                    <li>
-                        <img src="<%=Constant.server_name%>img/icon_ktqd.png"/>
-
-                        <p>课堂签到</p>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -195,6 +128,7 @@
 </div>
 </div>
 <jsp:include page="/common/foot.jsp"></jsp:include>
+<script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
 <script src="<%=Constant.server_name%>module/main/main.js" type="text/javascript"></script>
 
 </body>

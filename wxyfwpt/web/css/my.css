@@ -71,3 +71,26 @@
 	vertical-align: middle;
 	margin: 0 5%;
 }
+.layui-unselect {
+    display: none;
+}
+
+.layui-tab-title li {
+    color: #0099db !important;
+}
+
+.tc li .fa-plus-square {
+    color: #18ec63;
+}
+
+.layui-tab-brief > .layui-tab-title .layui-this {
+    background: #0099db;
+}
+
+.layui-tab-title {
+    border-bottom: 1px solid #0099db !important;
+}
+
+.layui-tab-brief > .layui-tab-more li.layui-this:after, .layui-tab-brief > .layui-tab-title .layui-this:after {
+    border-bottom: 1px solid #0099db !important;
+}

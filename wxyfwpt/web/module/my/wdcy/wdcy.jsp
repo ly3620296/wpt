@@ -17,35 +17,10 @@
     <script src="<%=Constant.server_name%>js-lib/swiper/swiper-3.4.2.min.js" type="text/javascript"
             charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript" charset="utf-8"></script>
-
-    <style type="text/css">
-        .layui-unselect {
-            display: none;
-        }
-
-        .layui-tab-title li {
-            color: #0099db !important;
-        }
-
-        .tc li .fa-plus-square {
-            color: #18ec63;
-        }
-
-        .layui-tab-brief > .layui-tab-title .layui-this {
-            background: #0099db;
-        }
-
-        .layui-tab-title {
-            border-bottom: 1px solid #0099db !important;
-        }
-
-        .layui-tab-brief > .layui-tab-more li.layui-this:after, .layui-tab-brief > .layui-tab-title .layui-this:after {
-            border-bottom: 1px solid #0099db !important;
-        }
-    </style>
     <title>我的常用</title>
 </head>
 <body>
+<jsp:include page="/common/auth.jsp"></jsp:include>
 <div class="app">
     <div class="tcDiv">
         <div class="tclist">
@@ -62,7 +37,6 @@
     </div>
 
     <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-        <!--<div class="layui-tab layui-tab-card" >-->
         <ul class="layui-tab-title" style="width: 100%;overflow-x: scroll;" id="tab_change">
 
         </ul>
