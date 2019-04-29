@@ -20,7 +20,7 @@ body{
 	padding: 7px 0;
 	border-radius: 5px;
 	border-left: 4px solid #009688;
-	background: #FFFFFF;
+	background: #c7dcc04d;
 	margin-bottom: 15px;
 }
 .gg-list li .title{
@@ -70,7 +70,7 @@ body{
     text-align: center;
     border-top: 1px solid #eaeaea;
     border-bottom: 1px solid #eaeaea;
-    background: #e2e2e2;
+    background: #f3f3f3;
     color: #060606;
 	
 }
@@ -109,18 +109,23 @@ body{
 	margin-top: -1px;
 	margin-bottom: -1px;
     min-height: 100px;
+    width: 102%;
 }
 
 .tc li{
     width: 32.7%;
     float: left;
     /* padding: 0 0.6%; */
-    border: 1px solid #e2e2e2;
-    padding: 10px 0;
+    /* border: 1px solid #e2e2e2; */
+    padding: 17px 0;
     position: relative;
-    min-height: 90px;
-
+    /*min-height: 90px;*/
+    border-bottom: 1px solid #f1f1f1;
+    border-right: 1px solid #f1f1f1;
 }
+
+
+
 .tc li i{
 	font-size: 20px;
 	position: absolute;
