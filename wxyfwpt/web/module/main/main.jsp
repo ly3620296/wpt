@@ -13,8 +13,8 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/swiper.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.css"/>
-    <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
-            charset="utf-8"></script>
+    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>
     <script src="<%=Constant.server_name%>js-lib/swiper/swiper-3.4.2.min.js" type="text/javascript"
             charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
@@ -97,30 +97,35 @@
             <p class="title">四六级考试</p>
 
             <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+
             <p class="time">2017-05-02</p>
         </li>
         <li>
             <p class="title">四六级考试</p>
 
             <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+
             <p class="time">2017-05-02</p>
         </li>
         <li>
             <p class="title">四六级考试</p>
 
             <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+
             <p class="time">2017-05-02</p>
         </li>
         <li>
             <p class="title">四六级考试</p>
 
             <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+
             <p class="time">2017-05-02</p>
         </li>
         <li>
             <p class="title">四六级考试</p>
 
             <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+
             <p class="time">2017-05-02</p>
         </li>
     </ul>
@@ -128,7 +133,6 @@
 </div>
 </div>
 <jsp:include page="/common/foot.jsp"></jsp:include>
-<script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
 <script src="<%=Constant.server_name%>module/main/main.js" type="text/javascript"></script>
 
 </body>

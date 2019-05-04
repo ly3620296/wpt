@@ -1,56 +1,62 @@
-body{
-	padding-top:40px ;
+body {
+    padding-top: 40px;
 }
-.xl{
-	width: 100%;
-	position: relative;
+
+.xl {
+    width: 100%;
+    position: relative;
 }
-.xl .title{
-	    width: 100%;
+
+.xl .title {
+    width: 100%;
     margin-top: 3%;
-	
+    text-align: center;
+
 }
-.xl .title .year{
-	display: inline-block;
-	line-height: 34px;
-	height: 34px;
-	background: #009688;
-	color: #FFFFFF;
-	text-align: center;
-	padding: 0 14px;
-	font-size: 14px;
-	vertical-align: middle;
+
+.xl .title .year {
+    display: inline-block;
+    line-height: 34px;
+    height: 34px;
+    background: #009688;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 0 14px;
+    font-size: 14px;
+    vertical-align: middle;
 }
-.xl .title .mouch{
-	display: inline-block;
-	line-height: 34px;
-	height: 34px;
-	font-size: 20px;
-	color: #009688;
-	padding: 0 14px;	
-	vertical-align: middle;
+
+.xl .title .mouch {
+
+    display: inline-block;
+    width: 14px;
+    word-wrap: break-word
 }
-.xl table{
-	border: none;
-	width: 100%;
-	font-size: 12px;
+
+.xl table {
+    border: none;
+    width: 100%;
+    font-size: 12px;
 }
-.xl table th{
-	width: 12.5%;
-	text-align: center;
-	padding: 7px 0;
-	background: #009688;
-	color: #FFFFFF;
+
+.xl table th {
+    width: 10.5%;
+    text-align: center;
+    padding: 7px 0;
+    background: #009688;
+    color: #FFFFFF;
 }
-.xl table td{
-	width: 12.5%;
-	text-align: center;
-	padding: 5px 0;	
-	font-size: 12px;
-	line-height: 20px;
-	color: #333333;
+
+.xl table td {
+    width: 10.5%;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 12px;
+    line-height: 20px;
+    color: #333333;
 }
-.xl table tr td:nth-child(1){
-	color: #009688;
-	font-weight: bold;
+
+.xl table tr td:nth-child(1) {
+    color: #009688;
+    font-weight: bold;
 }

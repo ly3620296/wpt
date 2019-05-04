@@ -3,7 +3,6 @@ package gka.controller.module.jwl.jskb;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.controller.CommonUtil;
-import gka.controller.module.jwl.xskb.XskbDao;
 import gka.kit.ArrayUtil;
 
 import javax.servlet.http.HttpSession;
@@ -50,7 +49,7 @@ public class JskbDao {
                         String kcmc = re.getStr("KCMC");
                         String skdd = re.getStr("SKDD");
                         for (int k = Integer.parseInt(jcs[0]); k <= Integer.parseInt(jcs[1]); k++) {
-                            jskb[i - 1][k - 1] = kcmc + "@" + skdd + "_n_" + re.getStr("JXBMC") +"_n_" + re.getStr("BJZC")+ "_n_" + re.getStr("KHFS") + "_n_" + CommonUtil.formatZc(re.getStr("ZC"))+ "_n_"+re.getStr("JXBRS");
+                            jskb[i - 1][k - 1] = kcmc + "@" + skdd + "_n_" + re.getStr("JXBMC") + "_n_" + re.getStr("BJZC") + "_n_" + re.getStr("KHFS") + "_n_" + CommonUtil.formatZc(re.getStr("ZC")) + "_n_" + re.getStr("JXBRS");
                         }
                     }
                 }

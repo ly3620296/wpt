@@ -25,12 +25,29 @@ var week = ['一', '二', '三', '四', '五', '六', '日'];
 
 layui.use('form', function () {
     var form = layui.form;
-    form.on('select(xskb_zc)', function (data) {
+    //周次
+    form.on('select(cdkb_zc_se)', function (data) {
+        var cdlbId = $("#cdkb_cdlb").val();
+        var cdId = $("#cdkb_cd").val();
+        if (!cdlbId) {
+            layer.msg("请选择教室类别", {anim: 6, time: 2000});
+            return;
+        }
+        if (!cdId) {
+            layer.msg("请选择教室", {anim: 6, time: 2000});
+            return;
+        }
+        var zc = data.value;
+        initCdTimeTable(zc, cdlbId, cdId);
+
+    });
+    //场地类别
+    form.on('select(cdkb_cdlb_se)', function (data) {
         $.ajax({
-            url: wpt_serverName + "jwl/xskb/xskbByzc",
+            url: wpt_serverName + "jwl/cdkb/cd",
             type: 'post',
             dataType: 'json',
-            data: {currZc: data.value},
+            data: {cdlbId: data.value},
             timeout: 10000,
             beforeSend: function () {
                 loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
@@ -41,10 +58,11 @@ layui.use('form', function () {
                     var msg = data.returnInfo.return_msg;
                     if (code == "0") {
                         //初始化课表
-                        Timetable.setOption({
-                            timetables: data.xskbArry || courseList,
-                            highlightWeek: data.currXq
-                        });
+                        //Timetable.setOption({
+                        //    timetables: data.cdkbArry || courseList,
+                        //    highlightWeek: data.currXq
+                        //});
+                        initCd(data.cdList);
                     } else {
                         layer.msg(msg, {anim: 6, time: 2000});
                     }
@@ -56,6 +74,73 @@ layui.use('form', function () {
             }
         })
     });
+
+
+    //场地
+    form.on('select(cdkb_cd_se)', function (data) {
+        var cdlbId = $("#cdkb_cdlb").val();
+        var cdId = data.value;
+        var zc = $("#cdkb_zc").val();
+        initCdTimeTable(zc, cdlbId, cdId);
+    });
+    //初始化场地下拉选
+    function initCd(cdList) {
+        if (cdList) {
+            var optionsCd = "<option value=''>请选择（教室）</option>";
+            for (var index in cdList) {
+                var cd = cdList[index];
+                optionsCd += "<option value='" + cd.CD_ID + "'> " + cd.CDMC + "</option>";
+            }
+            $("#cdkb_cd").html(optionsCd);
+            form.render('select', 'cdkb_cd');
+        }
+    }
+
+    //初始化场地类别
+    function initJslb(cdlbList) {
+        if (cdlbList) {
+            var optionsCd = "<option value=''>请选择（教室类别）</option>";
+            for (var index in cdlbList) {
+                var cdlb = cdlbList[index];
+                optionsCd += "<option value='" + cdlb.CDLB_ID + "'> " + cdlb.CDLBMC + "</option>";
+            }
+            $("#cdkb_cdlb").html(optionsCd);
+            form.render('select', 'cdkb_cdlb');
+        }
+    }
+
+    function initCdTimeTable(zc, cdlbId, cdId) {
+        $.ajax({
+            url: wpt_serverName + "jwl/cdkb/cdkb",
+            type: 'post',
+            dataType: 'json',
+            data: {zc: zc, cdlbId: cdlbId, cdId: cdId},
+            timeout: 10000,
+            beforeSend: function () {
+                loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+            },
+            success: function (data) {
+                if (data) {
+                    var code = data.returnInfo.return_code;
+                    var msg = data.returnInfo.return_msg;
+                    if (code == "0") {
+                        //初始化课表
+                        Timetable.setOption({
+                            timetables: data.cdkbArry || courseList,
+                            highlightWeek: data.currXq
+                        });
+
+                    } else {
+                        layer.msg(msg, {anim: 6, time: 2000});
+                    }
+                }
+            }
+            ,
+            complete: function () {
+                layer.close(loadIndex);
+            }
+        })
+    }
 
     var Timetable = new Timetables({
         cc: "cccc",
@@ -103,7 +188,7 @@ layui.use('form', function () {
     });
     var loadIndex;
     $.ajax({
-        url: wpt_serverName + "jwl/xskb/index",
+        url: wpt_serverName + "jwl/cdkb",
         type: 'post',
         dataType: 'json',
         timeout: 10000,
@@ -129,12 +214,14 @@ layui.use('form', function () {
                                 options += "<option value='" + zc + "'>第" + zc + "周</option>";
                             }
                         }
-                        $("#xskb_zc").html(options);
-                        form.render('select');
+                        $("#cdkb_zc").html(options);
+                        form.render('select', 'cdkb_zc');
                     }
+                    //初始化场地类别
+                    initJslb(data.cdlbList);
                     //初始化课表
                     Timetable.setOption({
-                        timetables: data.xskbArry || courseList,
+                        timetables: courseList,
                         highlightWeek: data.currXq
                     });
 

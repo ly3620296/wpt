@@ -92,14 +92,14 @@ layui.use('form', function () {
                     zc = names[4] || "";
                     jxbrs = names[5] || "";
                 }
-                var my_html = '<li><label>课程名：' + kcmc + '</label></li>' +
-                    '<li><label>地点：' + skdd + '</label></li>' +
+                var my_html = '<li><label>地点：' + skdd + '</label></li>' +
                     '<li><label>教学班名称：' + jxbmc + '</label></li>' +
                     '<li><label>班级组成：' + bjzc + '</label></li>' +
                     '<li><label>考核方式：' + khfs + '</label></li>' +
                     '<li><label>周次：' + zc + '</label></li>' +
                     '<li><label>教学班人数：' + jxbrs + '</label></li>';
                 $("#alert_ccj").html(my_html);
+                $("#alert_header").html('<span>' + kcmc + '</span>');
                 var className = 'bounceIn';
                 $('#dialogBg').fadeIn(300);
                 $('#dialog').removeAttr('class').addClass('animated ' + className + '').fadeIn();

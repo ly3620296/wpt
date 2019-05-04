@@ -7,6 +7,11 @@
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
+    <style>
+        body{
+            background: #e7e7ec63;
+        }
+    </style>
     <title>身份认证</title>
 </head>
 <body>
@@ -22,7 +27,7 @@
             <input type="password" id="password" value="211910" placeholder="密码"/>
         </li>
 
-        <li style="background: #e2e2e2;text-align: right;">
+        <li style="background: #f5f5f7;text-align: right;">
             <span>忘记密码？</span>
 
         </li>

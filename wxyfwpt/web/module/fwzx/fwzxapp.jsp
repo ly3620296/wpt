@@ -19,7 +19,7 @@
     <title>服务中心</title>
 </head>
 <body>
-<%--<jsp:include page="/common/auth.jsp"></jsp:include>--%>
+<jsp:include page="/common/auth.jsp"></jsp:include>
 <%
     WptUserInfo wptUser = (WptUserInfo) session.getAttribute("wptUserInfo");
     if (wptUser == null) {

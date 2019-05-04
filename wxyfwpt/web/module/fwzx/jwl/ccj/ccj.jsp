@@ -7,6 +7,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/app.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>js-lib/layui/css/layui.css"/>
@@ -16,10 +17,15 @@
             charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
             charset="utf-8"></script>
-
     <title></title>
+    <style>
+        #wpt_cj_table tr {
+            border-bottom: #e5e8e4 solid 1px;
+            width: 20%;
+        }
+    </style>
 </head>
-<body style="background: #e4e4e4;">
+<body style="background:#f3f3f3">
 <jsp:include page="/common/auth.jsp"></jsp:include>
 <%
     WptUserInfo wptUser = (WptUserInfo) session.getAttribute("wptUserInfo");

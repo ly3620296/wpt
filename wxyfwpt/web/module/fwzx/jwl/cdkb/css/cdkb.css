@@ -1,6 +1,6 @@
 #coursesTable {
-    padding: 0;
-    margin: 0;
+   padding: 0;
+   margin: 0;
 }
 
 .Courses-head {
@@ -53,10 +53,6 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
-.Courses-content {
-    background-color:#fff;
-}
-
 .Courses-content > ul {
     border-bottom: 1px dashed rgb(219, 219, 219);
     box-sizing: border-box;
@@ -69,7 +65,9 @@
 .highlight-week {
     color: #02a9f5 !important;
 }
-
+.Courses-content {
+    background-color:#fff;
+}
 .Courses-content li {
     text-align: center;
     color: #666666;
@@ -85,6 +83,7 @@
     word-break: break-all;
     cursor: pointer;
 }
+
 
 .grid-active span {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);

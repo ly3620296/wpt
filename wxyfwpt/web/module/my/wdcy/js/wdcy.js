@@ -1,8 +1,74 @@
-var layer
-var loadIndex;
+var menu_bj;
+
 layui.use(['layer', 'element'], function () {
-    layer = layui.layer
+    var layer = layui.layer;
     var element = layui.element;
+    var $ = layui.jquery;
+    var loadIndex = "";
+
+    menu_bj = {
+        add: function (str) {
+            var th_id = $(str).attr("id")
+            $.ajax({
+                url: wpt_serverName + "my/wdcy/addMyMenu",
+                type: 'post',
+                dataType: 'json',
+                data: {id: th_id},
+                timeout: 10000,
+                beforeSend: function () {
+                    loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                },
+                success: function (data) {
+                    if (data) {
+                        var code = data.returnInfo.return_code;
+                        var msg = data.returnInfo.return_msg;
+                        if (code == "0") {
+                            $(str).attr("class", "fa fa-minus-square")
+                            $(str).attr("onclick", "menu_bj.re(this)")
+                            $("#myMenu").append('<li id="my_' + th_id + '">' + $(str).parent().html() + '</li>')
+                        } else {
+                            layer.msg(msg, {anim: 6, time: 2000});
+                        }
+                    }
+                }
+                ,
+                complete: function () {
+                    layer.close(loadIndex);
+                }
+            })
+        },
+        re: function (str) {
+            var th_id = $(str).attr("id")
+            $.ajax({
+                url: wpt_serverName + "my/wdcy/reMyMenu",
+                type: 'post',
+                dataType: 'json',
+                data: {id: th_id},
+                timeout: 10000,
+                beforeSend: function () {
+                    loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                },
+                success: function (data) {
+                    if (data) {
+                        var code = data.returnInfo.return_code;
+                        var msg = data.returnInfo.return_msg;
+                        if (code == "0") {
+                            $("#my_" + th_id).remove()
+                            $("#" + th_id).attr("class", "fa fa-plus-square")
+                            $("#" + th_id).attr("onclick", "menu_bj.add(this)")
+                        } else {
+                            layer.msg(msg, {anim: 6, time: 2000});
+                        }
+                    }
+                }
+                ,
+                complete: function () {
+                    layer.close(loadIndex);
+                }
+            })
+        }
+    }
+
     $.ajax({
         url: wpt_serverName + "my/wdcy",
         type: 'post',
@@ -21,7 +87,7 @@ layui.use(['layer', 'element'], function () {
                         for (var a = 0; a < myMenu.length; a++) {
                             var html_myMenu = '<li id="my_' + myMenu[a].ID + '"> ' +
                                 '<img src="' + wpt_serverName + myMenu[a].IMG + '"/>' +
-                                '<i class="fa fa-minus-square" onclick="re(this)" id="' + myMenu[a].ID + '"></i> ' +
+                                '<i class="fa fa-minus-square" onclick="menu_bj.re(this)" id="' + myMenu[a].ID + '"></i> ' +
                                 '<p>' + myMenu[a].NAME + '</p> ' +
                                 '</li>'
                             $("#myMenu").append(html_myMenu)
@@ -55,18 +121,18 @@ layui.use(['layer', 'element'], function () {
                                         }
                                     }
                                     if (bool) {
-                                        var this_menu = '<li><i class="fa fa-minus-square" onclick="re(this)" id="' + allMenu[i].ID + '"></i>' +
+                                        var this_menu = '<li><i class="fa fa-minus-square" onclick="menu_bj.re(this)" id="' + allMenu[i].ID + '"></i>' +
                                             '<img src="' + wpt_serverName + allMenu[i].IMG + '"/>' +
                                             '<p>' + allMenu[i].NAME + '</p></li>'
                                         $("#fa_" + allMenu[i].FATHER).append(this_menu)
                                     } else {
-                                        var this_menu = '<li><i class="fa fa-plus-square" onclick="add(this)" id="' + allMenu[i].ID + '"></i>' +
+                                        var this_menu = '<li><i class="fa fa-plus-square" onclick="menu_bj.add(this)" id="' + allMenu[i].ID + '"></i>' +
                                             '<img src="' + wpt_serverName + allMenu[i].IMG + '"/>' +
                                             '<p>' + allMenu[i].NAME + '</p></li>'
                                         $("#fa_" + allMenu[i].FATHER).append(this_menu)
                                     }
                                 } else {
-                                    var this_menu = '<li><i class="fa fa-plus-square" onclick="add(this)" id="' + allMenu[i].ID + '"></i>' +
+                                    var this_menu = '<li><i class="fa fa-plus-square" onclick="menu_bj.add(this)" id="' + allMenu[i].ID + '"></i>' +
                                         '<img src="' + wpt_serverName + allMenu[i].IMG + '"/>' +
                                         '<p>' + allMenu[i].NAME + '</p></li>'
                                     $("#fa_" + allMenu[i].FATHER).append(this_menu)
@@ -86,74 +152,5 @@ layui.use(['layer', 'element'], function () {
             layer.close(loadIndex);
         }
     })
-
-    function add(str) {
-        var th_id = $(str).attr("id")
-        $.ajax({
-            url: wpt_serverName + "my/wdcy/addMyMenu",
-            type: 'post',
-            dataType: 'json',
-            data: {id: th_id},
-            timeout: 10000,
-            beforeSend: function () {
-                loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
-            },
-            success: function (data) {
-                if (data) {
-                    var code = data.returnInfo.return_code;
-                    var msg = data.returnInfo.return_msg;
-                    if (code == "0") {
-                        $(str).attr("class", "fa fa-minus-square")
-                        $(str).attr("onclick", "re(this)")
-                        $("#myMenu").append('<li id="my_' + th_id + '">' + $(str).parent().html() + '</li>')
-                    } else {
-                        layer.msg(msg, {anim: 6, time: 2000});
-                    }
-                }
-            }
-            ,
-            complete: function () {
-                layer.close(loadIndex);
-            }
-        })
-    }
-
-    function re(str) {
-        var th_id = $(str).attr("id")
-        console.log(th_id)
-        $.ajax({
-            url: wpt_serverName + "my/wdcy/reMyMenu",
-            type: 'post',
-            dataType: 'json',
-            data: {id: th_id},
-            timeout: 10000,
-            beforeSend: function () {
-                loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
-            },
-            success: function (data) {
-                if (data) {
-                    var code = data.returnInfo.return_code;
-                    var msg = data.returnInfo.return_msg;
-                    if (code == "0") {
-                        $("#my_" + th_id).remove()
-                        $("#" + th_id).attr("class", "fa fa-plus-square")
-                        $("#" + th_id).attr("onclick", "add(this)")
-                    } else {
-                        layer.msg(msg, {anim: 6, time: 2000});
-                    }
-                }
-            }
-            ,
-            complete: function () {
-                layer.close(loadIndex);
-            }
-        })
-    }
-
-    var active = {
-        tabChange: function () {
-            element.tabChange('demo', '22');
-        }
-    };
 });
 
