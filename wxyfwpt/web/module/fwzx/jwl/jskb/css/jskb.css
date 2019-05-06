@@ -6,7 +6,9 @@
 .Courses-head {
     background-color: #edffff;
 }
-
+.Courses-content {
+    background-color: #fff;
+}
 .Courses-head > div {
     text-align: center;
     font-size: 14px;

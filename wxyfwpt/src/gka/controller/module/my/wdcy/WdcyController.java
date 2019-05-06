@@ -2,13 +2,10 @@ package gka.controller.module.my.wdcy;
 
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.controller.login.WptUserInfo;
-import gka.controller.module.jwl.ccj.CcjDao;
 import gka.system.ReturnInfo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

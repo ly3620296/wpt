@@ -5,7 +5,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title></title>
+    <title>教师课表</title>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>js-lib/layui/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/seclect.css"/>
     <link rel="stylesheet" href="<%=Constant.server_name%>module/fwzx/jwl/jskb/css/jskb.css">
@@ -15,10 +16,10 @@
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript" charset="utf-8"></script>
 
 </head>
-<body>
+<body style="background-color: #f3f3f3">
 <jsp:include page="/common/auth.jsp"></jsp:include>
 <div class="titledddiv">
-    <p class="titleName">查学生课表</p>
+    <p class="titleName">教师课表</p>
 </div>
 <div class="selectDiv">
     <form class="layui-form">

@@ -21,7 +21,7 @@
 <body style="background-color: #f3f3f3">
 <jsp:include page="/common/auth.jsp"></jsp:include>
 <div class="titledddiv">
-    <p class="titleName">查学生课表</p>
+    <p class="titleName">学生课表</p>
 </div>
 <div class="selectDiv">
     <form class="layui-form" action="">

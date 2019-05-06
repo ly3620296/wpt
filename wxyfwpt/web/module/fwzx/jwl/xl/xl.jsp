@@ -15,9 +15,9 @@
 </head>
 <body>
 <div class="xl">
-    <div class="titledddiv">				
-		<p class="titleName">校历表</p>
-	</div>
+    <%--<div class="titledddiv">				--%>
+		<%--<p class="titleName">校历表</p>--%>
+	<%--</div>--%>
 	<!-- <span class="mouch"></span> -->
 	<p class="title"><span class="year">2019第一学期</span></p>
 	<table>
@@ -34,13 +34,13 @@
 		<tr>
 			<td rowspan='5'><p class='mouch' style="">5月</p></td>		
 			<td>1</td>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-			<td>5</td>
-			<td>6</td>
-			<td>7</td>
+			<td>3.1</td>
+			<td>3.2</td>
+			<td>3.3</td>
+			<td>3.4</td>
+			<td>3.5</td>
+			<td>3.6</td>
+			<td>3.7</td>
 		</tr>
 		<tr>
 			<td>2</td>
