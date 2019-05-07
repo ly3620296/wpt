@@ -1,19 +1,53 @@
 var menu_bj;
 
+
+
 layui.use(['layer', 'element'], function () {
+
+
     var layer = layui.layer;
     var element = layui.element;
     var $ = layui.jquery;
     var loadIndex = "";
 
+    $(".layui-tab-title").click(function(){
+            console.log($(".layui-this").html())
+    })
+    var my_menu = new Array();
     menu_bj = {
+        addId: function (myMenu) {
+           if(myMenu.length>0){
+               for (var a = 0; a < myMenu.length; a++) {
+                   var my_id = myMenu[a].ID;
+                   my_menu.push(my_id)
+               }
+           }
+        },
         add: function (str) {
-            var th_id = $(str).attr("id")
+            if (my_menu.length >= 9) {
+                layer.msg("常用按钮不能大于九个!", {anim: 6, time: 2000})
+                return
+            } else {
+                var th_id = $(str).attr("id")
+                var index = my_menu.indexOf(th_id);
+                if (index > -1) {
+                    my_menu.splice(index, 1);
+                }
+                my_menu.push(th_id)
+                my_menu = my_menu.filter(function (element, index, array) {
+                    return array.indexOf(element) === index;
+                });
+                $(str).attr("class", "fa fa-minus-square")
+                $(str).attr("onclick", "menu_bj.re(this)")
+                $("#myMenu").append('<li id="my_' + th_id + '">' + $(str).parent().html() + '</li>')
+            }
+        },
+        finish: function () {
             $.ajax({
-                url: wpt_serverName + "my/wdcy/addMyMenu",
+                url: wpt_serverName + "my/wdcy/finish",
                 type: 'post',
                 dataType: 'json',
-                data: {id: th_id},
+                data: {myId:my_menu},
                 timeout: 10000,
                 beforeSend: function () {
                     loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
@@ -23,9 +57,10 @@ layui.use(['layer', 'element'], function () {
                         var code = data.returnInfo.return_code;
                         var msg = data.returnInfo.return_msg;
                         if (code == "0") {
-                            $(str).attr("class", "fa fa-minus-square")
-                            $(str).attr("onclick", "menu_bj.re(this)")
-                            $("#myMenu").append('<li id="my_' + th_id + '">' + $(str).parent().html() + '</li>')
+                            //layer.msg("编辑我的常用完成!", {anim: 6, time: 2000});
+                            //setTimeout(function () {
+                                window.location.href = wpt_serverName + "module/main/main.jsp"
+                            //}, 2000)
                         } else {
                             layer.msg(msg, {anim: 6, time: 2000});
                         }
@@ -38,34 +73,22 @@ layui.use(['layer', 'element'], function () {
             })
         },
         re: function (str) {
-            var th_id = $(str).attr("id")
-            $.ajax({
-                url: wpt_serverName + "my/wdcy/reMyMenu",
-                type: 'post',
-                dataType: 'json',
-                data: {id: th_id},
-                timeout: 10000,
-                beforeSend: function () {
-                    loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
-                },
-                success: function (data) {
-                    if (data) {
-                        var code = data.returnInfo.return_code;
-                        var msg = data.returnInfo.return_msg;
-                        if (code == "0") {
-                            $("#my_" + th_id).remove()
-                            $("#" + th_id).attr("class", "fa fa-plus-square")
-                            $("#" + th_id).attr("onclick", "menu_bj.add(this)")
-                        } else {
-                            layer.msg(msg, {anim: 6, time: 2000});
-                        }
-                    }
+            if (my_menu.length < 2) {
+                layer.msg("常用按钮不能小于一个!", {anim: 6, time: 2000})
+                return
+            } else {
+                var th_id = $(str).attr("id")
+                var index = my_menu.indexOf(th_id);
+                if (index > -1) {
+                    my_menu.splice(index, 1);
                 }
-                ,
-                complete: function () {
-                    layer.close(loadIndex);
-                }
-            })
+                my_menu = my_menu.filter(function (element, index, array) {
+                    return array.indexOf(element) === index;
+                });
+                $("#my_" + th_id).remove()
+                $("#" + th_id).attr("class", "fa fa-plus-square")
+                $("#" + th_id).attr("onclick", "menu_bj.add(this)")
+            }
         }
     }
 
@@ -125,6 +148,7 @@ layui.use(['layer', 'element'], function () {
                                             '<img src="' + wpt_serverName + allMenu[i].IMG + '"/>' +
                                             '<p>' + allMenu[i].NAME + '</p></li>'
                                         $("#fa_" + allMenu[i].FATHER).append(this_menu)
+
                                     } else {
                                         var this_menu = '<li><i class="fa fa-plus-square" onclick="menu_bj.add(this)" id="' + allMenu[i].ID + '"></i>' +
                                             '<img src="' + wpt_serverName + allMenu[i].IMG + '"/>' +
@@ -139,7 +163,7 @@ layui.use(['layer', 'element'], function () {
                                 }
                             }
                         }
-                        //onclick="add(this)"
+                        menu_bj.addId(myMenu);
                     } else {
                         layer.msg("暂未查询到菜单信息!", {anim: 6, time: 2000});
                     }

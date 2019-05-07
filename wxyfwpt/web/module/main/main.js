@@ -10,7 +10,7 @@ $(function () {
 
     var loadIndex;
     $.ajax({
-        url: wpt_serverName + "my/wdcy",
+        url: wpt_serverName + "my",
         type: 'post',
         dataType: 'json',
         timeout: 10000,
