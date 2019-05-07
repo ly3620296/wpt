@@ -2,12 +2,16 @@ var kjscx_loadIndex;
 
 layui.use('form', function () {
     var form = layui.form;
+    //场地类别下拉选
     form.on('select(kjscx_cdlb_se)', function (data) {
+        var lhId = $("#kjscx_lh").val();
+        var rq = $("#kjscx_rq").val();
+        var cdlbId = data.value;
         $.ajax({
             url: wpt_serverName + "jwl/kjscx/lh",
             type: 'post',
             dataType: 'json',
-            data: {cdlbId: data.value},
+            data: {cdlbId: cdlbId},
             timeout: 10000,
             beforeSend: function () {
                 kjscx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
@@ -18,6 +22,7 @@ layui.use('form', function () {
                     var msg = data.returnInfo.return_msg;
                     if (code == "0") {
                         initLh(data.lhList);
+                        initKjsTable(rq, cdlbId, lhId);
                     } else {
                         layer.msg(msg, {anim: 6, time: 2000});
                     }
@@ -30,6 +35,7 @@ layui.use('form', function () {
         })
     });
 
+    //日期下拉选
     form.on('select(kjscx_rq_se)', function (data) {
         var cdlbId = $("#kjscx_cdlb").val();
         var lhId = $("#kjscx_lh").val();
@@ -37,12 +43,22 @@ layui.use('form', function () {
             layer.msg("请选择教室类别", {anim: 6, time: 2000});
             return;
         }
+        initKjsTable(data.value, cdlbId, lhId)
+    });
 
+    //楼号下拉选
+    form.on('select(kjscx_lh_se)', function (data) {
+        var cdlbId = $("#kjscx_cdlb").val();
+        var rq = $("#kjscx_rq").val();
+        initKjsTable(rq, cdlbId, data.value);
+    });
+
+    function initKjsTable(rq, cdlbId, lhId) {
         $.ajax({
             url: wpt_serverName + "jwl/kjscx/kjscxByCon",
             type: 'post',
             dataType: 'json',
-            data: {rq: data.value, cdlbId: cdlbId, lhId: lhId},
+            data: {rq: rq, cdlbId: cdlbId, lhId: lhId},
             timeout: 10000,
             beforeSend: function () {
                 kjscx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
@@ -52,7 +68,21 @@ layui.use('form', function () {
                     var code = data.returnInfo.return_code;
                     var msg = data.returnInfo.return_msg;
                     if (code == "0") {
-
+                        var kjscxList = data.kjscxList;
+                        var kjHtml = "";
+                        if (kjscxList) {
+                            for (var index in kjscxList) {
+                                var kjscxI = kjscxList[index];
+                                kjHtml += '<tr><td>' + kjscxI.SKDD + '</td>' +
+                                '<td><i class="fa fa-home fa-lg kjsactive"></i></td>' +
+                                '<td><i class="fa fa-home fa-lg"></i></td>' +
+                                '<td><i class="fa fa-home fa-lg"></i></td>' +
+                                '<td><i class="fa fa-home fa-lg"></i></td>' +
+                                '<td><i class="fa fa-home fa-lg"></i></td>' +
+                                '<td><i class="fa fa-home fa-lg"></i></td></tr>';
+                            }
+                            $("#kjs_tb").html(kjHtml);
+                        }
                     } else {
                         layer.msg(msg, {anim: 6, time: 2000});
                     }
@@ -63,7 +93,7 @@ layui.use('form', function () {
                 layer.close(kjscx_loadIndex);
             }
         })
-    });
+    }
 
 
     $.ajax({
@@ -123,7 +153,7 @@ layui.use('form', function () {
     //初始化日期
     function initRq(rqList) {
         if (rqList) {
-            var optionsRq = "<option value=''>请选择（日期）</option>";
+            var optionsRq = "";
             for (var index in rqList) {
                 var rq = rqList[index];
                 optionsRq += "<option value='" + rq.rq + "'> " + rq.xq + "</option>";
@@ -133,3 +163,7 @@ layui.use('form', function () {
         }
     }
 });
+
+function aa() {
+
+}

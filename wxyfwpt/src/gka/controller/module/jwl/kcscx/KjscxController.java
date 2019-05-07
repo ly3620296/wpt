@@ -30,17 +30,9 @@ public class KjscxController extends Controller {
         Map<String, Object> result = new HashMap<String, Object>();
         ReturnInfo returnInfo = new ReturnInfo();
         try {
-            String currXnxq = (String) getSession().getAttribute("currXnxq");
-            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
-            //当前日期是星期几
-            int currXq = DateUtil.getCurrXq();
             //场地类别
             List<Record> cdlbList = kjscxDao.cdlb();
             List<RqInfo> rqList = kjscxDao.rq();
-            //查询学生当前学期所有课表并缓存
-//            List<Record> cdkbList = cdkbDao.cdkb(wptUserInfo.getZh(), currXnxq, getSession());
-//            String[][] cdkbArry = cdkbDao.getKbArray(cdkbList, currZc);
-
             returnInfo.setReturn_code("0");
             returnInfo.setReturn_msg("success");
             result.put("cdlbList", cdlbList);
@@ -85,10 +77,12 @@ public class KjscxController extends Controller {
             String rq = getPara("rq");
             String cdlbId = getPara("cdlbId");
             String lhId = getPara("lhId");
+            String currXnxq = (String) getSession().getAttribute("currXnxq");
+            String currZc = CommonDao.currXnxqZc(rq, currXnxq);
+            List<Record> kjscxList = kjscxDao.kjscx(cdlbId, lhId, currZc);
             returnInfo.setReturn_code("0");
             returnInfo.setReturn_msg("success");
-//            int currXq = DateUtil.getCurrXq();
-//            result.put("currXq", currXq);
+            result.put("kjscxList", kjscxList);
         } catch (Exception e) {
             returnInfo.setReturn_code("-999");
             returnInfo.setReturn_msg("服务繁忙，请稍后重试！");
@@ -97,6 +91,7 @@ public class KjscxController extends Controller {
         result.put("returnInfo", returnInfo);
         renderJson(result);
     }
+
 
 
 }

@@ -15,14 +15,22 @@ import java.util.*;
  */
 public class KjscxDao {
 
-    public List<Record> kjscx(String cdlbId, String lhId) {
-        String sql = "SELECT KCMC,SKDD,JSXM,KHFS,ZC,XQ,JC  FROM V_WPT_JSKB T WHERE CDLB_ID=? AND CDBH=?";
-        List<Record> cdkbList = Db.find(sql, cdlbId, lhId);
+    public List<Record> kjscx(String cdlbId, String lhId, String currZc) {
+        String sql;
+        List<Record> cdkbList;
+        if (lhId.equals("")) {
+            sql = "SELECT KCMC,SKDD,JSXM,KHFS,ZC,XQ,JC FROM V_WPT_JSKB T WHERE CDLB_ID=? AND INSTR( ','||ZC||',', '," + currZc + ",')!=0";
+            cdkbList = Db.find(sql, cdlbId);
+        } else {
+            sql = "SELECT KCMC,SKDD,JSXM,KHFS,ZC,XQ,JC FROM V_WPT_JSKB T WHERE CDLB_ID=? AND SKCDLH=? AND INSTR( ','||ZC||',', '," + currZc + ",')!=0";
+            cdkbList = Db.find(sql, cdlbId, lhId);
+        }
+
         return cdkbList;
     }
 
-    public  List<RqInfo> rq() {
-       List<RqInfo> rqInfoList =new ArrayList<RqInfo>();
+    public List<RqInfo> rq() {
+        List<RqInfo> rqInfoList = new ArrayList<RqInfo>();
         for (int i = 0; i < 8; i++) {
             Date date = new Date(System.currentTimeMillis() + i * 24 * 60 * 60 * 1000);
             rqInfoList.add(new RqInfo(CommonUtil.getDate("yyyy-MM-dd", date), CommonUtil.getDateAndWeek("MM月dd日", date)));
@@ -37,7 +45,7 @@ public class KjscxDao {
      * @return
      */
     public List<Record> cdlb() {
-        String sql = "SELECT CDLB_ID,CDLBMC FROM V_WPT_CDLB";
+        String sql = "SELECT CDLB_ID,CDLBMC FROM V_WPT_CDLBDM";
         List<Record> cdLbList = Db.find(sql);
         return cdLbList;
     }
@@ -48,7 +56,7 @@ public class KjscxDao {
      * @return
      */
     public List<Record> lh(String cdlbId) {
-        String sql = "SELECT LH FROM WPT_CDJBXXB WHERE CDLB_ID=?";
+        String sql = "SELECT DISTINCT(LH) LH FROM V_WPT_CDJBXX WHERE CDLB_ID=?";
         List<Record> cdList = Db.find(sql, cdlbId);
         return cdList;
     }
@@ -87,4 +95,6 @@ public class KjscxDao {
         }
         return cdkb;
     }
+
+
 }
