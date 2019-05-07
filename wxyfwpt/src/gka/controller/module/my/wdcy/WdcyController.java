@@ -2,13 +2,13 @@ package gka.controller.module.my.wdcy;
 
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
-import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.controller.login.WptUserInfo;
-import gka.controller.module.jwl.ccj.CcjDao;
 import gka.system.ReturnInfo;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 成绩查询
@@ -98,7 +98,6 @@ public class WdcyController extends Controller {
         result.put("returnInfo", returnInfo);
         renderJson(result);
     }
-
     public void finish() {
         Map<String, Object> result = new HashMap<String, Object>();
         ReturnInfo returnInfo = new ReturnInfo();
@@ -120,5 +119,4 @@ public class WdcyController extends Controller {
         result.put("returnInfo", returnInfo);
         renderJson(result);
     }
-
 }
