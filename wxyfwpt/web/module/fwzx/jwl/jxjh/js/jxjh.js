@@ -4,7 +4,7 @@ layui.use('form', function () {
     var loadIndex;
     form.on('select(xnxq_filter)', function (data) {
         $.ajax({
-            url: wpt_serverName + "jwl/ccj/ccjByXnxq",
+            url: wpt_serverName + "jwl/jxjh/jxjhByXnxq",
             type: 'post',
             dataType: 'json',
             data: {currXnxq: data.value},
@@ -17,8 +17,8 @@ layui.use('form', function () {
                     var code = data.returnInfo.return_code;
                     var msg = data.returnInfo.return_msg;
                     if (code == "0") {
-                        //加载成绩
-                        wpt_ccj.initCj(data.cjList);
+                        //加载教学计划
+                        wpt_jxjh.initJxjh(data.jxjhList);
                     } else {
                         layer.msg(msg, {anim: 6, time: 2000});
                     }
@@ -32,7 +32,7 @@ layui.use('form', function () {
     });
 
     $.ajax({
-        url: wpt_serverName + "jwl/ccj/index",
+        url: wpt_serverName + "jwl/jxjh",
         type: 'post',
         dataType: 'json',
         timeout: 10000,
@@ -61,7 +61,7 @@ layui.use('form', function () {
                         form.render('select');
                     }
                     //加载成绩
-                    wpt_ccj.initCj(data.cjList);
+                    wpt_jxjh.initJxjh(data.jxjhList);
                 } else {
                     layer.msg(msg, {anim: 6, time: 2000});
                 }
@@ -75,15 +75,16 @@ layui.use('form', function () {
 
 });
 
-var wpt_ccj = {
+var wpt_jxjh = {
     cjmx: function (cj) {
-        var cjbz = cj.CJBZ || "";
-        var my_html = '<li><icon class="fa fa-book"></icon><label>学分：' + cj.XF + '</label></li>' +
-            '<li><icon class="fa fa-wpforms"></icon><label>成绩：' + cj.ZPCJ + '</label></li>' +
+        var my_html = '<li><icon class="fa fa-book"></icon><label>学分：' + cj.KCXF + '</label></li>' +
+            '<li><icon class="fa fa-clock-o"></icon><label>学时：' + cj.KCXS + '</label></li>' +
             '<li><icon class="fa fa-bookmark-o"></icon><label>课程性质：' + cj.KCXZ + '</label></li>' +
-            '<li><icon class="fa fa-bar-chart"></icon><label>课程代码：' + cj.KCH + '</label></li>' +
-            '<li><icon class="fa fa-tags"></icon><label>成绩性质：' + cj.CJXZ + '</label></li>'
-        '<li><label>成绩备注：' + cjbz + '</label></li>';
+            '<li><icon class="fa fa-pencil"></icon><label>考核方式：' + cj.KHFS + '</label></li>' +
+            '<li><icon class="fa fa-pencil-square-o"></icon><label>考试方式：' + cj.KSFS + '</label></li>' +
+            '<li><icon class="fa fa-paint-brush"></icon><label>考试形式：' + cj.KSXS + '</label></li>' +
+            '<li><icon class="fa fa-tasks"></icon><label>课程类别：' + cj.KCLB + '</label></li>' +
+            '<li><icon class="fa fa-building-o"></icon><label>开课部门：' + cj.KKBM + '</label></li>';
         $("#alert_ccj").html(my_html);
         $("#alert_header").html('<span>' + cj.KCMC + '</span>');
         var classArr = new Array();
@@ -95,22 +96,23 @@ var wpt_ccj = {
         $('#dialogBg').fadeIn(300);
         $('#dialog').removeAttr('class').addClass('animated ' + className + '').fadeIn();
     },
-    initCj: function (cjList) {
-        var cjs = "";
-        if (cjList) {
-            for (var index in cjList) {
-                var cj = cjList[index];
-                var cjObj = JSON.stringify(cj).replace(/"/g, '&quot;')
-                cjs += '<tr onclick="wpt_ccj.cjmx(' + cjObj + ')">' +
+    initJxjh: function (jxjhList) {
+        var jxjhs = "";
+        if (jxjhList) {
+            for (var index in jxjhList) {
+                var jxjh = jxjhList[index];
+                var jxjhObj = JSON.stringify(jxjh).replace(/"/g, '&quot;')
+                jxjhs += '<tr onclick="wpt_jxjh.cjmx(' + jxjhObj + ')">' +
                 '<td class="cjj_td"></td>' +
-                '<td><p style="width: 9em">' + cj.KCMC + '</p></td>' +
-                '<td>' + cj.XF + '</td>' +
-                '<td>' + cj.ZPCJ + '</td>' +
-                '<td>' + cj.CJXZ + '</td>' +
+                '<td><p style="width: 6em;">' + jxjh.KCMC + '</p></td>' +
+                '<td>' + jxjh.KCXF + '</td>' +
+                '<td>' + jxjh.KCXS + '</td>' +
+                '<td>' + jxjh.KCXZ + '</td>' +
+                '<td>' + jxjh.KHFS + '</td>' +
                 '<td class="cjj_td"></td>' +
                 '</tr>';
             }
-            $("#wpt_cj_table").html(cjs);
+            $("#wpt_cj_table").html(jxjhs);
 
         }
     }

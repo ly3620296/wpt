@@ -90,7 +90,7 @@ layui.use('form', function () {
                 }
                 var my_html = '<li><icon class="fa fa-building-o"></icon><label>地点：' + skdd + '</label></li>' +
                     '<li><icon class="fa fa-address-book-o"></icon><label>教师：' + jsmc + '</label></li>' +
-                    '<li><icon class="fa fa-bookmark-o"></icon><label>考核方式：' + khfs + '</label></li>' +
+                    '<li><icon class="fa fa-pencil-square-o"></icon><label>考核方式：' + khfs + '</label></li>' +
                     '<li><icon class="fa fa-calendar-minus-o"></icon><label>周次：' + zc + '</label></li>';
                 $("#alert_ccj").html(my_html);
                 $("#alert_header").html('<span>' + kcmc + '</span>');

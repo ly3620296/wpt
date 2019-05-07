@@ -28,6 +28,8 @@ public class WptUserInfo {
     private String yx;    //邮箱
     private String jsdm;  //角色代码
     private String jsmc;  //角色名称
+    private String zyfxdm; //专业方向代码
+    private String zyfxmc; //专业方向名称
 
     public String getZh() {
         return zh;
@@ -219,5 +221,21 @@ public class WptUserInfo {
 
     public void setJsmc(String jsmc) {
         this.jsmc = jsmc;
+    }
+
+    public String getZyfxdm() {
+        return zyfxdm;
+    }
+
+    public void setZyfxdm(String zyfxdm) {
+        this.zyfxdm = zyfxdm;
+    }
+
+    public String getZyfxmc() {
+        return zyfxmc;
+    }
+
+    public void setZyfxmc(String zyfxmc) {
+        this.zyfxmc = zyfxmc;
     }
 }

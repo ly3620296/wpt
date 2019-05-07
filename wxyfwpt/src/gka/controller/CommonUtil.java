@@ -1,7 +1,15 @@
 package gka.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 public class CommonUtil {
+
+    private static String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
 
     /**
      * 初始化课表二位数组
@@ -114,4 +122,24 @@ public class CommonUtil {
         }
         return zcBuffer.toString();
     }
+
+    public static String getDate(String pattern, Date date) {
+        SimpleDateFormat simp = new SimpleDateFormat(pattern);
+        return simp.format(date);
+    }
+
+    public static String getWeek(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+        if (w < 0)
+            w = 0;
+        return weekDays[w];
+    }
+
+    public static String getDateAndWeek(String pattern, Date date) {
+        return getDate(pattern, date) + "(" + getWeek(date) + ")";
+    }
+
+
 }

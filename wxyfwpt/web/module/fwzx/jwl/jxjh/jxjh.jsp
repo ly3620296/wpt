@@ -17,7 +17,7 @@
             charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
             charset="utf-8"></script>
-    <title></title>
+    <title>教学计划查询</title>
 
 </head>
 <body style="background:#f3f3f3">
@@ -30,7 +30,7 @@
 %>
 <div class="ccj">
     <div class="titledddiv">
-        <p class="titleName">查成绩</p>
+        <p class="titleName">教学计划查询</p>
     </div>
 
     <div class="selectDiv">
@@ -42,17 +42,19 @@
         </form>
     </div>
     <div class="titleccj" id="ttt">
-        <img class="img" src="<%=Constant.server_name%>img/ccd-top.jpg"/>
+        <img class="img" src="<%=Constant.server_name%>img/jxjh-top.jpg"/>
 
         <p><span>姓名：<%=wptUser.getXm()%></span> <span style="margin-left: 5%;">学号：<%=wptUser.getZh()%></span></p>
+
     </div>
     <table border="0" cellspacing="" cellpadding="">
         <thead>
         <tr>
-            <th colspan="2"><p style="width: 9em">课程名</p></th>
+            <th colspan="2"><p style="width: 6em">课程名</p></th>
             <th>学分</th>
-            <th>总评成绩</th>
-            <th colspan="2">成绩性质</th>
+            <th>学时</th>
+            <th>课程性质</th>
+            <th colspan="2">考核方式</th>
         </tr>
         </thead>
         <tbody id="wpt_cj_table">
@@ -65,7 +67,7 @@
 <jsp:include page="/common/alert.jsp"></jsp:include>
 
 <script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
-<script src="<%=Constant.server_name%>module/fwzx/jwl/ccj/js/ccj.js" charset="utf-8"></script>
+<script src="<%=Constant.server_name%>module/fwzx/jwl/jxjh/js/jxjh.js" charset="utf-8"></script>
 </body>
 </html>
 

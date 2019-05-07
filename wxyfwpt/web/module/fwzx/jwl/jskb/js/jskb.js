@@ -92,12 +92,12 @@ layui.use('form', function () {
                     zc = names[4] || "";
                     jxbrs = names[5] || "";
                 }
-                var my_html = '<li><label>地点：' + skdd + '</label></li>' +
-                    '<li><label>教学班名称：' + jxbmc + '</label></li>' +
-                    '<li><label>班级组成：' + bjzc + '</label></li>' +
-                    '<li><label>考核方式：' + khfs + '</label></li>' +
-                    '<li><label>周次：' + zc + '</label></li>' +
-                    '<li><label>教学班人数：' + jxbrs + '</label></li>';
+                var my_html = '<li><icon class="fa fa fa-building-o"></icon><label>地点：' + skdd + '</label></li>' +
+                    '<li><icon class="fa fa-flag"></icon><label>教学班名称：' + jxbmc + '</label></li>' +
+                    '<li><icon class="fa fa-group"></icon><label>班级组成：' + bjzc + '</label></li>' +
+                    '<li><icon class="fa fa-pencil-square-o"></icon><label>考核方式：' + khfs + '</label></li>' +
+                    '<li><icon class="fa fa-calendar-minus-o"></icon><label>周次：' + zc + '</label></li>' +
+                    '<li><icon class="fa fa-male"></icon><label>教学班人数：' + jxbrs + '</label></li>';
                 $("#alert_ccj").html(my_html);
                 $("#alert_header").html('<span>' + kcmc + '</span>');
                 var className = 'bounceIn';

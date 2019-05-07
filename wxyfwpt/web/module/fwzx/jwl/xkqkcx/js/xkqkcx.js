@@ -4,7 +4,7 @@ layui.use('form', function () {
     var loadIndex;
     form.on('select(xnxq_filter)', function (data) {
         $.ajax({
-            url: wpt_serverName + "jwl/ccj/ccjByXnxq",
+            url: wpt_serverName + "jwl/xkqkcx/xkqkcxByXnxq",
             type: 'post',
             dataType: 'json',
             data: {currXnxq: data.value},
@@ -18,7 +18,7 @@ layui.use('form', function () {
                     var msg = data.returnInfo.return_msg;
                     if (code == "0") {
                         //加载成绩
-                        wpt_ccj.initCj(data.cjList);
+                        wpt_xkqkcx.initXkqkcx(data.xkqkcxList);
                     } else {
                         layer.msg(msg, {anim: 6, time: 2000});
                     }
@@ -32,7 +32,7 @@ layui.use('form', function () {
     });
 
     $.ajax({
-        url: wpt_serverName + "jwl/ccj/index",
+        url: wpt_serverName + "jwl/xkqkcx",
         type: 'post',
         dataType: 'json',
         timeout: 10000,
@@ -61,7 +61,7 @@ layui.use('form', function () {
                         form.render('select');
                     }
                     //加载成绩
-                    wpt_ccj.initCj(data.cjList);
+                    wpt_xkqkcx.initXkqkcx(data.xkqkcxList);
                 } else {
                     layer.msg(msg, {anim: 6, time: 2000});
                 }
@@ -75,42 +75,25 @@ layui.use('form', function () {
 
 });
 
-var wpt_ccj = {
-    cjmx: function (cj) {
-        var cjbz = cj.CJBZ || "";
-        var my_html = '<li><icon class="fa fa-book"></icon><label>学分：' + cj.XF + '</label></li>' +
-            '<li><icon class="fa fa-wpforms"></icon><label>成绩：' + cj.ZPCJ + '</label></li>' +
-            '<li><icon class="fa fa-bookmark-o"></icon><label>课程性质：' + cj.KCXZ + '</label></li>' +
-            '<li><icon class="fa fa-bar-chart"></icon><label>课程代码：' + cj.KCH + '</label></li>' +
-            '<li><icon class="fa fa-tags"></icon><label>成绩性质：' + cj.CJXZ + '</label></li>'
-        '<li><label>成绩备注：' + cjbz + '</label></li>';
-        $("#alert_ccj").html(my_html);
-        $("#alert_header").html('<span>' + cj.KCMC + '</span>');
-        var classArr = new Array();
-        classArr.push('bounceIn');
-        classArr.push('rollIn');
-        classArr.push('bounceInDown');
-        classArr.push('flipInX');
-        var className = 'bounceIn';
-        $('#dialogBg').fadeIn(300);
-        $('#dialog').removeAttr('class').addClass('animated ' + className + '').fadeIn();
+var wpt_xkqkcx = {
+    cjmx: function (jxb_id) {
+        window.location.href = wpt_serverName + "module/fwzx/jwl/xkqkcx/xkqkcxDetail.jsp?jxb_id=" + jxb_id;
     },
-    initCj: function (cjList) {
-        var cjs = "";
-        if (cjList) {
-            for (var index in cjList) {
-                var cj = cjList[index];
-                var cjObj = JSON.stringify(cj).replace(/"/g, '&quot;')
-                cjs += '<tr onclick="wpt_ccj.cjmx(' + cjObj + ')">' +
+    initXkqkcx: function (xkqkcxList) {
+        var xkqkcxs = "";
+        if (xkqkcxList) {
+            for (var index in xkqkcxList) {
+                var xkqkcx = xkqkcxList[index];
+                xkqkcxs += '<tr onclick="wpt_xkqkcx.cjmx(\'' + xkqkcx.JXB_ID + '\')">' +
                 '<td class="cjj_td"></td>' +
-                '<td><p style="width: 9em">' + cj.KCMC + '</p></td>' +
-                '<td>' + cj.XF + '</td>' +
-                '<td>' + cj.ZPCJ + '</td>' +
-                '<td>' + cj.CJXZ + '</td>' +
+                '<td><p style="width: 7em">' + xkqkcx.JXBMC + '</p></td>' +
+                '<td>' + xkqkcx.KCMC + '</td>' +
+                '<td>' + xkqkcx.KCXZ + '</td>' +
+                '<td>' + xkqkcx.JXBRS + '</td>' +
                 '<td class="cjj_td"></td>' +
                 '</tr>';
             }
-            $("#wpt_cj_table").html(cjs);
+            $("#wpt_cj_table").html(xkqkcxs);
 
         }
     }

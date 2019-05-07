@@ -12,12 +12,11 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/app.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>js-lib/layui/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/seclect.css"/>
-    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/alert/common.css"/>
     <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
             charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
             charset="utf-8"></script>
-    <title></title>
+    <title>选课情况查询</title>
 
 </head>
 <body style="background:#f3f3f3">
@@ -30,7 +29,7 @@
 %>
 <div class="ccj">
     <div class="titledddiv">
-        <p class="titleName">查成绩</p>
+        <p class="titleName">选课情况查询</p>
     </div>
 
     <div class="selectDiv">
@@ -44,15 +43,15 @@
     <div class="titleccj" id="ttt">
         <img class="img" src="<%=Constant.server_name%>img/ccd-top.jpg"/>
 
-        <p><span>姓名：<%=wptUser.getXm()%></span> <span style="margin-left: 5%;">学号：<%=wptUser.getZh()%></span></p>
+        <p><span>姓名：<%=wptUser.getXm()%></span> <span style="margin-left: 5%;">教工号：<%=wptUser.getZh()%></span></p>
     </div>
     <table border="0" cellspacing="" cellpadding="">
         <thead>
         <tr>
-            <th colspan="2"><p style="width: 9em">课程名</p></th>
-            <th>学分</th>
-            <th>总评成绩</th>
-            <th colspan="2">成绩性质</th>
+            <th colspan="2"><p style="width: 7em">教学班名称</p></th>
+            <th>课程名称</th>
+            <th>课程性质</th>
+            <th colspan="2">人数</th>
         </tr>
         </thead>
         <tbody id="wpt_cj_table">
@@ -61,11 +60,8 @@
     </table>
 </div>
 
-<%--弹窗--%>
-<jsp:include page="/common/alert.jsp"></jsp:include>
-
 <script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
-<script src="<%=Constant.server_name%>module/fwzx/jwl/ccj/js/ccj.js" charset="utf-8"></script>
+<script src="<%=Constant.server_name%>module/fwzx/jwl/xkqkcx/js/xkqkcx.js" charset="utf-8"></script>
 </body>
 </html>
 
