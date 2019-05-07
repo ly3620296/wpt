@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="js-lib/layui-2.4.5/css/layui.css">
+    <link rel="stylesheet" href="js-lib/layui-2.4.5/css/admin.css">
+    <style>
+        .layadmin-carousel {
+            height: 185px !important;
+            background-color: #fff;
+        }
+
+        /* 快捷方式 */
+        .layadmin-shortcut li {
+            text-align: center;
+        }
+
+        .layadmin-shortcut li .layui-icon {
+            display: inline-block;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 2px;
+            font-size: 30px;
+            background-color: #F8F8F8;
+            color: #333;
+            transition: all .3s;
+            -webkit-transition: all .3s;
+        }
+
+        .layadmin-shortcut li cite {
+            position: relative;
+            top: 2px;
+            display: block;
+            color: #666;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .layadmin-shortcut li:hover .layui-icon {
+            background-color: #f2f2f2;
+        }
+
+        .layadmin-carousel .layui-col-space10 {
+            margin: 0;
+        }
+
+        .layadmin-carousel .layui-carousel, .layadmin-carousel > *[carousel-item] > * {
+            background-color: #fff;
+        }
+
+        .layadmin-carousel .layui-carousel-ind {
+            position: absolute;
+            top: -41px;
+            text-align: right;
+        }
+
+        .layadmin-carousel .layui-carousel-ind ul {
+            background: none;
+        }
+
+        .layadmin-carousel .layui-carousel-ind li.layui-this {
+            background-color: #999;
+        }
+
+        .layadmin-carousel .layui-carousel-ind li {
+            background-color: #e2e2e2;
+        }
+
+        .layadmin-shortcut li {
+            text-align: center;
+        }
+
+        /*#test1 div[carousel-item] > * {*/
+        /*text-align: center;*/
+        /*line-height: 185px;*/
+        /*color: #666;*/
+        /*}*/
+
+    </style>
+
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md8">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md6">
+                    <div class="layui-card">
+                        <div class="layui-card-header">
+                            快捷方式
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-carousel layadmin-carousel layadmin-shortcut" id="test1"
+                                 lay-filter="test1">
+                                <div carousel-item="">
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="demo-table/table.html" lay-id="00" lay-title="动态表格" id="aaaaa">
+                                                <i class="layui-icon layui-icon-console"></i>
+                                                <cite>动态表格</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="test/test16.html" lay-id="99" lay-title="大家好">
+                                                <i class="layui-icon layui-icon-chart"></i>
+                                                <cite>大家好</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="component/layer/list.html">
+                                                <i class="layui-icon layui-icon-template-1"></i>
+                                                <cite>弹层</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a layadmin-event="im">
+                                                <i class="layui-icon layui-icon-chat"></i>
+                                                <cite>聊天</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="component/progress/index.html">
+                                                <i class="layui-icon layui-icon-find-fill"></i>
+                                                <cite>进度条</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="app/workorder/list.html">
+                                                <i class="layui-icon layui-icon-survey"></i>
+                                                <cite>工单</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="user/user/list.html">
+                                                <i class="layui-icon layui-icon-user"></i>
+                                                <cite>用户</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/system/website.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>设置</cite>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="layui-row layui-col-space10">
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>我的资料</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>我的资料</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>我的资料</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>我的资料</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>我的资料</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>我的资料</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>我的资料</cite>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a lay-href="set/user/info.html">
+                                                <i class="layui-icon layui-icon-set"></i>
+                                                <cite>我的资料</cite>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    b
+                </div>
+                <div class="layui-col-md12">
+                    c
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md4">
+            bb
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js-lib/layui-2.4.5/layui.js"></script>
+
+<script>
+    layui.use('carousel', function () {
+        var carousel = layui.carousel,
+                $ = layui.jquery,
+                element = top.layui.element;
+
+        //建造实例
+        carousel.render({
+            elem: '#test1'
+            , width: '100%'     //设置容器宽度
+            , arrow: 'none'    //始终显示箭头，可选hover,none
+            //,anim: 'updown'    //切换动画方式，可选fade,default
+            , full: false        //全屏
+            , autoplay: false     //自动切换
+            , interval: 1000     //自动切换的时间间隔
+//            , index: 3           //初始化时item索引,默认时0
+            , indicator: 'inside' //指示器位置，可选outside,none
+        })
+
+        var active = {
+            tabAdd: function (url, id, title) {
+                element.tabAdd('layadmin-layout-tabs', {
+                    title: '<span>' + title + '</span>'
+                    , id: id
+                    , attr: url
+                });
+            },
+            tabChange: function (id) {
+                element.tabChange('layadmin-layout-tabs', id); //根据传入的id 切换到指定Tab项
+            },
+            tabDelete: function (id) {
+                element.tabDelete("layadmin-layout-tabs", id); //根据传入的id 关闭Tab项
+                active.iframeDelete(id);
+            }
+            , tabDeleteAll: function (ids) { //关闭所有
+                $.each(ids, function (i, item) {
+                    if (item) {
+                        element.tabDelete("layadmin-layout-tabs", item);
+                        active.iframeDelete(item)
+                    }
+                })
+            }
+            , iframeAdd: function (id, url) {
+                //添加iframe
+                $("#LAY_app_body", parent.document).append([
+                    '<div class="layadmin-tabsbody-item" id="iframe_' + id + '">'
+                    , '<iframe data-frameid="' + id + '" src="' + url + '" frameborder="0" class="layadmin-iframe"></iframe>'
+                    , '</div>'
+                ].join(''));
+            }
+            , iframeDelete: function (id) {
+                $("#iframe_" + id, parent.document).remove()
+            }
+
+            , rollPage: function (type, index) {
+                var tabsHeader = $('#LAY_app_tabsheader', parent.document)
+                        , liItem = tabsHeader.children('li')
+                        , scrollWidth = tabsHeader.prop('scrollWidth')
+                        , outerWidth = tabsHeader.outerWidth()
+                        , tabsLeft = parseFloat(tabsHeader.css('left'));
+                //右左往右
+                if (type === 'left') {
+                    if (!tabsLeft && tabsLeft <= 0) return;
+
+                    //当前的left减去可视宽度，用于与上一轮的页标比较
+                    var prefLeft = -tabsLeft - outerWidth;
+
+                    liItem.each(function (index, item) {
+                        var li = $(item)
+                                , left = li.position().left;
+
+                        if (left >= prefLeft) {
+                            tabsHeader.css('left', -left);
+                            return false;
+                        }
+                    });
+                } else if (type === 'auto') { //自动滚动
+                    (function () {
+                        var thisLi = liItem.eq(index), thisLeft;
+                        if (!thisLi[0]) return;
+
+                        thisLeft = thisLi.position().left;
+                        //当目标标签在可视区域左侧时
+                        if (thisLeft < -tabsLeft) {
+                            return tabsHeader.css('left', -thisLeft);
+                        }
+
+                        //当目标标签在可视区域右侧时
+                        var subLeft = thisLeft + thisLi.outerWidth() - (outerWidth - tabsLeft);
+                        if (subLeft >= 0) {
+                            liItem.each(function (i, item) {
+                                var li = $(item)
+                                        , left = li.position().left;
+                                //从当前可视区域的最左第二个节点遍历，如果减去最左节点的差 > 目标在右侧不可见的宽度，则将该节点放置可视区域最左
+                                if (left + tabsLeft > 1) {
+                                    if (left - tabsLeft > subLeft) {
+                                        tabsHeader.css('left', -left);
+                                        return false;
+                                    }
+                                }
+                            });
+                        }
+                    }());
+                } else {
+                    //默认向左滚动
+                    liItem.each(function (i, item) {
+                        var li = $(item)
+                                , left = li.position().left;
+
+                        if (left + li.outerWidth() >= outerWidth - tabsLeft) {
+                            tabsHeader.css('left', -left);
+                            return false;
+                        }
+                    });
+                }
+            }
+            , leftPage: function () {   //向右滚动页面标签
+                active.rollPage('left');
+            }
+            , rightPage: function () {  //向左滚动页面标签
+                active.rollPage();
+            }
+        };
+
+        $('body').on('click', '*[lay-href]', function () {
+            var tabs = $('#LAY_app_tabsheader>li', parent.document);
+            //tab当前元素
+            var curr_tab_ele = $(this);
+            //tab开关标志
+            var isShow = false;
+            //url
+            var curr_url = curr_tab_ele.attr("lay-href") + "?ran=" + Math.random();
+            //标识
+            var curr_id = curr_tab_ele.attr("lay-id");
+            //标题
+            var curr_title = curr_tab_ele.attr("lay-title");
+//            //索引
+            var cur_index;
+//            //遍历tab 判断左导航点击菜单是否为新tab
+            $.each(tabs, function (index) {
+                if ($(this).attr("lay-id") == curr_id) {
+                    isShow = true;
+                    cur_index = index;
+                    return false;
+                }
+            })
+//            //新增tab项
+            if (!isShow) {
+                //添加iframe
+                active.iframeAdd(curr_id, curr_url);
+                //获取索引
+                cur_index = tabs.length;
+                //添加选项卡
+                active.tabAdd(curr_url, curr_id, curr_title)
+            }
+            //不管是否新增tab，最后都转到要打开的选项页面上 并切换ifram-show
+            active.tabChange(curr_tab_ele.attr("data-id"));
+            $("#iframe_" + curr_id, parent.document).addClass('layui-show').siblings().removeClass('layui-show');
+            $("li[lay-id='" + curr_id + "']", parent.document).addClass('layui-this').siblings().removeClass('layui-this');
+            //想象卡滑动
+            active.rollPage('auto', cur_index);
+        });
+
+    });
+
+
+</script>
+</body>
+</html>
