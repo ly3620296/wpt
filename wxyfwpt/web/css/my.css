@@ -76,7 +76,7 @@
 }
 
 .layui-tab-title li {
-    color: #0099db !important;
+    color: #060606 !important;
 }
 
 .tc li .fa-plus-square {
@@ -84,13 +84,31 @@
 }
 
 .layui-tab-brief > .layui-tab-title .layui-this {
-    background: #0099db;
+    background: #55ab58;
 }
 
 .layui-tab-title {
-    border-bottom: 1px solid #0099db !important;
+    border-bottom: 1px solid #55ab58 !important;
 }
 
 .layui-tab-brief > .layui-tab-more li.layui-this:after, .layui-tab-brief > .layui-tab-title .layui-this:after {
     border-bottom: 1px solid #0099db !important;
+}
+
+.layui-tab-content{
+    padding: 0px !important;
+
+
+}
+.layui-tab-title::-webkit-scrollbar{
+    width: 0% !important;
+    height: 0%  !important;
+}
+.bottom{
+    width: 100%;
+    background: #f1f1f1;
+    height: 8px;
+}
+.layui-tab{
+    margin: 0 !important;
 }

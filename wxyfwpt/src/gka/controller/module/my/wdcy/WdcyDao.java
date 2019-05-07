@@ -25,7 +25,13 @@ public class WdcyDao {
     }
 
     public List<Record> myMenu(String xh) {
-        String sql = "select t.* from wpt_menu t,wpt_wdcy a where t.id=a.menuid and xh=? order by a.time";
+        String sql = "select t.* from wpt_menu t,wpt_wdcy a where t.id=a.menuid and xh=? order by a.id";
+        List<Record> menu = Db.find(sql, xh);
+        return menu;
+    }
+
+    public List<Record> myMenuForMain(String xh) {
+        String sql = "select t.* from wpt_menu t,wpt_wdcy a where t.id=a.menuid and xh=? and a.state='1' order by a.time";
         List<Record> menu = Db.find(sql, xh);
         return menu;
     }
@@ -51,5 +57,13 @@ public class WdcyDao {
         String sql = "select * from wpt_wdcy where xh=?";
         List<Record> menu = Db.find(sql, xh);
         return menu;
+    }
+
+    public void finish(String xh, String[] array) {
+        String sql = "delete wpt_wdcy where xh=?";
+        Db.update(sql, xh);
+        for (int i = 0; i < array.length; i++) {
+            Db.update("insert into wpt_wdcy (xh,menuid,id) values(?,?,seq_wpt_wdcy.nextval)", xh, array[i]);
+        }
     }
 }
