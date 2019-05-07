@@ -8,10 +8,7 @@ import gka.controller.login.WptUserInfo;
 import gka.controller.module.jwl.ccj.CcjDao;
 import gka.system.ReturnInfo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 成绩查询
@@ -101,4 +98,27 @@ public class WdcyController extends Controller {
         result.put("returnInfo", returnInfo);
         renderJson(result);
     }
+
+    public void finish() {
+        Map<String, Object> result = new HashMap<String, Object>();
+        ReturnInfo returnInfo = new ReturnInfo();
+        try {
+            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+            String xh = wptUserInfo.getZh();;
+            Map map = getParaMap() ;
+            System.out.println(map);
+            String[] array = getParaValues("myId[]");
+            wdcyDao.finish(xh,array);
+            returnInfo.setReturn_code("0");
+            returnInfo.setReturn_msg("success");
+
+        } catch (Exception e) {
+            returnInfo.setReturn_code("-999");
+            returnInfo.setReturn_msg("服务繁忙，请稍后重试！");
+            e.printStackTrace();
+        }
+        result.put("returnInfo", returnInfo);
+        renderJson(result);
+    }
+
 }
