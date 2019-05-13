@@ -90,23 +90,10 @@
     <div class="tc">
         <div class="name">
             <p>公告</p>
+            <a href="<%=Constant.server_name%>module/msg/ggList.jsp" class="btnbj">更多</a>
         </div>
     </div>
     <ul class="gg-list">
-        <li>
-            <p class="title">四六级考试</p>
-
-            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
-
-            <p class="time">2017-05-02</p>
-        </li>
-        <li>
-            <p class="title">四六级考试</p>
-
-            <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
-
-            <p class="time">2017-05-02</p>
-        </li>
         <li>
             <p class="title">四六级考试</p>
 
