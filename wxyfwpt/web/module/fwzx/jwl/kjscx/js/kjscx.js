@@ -69,20 +69,34 @@ layui.use('form', function () {
                     var msg = data.returnInfo.return_msg;
                     if (code == "0") {
                         var kjscxList = data.kjscxList;
+                        var kjscxEmptlist = data.kjscxEmptlist;
                         var kjHtml = "";
-                        if (kjscxList) {
-                            for (var index in kjscxList) {
-                                var kjscxI = kjscxList[index];
-                                kjHtml += '<tr><td>' + kjscxI.SKDD + '</td>' +
-                                '<td><i class="fa fa-home fa-lg kjsactive"></i></td>' +
-                                '<td><i class="fa fa-home fa-lg"></i></td>' +
-                                '<td><i class="fa fa-home fa-lg"></i></td>' +
-                                '<td><i class="fa fa-home fa-lg"></i></td>' +
-                                '<td><i class="fa fa-home fa-lg"></i></td>' +
-                                '<td><i class="fa fa-home fa-lg"></i></td></tr>';
+                        for (var index in kjscxList) {
+                            var kjscxI = kjscxList[index];
+                            kjHtml += '<tr><td>' + kjscxI.skdd + '</td>';
+                            var jcs = kjscxI.jc;
+                            for (var ins in jcs) {
+                                if (jcs[ins] == "1") {
+                                    kjHtml += '<td><i class="fa fa-home fa-lg kjsactive"></i></td>';
+                                } else {
+                                    kjHtml += '<td><i class="fa fa-home fa-lg"></i></td>';
+                                }
                             }
-                            $("#kjs_tb").html(kjHtml);
+                            kjHtml += ' </tr>';
                         }
+                        for (var inxx in kjscxEmptlist) {
+                            var kjscxEnp = kjscxEmptlist[inxx];
+                            kjHtml += '<tr><td>' + kjscxEnp.CDMC + '</td>';
+                            kjHtml += '<td><i class="fa fa-home fa-lg"></i></td>' +
+                            '<td><i class="fa fa-home fa-lg"></i></td>' +
+                            '<td><i class="fa fa-home fa-lg"></i></td>' +
+                            '<td><i class="fa fa-home fa-lg"></i></td>' +
+                            '<td><i class="fa fa-home fa-lg"></i></td>' +
+                            '<td><i class="fa fa-home fa-lg"></i></td>></tr>';
+                        }
+
+
+                        $("#kjs_tb").html(kjHtml);
                     } else {
                         layer.msg(msg, {anim: 6, time: 2000});
                     }
@@ -156,7 +170,7 @@ layui.use('form', function () {
             var optionsRq = "";
             for (var index in rqList) {
                 var rq = rqList[index];
-                optionsRq += "<option value='" + rq.rq + "'> " + rq.xq + "</option>";
+                optionsRq += "<option value='" + rq.rq + "--" + rq.xq_num + "'> " + rq.xq + "</option>";
             }
             $("#kjscx_rq").html(optionsRq);
             form.render('select', 'kjscx_rq');

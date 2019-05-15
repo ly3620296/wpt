@@ -18,14 +18,17 @@
     <title></title>
 
 </head>
-<body>
+<body style="background-color: #f3f3f3">
 <div class="messageMore">
     <ul class="listText">
         <li>
             <p class="titleT">关于四六级考试安排</p>
+
             <p>尊敬的同学您好:</p>
+
             <p style="text-indent: 2em;">
                 关于四六级考试安排关于四六级考试安排关于四六级考试安排关于四六级考试安排关于四六级考试安排关于四六级考试安排关于四六级考试安排关于四六级考试安排关于四六级考试安排关于四六级考试安排关于四六级考试安排</p>
+
             <p class="timeT">2015-02-01</p>
         </li>
     </ul>

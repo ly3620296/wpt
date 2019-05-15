@@ -137,6 +137,15 @@ public class CommonUtil {
         return weekDays[w];
     }
 
+    public static String getWeekNum(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+        if (w < 0)
+            w = 7;
+        return String.valueOf(w);
+    }
+
     public static String getDateAndWeek(String pattern, Date date) {
         return getDate(pattern, date) + "(" + getWeek(date) + ")";
     }

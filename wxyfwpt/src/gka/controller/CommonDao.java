@@ -97,9 +97,10 @@ public class CommonDao {
             xq = "2";
         } else if (xq.equals("3")) {
             xq = "1";
-        } else {
-            xq = "0";
         }
+//        else {
+//            xq = "0";
+//        }
         return xq;
     }
 

@@ -17,7 +17,7 @@
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript" charset="utf-8"></script>
     <title>我的消息</title>
 </head>
-<body>
+<body style="background-color: #f3f3f3">
 <div class="message">
 
     <ul class="nav">
@@ -29,11 +29,13 @@
             <ul>
                 <li>
                     <div class="left">
-                        <i class="fa fa-envelope-o"></i>
+                        <i class="fa fa-envelope-open-o"></i>
                     </div>
                     <div class="right">
                         <p class="title">四六级考试</p>
+
                         <p class="time">2017-05-02</p>
+
                         <p class="time">四六级考试四六级考试四六级考试四六级考试详细信息详细信息详细信息
                             <a href="details.jsp"><span class="more">【详细信息】</span></a></p>
                         <!--<p class="people">李老师</p>-->
@@ -42,11 +44,13 @@
                 </li>
                 <li>
                     <div class="left">
-                        <i class="fa fa-envelope-o"></i>
+                        <i class="fa fa-envelope-open-o"></i>
                     </div>
                     <div class="right">
                         <p class="title">四六级考试</p>
+
                         <p class="time">2017-05-02</p>
+
                         <p class="time">四六级考试四六级考试四六级考试四六级考试详细信息详细信息详细信息
                             <a href="details.jsp"><span class="more">【详细信息】</span></a></p>
                         <!--<p class="people">李老师</p>-->
@@ -64,7 +68,9 @@
                     </div>
                     <div class="right">
                         <p class="title">四六级考试</p>
+
                         <p class="time">2017-05-02</p>
+
                         <p class="time">四六级考试四六级考试四六级考试四六级考试四六级考试四六级考试四六级考试四六级考试四六级考试四六级考试四六级考试四六级考试
                             <a href="details.jsp"><span class="more">【详细信息】</span></a></p>
                     </div>
@@ -77,12 +83,12 @@
 <script type="text/javascript">
     $(function () {
         $(".navbarOne").click(function () {
-            $(this).attr("class","liactive").siblings().removeAttr("class","liactive")
+            $(this).attr("class", "liactive").siblings().removeAttr("class", "liactive")
             $(".divggleft").show();
             $(".divggleft").siblings().hide()
         })
         $(".navbarTwo").click(function () {
-            $(this).attr("class","liactive").siblings().removeAttr("class","liactive")
+            $(this).attr("class", "liactive").siblings().removeAttr("class", "liactive")
             $(".divggright").show();
             $(".divggright").siblings().hide()
         })
