@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>js-lib/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/seclect.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/table_ts.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/kjscx.css"/>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
@@ -16,7 +17,7 @@
             charset="utf-8"></script>
     <title></title>
 </head>
-<body style="background: #e4e4e4;">
+<body style="background-color: #f3f3f3">
 <jsp:include page="/common/auth.jsp"></jsp:include>
 <div class="kjscx">
     <div class="titledddiv">
@@ -25,8 +26,6 @@
     </div>
 
     <div class="layui-form" lay-filter="kjscx_cdlb">
-        <label class="layui-form-label">教室类别</label>
-
         <div class="layui-input-block">
             <select name="interest" id="kjscx_cdlb" lay-filter="kjscx_cdlb_se">
                 <option value=""></option>
@@ -35,7 +34,6 @@
     </div>
 
     <div class="layui-form" lay-filter="kjscx_lh">
-        <label class="layui-form-label">楼号</label>
 
         <div class="layui-input-block">
             <select name="interest" id="kjscx_lh" lay-filter="kjscx_lh_se">
@@ -45,19 +43,11 @@
     </div>
 
     <div class="layui-form" lay-filter="kjscx_rq">
-        <label class="layui-form-label">日期</label>
-
         <div class="layui-input-block">
             <select name="interest" id="kjscx_rq" lay-filter="kjscx_rq_se">
             </select>
         </div>
     </div>
-
-    <div class="kjscx-title">
-        <img src="<%=Constant.server_name%>img/kjscx-icontext.jpg"/>
-        <span>空教室查询</span>
-    </div>
-
     <table class="kjscxtable">
         <!-- <caption>我是标题</caption>-->
         <thead>
@@ -72,44 +62,10 @@
             <th>11-12</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>B03</td>
-            <td><i class="fa fa-home fa-lg kjsactive"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
+        <tbody id="kjs_tb">
 
-        </tr>
-        <tr>
-            <td>B03</td>
-            <td><i class="fa fa-home fa-lg  kjsactive"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-        </tr>
-        <tr>
-            <td>B03</td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-        </tr>
-        <tr>
-            <td>B03</td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-            <td><i class="fa fa-home fa-lg"></i></td>
-        </tr>
+
+
         </tbody>
     </table>
 

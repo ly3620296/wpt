@@ -14,8 +14,6 @@ body {
 .gg-list {
     width: 94%;
     margin: 3%;
-    height: 300px;
-    overflow-y: scroll;
 }
 
 .gg-list li {
