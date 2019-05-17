@@ -3,12 +3,26 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <servlet>
-        <servlet-name>Servlet</servlet-name>
-        <servlet-class>gka.demo.Servlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Servlet</servlet-name>
-        <url-pattern>/table/data</url-pattern>
-    </servlet-mapping>
+
+    <filter>
+        <filter-name>wxyfwptma</filter-name>
+        <filter-class>com.jfinal.core.JFinalFilter</filter-class>
+        <init-param>
+            <param-name>configClass</param-name>
+            <param-value>gka.system.config.InitConfig</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>wxyfwptma</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <!--<servlet>-->
+        <!--<servlet-name>Servlet</servlet-name>-->
+        <!--<servlet-class>gka.demo.Servlet</servlet-class>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>Servlet</servlet-name>-->
+        <!--<url-pattern>/table/data</url-pattern>-->
+    <!--</servlet-mapping>-->
 </web-app>
