@@ -16,7 +16,7 @@
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript" charset="utf-8"></script>
     <title></title>
 </head>
-<body style="background: #e2e2e2;">
+<body style="background: #f3f3f3;">
 <div class="message">
     <div class="messagediv">
         <div class="divggleft">

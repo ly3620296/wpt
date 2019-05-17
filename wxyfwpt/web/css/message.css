@@ -148,7 +148,9 @@
     border: 1px solid #DDDDDD;
     border-radius: 5px;
     border-top: 10px solid #009E94;
+    box-shadow: darkgrey 0px 0px 14px 1px;
     margin-bottom: 2%;
+    background-color: white;
 }
 .messageMore .listText li .titleT{
     width: 100%;

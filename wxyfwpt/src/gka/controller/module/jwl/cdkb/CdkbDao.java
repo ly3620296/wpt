@@ -27,7 +27,7 @@ public class CdkbDao {
      * @return
      */
     public List<Record> cdlb() {
-        String sql = "SELECT CDLB_ID,CDLBMC FROM V_WPT_CDLB";
+        String sql = "SELECT CDLB_ID,CDLBMC FROM V_WPT_CDLBDM";
         List<Record> cdLbList = Db.find(sql);
         return cdLbList;
     }
