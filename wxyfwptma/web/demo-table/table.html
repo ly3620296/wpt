@@ -9,15 +9,12 @@
     <link rel="stylesheet" href="../js-lib/layui-2.4.5/css/admin.css">
 </head>
 <body>
-<!--<input id="username">-->
-<!--<input type="button" id="selectbyCondition" value="查询" data-type="reload">-->
+<input id="username">
+<input type="button" id="selectbyCondition" value="查询" data-type="reload">
 
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-card">
-            <div class="layui-card-header">
-                测试
-            </div>
             <div class="layui-card-body">
                 <table class="layui-hide" id="demo" lay-filter="test"></table>
             </div>
@@ -27,7 +24,6 @@
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
@@ -75,10 +71,11 @@
             , url: '/test/data' //数据接口地址
             , title: '用户表'
             , page: true //开启分页
-            , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
-            , totalRow: true //开启合计行
+            , toolbar:'default'   //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            ,defaultToolbar: []
+            , totalRow: false //开启合计行
             , loading: true
-            , even: false  //隔行换色 默认false
+            , even: true  //隔行换色 默认false
             , done: function (res, curr, count) { //加载完回调
                 // console.log(res);
             },
@@ -116,7 +113,7 @@
                     , data = checkStatus.data; //获取选中的数据
             switch (obj.event) {
                 case 'add':
-//                    sliderer.msg('添加');
+                   window.location.href='add.html'
                     break;
                 case 'update':
                     if (data.length === 0) {

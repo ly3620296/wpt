@@ -2047,16 +2047,18 @@ a cite {
     display: inline-block;
     vertical-align: middle
 }
-
+.layui-form-text .layui-input-inline{
+    float: left;
+    width: 300px;
+    margin-right: 20px
+}
 .layui-form-item .layui-input-inline {
     float: left;
-    width: 190px;
-    margin-right: 10px
+    width: 300px;
+    margin-right: 20px
 }
 
-.layui-form-text .layui-input-inline {
-    width: auto
-}
+
 
 .layui-form-mid {
     float: left;
