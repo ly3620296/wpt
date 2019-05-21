@@ -41,7 +41,7 @@ var loginObj = {
                         var code = data.return_code;
                         var msg = data.return_msg;
                         if (code == "0") {
-                            window.location.href = wpt_serverName + "module/main/main.jsp";
+                            window.location.href = wpt_serverName + "main/index.jsp";
                         } else {
                             layer.msg(msg, {anim: 6, time: 2000});
                         }

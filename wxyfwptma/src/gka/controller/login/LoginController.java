@@ -21,6 +21,7 @@ public class LoginController extends Controller {
             String password = getPara("password");
             Record record = loginDao.loginValidate(account, password);
             if (record != null) {
+                setSession(record);
                 returnInfo.setReturn_code("0");
                 returnInfo.setReturn_msg("success");
             } else {
@@ -34,5 +35,29 @@ public class LoginController extends Controller {
         }
         renderJson(returnInfo);
 
+    }
+
+    public void loginOut() {
+        ReturnInfo returnInfo = new ReturnInfo();
+        try {
+            getSession().removeAttribute("wptMaUserInfo");
+            returnInfo.setReturn_code("0");
+            returnInfo.setReturn_msg("success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            returnInfo.setReturn_code("-999");
+            returnInfo.setReturn_msg("系统异常，请稍后重试");
+        }
+        renderJson(returnInfo);
+    }
+
+    private void setSession(Record record) {
+        WptMaUserInfo userInfo = new WptMaUserInfo();
+        userInfo.setM_id(record.getStr("m_id") == null ? "" : record.getStr("m_id"));
+        userInfo.setM_name(record.getStr("m_name") == null ? "" : record.getStr("m_name"));
+        userInfo.setM_zh(record.getStr("m_zh") == null ? "" : record.getStr("m_zh"));
+        userInfo.setM_mm(record.getStr("m_mm") == null ? "" : record.getStr("m_mm"));
+        userInfo.setM_qx(record.getStr("m_qx") == null ? "" : record.getStr("m_qx"));
+        getSession().setAttribute("wptMaUserInfo", userInfo);
     }
 }

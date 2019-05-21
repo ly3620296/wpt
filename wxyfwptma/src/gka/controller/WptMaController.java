@@ -10,11 +10,11 @@ import gka.controller.login.WptMaUserInfo;
 @ControllerBind(controllerKey = "/")
 public class WptMaController extends Controller {
     public void index() {
-        WptMaUserInfo wptUserInfo = (WptMaUserInfo) getSession().getAttribute("wptUserInfo");
+        WptMaUserInfo wptUserInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
         if (wptUserInfo == null) {
             renderJsp("/login/login.jsp");
         } else {
-            renderJsp("/main/main.jsp");
+            renderJsp("/main/index.jsp");
         }
     }
 }

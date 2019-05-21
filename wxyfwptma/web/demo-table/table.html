@@ -33,6 +33,7 @@
 
 <script src="../js-lib/layui-2.4.5/layui.js"></script>
 <script>
+
     layui.use(['laypage', 'layer', 'table', 'element', 'slider', 'jquery'], function () {
         var laypage = layui.laypage //分页
                 , layer = layui.layer //弹层
@@ -40,12 +41,15 @@
                 , $ = layui.jquery
 //                ,element = layui.element //元素操作
 //                ,slider = layui.slider //滑块
+
+
 //        //监听Tab切换
 //        element.on('tab(demo)', function(data){
 //            layer.tips('切换了 '+ data.index +'：'+ this.innerHTML, this, {
 //                tips: 1
 //            });
 //        });
+
         //执行一个 table 实例
         table.render({
             elem: '#demo'  //容器id
@@ -77,6 +81,7 @@
             },
             id: 'userTableReload'
         });
+
         //根据条件查询表格数据重新加载
         var active = {
             reload: function () {
@@ -100,13 +105,15 @@
 //            console.log(type)
             active[type] ? active[type].call(this) : '';
         });
+
+
         //监听头工具栏事件
         table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id)
                     , data = checkStatus.data; //获取选中的数据
             switch (obj.event) {
                 case 'add':
-                    window.location.href='add.html'
+                   window.location.href='add.html'
                     break;
                 case 'update':
                     if (data.length === 0) {
@@ -126,6 +133,7 @@
                     break;
             }
         });
+
         //监听行工具事件
         table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
@@ -156,11 +164,15 @@
                 }
             }
         });
+
         //        slider.render({
         //            elem: '#sliderDemo'
         //            ,input: true //输入框
         //        });
+
+
     });
 </script>
 </body>
-</html>
+</html>        
+        
