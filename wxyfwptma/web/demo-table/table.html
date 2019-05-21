@@ -9,15 +9,12 @@
     <link rel="stylesheet" href="../js-lib/layui-2.4.5/css/admin.css">
 </head>
 <body>
-<!--<input id="username">-->
-<!--<input type="button" id="selectbyCondition" value="查询" data-type="reload">-->
+<input id="username">
+<input type="button" id="selectbyCondition" value="查询" data-type="reload">
 
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-card">
-            <div class="layui-card-header">
-                测试
-            </div>
             <div class="layui-card-body">
                 <table class="layui-hide" id="demo" lay-filter="test"></table>
             </div>
@@ -27,7 +24,6 @@
 
 
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
@@ -37,7 +33,6 @@
 
 <script src="../js-lib/layui-2.4.5/layui.js"></script>
 <script>
-
     layui.use(['laypage', 'layer', 'table', 'element', 'slider', 'jquery'], function () {
         var laypage = layui.laypage //分页
                 , layer = layui.layer //弹层
@@ -45,15 +40,12 @@
                 , $ = layui.jquery
 //                ,element = layui.element //元素操作
 //                ,slider = layui.slider //滑块
-
-
 //        //监听Tab切换
 //        element.on('tab(demo)', function(data){
 //            layer.tips('切换了 '+ data.index +'：'+ this.innerHTML, this, {
 //                tips: 1
 //            });
 //        });
-
         //执行一个 table 实例
         table.render({
             elem: '#demo'  //容器id
@@ -75,16 +67,16 @@
             , url: '/test/data' //数据接口地址
             , title: '用户表'
             , page: true //开启分页
-            , toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
-            , totalRow: true //开启合计行
+            , toolbar:'default'   //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            ,defaultToolbar: []
+            , totalRow: false //开启合计行
             , loading: true
-            , even: false  //隔行换色 默认false
+            , even: true  //隔行换色 默认false
             , done: function (res, curr, count) { //加载完回调
                 // console.log(res);
             },
             id: 'userTableReload'
         });
-
         //根据条件查询表格数据重新加载
         var active = {
             reload: function () {
@@ -108,15 +100,13 @@
 //            console.log(type)
             active[type] ? active[type].call(this) : '';
         });
-
-
         //监听头工具栏事件
         table.on('toolbar(test)', function (obj) {
             var checkStatus = table.checkStatus(obj.config.id)
                     , data = checkStatus.data; //获取选中的数据
             switch (obj.event) {
                 case 'add':
-//                    sliderer.msg('添加');
+                    window.location.href='add.html'
                     break;
                 case 'update':
                     if (data.length === 0) {
@@ -136,7 +126,6 @@
                     break;
             }
         });
-
         //监听行工具事件
         table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
@@ -167,15 +156,11 @@
                 }
             }
         });
-
         //        slider.render({
         //            elem: '#sliderDemo'
         //            ,input: true //输入框
         //        });
-
-
     });
 </script>
 </body>
-</html>        
-        
+</html>
