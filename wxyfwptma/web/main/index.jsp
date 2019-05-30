@@ -67,7 +67,7 @@
                                data-type="tabAdd">控制台</a>
                         </dd>
                         <dd>
-                            <a data-url="demo-table/table.html" data-id="00" data-title="动态表格"
+                            <a data-url="<%=Constant.server_name%>module/notice/list.jsp" data-id="00" data-title="动态表格"
                                data-type="tabAdd">动态表格</a>
                         </dd>
                         <dd>

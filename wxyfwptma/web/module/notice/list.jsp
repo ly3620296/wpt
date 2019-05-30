@@ -1,12 +1,14 @@
+<%@ page import="gka.resource.Constant" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>layui在线调试</title>
-    <link rel="stylesheet" href="../js-lib/layui-2.4.5/css/layui.css">
-    <link rel="stylesheet" href="../js-lib/layui-2.4.5/css/admin.css">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
+    <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/admin.css">
+    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>
 <input id="username">
@@ -31,7 +33,7 @@
     <a href="/detail/{{d.experience}}" class="layui-table-link">{{d.username}}</a>
 </script>
 
-<script src="../js-lib/layui-2.4.5/layui.js"></script>
+<script src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script>
 
     layui.use(['laypage', 'layer', 'table', 'element', 'slider', 'jquery'], function () {
@@ -55,24 +57,19 @@
             elem: '#demo'  //容器id
             , cols: [[   //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left', totalRowText: '合计：'}
-                , {field: 'username', title: '用户名', width: 80, templet: '#href'}
-                , {field: 'experience', title: '积分', width: 90, totalRow: true, sort: true}
-                , {field: 'sex', title: '性别', width: 80, sort: true}
-                , {field: 'score', title: '评分', width: 80, totalRow: true, sort: true}
-                , {field: 'city', title: '城市', width: 150}
-                , {field: 'sign', title: '签名', width: 200}
-                , {field: 'classify', title: '职业', width: 100}
-                , {field: 'wealth', title: '财富', width: 135, totalRow: true, sort: true}
+                , {field: 'G_ID', title: 'ID', width: 80, sort: true, fixed: 'left'}
+                , {field: 'M_NAME', title: '创建用户id', width: 120}
+                , {field: 'G_TITLE', title: '公告标题', width: 150}
+                , {field: 'G_TEXT', title: '公告内容', width: 220}
                 , {fixed: 'right', title: '操作', width: 165, align: 'center', toolbar: '#barDemo'}
             ]]
 //            , height: 700
 //            , width: 1000
-            , url: '/wptma/test/data' //数据接口地址
+            , url: wpt_serverName+'notice/list' //数据接口地址
             , title: '用户表'
             , page: true //开启分页
             , toolbar:'default'   //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
-            ,defaultToolbar: []
+            , defaultToolbar: []
             , totalRow: false //开启合计行
             , loading: true
             , even: true  //隔行换色 默认false
