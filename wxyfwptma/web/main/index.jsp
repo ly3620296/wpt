@@ -17,9 +17,9 @@
 <jsp:include page="/login/auth.jsp"></jsp:include>
 <%
     WptMaUserInfo userInfo = (WptMaUserInfo) session.getAttribute("wptMaUserInfo");
-    String userName="";
-    if (userInfo!=null){
-        userName  = userInfo.getM_name();
+    String userName = "";
+    if (userInfo != null) {
+        userName = userInfo.getM_name();
     }
 
 %>
@@ -61,18 +61,17 @@
         <div class="layui-side-scroll">
             <ul class="layui-nav layui-nav-tree" lay-shrink="all" lay-filter="left-side">
                 <li class="layui-nav-item layui-nav-itemed">
+                    <a class="" href="javascript:;">
+                        <i class="layui-icon layui-icon-home"></i>
+                        <cite>基础功能</cite></a>
                     <dl class="layui-nav-child">
                         <dd class="layui-this">
                             <a data-url="ly_home" data-id="ly_home" data-title="table-demo"
-                               data-type="tabAdd">控制台</a>
+                               data-type="tabAdd">欢迎</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>module/notice/list.jsp" data-id="00" data-title="动态表格"
-                               data-type="tabAdd">动态表格</a>
-                        </dd>
-                        <dd>
-                            <a data-url="demo-switch/switch.html" data-title="轮播" data-id="01"
-                               data-type="tabAdd">轮播</a>
+                            <a data-url="<%=Constant.server_name%>module/notice/list.jsp" data-id="00" data-title="公告管理"
+                               data-type="tabAdd">公告管理</a>
                         </dd>
                     </dl>
                 </li>
@@ -108,7 +107,8 @@
     <!--主体内容   -->
     <div class="layui-body layui-body-ly" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show" id="iframe_ly_home">
-            <iframe data-frameid="ly_home" scrolling="no" frameborder="0" src="<%=Constant.server_name%>ly_home.html?ran=2" frameborder="0"
+            <iframe data-frameid="ly_home" scrolling="no" frameborder="0"
+                    src="<%=Constant.server_name%>ly_home.html?ran=2" frameborder="0"
                     class="layadmin-iframe" style="width: 100%; height: 363px;"></iframe>
         </div>
     </div>

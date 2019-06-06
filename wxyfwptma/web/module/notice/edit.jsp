@@ -14,11 +14,12 @@
 </head>
 <body>
 <jsp:include page="/login/auth.jsp"></jsp:include>
-<form class="layui-form" action="">
+<form class="layui-form" action="" lay-filter="example">>
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
         <legend>新增公告</legend>
     </fieldset>
     <div class="layui-form-item">
+        <input type="text" name="g_id" id="g_id" style="display: none">
         <label class="layui-form-label">公告标题</label>
 
         <div class="layui-input-inline">
@@ -44,7 +45,7 @@
         <label class="layui-form-label">公告状态</label>
 
         <div class="layui-input-block">
-            <input type="radio" name="g_state" value="1" title="在线" checked>
+            <input type="radio" name="g_state" value="1" title="在线">
             <input type="radio" name="g_state" value="0" title="下线">
         </div>
     </div>
@@ -58,14 +59,56 @@
 
 <script>
     //Demo
+
+
+    //表单初始赋值
+
+
     layui.use('form', function () {
+
+
         var form = layui.form;
         var loadIndex;
+
+        var id = getURLParameter("id");
+        console.log(id)
+        if (id == undefined || id == "" || id == null) {
+            window.location.href = wpt_serverName + '/module/notice/list.jsp';
+        }
+         $("#g_id").val(id)
+        $.ajax({
+            url: wpt_serverName + "notice/query",
+            type: 'post',
+            dataType: 'json',
+            data: {id:id},
+            timeout: 10000,
+            beforeSend: function () {
+                loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+            },
+            success: function (data) {
+                if (data.RETURN_STATE == "SUCCESS") {
+                    form.val('example', {
+                        "g_title": data.OUT_DATA.G_TITLE // "name": "value"
+                        , "g_text": data.OUT_DATA.G_TEXT
+                        , "g_state": data.OUT_DATA.G_STATE
+                    })
+                } else {
+                    layer.alert('数据查询失败!', function (index) {
+                        window.location.href = wpt_serverName + '/module/notice/list.jsp';
+                    });
+                }
+            },
+            complete: function () {
+                layer.close(loadIndex);
+            }
+        })
+
+
         //监听提交
         form.on('submit(formDemo)', function (data) {
 //            layer.msg(JSON.stringify(data.field));
             $.ajax({
-                url: wpt_serverName + "notice/add",
+                url: wpt_serverName + "notice/edit",
                 type: 'post',
                 dataType: 'json',
                 data: data.field,
@@ -75,8 +118,8 @@
                 },
                 success: function (data) {
                     if (data.RETURN_STATE == "SUCCESS") {
-                        layer.alert('添加成功!', function(index){
-                            window.location.href=wpt_serverName+'/module/notice/list.jsp';
+                        layer.alert('修改成功', function (index) {
+                            window.location.href = wpt_serverName + '/module/notice/list.jsp';
                         });
                     } else {
                         layer.msg(data.RETURN_MSG, {anim: 6, time: 2000});
