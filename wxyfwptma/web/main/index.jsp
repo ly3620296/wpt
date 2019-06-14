@@ -65,16 +65,44 @@
                         <i class="layui-icon layui-icon-home"></i>
                         <cite>基础功能</cite></a>
                     <dl class="layui-nav-child">
-                        <dd class="layui-this">
-                            <a data-url="ly_home" data-id="ly_home" data-title="table-demo"
-                               data-type="tabAdd">欢迎</a>
+                        <%--<dd class="layui-this">--%>
+                            <%--<a data-url="ly_home" data-id="ly_home" data-title="table-demo"--%>
+                               <%--data-type="tabAdd">欢迎</a>--%>
+                        <%--</dd>--%>
+                        <dd>
+                            <a data-url="<%=Constant.server_name%>module/notice/list.jsp" data-id="0" data-title="公告管理"
+                               data-type="tabAdd">公告管理</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>module/notice/list.jsp" data-id="00" data-title="公告管理"
-                               data-type="tabAdd">公告管理</a>
+                            <a data-url="<%=Constant.server_name%>module/jsgl/list.jsp" data-id="1" data-title="角色管理"
+                               data-type="tabAdd">角色管理</a>
+                        </dd>
+                        <dd>
+                            <a data-url="<%=Constant.server_name%>module/menu/list.jsp" data-id="2" data-title="菜单管理"
+                               data-type="tabAdd">菜单管理</a>
                         </dd>
                     </dl>
                 </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;">
+                        <i class="layui-icon layui-icon-home"></i>
+                        <cite>用户</cite></a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a data-url="<%=Constant.server_name%>module/notice/list.jsp" data-id="0" data-title="公告1管理"
+                               data-type="tabAdd">公告1管理</a>
+                        </dd>
+                        <dd>
+                            <a data-url="<%=Constant.server_name%>module/jsgl/list.jsp" data-id="1" data-title="角色1管理"
+                               data-type="tabAdd">角色1管理</a>
+                        </dd>
+                        <dd>
+                            <a data-url="<%=Constant.server_name%>module/menu/list.jsp" data-id="2" data-title="菜单1管理"
+                               data-type="tabAdd">菜单1管理</a>
+                        </dd>
+                    </dl>
+                </li>
+
             </ul>
         </div>
     </div>
@@ -107,9 +135,9 @@
     <!--主体内容   -->
     <div class="layui-body layui-body-ly" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show" id="iframe_ly_home">
-            <iframe data-frameid="ly_home" scrolling="no" frameborder="0"
-                    src="<%=Constant.server_name%>ly_home.html?ran=2" frameborder="0"
-                    class="layadmin-iframe" style="width: 100%; height: 363px;"></iframe>
+            <%--<iframe data-frameid="ly_home" scrolling="no" frameborder="0"--%>
+                    <%--src="<%=Constant.server_name%>ly_home.html?ran=2" frameborder="0"--%>
+                    <%--class="layadmin-iframe" style="width: 100%; height: 363px;"></iframe>--%>
         </div>
     </div>
 </div>
