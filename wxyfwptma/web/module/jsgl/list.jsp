@@ -1,17 +1,25 @@
+<%@ page import="gka.resource.Constant" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>layui在线调试</title>
-    <link rel="stylesheet" href="../js-lib/layui-2.4.5/css/layui.css">
-    <link rel="stylesheet" href="../js-lib/layui-2.4.5/css/admin.css">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
+    <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/admin.css">
+    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>'
+    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
+    <title>角色管理</title>
 </head>
+<jsp:include page="/login/auth.jsp"></jsp:include>
 <body>
-<input id="username">
-<input type="button" id="selectbyCondition" value="查询" data-type="reload">
-
+<%--<input id="username">--%>
+<%--<input type="button" id="selectbyCondition" value="查询" data-type="reload">--%>
+<div style="padding-bottom: 10px;">
+    <button class="layui-btn layuiadmin-btn-role" data-type="batchdel">删2除</button>
+    <button class="layui-btn layuiadmin-btn-role" data-type="add">添加</button>
+</div>
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-card">
@@ -27,13 +35,9 @@
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-<script type="text/html" id="href">
-    <a href="/detail/{{d.experience}}" class="layui-table-link">{{d.username}}</a>
-</script>
-
-<script src="../js-lib/layui-2.4.5/layui.js"></script>
+<script src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script>
-
+    var loadIndex
     layui.use(['laypage', 'layer', 'table', 'element', 'slider', 'jquery'], function () {
         var laypage = layui.laypage //分页
                 , layer = layui.layer //弹层
@@ -55,24 +59,20 @@
             elem: '#demo'  //容器id
             , cols: [[   //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left', totalRowText: '合计：'}
-                , {field: 'username', title: '用户名', width: 80, templet: '#href'}
-                , {field: 'experience', title: '积分', width: 90, totalRow: true, sort: true}
-                , {field: 'sex', title: '性别', width: 80, sort: true}
-                , {field: 'score', title: '评分', width: 80, totalRow: true, sort: true}
-                , {field: 'city', title: '城市', width: 150}
-                , {field: 'sign', title: '签名', width: 200}
-                , {field: 'classify', title: '职业', width: 100}
-                , {field: 'wealth', title: '财富', width: 135, totalRow: true, sort: true}
-                , {fixed: 'right', title: '操作', width: 165, align: 'center', toolbar: '#barDemo'}
+                , {field: 'G_ID', title: 'ID', sort: true, fixed: 'left'}
+                , {field: 'M_NAME', title: '创建用户id'}
+                , {field: 'G_TITLE', title: '公告标题'}
+                , {field: 'G_TEXT', title: '公告内容'}
+                , {field: 'G_STATE', title: '在线状态',width:100,color:'blue'}
+                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
 //            , height: 700
 //            , width: 1000
-            , url: '/wptma/test/data' //数据接口地址
+            , url: wpt_serverName + 'notice/list' //数据接口地址
             , title: '用户表'
             , page: true //开启分页
-            , toolbar:'default'   //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
-            ,defaultToolbar: []
+            , toolbar: 'default'   //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+            , defaultToolbar: []
             , totalRow: false //开启合计行
             , loading: true
             , even: true  //隔行换色 默认false
@@ -113,7 +113,7 @@
                     , data = checkStatus.data; //获取选中的数据
             switch (obj.event) {
                 case 'add':
-                   window.location.href='add.html'
+                    window.location.href = 'add.jsp'
                     break;
                 case 'update':
                     if (data.length === 0) {
@@ -121,14 +121,24 @@
                     } else if (data.length > 1) {
                         layer.msg('只能同时编辑一个');
                     } else {
-                        layer.alert('编辑 [id]：' + checkStatus.data[0].id);
+                        window.location.href = wpt_serverName + '/module/notice/edit.jsp?id='+checkStatus.data[0].G_ID;
                     }
                     break;
                 case 'delete':
                     if (data.length === 0) {
                         layer.msg('请选择一行');
                     } else {
-                        layer.msg('删除');
+                        layer.confirm('真的删除行么', function (index) {
+                            layer.close(index);
+                            var idArray = new Array();
+                            for (var a = 0; a < data.length; a++) {
+                                var my_id = data[a].G_ID;
+                                idArray.push(my_id)
+                            }
+                            layer.close(index);
+                            del(idArray)
+                            //向服务端发送删除指令
+                        });
                     }
                     break;
             }
@@ -138,16 +148,17 @@
         table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                     , layEvent = obj.event; //获得 lay-event 对应的值
-            if (layEvent === 'detail') {
-                layer.msg('查看操作');
-            } else if (layEvent === 'del') {
+            var id = data.G_ID
+            if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function (index) {
-                    obj.del(); //删除对应行（tr）的DOM结构
                     layer.close(index);
+                    var idArray = new Array();
+                    idArray.push(id)
+                    del(idArray)
                     //向服务端发送删除指令
                 });
             } else if (layEvent === 'edit') {
-                layer.msg('编辑操作');
+                window.location.href = wpt_serverName + '/module/notice/edit.jsp?id='+id;
             }
         });
 
@@ -172,6 +183,30 @@
 
 
     });
+    function del(array) {
+        $.ajax({
+            url: wpt_serverName + "notice/del",
+            type: 'post',
+            dataType: 'json',
+            data: {id: array},
+            timeout: 10000,
+            beforeSend: function () {
+                loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+            },
+            success: function (data) {
+                if (data.RETURN_STATE == "SUCCESS") {
+                    layer.alert('删除成功!', function (index) {
+                        window.location.href = wpt_serverName + '/module/notice/list.jsp';
+                    });
+                } else {
+                    layer.msg(data.RETURN_MSG, {anim: 6, time: 2000});
+                }
+            },
+            complete: function () {
+                layer.close(loadIndex);
+            }
+        })
+    }
 </script>
 </body>
 </html>        

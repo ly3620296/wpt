@@ -1,9 +1,4 @@
 /** layui-v2.4.5 MIT License By https://www.layui.com */
-html {
-    background-color: #f2f2f2;
-    color: #666;
-}
-::-webkit-input-placeholder{color: #ccc}
 .layui-inline, img {
     display: inline-block;
     vertical-align: middle
@@ -77,7 +72,7 @@ pre {
 
 body {
     line-height: 24px;
-    font: 14px Helvetica Neue,Helvetica,PingFang SC,\5FAE\8F6F\96C5\9ED1,Tahoma,Arial,sans-serif
+    font: 14px Helvetica Neue, Helvetica, PingFang SC, Tahoma, Arial, sans-serif
 }
 
 hr {
@@ -817,7 +812,7 @@ a cite {
 
 .layui-side-scroll {
     position: relative;
-    width: 240px;
+    width: 220px;
     height: 100%;
     overflow-x: hidden
 }
@@ -845,7 +840,7 @@ a cite {
 
 .layui-layout-admin .layui-side {
     top: 60px;
-    width: 220px;
+    width: 200px;
     overflow-x: hidden
 }
 
@@ -1727,7 +1722,7 @@ a cite {
 }
 
 .layui-bg-black {
-    background-color: #20222A !important
+    background-color: #393D49 !important
 }
 
 .layui-bg-gray {
@@ -2047,18 +2042,16 @@ a cite {
     display: inline-block;
     vertical-align: middle
 }
-.layui-form-text .layui-input-inline{
-    float: left;
-    width: 300px;
-    margin-right: 20px
-}
+
 .layui-form-item .layui-input-inline {
     float: left;
-    width: 300px;
-    margin-right: 20px
+    width: 190px;
+    margin-right: 10px
 }
 
-
+.layui-form-text .layui-input-inline {
+    width: auto
+}
 
 .layui-form-mid {
     float: left;
@@ -3497,7 +3490,7 @@ body .layui-table-tips .layui-layer-content {
 .layui-nav {
     position: relative;
     padding: 0 20px;
-    background-color: #20222A !important
+    background-color: #393D49;
     color: #fff;
     border-radius: 2px;
     font-size: 0;
@@ -3517,7 +3510,7 @@ body .layui-table-tips .layui-layer-content {
     line-height: 60px
 }
 
-.layui-nav  {
+.layui-nav .layui-nav-item a {
     display: block;
     padding: 0 20px;
     color: #fff;
@@ -3622,7 +3615,7 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-nav-tree {
-    width: 220px;
+    width: 200px;
     padding: 0
 }
 
@@ -3634,8 +3627,8 @@ body .layui-table-tips .layui-layer-content {
 
 .layui-nav-tree .layui-nav-item a {
     position: relative;
-    height: 40px;
-    line-height: 40px;
+    height: 45px;
+    line-height: 45px;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap
@@ -3685,12 +3678,12 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-nav-tree .layui-nav-more {
-    right: 15px
+    right: 10px
 }
 
 .layui-nav-itemed > .layui-nav-child {
     display: block;
-    padding: 5px 0;
+    padding: 0;
     background-color: rgba(0, 0, 0, .3) !important
 }
 
