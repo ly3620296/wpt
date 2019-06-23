@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
     <style>
         body{
-            background: #e7e7ec63;
+            background: #f5f5f7;
         }
     </style>
     <title>身份认证</title>
@@ -28,7 +28,7 @@
         </li>
 
         <li style="background: #f5f5f7;text-align: right;">
-            <span>忘记密码？</span>
+            <span id="wjmm">忘记密码？</span>
 
         </li>
         <li>

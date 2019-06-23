@@ -19,11 +19,13 @@
 <body style="background-color: #f3f3f3">
 <jsp:include page="/common/auth.jsp"></jsp:include>
 <div class="titledddiv">
+    <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png" onclick="javascript:window.location.replace(document.referrer)"/>
+
     <p class="titleName">教师课表</p>
 </div>
 <div class="selectDiv">
     <form class="layui-form">
-        <div class="layui-input-block">
+        <div class="layui-input-block" style="width: 100%;margin: 2% 0%;">
             <select name="interest" id="jskb_zc" lay-filter="jskb_zc">
             </select>
         </div>

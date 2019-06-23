@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/message.css"/>
-
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/seclect.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.css"/>
     <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
             charset="utf-8"></script>
@@ -20,6 +20,12 @@
 </head>
 <body style="background-color: #f3f3f3">
 <div class="messageMore">
+    <div class="titledddiv">
+        <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png"
+             onclick="javascript:window.location.replace(document.referrer)"/>
+
+        <p class="titleName">详细信息</p>
+    </div>
     <ul class="listText">
         <li>
             <p class="titleT">关于四六级考试安排</p>

@@ -13,8 +13,6 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/swiper.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.css"/>
-    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>
     <script src="<%=Constant.server_name%>js-lib/swiper/swiper-3.4.2.min.js" type="text/javascript"
             charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
@@ -77,7 +75,7 @@
             <div class="tc">
                 <div class="name">
                     <p>我的常用</p>
-                    <a href="<%=Constant.server_name%>module/my/wdcy/wdcy.jsp" class="btnbj">编辑</a>
+                    <a href="javascript:void(0)" class="btnbj" id="bj">编辑</a>
                 </div>
                 <ul id="wpt_main">
 
@@ -90,7 +88,7 @@
     <div class="tc">
         <div class="name">
             <p>公告</p>
-            <a href="<%=Constant.server_name%>module/msg/ggList.jsp" class="btnbj">更多</a>
+            <a href="javascript:void(0)" class="btnbj" id="gd">更多</a>
         </div>
     </div>
     <ul class="gg-list">
@@ -119,7 +117,36 @@
 
 </div>
 </div>
-<jsp:include page="/common/foot.jsp"></jsp:include>
+<%--<jsp:include page="/common/foot.jsp"></jsp:include>--%>
+<div class="footer-nav" style="display: block;">
+    <ul class="footer-menu" id="wpt_foot">
+        <li lay-href="module/main/main.jsp">
+            <a>
+                <i class="fa fa-home  fa-lg "></i>
+            </a>
+
+            <p>首页</p>
+        </li>
+        <li lay-href="module/fwzx/fwzxapp.jsp">
+            <a>
+                <i class="fa  fa-archive"></i>
+            </a>
+
+            <p>服务中心</p>
+        </li>
+        <li lay-href="module/msg/msg.jsp">
+            <i class="fa fa-bell"></i>
+
+            <p>消息</p>
+        </li>
+        <li lay-href="module/my/my.jsp">
+            <i class="fa fa-user"></i>
+
+            <p>我的</p>
+        </li>
+    </ul>
+</div>
+<script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
 <script src="<%=Constant.server_name%>module/main/main.js" type="text/javascript"></script>
 
 </body>

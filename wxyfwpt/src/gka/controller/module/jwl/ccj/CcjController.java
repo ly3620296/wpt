@@ -45,7 +45,6 @@ public class CcjController extends Controller {
         }
         result.put("returnInfo", returnInfo);
         renderJson(result);
-
     }
 
     /**

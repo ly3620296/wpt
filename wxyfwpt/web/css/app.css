@@ -20,7 +20,7 @@ body {
     padding: 7px 0;
     border-radius: 5px;
     border-left: 4px solid #009688;
-    background: #c7dcc04d;
+    background: #f1fdf4;
     margin-bottom: 15px;
 }
 
@@ -78,8 +78,8 @@ body {
     height: 36px;
     position: relative;
     text-align: center;
-    border-top: 1px solid #eaeaea;
-    border-bottom: 1px solid #eaeaea;
+    /*border-top: 1px solid #eaeaea;*/
+    /*border-bottom: 1px solid #eaeaea;*/
     background: #f3f3f3;
     color: #060606;
 
@@ -94,8 +94,7 @@ body {
 
 .tc .name .btnbj {
     display: inline-block;
-    background: #15a8f4;
-    color: #ffffff;
+    background: #f17373;
     font-size: 12px;
     line-height: 26px;
     height: 26px;
@@ -104,6 +103,7 @@ body {
     right: 2%;
     padding: 0 7px;
     border-radius: 5px;
+    color: #fff;
 }
 
 .tc .name img {
@@ -118,13 +118,14 @@ body {
 }
 
 .tc ul {
-    overflow: hidden;
     text-align: center;
     margin-top: -1px;
     margin-bottom: -1px;
     min-height: 100px;
     width: 102%;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
+    position: relative;
+    overflow: hidden;
 }
 
 .tc li {
@@ -134,9 +135,10 @@ body {
     /* border: 1px solid #e2e2e2; */
     padding: 17px 0;
     position: relative;
-    /*min-height: 90px;*/
+    /* min-height: 90px; */
     border-bottom: 1px solid #f1f1f1;
     border-right: 1px solid #f1f1f1;
+    margin-bottom: -1px;
 }
 
 .tc li i {
@@ -500,7 +502,7 @@ body {
     font-size: 12px;
     height: 30px;
     line-height: 30px;
-    padding: 0px 10px;
+    /*padding: 0px 10px;*/
     text-align: center;
 }
 
@@ -511,8 +513,9 @@ body {
 }
 
 .ccj table td {
+    width: 25%;
     height: 36px;
-    /*padding: 5px 0;*/
+    padding: 0 5px;
     font-size: 12px;
     line-height: 18px;
     text-align: center;

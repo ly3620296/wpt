@@ -2,6 +2,7 @@ package gka;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @Auther ly
@@ -10,18 +11,22 @@ import java.util.List;
  */
 public class aaa {
     public static void main(String[] args) {
-        formatZc("1,2,3,4,5,6,7,8,10,11,12");
-        System.out.println(formatZc("2,4,6,8"));
-        System.out.println(formatZc("1,2,4,6,8"));
-        System.out.println(formatZc("1,3,4,6,8"));
-        System.out.println(formatZc("1,2,3,4"));
-        formatZc("1,2,3,4,6,7,8,9,11,13,15,17,19,21,22,23");
-        formatZc("1,3,4,6,7,9,10,11,12,13,15,17,18,19");
-        formatZc("1,2,3,5,6,7,8,10,11,12");
-        formatZc("1,2,3,5");
-        formatZc("1,4,7,8,9,11,15,18,20,22,25,29,31,33,34,35");
-        formatZc("1,4,7,8,9,11,15,18,20,22,25,29,31,33,34,35,36,38,40,42");
-        formatZc("1,4,7,8,9,11,15,18,20,22,25,29,31,33,34,35,36,38,39,41,42,43");
+//        formatZc("1,2,3,4,5,6,7,8,10,11,12");
+//        System.out.println(formatZc("2,4,6,8"));
+//        System.out.println(formatZc("1,2,4,6,8"));
+//        System.out.println(formatZc("1,3,4,6,8"));
+//        System.out.println(formatZc("1,2,3,4"));
+//        formatZc("1,2,3,4,6,7,8,9,11,13,15,17,19,21,22,23");
+//        formatZc("1,3,4,6,7,9,10,11,12,13,15,17,18,19");
+//        formatZc("1,2,3,5,6,7,8,10,11,12");
+//        formatZc("1,2,3,5");
+//        formatZc("1,4,7,8,9,11,15,18,20,22,25,29,31,33,34,35");
+//        formatZc("1,4,7,8,9,11,15,18,20,22,25,29,31,33,34,35,36,38,40,42");
+//        formatZc("1,4,7,8,9,11,15,18,20,22,25,29,31,33,34,35,36,38,39,41,42,43");
+        String pattern = "[0-9A-Za-z!@#$%^&*()_]+";
+        String pattern1 = "([0-9]+)";
+        boolean a = Pattern.matches(pattern, "aaaaaaaa1_!");
+        System.out.println(a);
     }
 
     public static String formatZc(String zc) {

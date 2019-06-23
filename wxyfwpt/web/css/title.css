@@ -1,0 +1,33 @@
+.titledddiv {
+    width: 100%;
+    position: fixed;
+    top: 0%;
+    z-index: 99;
+  }			  
+.titleName {
+    width: 100%;
+    line-height: 40px;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-align: center;
+    background: #1E9FFF;
+}
+body{
+	background: #fff;
+	padding-top:40px !important;
+	font-family: "微软雅黑" !important;
+}
+			
+.layui-form-label{
+	text-align: center !important;
+}
+.fa-address-book{
+    color: #1e9fff;
+    margin-right:5px;
+}
+.fh-icon {
+    width: 17px;
+    position: absolute;
+    left: 3%;
+    top: 6px;
+}

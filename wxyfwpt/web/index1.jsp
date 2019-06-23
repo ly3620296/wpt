@@ -74,7 +74,9 @@
                     data: {"account": loginObj.loginInfo.account, "password": loginObj.loginInfo.password},
                     timeout: 10000,
                     beforeSend: function () {
-                        loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                        layer.ready(function () {
+                            loadIndex =  layer.load(0, {shade: [0.2, '#393D49']})
+                        })
                     },
                     success: function (data) {
                         if (data) {
