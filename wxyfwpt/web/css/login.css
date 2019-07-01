@@ -18,7 +18,7 @@ body{
 }
 .login ul li input{
 	border: none;
-	height: 39px;
+	/*height: 39px;*/
 	width: 70%;
 	outline: none;
 }
@@ -33,10 +33,13 @@ body{
 	border-radius: 5px;
 }
 .login ul li label{
-	display: inline-block;
-	width: 20%;
-	text-align: center;
-	font-size: 13px;
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    font-size: 13px;
+    vertical-align: middle;
+    height: 40px;
+    line-height: 40px;
 }
 .login ul li span{
 	font-size: 14px;
@@ -70,7 +73,7 @@ body{
 	color:#9a9a9a ;
 }
 .footer-nav ul li .active{
-	color: #5FB878;
+	color: #1E9FFF;
 }
 .footer-nav ul li img{
 	width: 30%;

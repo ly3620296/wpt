@@ -13,8 +13,6 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>js-lib/layui/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/seclect.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/alert/common.css"/>
-    <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
-            charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
             charset="utf-8"></script>
     <title></title>
@@ -30,6 +28,8 @@
 %>
 <div class="ccj">
     <div class="titledddiv">
+        <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png" onclick="javascript:window.location.replace(document.referrer)"/>
+
         <p class="titleName">查成绩</p>
     </div>
 
@@ -60,12 +60,11 @@
         </tbody>
     </table>
 </div>
-
 <%--弹窗--%>
 <jsp:include page="/common/alert.jsp"></jsp:include>
-
 <script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
 <script src="<%=Constant.server_name%>module/fwzx/jwl/ccj/js/ccj.js" charset="utf-8"></script>
+
 </body>
 </html>
 

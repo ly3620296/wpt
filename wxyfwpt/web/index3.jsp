@@ -1,13 +1,11 @@
+<%@ page import="java.util.Enumeration" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-<%
-    System.out.println("---------------");
-%>
 <html>
 <head>
     <title></title>
 </head>
 <body>
-tttttttttttttttttt
+<h1>哈哈哈哈哈</h1>
+
 </body>
 </html>

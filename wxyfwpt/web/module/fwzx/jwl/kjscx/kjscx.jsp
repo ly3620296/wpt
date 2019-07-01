@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/seclect.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/table_ts.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/kjscx.css"/>
-    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
             charset="utf-8"></script>
     <title></title>
@@ -21,7 +20,8 @@
 <jsp:include page="/common/auth.jsp"></jsp:include>
 <div class="kjscx">
     <div class="titledddiv">
-        <!--<img class="fh-icon" src="img/fh-icon.png"/>-->
+        <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png" onclick="javascript:window.location.replace(document.referrer)"/>
+
         <p class="titleName">空教室查询</p>
     </div>
 
@@ -63,7 +63,6 @@
         </tr>
         </thead>
         <tbody id="kjs_tb">
-
 
 
         </tbody>

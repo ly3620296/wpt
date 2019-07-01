@@ -12,7 +12,6 @@ import java.util.List;
  * Created by Administrator on 2019/4/20 0020.
  */
 public class CommonDao {
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * 查询当前学年学期
@@ -65,6 +64,7 @@ public class CommonDao {
      * @return 查询当前学日期对应的周次
      */
     public static String currXnxqZc(String currDate, String currXnxq) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String currZc = "";
         String sql = "SELECT ZC FROM V_WPT_XL WHERE RQ=? AND XNXQ=?";
         Record re = Db.findFirst(sql, currDate, currXnxq);
@@ -105,6 +105,7 @@ public class CommonDao {
     }
 
     public static void main(String[] args) throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = simpleDateFormat.parse("2019-04-21");
         System.out.println(date.getTime());
         System.out.println(date);

@@ -19,24 +19,26 @@
 <body style="background-color: #f3f3f3">
 <jsp:include page="/common/auth.jsp"></jsp:include>
 <div class="titledddiv">
+    <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png" onclick="javascript:window.location.replace(document.referrer)"/>
+
     <p class="titleName">教室课表</p>
 </div>
 <div class="selectDiv">
     <div class="layui-form" lay-filter="cdkb_zc">
-        <div class="layui-input-block">
+        <div class="layui-input-block" style="width: 100%;margin: 2% 0%;">
             <select name="interest" id="cdkb_zc" lay-filter="cdkb_zc_se">
             </select>
         </div>
     </div>
     <div class="layui-form" lay-filter="cdkb_cdlb">
-        <div class="layui-input-block">
+        <div class="layui-input-block" style="width: 100%;margin: 2% 0%;">
             <select name="interest" id="cdkb_cdlb" lay-filter="cdkb_cdlb_se">
                 <option value="">请选择（教室类别）</option>
             </select>
         </div>
     </div>
     <div class="layui-form" lay-filter="cdkb_cd">
-        <div class="layui-input-block">
+        <div class="layui-input-block" style="width: 100%;margin: 2% 0%;">
             <select name="interest" id="cdkb_cd" lay-filter="cdkb_cd_se">
                 <option value="">请选择（教室）</option>
             </select>

@@ -1,0 +1,256 @@
+.gzcx {
+    font-size: 14px;
+}
+
+.gzcx .divname {
+    width: 100%;
+    background: #FFFFFF;
+    overflow: hidden;
+    padding: 10px 0;
+    border-bottom: 1px solid #ededed;
+    margin-bottom: 3%;
+}
+
+.gzcx .divname .leftimg {
+    width: 43px;
+    float: left;
+    margin-left: 3%;
+}
+
+.gzcx .divname .right {
+    width: 40%;
+    float: right;
+    font-size: 12px;
+    text-align: right;
+    margin-right: 3%;
+}
+
+.gzcx .divname .right p {
+    margin-top: 1%;
+    line-height: 20px;
+}
+
+.gzcx .time {
+    height: 40px;
+    line-height: 40px;
+    width: 94%;
+    margin-left: 3%;
+    color: #545050;
+}
+
+.gzcx .price {
+    width: 100%;
+    text-align: center;
+    line-height: 40px;
+    height: 40px;
+    font-size: 16px;
+    color: #1e9fff;
+}
+
+.textlist {
+    width: 100%;
+
+}
+
+.textlist li {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+    background: #FFFFFF;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.textlist li .lefttext {
+    width: 32%;
+    float: left;
+    margin-left: 3%;
+}
+
+.textlist li .righttext {
+    width: 62%;
+    float: right;
+    text-align: right;
+    margin-right: 3%;
+}
+
+.layui-colla-item .time-text {
+    font-size: 12px;
+    color: #666666;
+    float: right;
+}
+
+.bar {
+    width: 60%;
+    margin: 3% 20%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.bar li {
+    width: 50%;
+    float: left;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    color: #009e94;
+    background: #FFFFFF;
+}
+
+.bar .libarlist {
+    background: #009E94;
+    color: #FFFFFF;
+}
+
+.qjlist {
+    width: 100%;
+    margin-top: 2%;
+}
+
+.qjlist li {
+    width: 100%;
+    background: #FFFFFF;
+    padding: 2% 0;
+    border-bottom: 1px solid #ededed;
+}
+
+.qjlist li .left {
+    display: inline-block;
+    width: 24%;
+    vertical-align: middle;
+    margin-left: 5%;
+}
+
+.bxleft span {
+    font-size: 20px !important;
+
+}
+
+.qjlist li .left span {
+    line-height: 36px;
+    color: #000000;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.qjlist li .right {
+    display: inline-block;
+    width: 62%;
+    vertical-align: middle;
+}
+
+.qjlist li .right .srtext {
+    width: 100%;
+    height: 36px;
+    text-align: left;
+    font-size: 14px;
+    border: 1px solid #989595;
+    border-radius: 5px;
+    vertical-align: middle;
+    outline: none;
+    text-indent: 2%;
+}
+
+.qjlist li .right select {
+    width: 100%;
+    height: 36px;
+    text-align: left;
+    font-size: 14px;
+    border: 1px solid #989595;
+    border-radius: 5px;
+    vertical-align: middle;
+    outline: none;
+    text-indent: 2%;
+}
+
+.qjlist li .right textarea {
+    resize: none;
+    width: 100%;
+    height: 100px;
+    /* text-align: left; */
+    font-size: 14px;
+    border: 1px solid #989595;
+    border-radius: 5px;
+    vertical-align: middle;
+    outline: none;
+    text-indent: 2%;
+}
+
+.tijiao {
+    width: 92%;
+    margin: 4%;
+    height: 36px;
+    line-height: 36px;
+    display: inline-block;
+    color: #FFFFFF !important;
+    background: #1E9FFF;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.qjlist li .right .bxtext {
+    width: 100%;
+    height: 36px;
+    text-align: left;
+    font-size: 14px;
+    border: 1px solid #989595;
+    border-radius: 5px;
+    vertical-align: middle;
+    outline: none;
+    text-indent: 2%;
+    border: none;
+}
+
+.qjlist li .right .bxselect {
+    width: 100%;
+    height: 36px;
+    text-align: left;
+    font-size: 14px;
+    border: 1px solid #989595;
+    border-radius: 5px;
+    vertical-align: middle;
+    outline: none;
+    text-indent: 2%;
+    border: none;
+    background: #fff;
+}
+
+.qjlist li .right .bxtextarea {
+    resize: none;
+    width: 100%;
+    height: 100px;
+    /* text-align: left; */
+    font-size: 14px;
+    border: 1px solid #989595;
+    border-radius: 5px;
+    vertical-align: middle;
+    outline: none;
+    text-indent: 2%;
+    border: none;
+}
+
+.bxleft {
+    width: 6% !important;
+    text-align: center;
+}
+
+.bxleft span {
+    color: #007DDB !important;
+}
+
+.layui-colla-item:nth-child(even) .layui-colla-title {
+    background: #ffffff !important;
+
+}
+.layui-colla-item:nth-child(even) .textlist li{
+    background: #ffffff !important;
+}
+
+.layui-colla-item:nth-child(odd) .layui-colla-title {
+    background: #e9f8ff !important;
+}
+.layui-colla-item:nth-child(odd) .textlist li{
+    background: #e9f8ff !important;
+    border-bottom: 1px solid #fff;
+    color: #736161;
+}

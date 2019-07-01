@@ -1,10 +1,11 @@
 var kjscx_loadIndex;
 
 layui.use('form', function () {
-    var form = layui.form;
+    var form = layui.form,
+        $ = layui.jquery;
     //场地类别下拉选
     form.on('select(kjscx_cdlb_se)', function (data) {
-        var lhId = $("#kjscx_lh").val();
+
         var rq = $("#kjscx_rq").val();
         var cdlbId = data.value;
         $.ajax({
@@ -14,7 +15,9 @@ layui.use('form', function () {
             data: {cdlbId: cdlbId},
             timeout: 10000,
             beforeSend: function () {
+                //layer.ready(function () {
                 kjscx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                //})
             },
             success: function (data) {
                 if (data) {
@@ -22,6 +25,7 @@ layui.use('form', function () {
                     var msg = data.returnInfo.return_msg;
                     if (code == "0") {
                         initLh(data.lhList);
+                        var lhId = $("#kjscx_lh").val();
                         initKjsTable(rq, cdlbId, lhId);
                     } else {
                         layer.msg(msg, {anim: 6, time: 2000});
@@ -32,6 +36,7 @@ layui.use('form', function () {
             complete: function () {
                 layer.close(kjscx_loadIndex);
             }
+
         })
     });
 
@@ -61,7 +66,9 @@ layui.use('form', function () {
             data: {rq: rq, cdlbId: cdlbId, lhId: lhId},
             timeout: 10000,
             beforeSend: function () {
-                kjscx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                layer.ready(function () {
+                    kjscx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                })
             },
             success: function (data) {
                 if (data) {
@@ -116,7 +123,9 @@ layui.use('form', function () {
         dataType: 'json',
         timeout: 10000,
         beforeSend: function () {
-            kjscx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+            layer.ready(function () {
+                kjscx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+            })
         },
         success: function (data) {
             if (data) {
@@ -177,7 +186,3 @@ layui.use('form', function () {
         }
     }
 });
-
-function aa() {
-
-}

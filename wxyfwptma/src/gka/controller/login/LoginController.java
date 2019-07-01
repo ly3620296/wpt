@@ -1,8 +1,10 @@
 package gka.controller.login;
 
+import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Record;
+import gka.interceptor.LoginInterceptor;
 import gka.system.ReturnInfo;
 
 /**
@@ -10,6 +12,7 @@ import gka.system.ReturnInfo;
  * @Date 2019/4/19
  * @Describe
  */
+@Clear({LoginInterceptor.class})
 @ControllerBind(controllerKey = "/login")
 public class LoginController extends Controller {
     private LoginDao loginDao = new LoginDao();

@@ -33,7 +33,9 @@ layui.use('form', function () {
             data: {currZc: data.value},
             timeout: 10000,
             beforeSend: function () {
-                loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                layer.ready(function () {
+                    loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                })
             },
             success: function (data) {
                 if (data) {
@@ -108,7 +110,9 @@ layui.use('form', function () {
         dataType: 'json',
         timeout: 10000,
         beforeSend: function () {
-            loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+            layer.ready(function () {
+                loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+            })
         },
         success: function (data) {
             if (data) {

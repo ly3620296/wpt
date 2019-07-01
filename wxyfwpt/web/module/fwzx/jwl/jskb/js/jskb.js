@@ -25,7 +25,6 @@ var week = ['一', '二', '三', '四', '五', '六', '日'];
 
 layui.use('form', function () {
     var form = layui.form;
-
     form.on('select(jskb_zc)', function (data) {
         $.ajax({
             url: wpt_serverName + "jwl/jskb/jskbByzc",
@@ -34,7 +33,9 @@ layui.use('form', function () {
             data: {currZc: data.value},
             timeout: 10000,
             beforeSend: function () {
-                loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                layer.ready(function () {
+                    loadIndex =  layer.load(0, {shade: [0.2, '#393D49']})
+                })
             },
             success: function (data) {
                 if (data) {
@@ -114,7 +115,9 @@ layui.use('form', function () {
         dataType: 'json',
         timeout: 10000,
         beforeSend: function () {
-            loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+            layer.ready(function () {
+                loadIndex =  layer.load(0, {shade: [0.2, '#393D49']})
+            })
         },
         success: function (data) {
             if (data) {

@@ -37,19 +37,28 @@ var loginObj = {
                 data: {"account": loginObj.loginInfo.account, "password": loginObj.loginInfo.password},
                 timeout: 10000,
                 beforeSend: function () {
-                    loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                    layer.ready(function () {
+                        loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                    })
                 },
                 success: function (data) {
                     if (data) {
                         var code = data.return_code;
                         var msg = data.return_msg;
                         if (code == "0") {
-                            window.location.href = wpt_serverName + "module/main/main.jsp";
+                            //window.location.href = wpt_serverName + "module/main/main.jsp";
+                            window.location.replace(wpt_serverName + "module/main/main.jsp");
                         } else {
                             layer.msg(msg, {anim: 6, time: 2000});
                         }
 
                     }
+                },
+                error: function (data, status) {
+                    if (status == "timeout") {
+                        layer.msg("请求超时，请稍后重试!", {anim: 6, time: 2000});
+                    }
+
                 }
                 ,
                 complete: function () {
@@ -64,5 +73,9 @@ var loginObj = {
 $(function () {
     $("#login").on("click", function () {
         loginObj.login();
+    })
+    $("#wjmm").on("click", function () {
+        //location.href = wpt_serverName + "module/wjmm/xgmmPre.jsp";
+        window.location.replace(wpt_serverName + "module/wjmm/xgmmPre.jsp");
     })
 })
