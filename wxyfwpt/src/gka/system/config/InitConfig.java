@@ -4,6 +4,7 @@ package gka.system.config;
 import com.jfinal.config.*;
 import com.jfinal.ext.route.ControllerRoute;
 import com.jfinal.template.Engine;
+import gka.filter.LoginInterceptor;
 import gka.system.config.dbconfig.DbConfig;
 import gka.resource.properties.ProKit;
 import gka.resource.xml.InitXml;
@@ -56,7 +57,8 @@ public class InitConfig extends JFinalConfig {
     }
 
     public void configInterceptor(Interceptors interceptors) {
-
+        //全局登录拦截器
+        interceptors.add(new LoginInterceptor());
     }
 
     public void configHandler(Handlers handlers) {

@@ -10,6 +10,7 @@
       <root url="jar://$PROJECT_DIR$/lib/log/log4j-1.2.16.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/wxpay/httpcore-4.4.6.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/wxpay/httpclient-4.5.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jfinal/jfinal-weixin-2.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

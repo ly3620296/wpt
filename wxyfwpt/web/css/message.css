@@ -1,35 +1,38 @@
-.message{
+.message {
     width: 100%;
     position: relative;
 }
-.message .nav{
+
+.message .nav {
     width: 50%;
     margin: 3% 25%;
-    border: 1px solid #5FB878;
+    border: 1px solid #1E9FFF;
     overflow: hidden;
     border-radius: 5px;
     font-size: 12px;
 }
-.message .nav li{
+
+.message .nav li {
     width: 50%;
     text-align: center;
-    color: #5FB878;
+    color: #1E9FFF;
     background: #FFFFFF;
     height: 28px;
     line-height: 28px;
     float: left;
 }
-.message .nav .liactive{
+
+.message .nav .liactive {
     color: #ffffff;
-    background: #5FB878;
+    background: #1E9FFF;
 }
-.message  .messagediv{
+
+.message .messagediv {
     width: 94%;
     margin: 3%;
 }
 
-
-.message  .messagediv  li{
+.message .messagediv li {
     padding: 7px 0;
     border-bottom: 1px solid #c7c7c7;
     /* border-radius: 5px; */
@@ -40,30 +43,36 @@
     box-shadow: darkgrey 0px 0px 14px 1px;
     border-radius: 5px;
 }
-.message  .messagediv  li .top-border{
+
+.message .messagediv li .top-border {
     width: 10%;
     position: absolute;
     top: 0%;
     right: 0%;
 }
-.message  .messagediv  li .left{
+
+.message .messagediv li .left {
     float: left;
     font-size: 20px;
     margin-left: 1%;
     text-align: right;
 }
-.message  .messagediv  li .left i{
+
+.message .messagediv li .left i {
     margin-top: 3px;
-    color: #5fb878;
+    color: #1E9FFF;
 }
-.message  .messagediv  li  .more{
+
+.message .messagediv li .more {
     color: #007DDB;
 }
-.message  .messagediv  li .right{
+
+.message .messagediv li .right {
     float: left;
     width: 90%;
 }
-.message  .messagediv .title{
+
+.message .messagediv .title {
     width: 97%;
     margin-left: 3%;
     font-size: 14px;
@@ -72,14 +81,16 @@
     font-weight: bold;
 
 }
-.message  .messagediv .time{
+
+.message .messagediv .time {
     width: 97%;
     margin-left: 3%;
     font-size: 12px;
     color: #666;
     line-height: 18px;
 }
-.message  .messagediv .people{
+
+.message .messagediv .people {
     width: 97%;
     margin-left: 3%;
     font-size: 14px;
@@ -88,45 +99,50 @@
     line-height: 26px;
 }
 
-
-.messageMore{
+.messageMore {
     width: 100%;
     position: relative;
 }
-.messageMore .first{
+
+.messageMore .first {
     width: 96%;
     margin: 2%;
     padding: 10px 0;
     border-bottom: 1px solid #666666;
 }
-.messageMore .first .titleT{
+
+.messageMore .first .titleT {
     width: 100%;
     text-align: center;
     font-size: 18px;
     font-weight: bold;
     line-height: 30px;
 }
-.messageMore .first .timeT{
+
+.messageMore .first .timeT {
     width: 100%;
     text-align: center;
     font-size: 12px;
     line-height: 20px;
     color: #666666;
 }
-.messageMore .contT{
+
+.messageMore .contT {
     width: 96%;
     margin: 2%;
     padding: 10px 0;
 
 }
-.messageMore .contT p{
+
+.messageMore .contT p {
     font-size: 14px;
     /*line-height: 14px;*/
     color: #333333;
     line-height: 20px;
     text-align: justify;
 }
-.messageMore .footT{
+
+.messageMore .footT {
     width: 96%;
     margin: 2%;
     padding: 10px 0;
@@ -138,21 +154,23 @@
     text-align: right;
 }
 
-.messageMore .listText{
+.messageMore .listText {
     width: 96%;
     margin: 2%;
 }
-.messageMore .listText li{
+
+.messageMore .listText li {
     width: 96%;
     padding: 2%;
     border: 1px solid #DDDDDD;
     border-radius: 5px;
-    border-top: 10px solid #009E94;
+    /*border-top: 10px solid #1E9FFF;*/
     box-shadow: darkgrey 0px 0px 14px 1px;
     margin-bottom: 2%;
     background-color: white;
 }
-.messageMore .listText li .titleT{
+
+.messageMore .listText li .titleT {
     width: 100%;
     text-align: center;
     font-size: 18px;
@@ -160,14 +178,16 @@
     line-height: 30px;
     border-bottom: 1px solid #DDDDDD;
 }
-.messageMore .listText p{
+
+.messageMore .listText p {
     font-size: 14px;
     /*line-height: 14px;*/
     color: #333333;
     line-height: 20px;
     text-align: justify;
 }
-.messageMore .listText .timeT{
+
+.messageMore .listText .timeT {
     width: 100%;
     text-align: right;
     font-size: 12px;

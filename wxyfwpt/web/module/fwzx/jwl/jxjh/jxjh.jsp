@@ -13,8 +13,6 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>js-lib/layui/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/seclect.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/alert/common.css"/>
-    <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
-            charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
             charset="utf-8"></script>
     <title>教学计划查询</title>
@@ -30,6 +28,8 @@
 %>
 <div class="ccj">
     <div class="titledddiv">
+        <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png" onclick="javascript:window.location.replace(document.referrer)"/>
+
         <p class="titleName">教学计划查询</p>
     </div>
 

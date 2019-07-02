@@ -1,7 +1,6 @@
 var menu_bj;
 
 
-
 layui.use(['layer', 'element'], function () {
 
 
@@ -10,18 +9,18 @@ layui.use(['layer', 'element'], function () {
     var $ = layui.jquery;
     var loadIndex = "";
 
-    $(".layui-tab-title").click(function(){
-            console.log($(".layui-this").html())
+    $(".layui-tab-title").click(function () {
+        console.log($(".layui-this").html())
     })
     var my_menu = new Array();
     menu_bj = {
         addId: function (myMenu) {
-           if(myMenu.length>0){
-               for (var a = 0; a < myMenu.length; a++) {
-                   var my_id = myMenu[a].ID;
-                   my_menu.push(my_id)
-               }
-           }
+            if (myMenu.length > 0) {
+                for (var a = 0; a < myMenu.length; a++) {
+                    var my_id = myMenu[a].ID;
+                    my_menu.push(my_id)
+                }
+            }
         },
         add: function (str) {
             if (my_menu.length >= 9) {
@@ -47,10 +46,12 @@ layui.use(['layer', 'element'], function () {
                 url: wpt_serverName + "my/wdcy/finish",
                 type: 'post',
                 dataType: 'json',
-                data: {myId:my_menu},
+                data: {myId: my_menu},
                 timeout: 10000,
                 beforeSend: function () {
-                    loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                    layer.ready(function () {
+                        loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                    })
                 },
                 success: function (data) {
                     if (data) {
@@ -59,7 +60,8 @@ layui.use(['layer', 'element'], function () {
                         if (code == "0") {
                             //layer.msg("编辑我的常用完成!", {anim: 6, time: 2000});
                             //setTimeout(function () {
-                                window.location.href = wpt_serverName + "module/main/main.jsp"
+                            //window.location.href = wpt_serverName + "module/main/main.jsp"
+                            window.location.replace(wpt_serverName + "module/main/main.jsp");
                             //}, 2000)
                         } else {
                             layer.msg(msg, {anim: 6, time: 2000});
@@ -98,7 +100,9 @@ layui.use(['layer', 'element'], function () {
         dataType: 'json',
         timeout: 10000,
         beforeSend: function () {
-            loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+            layer.ready(function () {
+                loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+            })
         },
         success: function (data) {
             if (data) {

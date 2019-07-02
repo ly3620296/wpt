@@ -12,8 +12,6 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/app.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>js-lib/layui/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/seclect.css"/>
-    <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
-            charset="utf-8"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
             charset="utf-8"></script>
     <title>选课情况查询</title>
@@ -26,9 +24,22 @@
     if (wptUser == null) {
         wptUser = new WptUserInfo();
     }
+    String pageSource = request.getParameter("pageSource");
+    if (pageSource != null) {
+        if (pageSource.equals("fwzx")) {
+            pageSource = Constant.server_name + "module/fwzx/fwzxapp.jsp";
+        } else if (pageSource.equals("main")) {
+            pageSource = Constant.server_name + "module/main/main.jsp";
+        }
+
+    }
+
 %>
 <div class="ccj">
     <div class="titledddiv">
+        <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png"
+             onclick="javascript:window.location.replace('<%=pageSource%>')"/>
+
         <p class="titleName">选课情况查询</p>
     </div>
 
@@ -41,14 +52,15 @@
         </form>
     </div>
     <div class="titleccj" id="ttt">
-        <img class="img" src="<%=Constant.server_name%>img/ccd-top.jpg"/>
+        <img class="img" src="<%=Constant.server_name%>img/ccd-xkqkcx.png"/>
 
         <p><span>姓名：<%=wptUser.getXm()%></span> <span style="margin-left: 5%;">教工号：<%=wptUser.getZh()%></span></p>
     </div>
     <table border="0" cellspacing="" cellpadding="">
         <thead>
         <tr>
-            <th colspan="2"><p style="width: 7em">教学班名称</p></th>
+            <th></th>
+            <th><p style="width: 7em">教学班名称</p></th>
             <th>课程名称</th>
             <th>课程性质</th>
             <th colspan="2">人数</th>

@@ -1,62 +1,56 @@
-body {
-    padding-top: 40px;
+.school img {
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
-.xl {
+.school {
+    line-height: 0;
+}
+
+.lt {
     width: 100%;
+    height: 36px;
     position: relative;
+    text-align: center;
+    background: #5FB878;
+    color: #060606;
 }
 
-.xl .title {
-    width: 100%;
-    margin-top: 3%;
-    text-align: center;
-
-}
-
-.xl .title .year {
-    display: inline-block;
-    line-height: 34px;
-    height: 34px;
-    background: #009688;
-    color: #FFFFFF;
-    text-align: center;
-    padding: 0 14px;
+.lt p {
+    line-height: 36px;
     font-size: 14px;
-    vertical-align: middle;
+    color: #ffffff;
 }
 
-.xl .title .mouch {
-
-    display: inline-block;
-    width: 14px;
-    word-wrap: break-word
+.xxtable th, td {
+    width: 80px;
+    font-size: 13px;
+    line-height: 40px;
+    text-align: center;
 }
 
-.xl table {
+.xxtable th {
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.xxtable table {
     border: none;
     width: 100%;
-    font-size: 12px;
 }
 
-.xl table th {
-    width: 10.5%;
-    text-align: center;
-    padding: 7px 0;
-    background: #009688;
-    color: #FFFFFF;
-}
+/*.xxtable{*/
+    /*margin-top: 242px;*/
+/*}*/
+/*.xxtable  table tbody{*/
+    /*margin-top: 242px;*/
+/*}*/
 
-.xl table td {
-    width: 10.5%;
-    text-align: center;
-    padding: 5px 0;
-    font-size: 12px;
-    line-height: 20px;
-    color: #333333;
-}
-
-.xl table tr td:nth-child(1) {
-    color: #009688;
-    font-weight: bold;
+/*.xxtable table thead {*/
+    /*background-color: white;*/
+    /*position: fixed;*/
+    /*top: 201px;*/
+/*}*/
+.container::-webkit-scrollbar {
+    display: none;
 }

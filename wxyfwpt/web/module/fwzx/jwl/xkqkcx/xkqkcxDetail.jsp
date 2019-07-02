@@ -1,5 +1,5 @@
 <%@ page import="gka.resource.Constant" %>
-<%@ page import="gka.controller.login.WptUserInfo" %>
+<%@ page import="java.net.URLDecoder" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -21,21 +21,22 @@
 <body style="background:#f3f3f3">
 <jsp:include page="/common/auth.jsp"></jsp:include>
 <%
-    WptUserInfo wptUser = (WptUserInfo) session.getAttribute("wptUserInfo");
-    if (wptUser == null) {
-        wptUser = new WptUserInfo();
-    }
+    String jxb_id = request.getParameter("jxb_id");
+    String jxb_mc = URLDecoder.decode(request.getParameter("jxbmc"), "UTF-8");
 %>
 <div class="ccj">
+
+
     <div class="titledddiv">
-        <p class="titleName">选课情况查询</p>
+        <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png" onclick="javascript:window.location.replace(document.referrer)"/>
+
+        <p class="titleName">
+            <%=jxb_mc%>
+        </p>
     </div>
 
-    <%--<div class="titleccj" id="ttt">--%>
-    <%--<img class="img" src="<%=Constant.server_name%>img/ccd-top.jpg"/>--%>
-
-    <%--&lt;%&ndash;<p><span>姓名：<%=wptUser.getXm()%></span> <span style="margin-left: 5%;">教工号：<%=wptUser.getZh()%></span></p>&ndash;%&gt;--%>
-    <%--</div>--%>
+    <div class="titleccj" id="ttt">
+    </div>
     <table border="0" cellspacing="" cellpadding="">
         <thead>
         <tr>
@@ -53,9 +54,7 @@
 </div>
 
 </body>
-<%
-    String jxb_id = request.getParameter("jxb_id");
-%>
+
 <script>
     $(function () {
         var xkqkcx_loadIndex;
@@ -66,7 +65,10 @@
             data: {jxb_id: "<%=jxb_id%>"},
             timeout: 10000,
             beforeSend: function () {
-                xkqkcx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                layer.ready(function () {
+                    xkqkcx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                })
+
             },
             success: function (data) {
                 if (data) {
@@ -105,7 +107,6 @@
                 '</tr>';
             }
             $("#wpt_cj_table").html(xkxss);
-
         }
     }
 </script>

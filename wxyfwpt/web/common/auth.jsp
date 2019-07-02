@@ -10,7 +10,8 @@
     else {
         window.stop();
     }
-    window.location.href = wpt_serverName;
+    //    window.location.href = wpt_serverName;
+    window.location.replace(wpt_serverName);
 </script>
 <%
     }
