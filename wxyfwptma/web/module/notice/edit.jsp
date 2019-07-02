@@ -14,7 +14,7 @@
 </head>
 <body>
 <jsp:include page="/login/auth.jsp"></jsp:include>
-<form class="layui-form" action="" lay-filter="example">>
+<form class="layui-form" action="" lay-filter="example">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
         <legend>新增公告</legend>
     </fieldset>
