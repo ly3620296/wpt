@@ -15,38 +15,45 @@
 <body>
 <jsp:include page="/login/auth.jsp"></jsp:include>
 <form class="layui-form" action="" lay-filter="example">
-    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-        <legend>新增公告</legend>
-    </fieldset>
     <div class="layui-form-item">
-        <input type="text" name="g_id" id="g_id" style="display: none">
-        <label class="layui-form-label">公告标题</label>
+        <label class="layui-form-label">菜单等级</label>
+
+        <div class="layui-input-block">
+            <input style="display: none" type="text" name="m_level" lay-filter="m_level" value="">
+            <input style="display: none" type="text" name="m_id" lay-filter="m_id" value="">
+        </div>
+        <div class="layui-form-mid layui-word-aux" style="margin-top: -36px;" id="m_level_text">辅助文字</div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">菜单名称</label>
 
         <div class="layui-input-inline">
-            <input type="text" name="g_title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+            <input type="text" name="m_name" required lay-verify="required" placeholder="请输入菜单名称" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
-    <%--<div class="layui-form-item">--%>
-    <%--<label class="layui-form-label">公告内容</label>--%>
-    <%--<div class="layui-input-inline">--%>
-    <%--<input type="text" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">--%>
-    <%--</div>--%>
-    <!--<div class="layui-form-mid layui-word-aux">辅助文字</div>-->
-    <%--</div>--%>
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">公告内容</label>
+    <div class="layui-form-item" id="m_father_div" style="display: none">
+        <label class="layui-form-label">父级菜单</label>
 
         <div class="layui-input-inline">
-            <textarea name="g_text" lay-verify="required" placeholder="请输入内容" class="layui-textarea"></textarea>
+            <select name="m_father" id="m_father">
+
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text" id="m_url_div" style="display: none">
+        <label class="layui-form-label">菜单路径</label>
+
+        <div class="layui-input-inline">
+            <input type="text" name="m_url" placeholder="请输入菜单路径" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">公告状态</label>
 
         <div class="layui-input-block">
-            <input type="radio" name="g_state" value="1" title="在线">
-            <input type="radio" name="g_state" value="0" title="下线">
+            <input type="radio" name="m_state" value="1" title="在线" checked>
+            <input type="radio" name="m_state" value="0" title="下线">
         </div>
     </div>
     <div class="layui-form-item">
@@ -58,43 +65,52 @@
 </form>
 
 <script>
-    //Demo
-
-
-    //表单初始赋值
-
-
     layui.use('form', function () {
-
-
         var form = layui.form;
         var loadIndex;
-
         var id = getURLParameter("id");
-        console.log(id)
         if (id == undefined || id == "" || id == null) {
-            window.location.href = wpt_serverName + '/module/notice/list.jsp';
+            layer.alert('查询数据失败!', function (index) {
+                parent.closeAll()
+            });
+            return false;
         }
-         $("#g_id").val(id)
         $.ajax({
-            url: wpt_serverName + "notice/query",
+            url: wpt_serverName + "menu/query",
             type: 'post',
             dataType: 'json',
-            data: {id:id},
+            data: {id: id},
             timeout: 10000,
             beforeSend: function () {
                 loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
             },
             success: function (data) {
                 if (data.RETURN_STATE == "SUCCESS") {
+                    var allFather = data.OUT_DATA.allFather;
+                    var html = '<option value=""></option>'
+                    for (var i = 0; i < allFather.length; i++) {
+                        html += '<option value="' + allFather[i].M_ID + '">' + allFather[i].M_NAME + '</option>'
+                    }
+                    $("#m_father").html(html)
+
+                    if (data.OUT_DATA.thMenu.M_LEVEL == '2') {
+                        $("#m_url_div").show()
+                        $("#m_father_div").show()
+                    }
+
+                    $("#m_level_text").html(data.OUT_DATA.thMenu.M_LEVEL)
                     form.val('example', {
-                        "g_title": data.OUT_DATA.G_TITLE // "name": "value"
-                        , "g_text": data.OUT_DATA.G_TEXT
-                        , "g_state": data.OUT_DATA.G_STATE
+                        "m_id": data.OUT_DATA.thMenu.M_ID // "name": "value"
+                        ,"m_level": data.OUT_DATA.thMenu.M_LEVEL // "name": "value"
+                        , "m_name": data.OUT_DATA.thMenu.M_NAME
+                        , "m_father": data.OUT_DATA.thMenu.M_FATHER
+                        , "m_url": data.OUT_DATA.thMenu.M_URL
+                        , "m_state": data.OUT_DATA.thMenu.M_STATE
                     })
+                    form.render()
                 } else {
                     layer.alert('数据查询失败!', function (index) {
-                        window.location.href = wpt_serverName + '/module/notice/list.jsp';
+                        parent.closeAll()
                     });
                 }
             },
@@ -106,9 +122,13 @@
 
         //监听提交
         form.on('submit(formDemo)', function (data) {
-//            layer.msg(JSON.stringify(data.field));
+            if(data.field.m_level=='2'&&data.field.m_father=='') {
+                layer.alert("请选择父类菜单!")
+                return false;
+            }
+//            layer.alert(JSON.stringify(data.field));
             $.ajax({
-                url: wpt_serverName + "notice/edit",
+                url: wpt_serverName + "menu/edit",
                 type: 'post',
                 dataType: 'json',
                 data: data.field,
@@ -119,7 +139,7 @@
                 success: function (data) {
                     if (data.RETURN_STATE == "SUCCESS") {
                         layer.alert('修改成功', function (index) {
-                            window.location.href = wpt_serverName + '/module/notice/list.jsp';
+                            parent.closeAll()
                         });
                     } else {
                         layer.msg(data.RETURN_MSG, {anim: 6, time: 2000});

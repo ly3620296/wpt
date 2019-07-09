@@ -6,11 +6,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.ReKit;
 import gka.common.kit.ReturnKit;
-import gka.controller.MaLoginController;
 import gka.controller.login.WptMaUserInfo;
-import gka.system.ReturnInfo;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
