@@ -1,5 +1,6 @@
 <%@ page import="gka.resource.Constant" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -8,31 +9,31 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
     <style>
-        body{
-            background: #f5f5f7;
+        body {
+            background: #0b1129;
         }
     </style>
-    <title>身份认证</title>
+    <title></title>
 </head>
 <body>
-<div class="login">
-    <img style="width: 100%;" src="<%=Constant.server_name%>img/shool.jpg"/>
+<div class="login" style="position: relative;">
+    <img style="width: 100%;" src="<%=Constant.server_name%>img/loginbj-bj.jpg"/>
     <ul>
         <li>
-            <label for="account">帐号</label>
-            <input type="number" id="account" placeholder="学号/工号" value="20183519" maxlength="20"/>
+
+            <input type="text" id="account" placeholder="学号/工号" value="20183519" maxlength="20"/>
         </li>
         <li>
-            <label for="password">密码</label>
+
             <input type="password" id="password" value="211910" placeholder="密码"/>
         </li>
 
-        <li style="background: #f5f5f7;text-align: right;">
+        <li style="text-align: right;">
             <span id="wjmm">忘记密码？</span>
 
         </li>
         <li>
-            <a id="login">登录</a>
+            <a href="javascript:void(0)" id="login">登录</a>
         </li>
     </ul>
 </div>
@@ -40,6 +41,5 @@
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/wpt/index.js"></script>
-
 </body>
 </html>

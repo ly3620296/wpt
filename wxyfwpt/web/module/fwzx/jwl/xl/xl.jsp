@@ -9,9 +9,6 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/title.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/xl.css"/>
-    <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
-            charset="utf-8"></script>
-    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
             charset="utf-8"></script>
     <title>校历</title>
@@ -19,14 +16,15 @@
 <body>
 <jsp:include page="/common/auth.jsp"></jsp:include>
 <div class="titledddiv">
-    <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png" onclick="javascript:window.location.replace(document.referrer)"/>
+    <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png"
+         onclick="javascript:window.location.replace(document.referrer)"/>
 
-    <p class="titleName">个人资产</p>
+    <p class="titleName">校历</p>
 </div>
 
 <div style="">
     <div class="school">
-        <img src="<%=Constant.server_name%>/img/barent2.jpg">
+        <img src="<%=Constant.server_name%>/img/top-app5.jpg">
     </div>
     <div class="lt">
         <p id="xnxq"></p>
@@ -52,14 +50,6 @@
     </table>
 </div>
 </body>
+<script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
 <script src="<%=Constant.server_name%>module/fwzx/jwl/xl/js/xl.js" charset="utf-8"></script>
-<script>
-    $(function () {
-        var windowheight = $(window).height();
-        var heightnow = $('.lt').offset().top;
-        var sooheight = $('.lt').height()
-        $(".xxtable").height(windowheight - heightnow - sooheight)
-        $(".xxtable").css("overflow-y", "scroll")
-    })
-</script>
 </html>

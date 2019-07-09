@@ -10,7 +10,7 @@ layui.use('form', function () {
                 loop: true,
                 // 如果需要分页器
                 pagination: '.swiper-pagination',
-                autoplay: 3000
+                autoplay: 2000
             })
         },
         initWdcy: function () {

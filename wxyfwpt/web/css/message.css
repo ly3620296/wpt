@@ -15,7 +15,7 @@
 .message .nav li {
     width: 50%;
     text-align: center;
-    color: #1E9FFF;
+    color: #076cec;
     background: #FFFFFF;
     height: 28px;
     line-height: 28px;
@@ -24,7 +24,7 @@
 
 .message .nav .liactive {
     color: #ffffff;
-    background: #1E9FFF;
+    background: #076cec;
 }
 
 .message .messagediv {
@@ -60,11 +60,11 @@
 
 .message .messagediv li .left i {
     margin-top: 3px;
-    color: #1E9FFF;
+    color: #076cec;
 }
 
 .message .messagediv li .more {
-    color: #007DDB;
+    color: #076cec;
 }
 
 .message .messagediv li .right {

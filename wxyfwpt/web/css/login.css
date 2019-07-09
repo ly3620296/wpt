@@ -1,13 +1,17 @@
 body{
-	background: #ffffff;
-}#e7e7ec63
+	/*background: #0b1129;*/
+}
 .logon{
 	width: 100%;
 	position: relative;
 }
 .login ul{
-	width: 94%;
-	margin: 3%;
+	    width: 80%;
+    /* margin: 3%; */
+    position: absolute;
+    top: 42%;
+    left: 10%;
+    margin-bottom: 3%;
 }
 .login ul li{
 	width: 100%;
@@ -17,29 +21,30 @@ body{
 	border-radius: 5px;
 }
 .login ul li input{
-	border: none;
-	/*height: 39px;*/
-	width: 70%;
-	outline: none;
+	    height: 39px;
+    width: 100%;
+    border: 1px solid #efefef;
+    border-radius: 5px;
+    outline: none;
+    text-indent: 4%;
+    font-size: 16px;
+    line-height: 39px;
 }
 .login ul li a{
 	display: inline-block;
 	width: 100%;
 	text-align: center;
 	color: #FFFAF6;
-	background: #2fa71b;
+	background: #035fe6;
 	height: 40px;
 	line-height: 40px;
 	border-radius: 5px;
 }
 .login ul li label{
-    display: inline-block;
-    width: 20%;
-    text-align: center;
-    font-size: 13px;
-    vertical-align: middle;
-    height: 40px;
-    line-height: 40px;
+	display: inline-block;
+	width: 20%;
+	text-align: center;
+	font-size: 13px;
 }
 .login ul li span{
 	font-size: 14px;
@@ -73,7 +78,7 @@ body{
 	color:#9a9a9a ;
 }
 .footer-nav ul li .active{
-	color: #1E9FFF;
+	color: #076cec;
 }
 .footer-nav ul li img{
 	width: 30%;

@@ -1,14 +1,10 @@
 var menu_bj;
 
-
 layui.use(['layer', 'element'], function () {
-
-
     var layer = layui.layer;
     var element = layui.element;
     var $ = layui.jquery;
     var loadIndex = "";
-
     $(".layui-tab-title").click(function () {
         console.log($(".layui-this").html())
     })

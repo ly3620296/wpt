@@ -92,7 +92,7 @@
             <i class="righticon fa fa-angle-right fa-lg"></i>
         </li>
 
-        <li style="text-align: center;margin-top: 3%;color: #e29039;">
+        <li style="text-align: center;margin-top: 3%;color: #076cec;">
             <span id="logOut">退出登录</span>
         </li>
     </ul>
