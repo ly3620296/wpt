@@ -392,16 +392,16 @@ body{
     overflow: hidden;
 }
 .layui-tab-brief>.layui-tab-title .layui-this{
-	background: #009688;
+	background: #1e9fff;
 	color: #FFFFFF !important;
 }
 .layui-tab-title li{
 	/*width: 23.8%;*/
-	color: #009688;
+	color: #1e9fff ;
 	font-weight: bold;
 }
 .layui-tab-title{
-	border-bottom: 1px solid #009688 !important;
+	border-bottom: 1px solid #1e9fff !important;
 }
 
 

@@ -1,13 +1,9 @@
 var menu_bj;
-
 layui.use(['layer', 'element'], function () {
     var layer = layui.layer;
     var element = layui.element;
     var $ = layui.jquery;
     var loadIndex = "";
-    $(".layui-tab-title").click(function () {
-        console.log($(".layui-this").html())
-    })
     var my_menu = new Array();
     menu_bj = {
         addId: function (myMenu) {
@@ -132,6 +128,8 @@ layui.use(['layer', 'element'], function () {
                                 }
                                 $("#tab_change").append(tab_change)
                                 $("#menu_html").append(menu_html)
+
+
                             } else {
                                 var id = allMenu[i].ID;
                                 var bool = false;
@@ -164,6 +162,18 @@ layui.use(['layer', 'element'], function () {
                             }
                         }
                         menu_bj.addId(myMenu);
+
+                        $("#tab_change li").click(function(){
+                            var moveX = $(this).position().left+$(this).parent().scrollLeft();
+                            var pageX = document.documentElement.clientWidth;//设备的宽度
+                            var blockWidth = $(this).width();
+                            var left = moveX-(pageX/2)+(blockWidth/2);
+                            $("#tab_change").animate({scrollLeft:left},400);
+                            $(this).addClass("active").siblings().removeClass("active");
+                            var index = $(this).index();
+                            $('.layui-tab-item').eq(index).show().siblings(".layui-tab-item").hide();
+                        })
+
                     } else {
                         layer.msg("暂未查询到菜单信息!", {anim: 6, time: 2000});
                     }
