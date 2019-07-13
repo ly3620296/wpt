@@ -24,14 +24,14 @@ public class NoticeDao {
         return re.getInt("count(1)");
     }
 
-    public static Integer add(String g_title, String g_uid, String g_text, String g_state) {
-        String sql = "insert into wptma_gg (g_id,g_title,g_uid,g_text,g_xy,g_state) values(SEQ_WPTMA_GG.NEXTVAL,?,?,?,'1',?)";
-        int i = Db.update(sql, g_title, g_uid, g_text, g_state);
+    public static Integer add(String g_title, String g_uid, String g_text, String g_state,String g_xy) {
+        String sql = "insert into wptma_gg (g_id,g_title,g_uid,g_text,g_xy,g_state) values(SEQ_WPTMA_GG.NEXTVAL,?,?,?,?,?)";
+        int i = Db.update(sql, g_title, g_uid, g_text,g_xy, g_state);
         return i;
     }
-    public static Integer edit(String g_title, String g_uid, String g_text, String g_state, String g_id) {
-        String sql = "update wptma_gg set g_title=?,g_text=?,g_state=? where g_id=?";
-        int i = Db.update(sql, g_title, g_text, g_state,g_id);
+    public static Integer edit(String g_title, String g_uid, String g_text, String g_state, String g_id, String g_xy) {
+        String sql = "update wptma_gg set g_title=?,g_text=?,g_state=?,g_xy=? where g_id=?";
+        int i = Db.update(sql, g_title, g_text, g_state,g_xy,g_id);
         return i;
     }
 

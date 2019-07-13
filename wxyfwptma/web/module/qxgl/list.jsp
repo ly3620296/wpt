@@ -8,18 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/admin.css">
-    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>'
+    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
-    <title>角色管理</title>
+    <title>菜单管理</title>
 </head>
 <jsp:include page="/login/auth.jsp"></jsp:include>
 <body>
-<%--<input id="username">--%>
-<%--<input type="button" id="selectbyCondition" value="查询" data-type="reload">--%>
-<div style="padding-bottom: 10px;">
-    <button class="layui-btn layuiadmin-btn-role" data-type="batchdel">删2除</button>
-    <button class="layui-btn layuiadmin-btn-role" data-type="add">添加</button>
-</div>
+<%--<div style="padding-bottom: 2px;margin-left: 13px;">--%>
+<%--<button class="layui-btn layuiadmin-btn-role" data-type="batchdel">删除</button>--%>
+<%--<button class="layui-btn layuiadmin-btn-role" data-type="add" onclick="func7();">添加</button>--%>
+<%--</div>--%>
 <div class="layui-fluid">
     <div class="layui-row layui-col-space15">
         <div class="layui-card">
@@ -38,37 +36,23 @@
 <script src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script>
     var loadIndex
-    layui.use(['laypage', 'layer', 'table', 'element', 'slider', 'jquery'], function () {
+    layui.use(['form', 'laypage', 'layer', 'table', 'element', 'slider', 'jquery'], function () {
         var laypage = layui.laypage //分页
                 , layer = layui.layer //弹层
                 , table = layui.table //表格
                 , $ = layui.jquery
-//                ,element = layui.element //元素操作
-//                ,slider = layui.slider //滑块
-
-
-//        //监听Tab切换
-//        element.on('tab(demo)', function(data){
-//            layer.tips('切换了 '+ data.index +'：'+ this.innerHTML, this, {
-//                tips: 1
-//            });
-//        });
-
-        //执行一个 table 实例
+                , form = layui.form;
         table.render({
             elem: '#demo'  //容器id
             , cols: [[   //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'G_ID', title: 'ID', sort: true, fixed: 'left'}
-                , {field: 'M_NAME', title: '创建用户id'}
-                , {field: 'G_TITLE', title: '公告标题'}
-                , {field: 'G_TEXT', title: '公告内容'}
-                , {field: 'G_STATE', title: '在线状态',width:100,color:'blue'}
+                , {field: 'Q_ID', title: 'ID', sort: true, fixed: 'left'}
+                , {field: 'Q_NAME', title: '权限名称'}
+                , {field: 'Q_QX', title: '拥有权限'}
+                , {field: 'Q_MS', title: '具体描述'}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
-//            , height: 700
-//            , width: 1000
-            , url: wpt_serverName + 'notice/list' //数据接口地址
+            , url: wpt_serverName + 'qxgl/list' //数据接口地址
             , title: '用户表'
             , page: true //开启分页
             , toolbar: 'default'   //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
@@ -77,7 +61,6 @@
             , loading: true
             , even: true  //隔行换色 默认false
             , done: function (res, curr, count) { //加载完回调
-                // console.log(res);
             },
             id: 'userTableReload'
         });
@@ -97,14 +80,11 @@
                         username: demoReload.val()
                     }
                 });
+            }, show: function () {
+                alert("11")
+                $("#m_url_div").show()
             }
         };
-        //点击搜索按钮根据用户名称查询
-        $('#selectbyCondition').on('click', function () {
-            var type = $(this).data('type');
-//            console.log(type)
-            active[type] ? active[type].call(this) : '';
-        });
 
 
         //监听头工具栏事件
@@ -113,7 +93,7 @@
                     , data = checkStatus.data; //获取选中的数据
             switch (obj.event) {
                 case 'add':
-                    window.location.href = 'add.jsp'
+                    func7();
                     break;
                 case 'update':
                     if (data.length === 0) {
@@ -121,7 +101,7 @@
                     } else if (data.length > 1) {
                         layer.msg('只能同时编辑一个');
                     } else {
-                        window.location.href = wpt_serverName + '/module/notice/edit.jsp?id='+checkStatus.data[0].G_ID;
+                        edit(checkStatus.data[0].Q_ID);
                     }
                     break;
                 case 'delete':
@@ -132,7 +112,7 @@
                             layer.close(index);
                             var idArray = new Array();
                             for (var a = 0; a < data.length; a++) {
-                                var my_id = data[a].G_ID;
+                                var my_id = data[a].Q_ID;
                                 idArray.push(my_id)
                             }
                             layer.close(index);
@@ -148,7 +128,7 @@
         table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                     , layEvent = obj.event; //获得 lay-event 对应的值
-            var id = data.G_ID
+            var id = data.Q_ID
             if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function (index) {
                     layer.close(index);
@@ -158,7 +138,7 @@
                     //向服务端发送删除指令
                 });
             } else if (layEvent === 'edit') {
-                window.location.href = wpt_serverName + '/module/notice/edit.jsp?id='+id;
+                edit(id)
             }
         });
 
@@ -175,17 +155,45 @@
                 }
             }
         });
-
-        //        slider.render({
-        //            elem: '#sliderDemo'
-        //            ,input: true //输入框
-        //        });
-
-
     });
+    function edit(id) {
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-rim', //加上边框
+            title: '编辑权限',
+            area: ['70%', '68%'], //宽高
+            content: '/wptma/module/qxgl/edit.jsp?id=' + id,  //调到新增页面
+            success: function (layero, index) {
+                // 新iframe窗口的对象
+                var iframeWin = layero.find('iframe')[0].contentWindow;
+                // 重新渲染checkbox,select同理
+                iframeWin.layui.form.render('checkbox');
+            }
+        })
+    }
+    function func7() {
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-rim', //加上边框
+            title: '添加权限',
+            area: ['70%', '68%'], //宽高
+            content: '/wptma/module/qxgl/add.jsp',  //调到新增页面
+            success: function (layero, index) {
+                // 新iframe窗口的对象
+                var iframeWin = layero.find('iframe')[0].contentWindow;
+                // 重新渲染checkbox,select同理
+                iframeWin.layui.form.render('checkbox');
+            }
+        })
+    }
+    function closeAll() {
+        layer.closeAll();
+        window.location.href = wpt_serverName + '/module/qxgl/list.jsp';
+    }
+
     function del(array) {
         $.ajax({
-            url: wpt_serverName + "notice/del",
+            url: wpt_serverName + "qxgl/del",
             type: 'post',
             dataType: 'json',
             data: {id: array},
@@ -196,7 +204,7 @@
             success: function (data) {
                 if (data.RETURN_STATE == "SUCCESS") {
                     layer.alert('删除成功!', function (index) {
-                        window.location.href = wpt_serverName + '/module/notice/list.jsp';
+                        window.location.href = wpt_serverName + '/module/qxgl/list.jsp';
                     });
                 } else {
                     layer.msg(data.RETURN_MSG, {anim: 6, time: 2000});

@@ -26,18 +26,20 @@
                    class="layui-input">
         </div>
     </div>
-    <%--<div class="layui-form-item">--%>
-    <%--<label class="layui-form-label">公告内容</label>--%>
-    <%--<div class="layui-input-inline">--%>
-    <%--<input type="text" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">--%>
-    <%--</div>--%>
-    <!--<div class="layui-form-mid layui-word-aux">辅助文字</div>-->
-    <%--</div>--%>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">公告内容</label>
 
         <div class="layui-input-inline">
             <textarea name="g_text" lay-verify="required" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属学院</label>
+
+        <div class="layui-input-inline">
+            <select name="g_xy" id="g_xy">
+
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
@@ -57,13 +59,43 @@
 </form>
 
 <script>
+
     //Demo
     layui.use('form', function () {
         var form = layui.form;
         var loadIndex;
-        //监听提交
+        $(function () {
+            $.ajax({
+                url: wpt_serverName + "notice/queryXy",
+                type: 'post',
+                dataType: 'json',
+                data: {},
+                timeout: 10000,
+                beforeSend: function () {
+                    loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+                },
+                success: function (data) {
+                    if (data.RETURN_STATE == "SUCCESS") {
+                        var xy = data.OUT_DATA
+                        var html = '<option value=""></option>'
+                        for (var i = 0; i < xy.length; i++) {
+                            html += '<option value="' + xy[i].X_CODE + '">' + xy[i].X_NAME + '</option>'
+                        }
+                        console.log(html)
+                        $("#g_xy").html(html)
+                        form.render()
+                    } else {
+                        layer.alert('暂无学院信息，请先录入学院后再发布公告!', function (index) {
+                            window.location.href = wpt_serverName + '/module/notice/list.jsp';
+                        });
+                    }
+                },
+                complete: function () {
+                    layer.close(loadIndex);
+                }
+            })
+        })
         form.on('submit(formDemo)', function (data) {
-//            layer.msg(JSON.stringify(data.field));
             $.ajax({
                 url: wpt_serverName + "notice/add",
                 type: 'post',
@@ -75,8 +107,8 @@
                 },
                 success: function (data) {
                     if (data.RETURN_STATE == "SUCCESS") {
-                        layer.alert('添加成功!', function(index){
-                            window.location.href=wpt_serverName+'/module/notice/list.jsp';
+                        layer.alert('添加成功!', function (index) {
+                            window.location.href = wpt_serverName + '/module/notice/list.jsp';
                         });
                     } else {
                         layer.msg(data.RETURN_MSG, {anim: 6, time: 2000});
@@ -89,6 +121,11 @@
             return false
         });
     });
+    function show(str) {
+        console.log(str)
+//        $("#g_xy").html(str)
+        document.getElementById("g_xy").innerHTML = str
+    }
 </script>
 </body>
 </html>

@@ -7,6 +7,8 @@ import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.ReKit;
 import gka.common.kit.ReturnKit;
 import gka.controller.login.WptMaUserInfo;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +38,8 @@ public class NoticeController extends Controller {
             String g_state = getPara("g_state");
             String g_title = getPara("g_title");
             String g_text = getPara("g_text");
-            int result = NoticeDao.add(g_title, userInfo.getM_id(), g_text, g_state);
+            String g_xy = getPara("g_xy");
+            int result = NoticeDao.add(g_title, userInfo.getM_id(), g_text, g_state,g_xy);
             if (result > 0) {
                 renderJson(ReturnKit.retOk());
             } else {
@@ -46,6 +49,7 @@ public class NoticeController extends Controller {
             e.printStackTrace();
         }
     }
+
     public void edit() {
         try {
             WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
@@ -53,7 +57,8 @@ public class NoticeController extends Controller {
             String g_state = getPara("g_state");
             String g_title = getPara("g_title");
             String g_text = getPara("g_text");
-            int result = NoticeDao.edit(g_title, userInfo.getM_id(), g_text, g_state, g_id);
+            String g_xy = getPara("g_xy");
+            int result = NoticeDao.edit(g_title, userInfo.getM_id(), g_text, g_state, g_id,g_xy);
             if (result > 0) {
                 renderJson(ReturnKit.retOk());
             } else {
@@ -69,7 +74,7 @@ public class NoticeController extends Controller {
             String[] array = getParaValues("id[]");
             if (array.length > 0) {
                 for (int i = 0; i < array.length; i++) {
-                    Db.update("delete wptma_gg where g_id=?",array[i]);
+                    Db.update("delete wptma_gg where g_id=?", array[i]);
                 }
                 renderJson(ReturnKit.retOk());
             } else {
@@ -82,10 +87,27 @@ public class NoticeController extends Controller {
 
     public void query() {
         try {
+            Map map = new HashMap();
             String id = getPara("id");
-             Record re=Db.findFirst("select * from wptma_gg where g_id=?", id);
-            if (re !=null) {
-                renderJson(ReturnKit.retOk(re));
+            Record re = Db.findFirst("select * from wptma_gg where g_id=?", id);
+            if (re != null) {
+                map.put("re", re);
+                List<Record> list = Db.find("select X_NAME,X_CODE from wptma_xygl");
+                map.put("xy", list);
+                renderJson(ReturnKit.retOk(map));
+            } else {
+                renderJson(ReturnKit.retFail());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void queryXy() {
+        try {
+            List<Record> list = Db.find("select X_NAME,X_CODE from wptma_xygl");
+            if (list.size() > 0) {
+                renderJson(ReturnKit.retOk(list));
             } else {
                 renderJson(ReturnKit.retFail());
             }

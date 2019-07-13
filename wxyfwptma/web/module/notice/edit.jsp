@@ -27,18 +27,20 @@
                    class="layui-input">
         </div>
     </div>
-    <%--<div class="layui-form-item">--%>
-    <%--<label class="layui-form-label">公告内容</label>--%>
-    <%--<div class="layui-input-inline">--%>
-    <%--<input type="text" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">--%>
-    <%--</div>--%>
-    <!--<div class="layui-form-mid layui-word-aux">辅助文字</div>-->
-    <%--</div>--%>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">公告内容</label>
 
         <div class="layui-input-inline">
             <textarea name="g_text" lay-verify="required" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属学院</label>
+
+        <div class="layui-input-inline">
+            <select name="g_xy" id="g_xy">
+
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
@@ -87,10 +89,17 @@
             },
             success: function (data) {
                 if (data.RETURN_STATE == "SUCCESS") {
+                    var xy = data.OUT_DATA.xy
+                    var html = '<option value=""></option>'
+                    for (var i = 0; i < xy.length; i++) {
+                        html += '<option value="' + xy[i].X_CODE + '">' + xy[i].X_NAME + '</option>'
+                    }
+                    $("#g_xy").html(html)
                     form.val('example', {
-                        "g_title": data.OUT_DATA.G_TITLE // "name": "value"
-                        , "g_text": data.OUT_DATA.G_TEXT
-                        , "g_state": data.OUT_DATA.G_STATE
+                        "g_title": data.OUT_DATA.re.G_TITLE // "name": "value"
+                        , "g_text": data.OUT_DATA.re.G_TEXT
+                        , "g_state": data.OUT_DATA.re.G_STATE
+                        , "g_xy": data.OUT_DATA.re.G_XY
                     })
                 } else {
                     layer.alert('数据查询失败!', function (index) {
