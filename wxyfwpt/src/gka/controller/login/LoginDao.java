@@ -11,9 +11,10 @@ import com.jfinal.plugin.activerecord.Record;
 public class LoginDao {
 
     public Record loginValidate(String account, String password) {
-        String sql = "SELECT ZH,XM,XB,MZ,ZZMM,ZJLX,ZJHM,JGDM,JGMC,ZYDM,ZYMC,BJDM,BJMC,NJDM,NJMC,XZ,SFZX,XJZT,LXDH,YX,JSDM,JSMC,ZYFXDM,ZYFXMC FROM WPT_YH WHERE ZH=? AND KL=?";
+        String sql = "SELECT ZH,XM,XB,MZ,ZZMM,ZJLX,ZJHM,JGDM,JGMC,ZYDM,ZYMC,BJDM,BJMC,NJDM,NJMC,XZ,SFZX,XJZT,LXDH,YX,JSDM,JSMC,ZYFXDM,ZYFXMC,OPENID FROM WPT_YH WHERE ZH=? AND KL=?";
         Record re = Db.findFirst(sql, account, password);
         return re;
     }
+
 
 }

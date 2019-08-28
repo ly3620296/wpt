@@ -1,0 +1,103 @@
+.peopleMessage{
+    width: 100%;
+    position: relative;
+}
+.topimgdiv{
+    width: 94%;
+    margin: 5% auto;
+    margin-left: 3.5%;
+    position: relative;
+}
+.topimgdiv .topimg{
+    width: 100%;
+}
+.topimgdiv .peopleimg{
+    width: 20%;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+.topimgdiv .name{
+    position: absolute;
+    top: 10%;
+    left: 30%;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+.topimgdiv .number{
+    position: absolute;
+    top: 27%;
+    left: 27%;
+    display: inline-block;
+    padding: 0px 8px;
+    border-radius: 12px;
+    line-height: 20px;
+    border: 1px solid #FFFFFF;
+    font-size: 12px;
+    color: #FFFFFF;
+}
+.topimgdiv .card{
+    width: 22%;
+    position: absolute;
+    top: 29%;
+    left: 79%;
+    line-height: 24px;
+    margin-top: -12px;
+    text-align: center;
+    color: #c3960f;
+    font-size: 12px;
+}
+.topimgdiv ul{
+    width: 100%;
+    position: absolute;
+    top: 55%;
+}
+.topimgdiv ul li{
+    width: 33.3%;
+    text-align: center;
+    color: #FFFFFF;
+    float: left;
+}
+.topimgdiv ul li p{
+    line-height: 28px;
+    color: #FFFFFF;
+}
+.topimgdiv ul li .p1{
+    font-size: 14px;
+}
+.topimgdiv ul li .p2{
+    font-size: 16px;
+}
+
+.listdiv{
+    width: 92%;
+    margin: 4%;
+}
+.listdiv .nametitle{
+    line-height: 18px;
+    border-left: 4px solid #449dfe;
+    text-indent: 2%;
+    font-size: 14px;
+    font-weight: bold;
+}
+.listdiv  ul{
+    width: 100%;
+    margin-top: 3%;
+    font-size: 12px;
+}
+.listdiv  ul li{
+    width: 100%;
+    line-height: 30px;
+}
+.tijiao {
+    width: 92%;
+    margin: 4%;
+    height: 36px;
+    line-height: 36px;
+    display: inline-block;
+    color: #FFFFFF !important;
+    background: #1E9FFF;
+    border-radius: 5px;
+    text-align: center;
+}

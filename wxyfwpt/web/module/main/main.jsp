@@ -94,27 +94,27 @@
                 <a class="btnbj" href="javascript:void(0)" id="gd">更多</a>
             </div>
         </div>
-        <ul class="gg-list">
-            <li>
-                <p class="title"><i class="fa fa-bullhorn"></i>四六级考试</p>
+        <ul class="gg-list" id="gg">
+            <li id="gg1">
+                <p class="title"><i class="fa fa-bullhorn"></i>辽宁机电职业技术学院新生运动服采购成交公告</p>
 
-                <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+                <p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁机电职</p>
 
-                <p class="time">2017-05-02</p>
+                <p class="time">2019-07-17</p>
             </li>
-            <li>
-                <p class="title"><i class="fa fa-bullhorn"></i>四六级考试</p>
+            <li id="gg2">
+                <p class="title"><i class="fa fa-bullhorn"></i>辽宁机电职业技术学院新生军训服采购成交公告</p>
 
-                <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+                <p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁机电</p>
 
-                <p class="time">2017-05-02</p>
+                <p class="time">2019-07-17</p>
             </li>
-            <li>
-                <p class="title"><i class="fa fa-bullhorn"></i>四六级考试</p>
+            <li id="gg3">
+                <p class="title"><i class="fa fa-bullhorn"></i>辽宁机电职业技术学院工作服采购成交公告</p>
 
-                <p class="cont">四六级考试四六级考试四六级考试四六级考试</p>
+                <p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁</p>
 
-                <p class="time">2017-05-02</p>
+                <p class="time">2019-07-17</p>
             </li>
         </ul>
     </div>
@@ -148,13 +148,11 @@
         </li>
     </ul>
 </div>
-<%--<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>--%>
 
 <script src="<%=Constant.server_name%>js-lib/swiper/swiper-3.4.2.min.js" type="text/javascript"
         charset="utf-8"></script>
 <script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
 <script src="<%=Constant.server_name%>module/main/main.js" type="text/javascript"></script>
-
 </body>
 </html>
 

@@ -12,8 +12,6 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/swiper.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.css"/>
-    <%--<script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>--%>
-    <%--<script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>--%>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript" charset="utf-8"></script>
     <title>服务中心</title>
 </head>

@@ -11,16 +11,20 @@ import java.util.Properties;
  * @Describe
  */
 public class ProFactory {
-    private static Map<String, Properties> propertiesFactory = new HashMap<String, Properties>();
+    private static Map<String, Pro> proFactory = new HashMap<String, Pro>();
 
     static {
-        List<String> propNames = ProKit.getSrcPropertiesName();
+        List<String> propNames = PropertiesUtil.getSrcPropertiesName();
         for (String propName : propNames) {
-            propertiesFactory.put(propName, ProKit.initProperties(propName));
+            proFactory.put(propName, new Pro(PropertiesUtil.initProperties(propName)));
         }
     }
 
-    public static Map<String, Properties> getPropertiesFactory() {
-        return propertiesFactory;
+    public static Pro use(String propName) {
+        return proFactory.get(propName);
+    }
+
+    public static Map<String, Pro> getProFactory() {
+        return proFactory;
     }
 }

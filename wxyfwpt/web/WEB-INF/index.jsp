@@ -20,12 +20,11 @@
     <img style="width: 100%;" src="<%=Constant.server_name%>img/loginbj-bj.jpg"/>
     <ul>
         <li>
-
-            <input type="text" id="account" placeholder="学号/工号" value="20183519" maxlength="20"/>
+            <input type="text" id="account" placeholder="学号/工号" value="" maxlength="20"/>
         </li>
         <li>
 
-            <input type="password" id="password" value="211910" placeholder="密码"/>
+            <input type="password" id="password" value="" placeholder="密码"/>
         </li>
 
         <li style="text-align: right;">

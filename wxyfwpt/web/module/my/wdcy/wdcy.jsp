@@ -32,7 +32,7 @@
     <div class="tcDiv">
         <div class="tclist">
             <div class="tc">
-                <div class="name" style="background: #1E9FFF">
+                <div class="name" style="background: #076cec">
                     <%--<p>我的常用</p>--%>
                     <a class="btnbj" onclick="menu_bj.finish()">完成</a>
                 </div>

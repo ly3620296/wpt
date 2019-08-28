@@ -45,7 +45,7 @@
     </div>
 
     <div class="sflistDiv">
-        <div class="layui-collapse" lay-filter="sfb" lay-accordion id="sfList">
+        <div class="layui-collapse" lay-accordion   lay-filter="sfb" id="sfList">
 
 
         </div>

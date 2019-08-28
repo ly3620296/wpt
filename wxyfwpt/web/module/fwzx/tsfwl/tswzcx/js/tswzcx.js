@@ -16,31 +16,31 @@ layui.use(['form', 'element', 'layer'], function () {
                 '<ul class="textlist">' +
                 '<li>' +
                 '<p class="lefttext">读者证号</p>' +
-                '<p class="righttext">' + tswzcx.DZZH + '</p>' +
+                '<p class="righttext">' + (tswzcx.DZZH==null?"":tswzcx.DZZH) + '</p>' +
                 '</li>' +
                 '<li>' +
                 '<p class="lefttext">正题名</p>' +
-                '<p class="righttext">' + tswzcx.ZTM + '</p>' +
+                '<p class="righttext">' + (tswzcx.ZTM==null?"":tswzcx.ZTM) + '</p>' +
                 '</li>' +
                 '<li>' +
                 '<p class="lefttext">违章原因</p>' +
-                '<p class="righttext">' + tswzcx.WZYY + '</p>' +
+                '<p class="righttext">' + (tswzcx.WZYY==null?"":tswzcx.WZYY) + '</p>' +
                 '</li>' +
                 '<li>' +
                 '<p class="lefttext">应罚金额</p>' +
-                '<p class="righttext">' + tswzcx.YFJE + '</p>' +
+                '<p class="righttext">' + (tswzcx.YFJE==null?"":tswzcx.YFJE) + '</p>' +
                 '</li>' +
                 '<li>' +
                 '<p class="lefttext">实罚金额</p>' +
-                '<p class="righttext">' + tswzcx.SFJE + '</p>' +
+                '<p class="righttext">' + (tswzcx.SFJE==null?"":tswzcx.SFJE)  + '</p>' +
                 '</li>' +
                 '<li>' +
                 '<p class="lefttext">付款方式</p>' +
-                '<p class="righttext">' + tswzcx.FKFS + '</p>' +
+                '<p class="righttext">' + (tswzcx.FKFS==null?"":tswzcx.FKFS) + '</p>' +
                 '</li>' +
                 '<li>' +
                 '<p class="lefttext">办理时间</p>' +
-                '<p class="righttext">' + tswzcx.BLSJ + '</p>' +
+                '<p class="righttext">' + (tswzcx.BLSJ==null?"":tswzcx.BLSJ) + '</p>' +
                 '</li>' +
                 '</ul>' +
                 '</div>' +

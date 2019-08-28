@@ -1,6 +1,10 @@
 package gka.controller;
 
 
+import com.jfinal.plugin.activerecord.Record;
+import gka.controller.login.WptUserInfo;
+
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -150,5 +154,35 @@ public class CommonUtil {
         return getDate(pattern, date) + "(" + getWeek(date) + ")";
     }
 
-
+    public static void setSession(Record record, HttpSession session) {
+        WptUserInfo userInfo = new WptUserInfo();
+        userInfo.setZh(record.getStr("ZH") == null ? "" : record.getStr("ZH"));
+        userInfo.setXm(record.getStr("XM") == null ? "" : record.getStr("XM"));
+        userInfo.setXb(record.getStr("XB") == null ? "" : record.getStr("XB"));
+        userInfo.setMz(record.getStr("MZ") == null ? "" : record.getStr("MZ"));
+        userInfo.setZzmm(record.getStr("ZZMM") == null ? "" : record.getStr("ZZMM"));
+        userInfo.setCsrq(record.getStr("CSRQ") == null ? "" : record.getStr("CSRQ"));
+        userInfo.setZjlx(record.getStr("ZJLX") == null ? "" : record.getStr("ZJLX"));
+        userInfo.setZjhm(record.getStr("ZJHM") == null ? "" : record.getStr("ZJHM"));
+        userInfo.setJgdm(record.getStr("JGDM") == null ? "" : record.getStr("JGDM"));
+        userInfo.setJgmc(record.getStr("JGMC") == null ? "" : record.getStr("JGMC"));
+        userInfo.setZydm(record.getStr("ZYDM") == null ? "" : record.getStr("ZYDM"));
+        userInfo.setZymc(record.getStr("ZYMC") == null ? "" : record.getStr("ZYMC"));
+        userInfo.setBjdm(record.getStr("BJDM") == null ? "" : record.getStr("BJDM"));
+        userInfo.setBjmc(record.getStr("BJMC") == null ? "" : record.getStr("BJMC"));
+        userInfo.setNjdm(record.getStr("NJDM") == null ? "" : record.getStr("NJDM"));
+        userInfo.setNjmc(record.getStr("NJMC") == null ? "" : record.getStr("NJMC"));
+        userInfo.setXz(record.getStr("XZ") == null ? "" : record.getStr("XZ"));
+        userInfo.setSfzx(record.getStr("SFZX") == null ? "" : record.getStr("SFZX"));
+        userInfo.setXjzt(record.getStr("XJZT") == null ? "" : record.getStr("XJZT"));
+        userInfo.setBdzc(record.getStr("BDZC") == null ? "" : record.getStr("BDZC"));
+        userInfo.setLxdh(record.getStr("LXDH") == null ? "" : record.getStr("LXDH"));
+        userInfo.setYx(record.getStr("YX") == null ? "" : record.getStr("YX"));
+        userInfo.setJsdm(record.getStr("JSDM") == null ? "" : record.getStr("JSDM"));
+        userInfo.setJsmc(record.getStr("JSMC") == null ? "" : record.getStr("JSMC"));
+        userInfo.setZyfxdm(record.getStr("ZYFXDM") == null ? "" : record.getStr("ZYFXDM"));
+        userInfo.setZyfxmc(record.getStr("ZYFXMC") == null ? "" : record.getStr("ZYFXMC"));
+        userInfo.setOpenId(record.getStr("OPENID") == null ? "" : record.getStr("OPENID"));
+        session.setAttribute("wptUserInfo", userInfo);
+    }
 }

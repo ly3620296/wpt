@@ -19,15 +19,16 @@ body{
 	margin: 4.5% 0;
 	background: #FFFFFF;
 	border-radius: 5px;
+    font-size: 14px;
 }
 .login ul li input{
-	    height: 39px;
+	    height: 37px;
     width: 100%;
     border: 1px solid #efefef;
     border-radius: 5px;
     outline: none;
     text-indent: 4%;
-    font-size: 16px;
+    /*font-size: 16px;*/
     line-height: 39px;
 }
 .login ul li a{
@@ -41,10 +42,20 @@ body{
 	border-radius: 5px;
 }
 .login ul li label{
-	display: inline-block;
-	width: 20%;
-	text-align: center;
-	font-size: 13px;
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    font-size: 12px;
+    vertical-align: middle;
+    /*color: #63bdff;*/
+}
+.login ul li label i{
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    font-size: 20px;
+    vertical-align: middle;
+    color: #63bdff;
 }
 .login ul li span{
 	font-size: 14px;
@@ -89,4 +100,23 @@ body{
 }
 .footer-nav ul li:last-child {
     border-right: 0;
+}
+
+.loginremmber ul li input{
+    height: 37px;
+    width: 77% !important;
+    border: 0px solid #efefef !important;
+    border-radius: 5px;
+    outline: none;
+    text-indent: 1% !important;
+    /*font-size: 16px;*/
+    line-height: 39px;
+}
+.loginremmber ul{
+    width: 80%;
+    /* margin: 3%; */
+    position: absolute;
+    top: 10% !important;
+    left: 10%;
+    margin-bottom: 3%;
 }

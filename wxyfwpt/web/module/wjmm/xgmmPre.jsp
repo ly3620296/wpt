@@ -10,10 +10,11 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/title.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>font-awesome-4.7.0/css/font-awesome.min.css"/>
     <title></title>
 </head>
 <body style="background-color: #ececec;">
-<div class="login">
+<div class="login loginremmber">
     <div class="titledddiv">
         <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png"
              onclick="javascript:window.location.replace('/wpt')"/>
@@ -22,20 +23,20 @@
     </div>
     <ul>
         <li>
-            <label for="name">姓名</label>
-            <input type="text" name="" id="name" placeholder="姓名" value="李岩"/>
+            <label for="name"><i class="fa fa-user-circle-o"></i></label>
+            <input type="text" name="" id="name" placeholder="姓名"/>
         </li>
         <li>
-            <label for="idCard">身份证</label>
-            <input type="text" name="" id="idCard" maxlength="18" placeholder="身份证号" value="220403199004273114"/>
+            <label for="idCard"><i class="fa fa-address-card-o"></i></label>
+            <input type="text" name="" id="idCard" maxlength="18" placeholder="身份证号"/>
         </li>
         <li>
-            <label for="xh">账号</label>
-            <input type="number" name="" id="xh" placeholder="学号/工号" value="20173518"/>
+            <label for="xh"><i class="fa fa-pencil-square-o"></i></label>
+            <input type="number" name="" id="xh" placeholder="学号/工号"/>
         </li>
 
         <li>
-            <a id="btn_confirm" href="javascript:void(0)">确定</a>
+            <a id="btn_confirm" href="javascript:void(0)">下一步</a>
         </li>
     </ul>
 </div>

@@ -30,6 +30,7 @@ public class WptUserInfo {
     private String jsmc;  //角色名称
     private String zyfxdm; //专业方向代码
     private String zyfxmc; //专业方向名称
+    private String openId;
 
     public String getZh() {
         return zh;
@@ -237,5 +238,13 @@ public class WptUserInfo {
 
     public void setZyfxmc(String zyfxmc) {
         this.zyfxmc = zyfxmc;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 }

@@ -26,7 +26,9 @@
 %>
 <div class="gzcx">
     <div class="titledddiv">
-        <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png" onclick="javascript:window.location.replace(document.referrer)"/>
+        <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png"
+             onclick="javascript:window.location.replace(document.referrer)"/>
+
         <p class="titleName">图书借阅查询</p>
     </div>
 
@@ -48,215 +50,18 @@
     </ul>
 
 
-    <div class="layui-collapse div11" lay-accordion="">
-        <div class="layui-colla-item">
-            <h2 class="layui-colla-title">第一条（已还）<span class="time-text">2015-02-02</span></h2>
+    <div class="layui-collapse div11" lay-accordion id="yh" lay-filter="tsjycxygh">
 
-            <div class="layui-colla-content">
-                <ul class="textlist">
-                    <li>
-                        <p class="lefttext">读者证号</p>
-
-                        <p class="righttext">131500</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">正题名</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">借出时间</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">限还时间</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">续借次数</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">流通类型</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">文献类型</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">书期号</p>
-
-                        <p class="righttext">2019-02-01</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">实还时间</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">出版者</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">出版日期</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">已借数</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">是否归还</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">归还时间</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">归还时间</p>
-
-                        <p class="righttext">最后更新时间</p>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
 
 
-    <div class="layui-collapse div22" lay-accordion="" style="display: none;">
-        <div class="layui-colla-item">
-            <h2 class="layui-colla-title">第一条(未还)<span class="time-text">2015-02-30</span></h2>
-
-            <div class="layui-colla-content">
-                <ul class="textlist">
-                    <li>
-                        <p class="lefttext">读者证号</p>
-
-                        <p class="righttext">131500</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">正题名</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">借出时间</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">限还时间</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">续借次数</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">流通类型</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">文献类型</p>
-
-                        <p class="righttext">6000</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">书期号</p>
-
-                        <p class="righttext">2019-02-01</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">实还时间</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">出版者</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">出版日期</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">已借数</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">是否归还</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">归还时间</p>
-
-                        <p class="righttext">2019-05-02</p>
-                    </li>
-                    <li>
-                        <p class="lefttext">归还时间</p>
-
-                        <p class="righttext">最后更新时间</p>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="layui-collapse div22" lay-accordion style="display: none;" id="wh" lay-filter="tsjycxwgh">
     </div>
 
 </div>
 <script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
-<script>
-    layui.use(['element', 'layer', 'form'], function () {
-        var element = layui.element;
-        var layer = layui.layer;
-        var form = layui.form;
-        var $ = layui.jquery;
-
-        $(".bar .li1").click(function () {
-            $(".div11").show().siblings(".div22").hide()
-        })
-        $(".bar li").click(function () {
-            $(this).addClass("libarlist").siblings().removeClass("libarlist")
-        })
-        $(".bar .li2").click(function () {
-            $(".div22").show().siblings(".div11").hide()
-        })
-        //监听折叠
-//	  element.on('collapse(test)', function(data){
-//	    layer.msg('展开状态：'+ data.show);
-//	  });
-    });
-
-    //    $(function () {
-    //        $(".bar .li1").click(function () {
-    //            $(".div11").show().siblings(".div22").hide()
-    //        })
-    //        $(".bar li").click(function () {
-    //            $(this).addClass("libarlist").siblings().removeClass("libarlist")
-    //        })
-    //        $(".bar .li2").click(function () {
-    //            $(".div22").show().siblings(".div11").hide()
-    //        })
-    //    })
-</script>
+<script type="text/javascript" src="<%=Constant.server_name%>module/fwzx/tsfwl/tsjycx/js/tsjycx.js"
+        charset="utf-8"></script>
 </body>
 
 </html>

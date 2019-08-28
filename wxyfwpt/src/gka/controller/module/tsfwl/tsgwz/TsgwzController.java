@@ -15,7 +15,7 @@ public class TsgwzController extends Controller {
     private TsgwzDao tsgwzDao = new TsgwzDao();
 
     /**
-     * 收费表
+     * 图书馆违章查询
      */
     public void index() {
         Map<String, Object> result = new HashMap<String, Object>();

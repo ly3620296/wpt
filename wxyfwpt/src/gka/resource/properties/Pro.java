@@ -10,8 +10,8 @@ import java.util.Properties;
 public class Pro {
     private Properties properties = null;
 
-    public Pro(String propertiesName) {
-        properties = ProFactory.getPropertiesFactory().get(propertiesName);
+    public Pro(Properties properties) {
+        this.properties = properties;
     }
 
 

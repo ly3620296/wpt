@@ -9,7 +9,7 @@ import com.jfinal.plugin.activerecord.DbKit;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.activerecord.dialect.OracleDialect;
 import com.jfinal.plugin.druid.DruidPlugin;
-import gka.resource.properties.ProKit;
+import gka.resource.properties.ProFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -41,7 +41,7 @@ public class DbConfig {
             boolean testWhileIdle = Boolean.parseBoolean(document.getElementsByTagName("testWhileIdle").item(i).getFirstChild().getNodeValue());
             String dbType = document.getElementsByTagName("dbType").item(i).getFirstChild().getNodeValue();
             String dataSource = document.getElementsByTagName("dataSource").item(i).getFirstChild().getNodeValue();
-            logger.info(ProKit.use("gkean.properties").getStr("system.title") + "开始配置" + dataSource + "数据库连接信息....");
+            logger.info(ProFactory.use("gkean.properties").getStr("system.title") + "开始配置" + dataSource + "数据库连接信息....");
             logger.info("URL-->>" + jdbcUrl);
             logger.info("username-->>" + username);
             logger.info("password-->>" + password);
@@ -71,9 +71,9 @@ public class DbConfig {
 
             if (dataSource.equalsIgnoreCase("main"))
                 activeRecordPlugin.setContainerFactory(new CaseInsensitiveContainerFactory());//配置数据库字段名大小写不敏感
-            activeRecordPlugin.setShowSql(ProKit.use("gkean.properties").getBoolean("devMode"));//显示SQL语句
+            activeRecordPlugin.setShowSql(ProFactory.use("gkean.properties").getBoolean("devMode"));//显示SQL语句
             plugins.add(activeRecordPlugin);
-            logger.info(ProKit.use("gkean.properties").getStr("system.title") + "开始配置" + dataSource + "数据库配置完毕....");
+            logger.info(ProFactory.use("gkean.properties").getStr("system.title") + "开始配置" + dataSource + "数据库配置完毕....");
         }
     }
 }

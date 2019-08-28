@@ -8,6 +8,7 @@ import gka.system.ReturnInfo;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
+
 @Clear
 @ControllerBind(controllerKey = "/passwd/passwdCon")
 public class PasswdController extends Controller {
@@ -45,11 +46,10 @@ public class PasswdController extends Controller {
             returnInfo.setReturn_code("-999");
             returnInfo.setReturn_msg("系统异常，请稍后重试");
         }
-
         result.put("returnInfo", returnInfo);
         renderJson(result);
-
     }
+
 
     private boolean validate(String newpwd, String repwd) {
         System.out.println(newpwd);

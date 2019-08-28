@@ -28,7 +28,7 @@
 
     <p class="titleName">忘记密码-step2</p>
 </div>
-<div class="login">
+<div class="login loginremmber">
     <ul>
         <li>
             <label for="newpwd">新密码</label>

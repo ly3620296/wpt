@@ -17,4 +17,20 @@ public class WjmmDao {
         String sql = "UPDATE WPT_YH SET KL=? WHERE ZH=?";
         return Db.update(sql, pass, xh);
     }
+
+    public boolean validateOld(String validateOld, String xh) {
+        String sql = "SELECT KL FROM WPT_YH WHERE ZH=?";
+        Record re = Db.findFirst(sql, xh);
+        if (re != null) {
+            String kl = re.getStr("KL");
+            if (validateOld.equals(kl)) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -5,8 +5,8 @@ import com.jfinal.config.*;
 import com.jfinal.ext.route.ControllerRoute;
 import com.jfinal.template.Engine;
 import gka.filter.LoginInterceptor;
+import gka.resource.properties.ProFactory;
 import gka.system.config.dbconfig.DbConfig;
-import gka.resource.properties.ProKit;
 import gka.resource.xml.InitXml;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,20 +22,20 @@ public class InitConfig extends JFinalConfig {
     }
 
     public void configConstant(Constants constants) {
-        logger.info(ProKit.use("gkean.properties").getStr("system.title") + "常数配置开始....");
-        constants.setDevMode(ProKit.use("gkean.properties").getBoolean("devMode"));
+        logger.info(ProFactory.use("gkean.properties").getStr("system.title") + "常数配置开始....");
+        constants.setDevMode(ProFactory.use("gkean.properties").getBoolean("devMode"));
         //文件上传大限制 (Byte)
         constants.setMaxPostSize(MAX_POST_SIZE);
         //http 异常页面
         constants.setError404View("/error/404.html");
         constants.setError500View("/error/500.html");
-        logger.info(ProKit.use("gkean.properties").getStr("system.title") + "常数配置完毕....");
+        logger.info(ProFactory.use("gkean.properties").getStr("system.title") + "常数配置完毕....");
     }
 
     //路由配置
     public void configRoute(Routes routes) {
         ControllerRoute.register(routes, "gka");
-        logger.info(ProKit.use("gkean.properties").getStr("system.title") + "路由配置完成....");
+        logger.info(ProFactory.use("gkean.properties").getStr("system.title") + "路由配置完成....");
     }
 
 
@@ -69,6 +69,8 @@ public class InitConfig extends JFinalConfig {
      * 本方法会在 jfinal 启动过程完成之后被回调，详见 jfinal 手册
      */
     public void afterJFinalStart() {
+        //新城启动
+        new InitThread();
     }
 
     /**

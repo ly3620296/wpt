@@ -89,7 +89,7 @@ body{
 }
 .tc .name  .btnbj{
 	display: inline-block;
-    background: #15a8f4;
+    /*background: #15a8f4;*/
     color: #ffffff;
     font-size: 12px;
     line-height: 26px;
@@ -392,7 +392,7 @@ body{
     overflow: hidden;
 }
 .layui-tab-brief>.layui-tab-title .layui-this{
-	background: #1e9fff;
+	background: #076cec;
 	color: #FFFFFF !important;
 }
 .layui-tab-title li{

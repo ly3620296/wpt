@@ -15,8 +15,8 @@ layui.use(['layer', 'element'], function () {
             }
         },
         add: function (str) {
-            if (my_menu.length >= 9) {
-                layer.msg("常用按钮不能大于九个!", {anim: 6, time: 2000})
+            if (my_menu.length >= 8) {
+                layer.msg("常用按钮不能大于八个!", {anim: 6, time: 2000})
                 return
             } else {
                 var th_id = $(str).attr("id")

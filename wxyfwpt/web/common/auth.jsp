@@ -1,7 +1,9 @@
 <%@ page import="gka.controller.login.WptUserInfo" %>
+<%@ page import="gka.auth2.Auth2Util" %>
 <%
     WptUserInfo userInfo = (WptUserInfo) session.getAttribute("wptUserInfo");
     if (userInfo == null) {
+        System.out.println(Auth2Util.createAuth2Url());
 %>
 <script>
     if (!!(window.attachEvent && !window.opera)) {
@@ -10,8 +12,7 @@
     else {
         window.stop();
     }
-    //    window.location.href = wpt_serverName;
-    window.location.replace(wpt_serverName);
+    window.location.href = '<%=Auth2Util.createAuth2Url()%>';
 </script>
 <%
     }

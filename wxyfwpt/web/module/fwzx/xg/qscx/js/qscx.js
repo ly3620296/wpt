@@ -10,6 +10,8 @@ layui.use('form', function () {
                 '<li><icon class="fa fa-building-o"></icon><label>学院：' + xs.JGMC + '</label></li>' +
                 '<li><icon class="fa fa-wpforms"></icon><label>专业：' + xs.ZYMC + '</label></li>' +
                 '<li><icon class="fa fa-book"></icon><label>班级：' + xs.BJMC + '</label></li>' +
+                '<li><icon class="fa fa fa-building-o"></icon><label>楼栋名称：' + xs.LDMC + '</label></li>' +
+                '<li><icon class="fa fa-bed"></icon><label>寝室：' + xs.QSH + '</label></li>' +
                 '<li><icon class="fa fa-id-badge"></icon><label>联系电话：' + xs.LXDH + '</label></li>' +
                 '<li><icon class="fa fa-clock-o"></icon><label>入住时间：' + xs.RZSJ + '</label></li>' +
                 '<li><icon class="fa fa-bookmark-o"></icon><label>入住方式：' + xs.RZYYMC + '</label></li>';
