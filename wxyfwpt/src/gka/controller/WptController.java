@@ -54,7 +54,9 @@ public class WptController extends Controller {
         }
 
         boolean isBind = wptDao.isBindOpenId(openId);
+
         if (!isBind) {
+            //未绑定过
             getSession().setAttribute("bindOpenId", openId);
             redirect("/wpt");
         } else {
@@ -75,17 +77,18 @@ public class WptController extends Controller {
         try {
             WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
             String zh = wptUserInfo.getZh();
-            wptDao.unbind(zh);
-//            HttpSession session = getSession();
-//            if (session != null) {
-//                if (wptUserInfo != null) {
-//                    session.removeAttribute("wptUserInfo");
-//                    wptUserInfo = null;
-//                    session.invalidate();
-//                }
-//            }
-            returnInfo.setReturn_code("0");
-            returnInfo.setReturn_msg("success");
+            String currOpenId =(String) getSession().getAttribute("bindOpenId");
+            if (currOpenId==null) {
+                wptDao.unbind(zh);
+                getSession().setAttribute("bindOpenId", wptUserInfo.getOpenId());
+                wptUserInfo.setOpenId("");
+                returnInfo.setReturn_code("0");
+                returnInfo.setReturn_msg("success");
+            } else {
+                returnInfo.setReturn_code("-1");
+                returnInfo.setReturn_msg("非绑定账号微信禁止解绑，请用原微信解除绑定！");
+            }
+
         } catch (Exception e) {
             returnInfo.setReturn_code("-999");
             returnInfo.setReturn_msg("服务繁忙，请稍后重试！");
@@ -109,7 +112,8 @@ public class WptController extends Controller {
                 returnInfo.setReturn_code("0");
                 returnInfo.setReturn_msg("success");
             } else {
-
+                returnInfo.setReturn_code("-1");
+                returnInfo.setReturn_msg("请从微信端登录!");
             }
         } catch (Exception e) {
             returnInfo.setReturn_code("-999");

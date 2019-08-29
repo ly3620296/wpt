@@ -23,6 +23,16 @@ public class WptDao {
         Db.update(sql, zh);
     }
 
+    public String findOpByZh(String zh) {
+        String bindOpenId = "";
+        String sql = "SELECT OPENID FROM  WPT_YH WHERE ZH=?";
+        Record re = Db.findFirst(sql, zh);
+        if (re != null) {
+            bindOpenId = re.getStr("OPENID");
+        }
+        return bindOpenId;
+    }
+
     public void bindOpenId(String openId, String zh) {
         String sql = "UPDATE WPT_YH SET OPENID=? WHERE ZH=?";
         Db.update(sql, openId, zh);

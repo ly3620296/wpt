@@ -11,7 +11,7 @@ public class Auth2Util {
     private final static String AUTHORIZE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize";
     //回调地址，既接取code地址
 
-    private final static String REDIRECT_URI = "http://iwdpje.natappfree.cc/wpt/auth";
+    private final static String REDIRECT_URI = "http://ppvewz.natappfree.cc/wpt/auth";
     private final static String APP_ID = ProFactory.use("gkean.properties").getStr("appId");
     private final static String APP_SECRET = ProFactory.use("gkean.properties").getStr("appSecret");
     private final static String RESPONSE_TYPE = "code";
