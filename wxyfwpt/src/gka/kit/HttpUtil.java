@@ -5,14 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.*;
-import java.security.cert.Certificate;
-import java.util.Map.Entry;
-
-import com.alibaba.fastjson.JSONObject;
-import org.apache.jasper.tagplugins.jstl.core.Url;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLPeerUnverifiedException;
 
 
 public class HttpUtil {
