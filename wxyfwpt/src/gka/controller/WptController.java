@@ -15,9 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Administrator on 2019/4/22 0022.
- */
+
 @Clear
 @ControllerBind(controllerKey = "/")
 public class WptController extends Controller {
@@ -63,6 +61,7 @@ public class WptController extends Controller {
             try {
                 Record re = wptDao.loginByOpenId(openId);
                 CommonUtil.setSession(re, getSession());
+                getSession().setAttribute("channel", "wx");
                 renderJsp("/module/main/main.jsp");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -75,18 +74,24 @@ public class WptController extends Controller {
         Map<String, Object> result = new HashMap<String, Object>();
         ReturnInfo returnInfo = new ReturnInfo();
         try {
-            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
-            String zh = wptUserInfo.getZh();
-            String currOpenId =(String) getSession().getAttribute("bindOpenId");
-            if (currOpenId==null) {
-                wptDao.unbind(zh);
-                getSession().setAttribute("bindOpenId", wptUserInfo.getOpenId());
-                wptUserInfo.setOpenId("");
-                returnInfo.setReturn_code("0");
-                returnInfo.setReturn_msg("success");
+            String channel = (String) getSession().getAttribute("channel");
+            if (channel != null && "wx".equals(channel)) {
+                WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+                String zh = wptUserInfo.getZh();
+                String currOpenId = (String) getSession().getAttribute("bindOpenId");
+                if (currOpenId == null) {
+                    wptDao.unbind(zh);
+                    getSession().setAttribute("bindOpenId", wptUserInfo.getOpenId());
+                    wptUserInfo.setOpenId("");
+                    returnInfo.setReturn_code("0");
+                    returnInfo.setReturn_msg("success");
+                } else {
+                    returnInfo.setReturn_code("-1");
+                    returnInfo.setReturn_msg("非绑定账号微信禁止解绑，请用原微信解除绑定！");
+                }
             } else {
-                returnInfo.setReturn_code("-1");
-                returnInfo.setReturn_msg("非绑定账号微信禁止解绑，请用原微信解除绑定！");
+                returnInfo.setReturn_code("-2");
+                returnInfo.setReturn_msg("非微信渠道，禁止解绑！");
             }
 
         } catch (Exception e) {
@@ -102,18 +107,24 @@ public class WptController extends Controller {
         Map<String, Object> result = new HashMap<String, Object>();
         ReturnInfo returnInfo = new ReturnInfo();
         try {
-            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
-            String zh = wptUserInfo.getZh();
-            String bindOpenId = (String) getSession().getAttribute("bindOpenId");
-            if (!StringUtils.isEmpty(bindOpenId)) {
-                wptDao.bindOpenId(bindOpenId, zh);
-                wptUserInfo.setOpenId(bindOpenId);
-                getSession().removeAttribute("bindOpenId");
-                returnInfo.setReturn_code("0");
-                returnInfo.setReturn_msg("success");
+            String channel = (String) getSession().getAttribute("channel");
+            if (channel != null && "wx".equals(channel)) {
+                WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+                String zh = wptUserInfo.getZh();
+                String bindOpenId = (String) getSession().getAttribute("bindOpenId");
+                if (!StringUtils.isEmpty(bindOpenId)) {
+                    wptDao.bindOpenId(bindOpenId, zh);
+                    wptUserInfo.setOpenId(bindOpenId);
+                    getSession().removeAttribute("bindOpenId");
+                    returnInfo.setReturn_code("0");
+                    returnInfo.setReturn_msg("success");
+                } else {
+                    returnInfo.setReturn_code("-1");
+                    returnInfo.setReturn_msg("请从微信端登录!");
+                }
             } else {
-                returnInfo.setReturn_code("-1");
-                returnInfo.setReturn_msg("请从微信端登录!");
+                returnInfo.setReturn_code("-2");
+                returnInfo.setReturn_msg("非微信渠道，禁止解绑！");
             }
         } catch (Exception e) {
             returnInfo.setReturn_code("-999");
