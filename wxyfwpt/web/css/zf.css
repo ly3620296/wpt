@@ -1,0 +1,89 @@
+.list{
+	width: 100%;
+	text-align: center;
+}
+.list .tablediv{
+	width: 94%;
+	margin: 3%;
+}
+.list .tablediv .tablename{
+	line-height: 30px;
+	text-align: center;
+	font-weight: bold;
+	color: #333;
+}
+.list .tablediv table{
+	width: 100%;
+	font-size: 12px;
+}
+.list .tablediv  table td{
+	/*width: 20%;*/
+	padding: 8px 5px;
+	border: 1px solid #ddd;
+	color: rgb(102,102,153);
+	 text-align: center;   
+}
+.list .tablediv  table td:nth-child(1){	
+	text-align: center;	    
+}
+.list .tablediv  table td:nth-child(2){	
+	text-align: center;	    
+}
+.list .tablediv  table tr:nth-child(even) td{
+	background-color: #fff;
+}
+.list .tablediv  table tr:nth-child(odd) td{
+	background-color: #eff3f5;
+}
+.list .tablediv  table th{
+	text-align: center;
+	width: 20%;
+	padding: 8px 5px;
+	border: 1px solid #ddd;
+	background: #eff3f5;
+    color: rgb(0,51,153);
+}
+.list .tablediv .bottom{
+	width: 100%;
+	line-height: 40px;
+	position: relative;	
+}
+.list .tablediv input[type="checkbox"]{
+	width: 18px;
+	height: 18px;
+}
+
+.list .tablediv .check{
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	border: 1px solid #666;
+	border-radius: 4px;
+}
+.list .tablediv .active{
+	background: #53acb7;
+	border: 1px solid #53acb7;
+}       
+
+
+
+.list .tablediv .bottom p{
+	color: #000;
+	font-weight: bold;
+	font-size: 14px;
+	text-align: right;
+}
+.btnjf{
+	display: inline-block;
+	width: 28%;
+	text-align: center;
+	font-size: 12px;
+	background: #53acb7;
+	color: #fff;
+	line-height: 26px;
+	position: absolute;
+	top: 7px;
+	left: 2%;
+	border-radius: 4px;
+	
+}

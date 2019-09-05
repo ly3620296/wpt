@@ -24,6 +24,7 @@ public class WptController extends Controller {
 
     public void index() {
         WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%");
         if (wptUserInfo == null) {
             renderJsp("/WEB-INF/index.jsp");
         } else {
@@ -56,7 +57,8 @@ public class WptController extends Controller {
         if (!isBind) {
             //未绑定过
             getSession().setAttribute("bindOpenId", openId);
-            redirect("/wpt");
+            getSession().setAttribute("channel", "wx");
+            redirect("/");
         } else {
             try {
                 Record re = wptDao.loginByOpenId(openId);

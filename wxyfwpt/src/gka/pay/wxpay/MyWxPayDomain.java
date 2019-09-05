@@ -15,7 +15,11 @@ public class MyWxPayDomain implements IWXPayDomain {
 
     public static MyWxPayDomain getWxPayDomain() {
         if (myWxPayDomain == null) {
-            myWxPayDomain = new MyWxPayDomain();
+            synchronized (MyWxPayDomain.class) {
+                if (myWxPayDomain == null) {
+                    myWxPayDomain = new MyWxPayDomain();
+                }
+            }
         }
         return myWxPayDomain;
     }

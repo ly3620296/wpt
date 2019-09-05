@@ -1,42 +1,43 @@
+<%@ page import="gka.resource.Constant" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <title></title>
 </head>
 <body>
 <input id="code" type="button" value="微信支付" onclick="pay()"/>
+<script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 <script type="text/javascript">
     var appId, timeStamp, nonceStr, package, signType, paySign;
     function pay() {
-        var code = $("#code").attr("code");//页面链接上的code参数
-        if (code) {
-            var url = "http://异步地址?code=" + code;
-            $.get(url, function (result) {
-                appId = result.appId;
-                timeStamp = result.timeStamp;
-                nonceStr = result.nonceStr;
-                package = result.package;
-                signType = result.signType;
-                paySign = result.paySign;
+        var url = wpt_serverName + "pay/wxpay/con/wxPayCon";
+        $.get(url, function (result) {
+            appId = result.appId;
+            timeStamp = result.timeStamp;
+            nonceStr = result.nonceStr;
+            package = result.package;
+            signType = result.signType;
+            paySign = result.paySign;
 
-                if (typeof WeixinJSBridge == "undefined") {
-                    if (document.addEventListener) {
-                        document.addEventListener('WeixinJSBridgeReady',
-                                onBridgeReady, false);
-                    } else if (document.attachEvent) {
-                        document.attachEvent('WeixinJSBridgeReady',
-                                onBridgeReady);
-                        document.attachEvent('onWeixinJSBridgeReady',
-                                onBridgeReady);
-                    }
-                } else {
-                    onBridgeReady();
+            if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady',
+                            onBridgeReady, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady',
+                            onBridgeReady);
+                    document.attachEvent('onWeixinJSBridgeReady',
+                            onBridgeReady);
                 }
-            });
-        } else {
-            alert("服务器错误")
-        }
+            } else {
+                onBridgeReady();
+            }
+        });
     }
+
     function onBridgeReady() {
         WeixinJSBridge.invoke('getBrandWCPayRequest', {
                     "appId": appId,     //公众号名称,由商户传入

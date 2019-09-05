@@ -133,7 +133,6 @@ public class WXPayReport {
         });
 
         if (config.shouldAutoReport()) {
-            WXPayUtil.getLogger().info("report worker num: {}", config.getReportWorkerNum());
             for (int i = 0; i < config.getReportWorkerNum(); ++i) {
                 executorService.execute(new Runnable() {
                     public void run() {
@@ -142,7 +141,6 @@ public class WXPayReport {
                             try {
                                 StringBuffer sb = new StringBuffer();
                                 String firstMsg = reportMsgQueue.take();
-                                WXPayUtil.getLogger().info("get first report msg: {}", firstMsg);
                                 String msg = null;
                                 sb.append(firstMsg); //会阻塞至有消息
                                 int remainNum = config.getReportBatchSize() - 1;

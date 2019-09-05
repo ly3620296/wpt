@@ -1,5 +1,7 @@
 package gka.pay.wxpay;
 
+import gka.resource.properties.ProFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,7 +20,7 @@ public class MyWxConfig extends WXPayConfig {
      */
     @Override
     String getAppID() {
-        return "wxdf9968af00e458e0";
+        return ProFactory.use("gkean.properties").getStr("appId");
     }
 
     /**
@@ -28,17 +30,18 @@ public class MyWxConfig extends WXPayConfig {
      */
     @Override
     String getMchID() {
-        return "1393091302";
+        return ProFactory.use("gkean.properties").getStr("mchId");
     }
 
     /**
+     * a
      * 获取 API 密钥
      *
      * @return API密钥
      */
     @Override
     String getKey() {
-        return "xiekui13596073163zbin13944151952";
+        return ProFactory.use("gkean.properties").getStr("apiKey");
     }
 
     /**
@@ -51,7 +54,6 @@ public class MyWxConfig extends WXPayConfig {
         InputStream inputStream = null;
         try {
             File f = new File("D:/Program Files/WXCertUtil/cert/apiclient_cert.p12");
-            System.out.println("#####################"+f.exists());
             inputStream = new FileInputStream(f);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
