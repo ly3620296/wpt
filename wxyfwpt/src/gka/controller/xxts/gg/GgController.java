@@ -13,7 +13,7 @@ import java.util.Map;
 
 @ControllerBind(controllerKey = "/xxts/gg")
 public class GgController extends Controller {
-    //调停课
+
     private GgDao ggDao = new GgDao();
 
     public void index() {
@@ -36,6 +36,26 @@ public class GgController extends Controller {
         renderJson(result);
     }
 
+
+    public void ggMain() {
+        Map<String, Object> result = new HashMap<String, Object>();
+        ReturnInfo returnInfo = new ReturnInfo();
+        try {
+            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+            String xy = wptUserInfo.getJgdm();
+            String role = wptUserInfo.getJsdm();
+            List<Record> ggList = ggDao.ggListMain(xy, role);
+            result.put("ggList", ggList);
+            returnInfo.setReturn_code("0");
+            returnInfo.setReturn_msg("success");
+        } catch (Exception e) {
+            returnInfo.setReturn_code("-999");
+            returnInfo.setReturn_msg("服务繁忙，请稍后重试！");
+            e.printStackTrace();
+        }
+        result.put("returnInfo", returnInfo);
+        renderJson(result);
+    }
     public void detail() {
         Map<String, Object> result = new HashMap<String, Object>();
         ReturnInfo returnInfo = new ReturnInfo();

@@ -39,169 +39,27 @@
     </div>
     <div class="messagediv">
         <div class="divggleft">
-            <ul>
-                <li id="gg1">
-                    <img class="top-border" src="<%=Constant.server_name%>img/top-border.png"/>
+            <ul id="gg">
+                <%--<li id="gg1">--%>
+                <%--<img class="top-border" src="<%=Constant.server_name%>img/top-border.png"/>--%>
 
-                    <div class="left">
-                        <i class="fa fa-bullhorn"></i>
-                    </div>
-                    <div class="right">
-                        <p class="title">辽宁机电职业技术学院新生运动服采购成交公告</p>
+                <%--<div class="left">--%>
+                <%--<i class="fa fa-bullhorn"></i>--%>
+                <%--</div>--%>
+                <%--<div class="right">--%>
+                <%--<p class="title">辽宁机电职业技术学院新生运动服采购成交公告</p>--%>
 
-                        <p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁机电职</p>
+                <%--<p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁机电职</p>--%>
 
-                        <p class="time">2019-07-17</p>
-                    </div>
-                </li>
-                <li id="gg2">
-                    <img class="top-border" src="<%=Constant.server_name%>img/top-border.png"/>
-
-                    <div class="left">
-                        <i class="fa fa-bullhorn"></i>
-                    </div>
-                    <div class="right">
-                        <p class="title">辽宁机电职业技术学院新生军训服采购成交公告</p>
-
-                        <p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁机电</p>
-
-                        <p class="time">2019-07-17</p>
-                    </div>
-                </li>
-                <li id="gg3">
-                    <img class="top-border" src="<%=Constant.server_name%>img/top-border.png"/>
-
-                    <div class="left">
-                        <i class="fa fa-bullhorn"></i>
-                    </div>
-                    <div class="right">
-                        <p class="title">辽宁机电职业技术学院工作服采购成交公告</p>
-
-                        <p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁</p>
-
-                        <p class="time">2019-07-17</p>
-                    </div>
-                </li>
-                <li id="gg4">
-                    <img class="top-border" src="<%=Constant.server_name%>img/top-border.png"/>
-
-                    <div class="left">
-                        <i class="fa fa-bullhorn"></i>
-                    </div>
-                    <div class="right">
-                        <p class="title">辽宁机电职业技术学院信息安全等级保护测评项目的采购公告</p>
-
-                        <p class="cont">辽宁金昌建设工程咨询有限公司 受 辽宁机电职业技术学院 委托</p>
-
-                        <p class="time">2019-7-16</p>
-                    </div>
-                </li>
-                <li id="gg5">
-                    <img class="top-border" src="<%=Constant.server_name%>img/top-border.png"/>
-
-                    <div class="left">
-                        <i class="fa fa-bullhorn"></i>
-                    </div>
-                    <div class="right">
-                        <p class="title">辽宁机电职业技术学院财务工资模块升级及服务项目采购成交公告</p>
-
-                        <p class="cont">辽宁机电职业技术学院对财务工资模块升级及服务项目进行了竞争性磋商，现将结果公告如下</p>
-
-                        <p class="time">2019-7-12</p>
-                    </div>
-                </li>
-                <li id="gg6">
-                    <img class="top-border" src="<%=Constant.server_name%>img/top-border.png"/>
-
-                    <div class="left">
-                        <i class="fa fa-bullhorn"></i>
-                    </div>
-                    <div class="right">
-                        <p class="title">2#、3#宿舍楼生活环境和公共场所升级改造工程招标公告</p>
-
-                        <p class="cont">辽宁金昌建设工程咨询有限公司受辽宁机电职业技术学院的委托</p>
-
-                        <p class="time">2019-7-11</p>
-                    </div>
-                </li>
-                <li id="gg7">
-                    <img class="top-border" src="<%=Constant.server_name%>img/top-border.png"/>
-
-                    <div class="left">
-                        <i class="fa fa-bullhorn"></i>
-                    </div>
-                    <div class="right">
-                        <p class="title">辽宁机电职业技术学院2019年学生公寓被褥等床上用品采购结果公告</p>
-
-                        <p class="cont">大连市机电设备招标有限责任公司对辽宁机电职业技术学院2019年学生公寓被</p>
-
-                        <p class="time">2019-7-10</p>
-                    </div>
-                </li>
-                <li id="gg8">
-                    <img class="top-border" src="<%=Constant.server_name%>img/top-border.png"/>
-
-                    <div class="left">
-                        <i class="fa fa-bullhorn"></i>
-                    </div>
-                    <div class="right">
-                        <p class="title">辽宁机电职业技术学院财务工资模块升级及服务项目采购公告</p>
-
-                        <p class="cont">辽宁机电职业技术学院对财务工资模块升级及服务项目进行采购，现欢迎</p>
-
-                        <p class="time">2019-7-8</p>
-                    </div>
-                </li>
-                <li id="gg9">
-                    <img class="top-border" src="<%=Constant.server_name%>img/top-border.png"/>
-
-                    <div class="left">
-                        <i class="fa fa-bullhorn"></i>
-                    </div>
-                    <div class="right">
-                        <p class="title">辽宁机电职业技术学院工作服采购的采购公告</p>
-
-                        <p class="cont">辽宁金昌建设工程咨询有限公司受辽宁机电职业技术学院委托，对 辽宁</p>
-
-                        <p class="time">2019-7-5</p>
-                    </div>
-                </li>
+                <%--<p class="time">2019-07-17</p>--%>
+                <%--</div>--%>
+                <%--</li>--%>
             </ul>
         </div>
     </div>
 </div>
-<script>
-    $("a").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/ggDetails.jsp");
-    })
+<script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
+<script src="<%=Constant.server_name%>module/msg/gg.js" type="text/javascript"></script>
 
-    $("#gg1").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails1.jsp");
-    })
-    $("#gg2").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails2.jsp");
-    })
-    $("#gg3").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails3.jsp");
-    })
-    $("#gg4").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails4.jsp");
-    })
-    $("#gg5").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails5.jsp");
-    })
-    $("#gg6").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails6.jsp");
-    })
-    $("#gg7").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails7.jsp");
-    })
-    $("#gg8").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails8.jsp");
-    })
-    $("#gg9").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails9.jsp");
-    })
-</script>
 </body>
 </html>

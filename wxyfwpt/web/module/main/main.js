@@ -54,7 +54,7 @@ layui.use('form', function () {
         },
         initGg: function () {
             $.ajax({
-                url: wpt_serverName + "xxts/gg",
+                url: wpt_serverName + "xxts/gg/ggMain",
                 type: 'post',
                 dataType: 'json',
                 timeout: 10000,
@@ -143,16 +143,6 @@ layui.use('form', function () {
     wpt_main.bindMyClik();
     wpt_main.initGg();
 
-    $("#gg1").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails1.jsp");
-    })
-
-    $("#gg2").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails2.jsp");
-    })
-    $("#gg3").on("click", function () {
-        window.location.replace(wpt_serverName + "module/msg/gg_demo/ggDetails3.jsp");
-    })
 
 })
 

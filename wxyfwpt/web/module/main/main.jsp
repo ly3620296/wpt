@@ -95,27 +95,27 @@
             </div>
         </div>
         <ul class="gg-list" id="gg">
-            <li id="gg1">
-                <p class="title"><i class="fa fa-bullhorn"></i>辽宁机电职业技术学院新生运动服采购成交公告</p>
+            <%--<li id="gg1">--%>
+                <%--<p class="title"><i class="fa fa-bullhorn"></i>辽宁机电职业技术学院新生运动服采购成交公告</p>--%>
 
-                <p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁机电职</p>
+                <%--<p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁机电职</p>--%>
 
-                <p class="time">2019-07-17</p>
-            </li>
-            <li id="gg2">
-                <p class="title"><i class="fa fa-bullhorn"></i>辽宁机电职业技术学院新生军训服采购成交公告</p>
+                <%--<p class="time">2019-07-17</p>--%>
+            <%--</li>--%>
+            <%--<li id="gg2">--%>
+                <%--<p class="title"><i class="fa fa-bullhorn"></i>辽宁机电职业技术学院新生军训服采购成交公告</p>--%>
 
-                <p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁机电</p>
+                <%--<p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁机电</p>--%>
 
-                <p class="time">2019-07-17</p>
-            </li>
-            <li id="gg3">
-                <p class="title"><i class="fa fa-bullhorn"></i>辽宁机电职业技术学院工作服采购成交公告</p>
+                <%--<p class="time">2019-07-17</p>--%>
+            <%--</li>--%>
+            <%--<li id="gg3">--%>
+                <%--<p class="title"><i class="fa fa-bullhorn"></i>辽宁机电职业技术学院工作服采购成交公告</p>--%>
 
-                <p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁</p>
+                <%--<p class="cont">受辽宁机电职业技术学院委托，辽宁金昌建设工程咨询有限公司对辽宁</p>--%>
 
-                <p class="time">2019-07-17</p>
-            </li>
+                <%--<p class="time">2019-07-17</p>--%>
+            <%--</li>--%>
         </ul>
     </div>
 </div>
