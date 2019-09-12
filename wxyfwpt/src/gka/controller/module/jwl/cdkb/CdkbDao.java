@@ -38,7 +38,7 @@ public class CdkbDao {
      * @return
      */
     public List<Record> cd(String cdlbId) {
-        String sql = "SELECT CD_ID,CDMC FROM WPT_CDJBXXB T WHERE CDLB_ID=?";
+        String sql = "SELECT CD_ID,CDMC FROM V_WPT_CDJBXXB T WHERE CDLB_ID=?";
         List<Record> cdList = Db.find(sql, cdlbId);
         return cdList;
     }

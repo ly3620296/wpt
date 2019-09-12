@@ -19,11 +19,11 @@ public class WxPayController extends Controller {
             String cliIp = IpKit.getRealIp(getRequest());
             String totalFee = "1";
             //调用统一下单
-            Map<String, String> result = WxPayTool.unifiedOrderJSAPI(new WxPayBean(order, totalFee, cliIp, openId));
-            System.out.println(WXPayUtil.mapToXml(result));
+//            Map<String, String> result = WxPayTool.unifiedOrderJSAPI(new WxPayBean(order, totalFee, cliIp, openId));
+//            System.out.println(WXPayUtil.mapToXml(result));
             //解析h5所需参数
-            Map<String, String> reqData = WxPayTool.reqData(result);
-            renderJson(reqData);
+//            Map<String, String> reqData = WxPayTool.reqData(result);
+//            renderJson(reqData);
         } catch (Exception e) {
             e.printStackTrace();
         }

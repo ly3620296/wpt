@@ -92,7 +92,6 @@ public class WXPay {
             reqData.put("sign_type", WXPayConstants.HMACSHA256);
         }
         reqData.put("sign", WXPayUtil.generateSignature(reqData, config.getKey(), this.signType));
-        System.out.println(reqData);
         return reqData;
     }
 

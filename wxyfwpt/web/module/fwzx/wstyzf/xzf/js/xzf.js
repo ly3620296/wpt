@@ -24,10 +24,10 @@ layui.use(['form', 'element', 'layer'], function () {
                     if (xzfInfo.XNXQ != currXnxq) {
                         continue;
                     }
-                    var myClass = '';
+                    var myClass = 'WJF';
                     var myId = '_' + xzfInfo.ID;
                     if (xzfInfo.SFJF == 1) {
-                        myClass = '';
+                        myClass = 'JF';
                     } else {
                         if (xzfInfo.SFBX == 0) {
                             myClass = 'check bixuan active'
@@ -116,22 +116,22 @@ layui.use(['form', 'element', 'layer'], function () {
                     var zfId = eleS.eq(i).attr("id");
                     var ele = eleS.eq(i)
                     var myClass = ele.find("td div").attr("class");
-                    if (myClass == "check bixuan active" || myClass == "") {
+                    if (myClass == "check bixuan active" || myClass == "WJF") {
                         arrId.push(zfId.slice(zfId.lastIndexOf("_") + 1, zfId.length))
                     }
                 }
-                wpt_xzf.pay();
+                wpt_xzf.pay(arrId);
 
             })
         },
         onBridgeReady: function (obj) {
             WeixinJSBridge.invoke('getBrandWCPayRequest', {
-                    "appId": appId,     //公众号名称,由商户传入
-                    "timeStamp": timeStamp,         //时间戳,自1970年以来的秒数
-                    "nonceStr": nonceStr, //随机串
-                    "package": package,
-                    "signType": signType,         //微信签名方式：
-                    "paySign": paySign //微信签名
+                    "appId": obj.appId,     //公众号名称,由商户传入
+                    "timeStamp": obj.timeStamp,         //时间戳,自1970年以来的秒数
+                    "nonceStr": obj.nonceStr, //随机串
+                    "package": obj.package,
+                    "signType": obj.signType,         //微信签名方式：
+                    "paySign": obj.paySign //微信签名
                 },
                 function (res) {
                     if (res.err_msg == "get_brand_wcpay_request:ok") {
@@ -145,12 +145,19 @@ layui.use(['form', 'element', 'layer'], function () {
                     } //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok,但并不保证它绝对可靠。
                 });
         },
-        pay: function () {
+        pay: function (arrId) {
+            var newArrid;
+            if (arrId.length > 1) {
+                newArrid = arrId.join(",");
+            } else {
+                newArrid = arrId[0];
+            }
             $.ajax({
                 url: wpt_serverName + "wstyzf/xzf/zfXzf",
                 type: 'post',
                 dataType: 'json',
                 timeout: 10000,
+                data: {arrId: newArrid},
                 beforeSend: function () {
                     layer.ready(function () {
                         loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
@@ -162,12 +169,12 @@ layui.use(['form', 'element', 'layer'], function () {
                         var msg = data.returnInfo.return_msg;
                         if (code == "0") {
                             var obj = {
-                                appId: result.appId,
-                                timeStamp: result.timeStamp,
-                                nonceStr: result.nonceStr,
-                                package: result.package,
-                                signType: result.signType,
-                                paySign: result.paySign
+                                appId: data.appId,
+                                timeStamp: data.timeStamp,
+                                nonceStr: data.nonceStr,
+                                package: data.package,
+                                signType: data.signType,
+                                paySign: data.paySign
                             }
 
                             if (typeof WeixinJSBridge == "undefined") {

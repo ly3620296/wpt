@@ -8,6 +8,8 @@ import gka.controller.login.WptUserInfo;
 import gka.kit.IpKit;
 import gka.pay.wxpay.WXPayUtil;
 import gka.pay.wxpay.controller.WxPayBean;
+import gka.pay.wxpay.controller.WxPayDao;
+import gka.pay.wxpay.controller.WxPayOrder;
 import gka.pay.wxpay.controller.WxPayTool;
 import gka.system.ReturnInfo;
 
@@ -19,6 +21,7 @@ import java.util.Map;
 @ControllerBind(controllerKey = "/wstyzf/xzf")
 public class XzfController extends Controller {
     private XzfDao xzfDao = new XzfDao();
+    private WxPayDao wxPayDao = new WxPayDao();
 
     /**
      * 学杂费
@@ -58,21 +61,23 @@ public class XzfController extends Controller {
                 String order = WXPayUtil.generateOrder();
                 String cliIp = IpKit.getRealIp(getRequest());
                 String totalFee = "1";
-
+                String ids = getPara("arrId");
                 //调用统一下单
-                Map<String, String> unifiedOrder = WxPayTool.unifiedOrderJSAPI(new WxPayBean(order, totalFee, cliIp, openId));
+//
+                Map[] arrs = WxPayTool.unifiedOrderJSAPI(new WxPayBean(order, totalFee, cliIp, openId));
+                Map<String, String> unifiedOrder = arrs[0];
                 if (unifiedOrder != null) {
                     String unifCode = unifiedOrder.get("return_code");
                     if (unifCode.equals("SUCCESS")) {
                         String unifResultCode = unifiedOrder.get("result_code");
                         if (unifResultCode.equals("SUCCESS")) {
                             //订单入库
-
-                            System.out.println("#############" + unifiedOrder);
-                            
+                            WxPayOrder wxPayOrder = WxPayTool.fillOrder(arrs[1], ids, IpKit.getRealIp(getRequest()));
+                            wxPayDao.insertOrder(wxPayOrder);
                             //解析h5所需参数
                             Map<String, String> reqData = WxPayTool.reqData(unifiedOrder);
                             result.putAll(reqData);
+
                             returnInfo.setReturn_code("0");
                             returnInfo.setReturn_msg("success");
                         } else {
