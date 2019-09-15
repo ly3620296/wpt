@@ -55,7 +55,12 @@ public class WxPayTool {
         map.put("notify_url", PayConstant.NOTIFY_URL);
         map.put("trade_type", PayConstant.JSAPI);
         map.put("openid", wxPayBean.getOpenId());
-        Map<String, String> result = wxPay.unifiedOrder(map);
+        Map<String, String> result = null;
+        try {
+            result = wxPay.unifiedOrder(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mapArr[0] = result;
         mapArr[1] = map;
         return mapArr;
@@ -87,7 +92,7 @@ public class WxPayTool {
     /**
      * 提取订单记录数据
      */
-    public WxPayOrder fillOrder(Map<String, String> unifiedOrder, String ids, String ip, String zh,String prepay_id) {
+    public WxPayOrder fillOrder(Map<String, String> unifiedOrder, String ids, String ip, String zh, String prepay_id) {
         WxPayOrder wxPayOrder = new WxPayOrder();
         wxPayOrder.setOut_trade_no(unifiedOrder.get("out_trade_no"));
         wxPayOrder.setIds(ids);

@@ -16,8 +16,10 @@ public class MyWxpayConstant {
     public static final String ORDER_STATE_ILLEGALMONEY = "3";
 
 
-    public static final String RETURN_CODE = "";
-    public static final String RESULT_CODE = "";
+    public static final String RETURN_CODE_ERROR = "error";
+    public static final String RETURN_CODE_SUCCESS = "success";
+    //
+    public static final String RESULT_CODE_ILLEGALMONEY = "预支付订单金额与微信回调金额不一致";
 
     //学杂费对应的项目类型id
     public static final String XMLXID_XZF="20001";

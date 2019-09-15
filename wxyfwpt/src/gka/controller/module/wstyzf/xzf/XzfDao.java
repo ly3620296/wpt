@@ -46,8 +46,8 @@ public class XzfDao {
             @Override
             public boolean run() throws SQLException {
                 String sql = "UPDATE WPT_WXZF_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=? WHERE OUT_TRADE_NO=?";
-                int upOrder = Db.update(sql, repData.get("time_end"),  MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, "", "", repData.get("transaction_id"), repData.get("out_trade_no"));
-                return true;
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), repData.get("out_trade_no"));
+                return upOrder >= 1;
             }
         });
 

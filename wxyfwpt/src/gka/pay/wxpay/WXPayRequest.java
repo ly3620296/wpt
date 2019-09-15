@@ -11,6 +11,7 @@ import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLInitializationException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
@@ -80,15 +81,22 @@ public class WXPayRequest {
                     null
             );
         } else {
-            connManager = new BasicHttpClientConnectionManager(
-                    RegistryBuilder.<ConnectionSocketFactory>create()
-                            .register("http", PlainConnectionSocketFactory.getSocketFactory())
-                            .register("https", SSLConnectionSocketFactory.getSocketFactory())
-                            .build(),
-                    null,
-                    null,
-                    null
-            );
+            try {
+                connManager = new BasicHttpClientConnectionManager(
+                        RegistryBuilder.<ConnectionSocketFactory>create()
+                                .register("http", PlainConnectionSocketFactory.getSocketFactory())
+//                                .register("https", SSLConnectionSocketFactory.getSocketFactory())
+                                .build(),
+                        null,
+                        null,
+                        null
+                );
+//
+            } catch (SSLInitializationException e) {
+                System.out.println("111111111111111");
+                connManager = null;
+                e.printStackTrace();
+            }
         }
 
         HttpClient httpClient = HttpClientBuilder.create()
@@ -108,6 +116,7 @@ public class WXPayRequest {
 
         HttpResponse httpResponse = httpClient.execute(httpPost);
         HttpEntity httpEntity = httpResponse.getEntity();
+        System.out.println("##############" + EntityUtils.toString(httpEntity, "UTF-8"));
         return EntityUtils.toString(httpEntity, "UTF-8");
 
     }
