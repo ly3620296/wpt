@@ -26,8 +26,8 @@ public class WxPayOrder {
     private String time_start;
     //支付完成时间
     private String time_end;
-    //是否接受到回调 0:否 1:是
-    private String isCallBack = "0";
+    //是否接受到回调 0:未支付 1:关闭 2：已支付
+    private String order_state = "0";
     //业务结果
     private String return_code;
     //结果详情
@@ -113,12 +113,12 @@ public class WxPayOrder {
         this.time_end = time_end;
     }
 
-    public String getIsCallBack() {
-        return isCallBack;
+    public String getOrder_state() {
+        return order_state;
     }
 
-    public void setIsCallBack(String isCallBack) {
-        this.isCallBack = isCallBack;
+    public void setOrder_state(String order_state) {
+        this.order_state = order_state;
     }
 
     public String getReturn_code() {
@@ -150,7 +150,7 @@ public class WxPayOrder {
                 ", payIp='" + payIp + '\'' +
                 ", time_start='" + time_start + '\'' +
                 ", time_end='" + time_end + '\'' +
-                ", isCallBack='" + isCallBack + '\'' +
+                ", order_state='" + order_state + '\'' +
                 ", return_code='" + return_code + '\'' +
                 ", result_code='" + result_code + '\'' +
                 '}';
