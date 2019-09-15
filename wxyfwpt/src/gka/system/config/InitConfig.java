@@ -73,8 +73,8 @@ public class InitConfig extends JFinalConfig {
     public void afterJFinalStart() {
         //线程启动
         new InitThread();
-        //支付启动
-        new WxPayTool(new MyWxConfig());
+//        //支付启动
+//        new WxPayTool();
     }
 
     /**

@@ -13,7 +13,7 @@
 <script type="text/javascript">
     var appId, timeStamp, nonceStr, package, signType, paySign;
     function pay() {
-        var url = wpt_serverName + "pay/wxpay/con/wxPayCon";
+        var url = wpt_serverName + "wstyzf/xzf/rezfXzf";
         $.get(url, function (result) {
             appId = result.appId;
             timeStamp = result.timeStamp;

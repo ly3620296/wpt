@@ -7,26 +7,27 @@
 <%@ page import="java.io.InputStreamReader" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="gka.pay.wxpay.WXPayUtil" %>
+<%@ page import="gka.pay.wxpay.WXPay" %>
+<%@ page import="gka.pay.wxpay.controller.WxPayTool" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    System.out.println("----------------");
-    System.out.println("------------------");
-    BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream(), "UTF-8"));
-    StringBuffer sf = new StringBuffer();
-    String len;
-    while ((len = br.readLine()) != null) {
-        sf.append(len);
+    WxPayTool wxPayTool = WxPayTool.getInstance();
+//    Map<String, String> req = new HashMap<String, String>();
+//    req.put("out_trade_no", "1568526879055tulzyyk");
+//    Map<String, String> rep = wxPayTool.orderQuery(req);
+//    System.out.println("$$$$$$$$$$$$$$" + rep);
+//    out.print(rep);
 
-    }
-    Map<String, String> map = WXPayUtil.xmlToMap(sf.toString());
-    System.out.println("$$$$$$$$$$$$$$$$$"+map);
-    PrintWriter pw = response.getWriter();
-    pw.write("<xml>" +
-            "<return_code><![CDATA[SUCCESS]]></return_code>" +
-            "<return_msg><![CDATA[OK]]></return_msg>" +
-            "</xml>");
-    pw.flush();
-    System.out.println("-------end------------");
+
+    Map<String, String> req = new HashMap<String, String>();
+    req.put("out_trade_no", "1568526879055tulzyyk");
+
+    Map<String, String> rep =    wxPayTool.closeOrder(req);
+    System.out.println("$$$$$$$$$$$$$$" + rep);
+    out.print(rep);
+
+
 //    Map<Thread, StackTraceElement[]> map = Thread.getAllStackTraces();
 //    Set<Map.Entry<Thread, StackTraceElement[]>> entrySet = map.entrySet();
 //    Iterator<Map.Entry<Thread, StackTraceElement[]>> iterator = entrySet.iterator();

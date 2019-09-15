@@ -10,8 +10,8 @@ import com.jfinal.plugin.activerecord.Db;
 public class WxPayDao {
 
     public void insertOrder(WxPayOrder wxPayOrder) {
-        String sql = "insert into wpt_wxzf_order (out_trade_no,ids,pay_type,total_fee,appid,mch_id,openid,payIp,time_start,isCallBack) values (?,?,?,?,?,?,?,?,?,?)";
-        Db.update(sql, wxPayOrder.getOut_trade_no(), wxPayOrder.getIds(), wxPayOrder.getPay_type(), wxPayOrder.getTotal_fee(), wxPayOrder.getAppid(),
-                wxPayOrder.getMch_id(), wxPayOrder.getOpenid(), wxPayOrder.getPayIp(), wxPayOrder.getTime_start(), "0");
+        String sql = "INSERT INTO WPT_WXZF_ORDER (XH,OUT_TRADE_NO,IDS,PAY_TYPE,TOTAL_FEE,APPID,MCH_ID,OPENID,PAYIP,TIME_START,ORDER_STATE,PREPAY_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        Db.update(sql, wxPayOrder.getXh(), wxPayOrder.getOut_trade_no(), wxPayOrder.getIds(), wxPayOrder.getPay_type(), wxPayOrder.getTotal_fee(), wxPayOrder.getAppid(),
+                wxPayOrder.getMch_id(), wxPayOrder.getOpenid(), wxPayOrder.getPayIp(), wxPayOrder.getTime_start(), MyWxpayConstant.ORDER_STATE_NOPAY, wxPayOrder.getPREPAY_ID());
     }
 }

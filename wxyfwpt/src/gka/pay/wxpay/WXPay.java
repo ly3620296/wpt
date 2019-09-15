@@ -92,6 +92,7 @@ public class WXPay {
             reqData.put("sign_type", WXPayConstants.HMACSHA256);
         }
         reqData.put("sign", WXPayUtil.generateSignature(reqData, config.getKey(), this.signType));
+        System.out.println("$$$$$$$$$$$$$$$$$$$$$"+reqData);
         return reqData;
     }
 
@@ -116,6 +117,7 @@ public class WXPay {
      */
     public boolean isPayResultNotifySignatureValid(Map<String, String> reqData) throws Exception {
         String signTypeInData = reqData.get(WXPayConstants.FIELD_SIGN_TYPE);
+        System.out.println("signTypeInData------" + signTypeInData);
         SignType signType;
         if (signTypeInData == null) {
             signType = SignType.MD5;
@@ -149,7 +151,6 @@ public class WXPay {
                                      int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String msgUUID = reqData.get("nonce_str");
         String reqBody = WXPayUtil.mapToXml(reqData);
-
         String resp = this.wxPayRequest.requestWithoutCert(urlSuffix, msgUUID, reqBody, connectTimeoutMs, readTimeoutMs, autoReport);
         return resp;
     }
@@ -681,5 +682,7 @@ public class WXPay {
         return this.processResponseXml(respXml);
     }
 
-
+    public SignType getSignType() {
+        return signType;
+    }
 } // end class
