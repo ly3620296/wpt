@@ -81,22 +81,15 @@ public class WXPayRequest {
                     null
             );
         } else {
-            try {
-                connManager = new BasicHttpClientConnectionManager(
-                        RegistryBuilder.<ConnectionSocketFactory>create()
-                                .register("http", PlainConnectionSocketFactory.getSocketFactory())
-//                                .register("https", SSLConnectionSocketFactory.getSocketFactory())
-                                .build(),
-                        null,
-                        null,
-                        null
-                );
-//
-            } catch (SSLInitializationException e) {
-                System.out.println("111111111111111");
-                connManager = null;
-                e.printStackTrace();
-            }
+            connManager = new BasicHttpClientConnectionManager(
+                    RegistryBuilder.<ConnectionSocketFactory>create()
+                            .register("http", PlainConnectionSocketFactory.getSocketFactory())
+                            .register("https", SSLConnectionSocketFactory.getSocketFactory())
+                            .build(),
+                    null,
+                    null,
+                    null
+            );
         }
 
         HttpClient httpClient = HttpClientBuilder.create()
@@ -116,7 +109,6 @@ public class WXPayRequest {
 
         HttpResponse httpResponse = httpClient.execute(httpPost);
         HttpEntity httpEntity = httpResponse.getEntity();
-        System.out.println("##############" + EntityUtils.toString(httpEntity, "UTF-8"));
         return EntityUtils.toString(httpEntity, "UTF-8");
 
     }

@@ -42,16 +42,15 @@ public class WxPayCallBackController extends Controller {
                 return;
             }
             //判断下单时候的金额是否和回调时候的金额一致 否则视为非法订单 直接返回
-            String out_trade_no=repData.get("out_trade_no");
-            if (XzfDao.preMoney(out_trade_no).equals(repData.get("total_fee"))) {
+            String out_trade_no = repData.get("out_trade_no");
+            if (!XzfDao.preMoney(out_trade_no).equals(repData.get("total_fee"))) {
                 //通知微信
                 renderText(callBackString);
                 //修改订单为非法订单
-                XzfDao.updateIllegalMoneyOrder(repData,"");
+                XzfDao.updateIllegalMoneyOrder(repData);
                 return;
             }
 
-            System.out.println("----------$$#$#$@@@@@@@@@@@@@@");
             //通知微信
             renderText(callBackString);
 
@@ -60,7 +59,7 @@ public class WxPayCallBackController extends Controller {
              * 1. 修改订单表
              * 2. 修改缴费表
              */
-
+            XzfDao.updateNormalOrder(repData);
 
         } catch (Exception e) {
             e.printStackTrace();

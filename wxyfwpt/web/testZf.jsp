@@ -49,7 +49,7 @@
                 },
                 function (res) {
                     if (res.err_msg == "get_brand_wcpay_request:ok") {
-                        console.log('支付成功');
+                        window.location.href = "http://www.baidu.com";
                         //支付成功后跳转的页面
                     } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
                         console.log('支付取消');

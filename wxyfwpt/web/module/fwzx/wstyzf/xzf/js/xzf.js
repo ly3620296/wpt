@@ -5,6 +5,11 @@ layui.use(['form', 'element', 'layer'], function () {
     var $ = layui.jquery;
     var loadIndex;
     wpt_xzf = {
+        noPayOrderInfo: {
+            noPayOrder: "no",
+            orderInfo: "",
+            prepay_id: ""
+        },
         init: function (xzfList, xzfXnxqList) {
             for (var xnxq in xzfXnxqList) {
                 var currXnxq = xzfXnxqList[xnxq].XNXQ;
@@ -19,6 +24,7 @@ layui.use(['form', 'element', 'layer'], function () {
                     '<th>欠费金额</th>' +
                     '</tr>';
                 var totalMoney = 0;
+                var isAllPay = true;
                 for (var xzf in xzfList) {
                     var xzfInfo = xzfList[xzf]
                     if (xzfInfo.XNXQ != currXnxq) {
@@ -46,13 +52,21 @@ layui.use(['form', 'element', 'layer'], function () {
                     '</tr>';
                     if (xzfInfo.SFJF == 0) {
                         totalMoney += parseInt(xzfInfo.XMJE)
+                        if (isAllPay) {
+                            isAllPay = false;
+                        }
                     }
 
                 }
+                var ljjf = '<a href="javascript:void(0)" class="btnjf" id="jfClick_' + currXnxq + '">立即缴费</a>'
+                if (isAllPay) {
+                    ljjf = '<a href="javascript:void(0)" class="btnjf" ></a>'
+                }
+
                 sfxm += '</table>' +
                 '<div class="bottom">' +
                 '<p id="checkJF_' + currXnxq + '_total" value="' + totalMoney + '">合计：' + totalMoney + '元</p>' +
-                '<a href="javascript:void(0)" class="btnjf" id="jfClick_' + currXnxq + '">立即缴费</a>' +
+                ljjf +
                 '</div>'
                 $("#sfxmList").append(sfxm)
             }
@@ -74,6 +88,8 @@ layui.use(['form', 'element', 'layer'], function () {
                         var msg = data.returnInfo.return_msg;
                         if (code == "0") {
                             wpt_xzf.init(data.xzfList, data.xzfXnxqList);
+                            wpt_xzf.noPayOrder(data);
+
                         } else {
                             layer.msg(msg, {anim: 6, time: 2000});
                         }
@@ -136,9 +152,11 @@ layui.use(['form', 'element', 'layer'], function () {
                 function (res) {
                     if (res.err_msg == "get_brand_wcpay_request:ok") {
                         console.log('支付成功');
+                        window.location.replace(location.href)
                         //支付成功后跳转的页面
                     } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
                         console.log('支付取消');
+                        window.location.replace(location.href)
                     } else if (res.err_msg == "get_brand_wcpay_request:fail") {
                         console.log('支付失败');
                         WeixinJSBridge.call('closeWindow');
@@ -200,10 +218,134 @@ layui.use(['form', 'element', 'layer'], function () {
                 }
             })
 
+        },
+        bindShowOrder: function () {
+            var orderInfos = wpt_xzf.noPayOrderInfo.orderInfo;
+            var nd = orderInfos[0].XNXQ;
+
+            $(document).on('click', 'a[id^="jfClick_"]', function () {
+                var noPayOrderHtml = '<p class="tablename">' + nd + '年度</p>' +
+                    '<table border = ""cellspacing = "" cellpadding = "" > ' +
+                    '<tbody>' +
+                    '<tr>' +
+                    '<th>费用名称</th>' +
+                    '<th>应交金额</th>' +
+                    '<th>已缴金额</th>' +
+                    '<th>欠费金额</th>' +
+                    '</tr>';
+                var totalMoney = 0;
+                for (var i = 0; i < orderInfos.length; i++) {
+                    noPayOrderHtml += '<tr>' +
+                    '<td>' + orderInfos[i].XMMC + '</td>' +
+                    '<td>' + orderInfos[i].XMJE + '</td>' +
+                    '<td>0</td>' +
+                    '<td>' + orderInfos[i].XMJE + '</td>' +
+                    '</tr>';
+                    totalMoney += parseInt(orderInfos[i].XMJE);
+                }
+                noPayOrderHtml += '</tbody>' +
+                '</table>';
+
+                noPayOrderHtml += '<div class="bottom">' +
+                '<p>合计：' + totalMoney + '</p>' +
+                '</div>';
+                $("#noPayOrderTable").html(noPayOrderHtml);
+                $("#tanchuddId").show();
+            })
+            $("#closeOrder").bind("click", function () {
+                $.ajax({
+                    url: wpt_serverName + "wstyzf/xzf/closeOrder",
+                    type: 'post',
+                    dataType: 'json',
+                    timeout: 10000,
+                    data: {prepay_id: wpt_xzf.prepay_id},
+                    beforeSend: function () {
+                        layer.ready(function () {
+                            loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                        })
+                    },
+                    success: function (data) {
+                        if (data) {
+                            var code = data.returnInfo.return_code;
+                            var msg = data.returnInfo.return_msg;
+                            if (code == "0") {
+
+                            } else {
+                                layer.msg(msg, {anim: 6, time: 2000});
+                            }
+                        }
+                    },
+                    complete: function () {
+                        layer.close(loadIndex);
+                    }
+                })
+            })
+
+            $("#finishOrder").bind("click", function () {
+                $.ajax({
+                    url: wpt_serverName + "wstyzf/xzf/rezfXzf",
+                    type: 'post',
+                    dataType: 'json',
+                    timeout: 10000,
+                    data: {prepay_id: wpt_xzf.prepay_id},
+                    beforeSend: function () {
+                        layer.ready(function () {
+                            loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                        })
+                    },
+                    success: function (data) {
+                        if (data) {
+                            var code = data.returnInfo.return_code;
+                            var msg = data.returnInfo.return_msg;
+                            if (code == "0") {
+                                var obj = {
+                                    appId: data.appId,
+                                    timeStamp: data.timeStamp,
+                                    nonceStr: data.nonceStr,
+                                    package: data.package,
+                                    signType: data.signType,
+                                    paySign: data.paySign
+                                }
+
+                                if (typeof WeixinJSBridge == "undefined") {
+                                    if (document.addEventListener) {
+                                        document.addEventListener('WeixinJSBridgeReady',
+                                            wpt_xzf.onBridgeReady(obj), false);
+                                    } else if (document.attachEvent) {
+                                        document.attachEvent('WeixinJSBridgeReady',
+                                            wpt_xzf.onBridgeReady(obj));
+                                        document.attachEvent('onWeixinJSBridgeReady',
+                                            wpt_xzf.onBridgeReady(obj));
+                                    }
+                                } else {
+                                    wpt_xzf.onBridgeReady(obj);
+                                }
+                            } else {
+                                layer.msg(msg, {anim: 6, time: 2000});
+                            }
+                        }
+                    },
+                    complete: function () {
+                        layer.close(loadIndex);
+                    }
+                })
+            })
+
+        },
+        noPayOrder: function (data) {
+            wpt_xzf.noPayOrderInfo.noPayOrder = data.noPayOrder;
+            if (data.noPayOrder == "yes") {
+                wpt_xzf.noPayOrderInfo.orderInfo = data.orderInfo;
+                wpt_xzf.prepay_id = data.prepay_id;
+                wpt_xzf.bindShowOrder();
+            } else {
+                wpt_xzf.bindZf();
+            }
+
         }
     }
     wpt_xzf.xzfIndex();
     wpt_xzf.bindCheckLy();
-    wpt_xzf.bindZf();
+
 
 });
