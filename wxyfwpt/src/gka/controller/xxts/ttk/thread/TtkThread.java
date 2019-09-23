@@ -23,8 +23,8 @@ public class TtkThread implements Runnable {
             try {
                 //调用调停课查询
                 checkTtk(getTime());
-//                TimeUnit.SECONDS.sleep(60*60);
-                TimeUnit.MINUTES.sleep(1);
+                TimeUnit.HOURS.sleep(2);
+//                TimeUnit.MINUTES.sleep(1);
 
             } catch (Exception e) {
                 e.printStackTrace();

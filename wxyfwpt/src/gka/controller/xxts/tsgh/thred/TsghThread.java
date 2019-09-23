@@ -23,8 +23,8 @@ public class TsghThread implements Runnable {
             try {
                 //图书借阅记录查询
                 checkTsgwz(getTime());
-//                TimeUnit.HOURS.sleep(3);
-                TimeUnit.MINUTES.sleep(1);
+                TimeUnit.HOURS.sleep(2);
+//                TimeUnit.MINUTES.sleep(1);
 
             } catch (Exception e) {
                 e.printStackTrace();

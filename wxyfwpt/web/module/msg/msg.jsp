@@ -101,7 +101,7 @@
                             var code = data.returnInfo.return_code;
                             var msg = data.returnInfo.return_msg;
                             if (code == "0") {
-                                wpt_msg.initMsg(data.ttkXxList, data.tsjyXxList);
+                                wpt_msg.initMsg(data.ttkXxList);
                             } else {
                                 layer.msg(msg, {anim: 6, time: 2000});
                             }
@@ -112,7 +112,7 @@
                     }
                 })
             },
-            initMsg: function (ttkXxList, tsjyList) {
+            initMsg: function (ttkXxList) {
                 var ydHtml = "";
                 var wdHtml = "";
                 for (var i in ttkXxList) {

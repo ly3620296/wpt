@@ -10,12 +10,12 @@ public class InitThread {
 
     public InitThread() {
         //调停课推送
-//        new TtkThread();
-//        new TtkUpdate();
+        new TtkThread();
+        new TtkUpdate();
         //图书归还推送
-//        new TsghUpdate();
-//        new TsghThread();
+        new TsghUpdate();
+        new TsghThread();
         //关闭过期订单
-        new OrderCheck();
+//        new OrderCheck();
     }
 }

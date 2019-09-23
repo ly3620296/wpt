@@ -23,7 +23,6 @@ public class TsjycxController extends Controller {
         try {
             WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
             String sfzh = wptUserInfo.getZjhm();
-            //收费表
             List<Record> tsjycxList = tsjycxDao.tsjycx(sfzh);
             result.put("tsjycxList", tsjycxList);
             returnInfo.setReturn_code("0");
