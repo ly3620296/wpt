@@ -1,11 +1,13 @@
 var loginObj = {
     loginInfo: {
         account: "",
-        password: ""
+        password: "",
+        vercode: ""
     },
     loginValidate: function () {
         this.loginInfo.account = $("#account").val();
         this.loginInfo.password = $("#password").val();
+        this.loginInfo.vercode = $("#LAY-user-login-vercode").val();
         if (!this.loginInfo.account) {
             layer.msg('请输入账号!', {
                 icon: 5,
@@ -20,7 +22,13 @@ var loginObj = {
             });
             return false;
         }
-
+        if (!this.loginInfo.vercode) {
+            layer.msg('请输入验证码!', {
+                icon: 5,
+                time: 2000
+            });
+            return false;
+        }
         return true;
     },
     login: function () {
@@ -31,21 +39,30 @@ var loginObj = {
                 url: wpt_serverName + "login/loginValidate",
                 type: 'post',
                 dataType: 'json',
-                data: {"account": loginObj.loginInfo.account, "password": loginObj.loginInfo.password},
+                data: {
+                    "account": loginObj.loginInfo.account,
+                    "password": loginObj.loginInfo.password,
+                    "vercode": loginObj.loginInfo.vercode
+                },
                 timeout: 10000,
                 beforeSend: function () {
                     loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
                 },
                 success: function (data) {
                     if (data) {
-                        var code = data.return_code;
-                        var msg = data.return_msg;
-                        if (code == "0") {
-                            window.location.href = wpt_serverName + "main/index.jsp";
+                        if (data.vercode) {
+                            layer.msg(data.vercode, {anim: 6, time: 2000});
+                            updateCaptcha();    // captcha 被验证过以后会立即失效，更新之
+                            return;
                         } else {
-                            layer.msg(msg, {anim: 6, time: 2000});
+                            var code = data.return_code;
+                            var msg = data.return_msg;
+                            if (code == "0") {
+                                window.location.href = wpt_serverName + "main/index.jsp";
+                            } else {
+                                layer.msg(msg, {anim: 6, time: 2000});
+                            }
                         }
-
                     }
                 }
                 ,
@@ -55,9 +72,14 @@ var loginObj = {
             })
         }
     }
-
 }
-
+function updateCaptcha() {
+    $("#mobileImage").attr("src", "/wptma/login/captcha?v=" + Math.random());
+    $("#vercode").val("");
+}
+$(document).ready(function () {
+    updateCaptcha();
+})
 $(function () {
     $("#login").on("click", function () {
         loginObj.login();

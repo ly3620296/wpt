@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">公告状态</label>
+        <label class="layui-form-label">菜单状态</label>
 
         <div class="layui-input-block">
             <input type="radio" name="m_state" value="1" title="在线" checked>

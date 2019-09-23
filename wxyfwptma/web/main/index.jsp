@@ -12,16 +12,16 @@
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>main/index.js"></script>
 </head>
-<!--<span class="layui-unselect layui-tab-bar" lay-stope="tabmore" title="" style="-->
 <body class="layui-layout-body">
 <jsp:include page="/login/auth.jsp"></jsp:include>
 <%
     WptMaUserInfo userInfo = (WptMaUserInfo) session.getAttribute("wptMaUserInfo");
     String userName = "";
+    String menu = "";
     if (userInfo != null) {
         userName = userInfo.getM_name();
+        menu = userInfo.getMenu();
     }
-
 %>
 <div class="layui-layout layui-layout-admin">
     <!-- 头部区域（可配合layui已有的水平导航） -->
@@ -43,8 +43,6 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <%--<img src="http://t.cn/RCzsdCq" class="layui-nav-img">--%>
-                    <%--贤心--%>
                     <%=userName%>
                 </a>
                 <dl class="layui-nav-child">
@@ -59,58 +57,8 @@
     <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
     <div class="layui-side layui-bg-black" id="layui-left-side">
         <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree" lay-shrink="all" lay-filter="left-side">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">
-                        <i class="layui-icon layui-icon-home"></i>
-                        <cite>基础功能</cite></a>
-                    <dl class="layui-nav-child">
-                        <%--<dd class="layui-this">--%>
-                        <%--<a data-url="ly_home" data-id="ly_home" data-title="table-demo"--%>
-                        <%--data-type="tabAdd">欢迎</a>--%>
-                        <%--</dd>--%>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>module/notice/list.jsp" data-id="0" data-title="公告管理"
-                               data-type="tabAdd">公告管理</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>module/xygl/list.jsp" data-id="1" data-title="学院管理"
-                               data-type="tabAdd">学院管理</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>module/qxgl/list.jsp" data-id="2" data-title="角色管理"
-                               data-type="tabAdd">角色管理</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>module/menu/list.jsp" data-id="3" data-title="菜单管理"
-                               data-type="tabAdd">菜单管理</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>module/user/list.jsp" data-id="4" data-title="用户管理"
-                               data-type="tabAdd">用户管理</a>
-                        </dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;">
-                        <i class="layui-icon layui-icon-home"></i>
-                        <cite>用户</cite></a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>module/notice/list.jsp" data-id="0" data-title="公告1管理"
-                               data-type="tabAdd">公告1管理</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>module/jsgl/list.jsp" data-id="1" data-title="角色1管理"
-                               data-type="tabAdd">角色1管理</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>module/menu/list.jsp" data-id="2" data-title="菜单1管理"
-                               data-type="tabAdd">菜单1管理</a>
-                        </dd>
-                    </dl>
-                </li>
-
+            <ul class="layui-nav layui-nav-tree" lay-shrink="all" lay-filter="left-side" id="menu">
+                <%=menu%>
             </ul>
         </div>
     </div>

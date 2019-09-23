@@ -24,7 +24,6 @@ public class MenuController extends Controller {
 
     public void list() {
         try {
-
             WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
             int page = Integer.parseInt(getPara("page"));
             int limit = Integer.parseInt(getPara("limit"));
@@ -124,6 +123,19 @@ public class MenuController extends Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void getMenu() {
+        WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
+        List<Record> list=null;
+        try {
+            String sql = "select m.* from wptma_user u,wptma_qxgl q,wptma_jscd j,wptma_menu m where u.m_qx=q.q_id and " +
+                    "j.q_id=q.q_id and m.m_id = j.m_id and u.m_id=? order by m.m_level";
+            list = Db.find(sql, userInfo.getM_id());
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        renderJson(list);
     }
 
 }

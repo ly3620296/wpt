@@ -8,24 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/admin.css">
-    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>'
+    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
+    <title>菜单管理</title>
 </head>
 <jsp:include page="/login/auth.jsp"></jsp:include>
 <body>
-<div class="layui-form-item">
+<div class="layui-form-item" style="margin-top: 3%;">
     <div class="layui-inline">
-        <label class="layui-form-label">标题</label>
+        <label class="layui-form-label">项目名称</label>
 
         <div class="layui-input-block">
-            <input type="text" id="title" name="title" placeholder="请输入标题" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-inline">
-        <label class="layui-form-label">时间</label>
-
-        <div class="layui-input-block">
-            <input type="text" class="layui-input" id="time" name="time" placeholder="yyyy-MM-dd">
+            <input type="text" id="title" name="title" placeholder="请输入项目名称" autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-inline">
@@ -53,42 +47,24 @@
 <script src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script>
     var loadIndex
-//    layui.use(['laypage', 'layer', 'table', 'element', 'slider', 'jquery'], function () {
-
-        layui.use(['laypage', 'layer', 'table', 'element', 'slider', 'jquery', 'laydate'], function () {
-            var laydate = layui.laydate;
+    layui.use(['form', 'laypage', 'layer', 'table', 'element', 'slider', 'jquery'], function () {
         var laypage = layui.laypage //分页
                 , layer = layui.layer //弹层
                 , table = layui.table //表格
                 , $ = layui.jquery
-//                ,element = layui.element //元素操作
-//                ,slider = layui.slider //滑块
-        laydate.render({
-            elem: '#time'
-        });
-
-//        //监听Tab切换
-//        element.on('tab(demo)', function(data){
-//            layer.tips('切换了 '+ data.index +'：'+ this.innerHTML, this, {
-//                tips: 1
-//            });
-//        });
-
-        //执行一个 table 实例
+                , form = layui.form;
         table.render({
             elem: '#demo'  //容器id
             , cols: [[   //表头
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'G_ID', title: 'ID',width:70, sort: true, fixed: 'left'}
-                , {field: 'M_NAME', title: '创建用户',width:110}
-                , {field: 'G_TITLE', title: '公告标题'}
-                , {field: 'G_TEXT', title: '公告内容'}
-                , {field: 'G_STATE', title: '在线状态',width:80,color:'blue'}
+                , {field: 'XMID', title: '项目ID', width:180,sort: true, fixed: 'left'}
+                , {field: 'XMMC', title: '项目名称'}
+                , {field: 'XMJE', title: '项目金额'}
+                , {field: 'XMLXMC', title: '项目类型'}
+                , {field: 'SFBX', title: '是否必缴'}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
-//            , height: 700
-//            , width: 1000
-            , url: wpt_serverName + 'notice/list' //数据接口地址
+            , url: wpt_serverName + 'jfxm/list' //数据接口地址
             , title: '用户表'
             , page: true //开启分页
             , toolbar: 'default'   //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
@@ -97,7 +73,6 @@
             , loading: true
             , even: true  //隔行换色 默认false
             , done: function (res, curr, count) { //加载完回调
-                // console.log(res);
             },
             id: 'userTableReload'
         });
@@ -106,9 +81,7 @@
         var active = {
             reload: function () {
                 //获取用户名
-                var demoReload_title = $('#title');
-                var demoReload_time = $('#time');
-
+                var demoReload = $('#title');
                 //执行重载
                 table.reload('userTableReload', {
                     page: {
@@ -116,19 +89,18 @@
                     }
                     //根据条件查询
                     , where: {
-                        title: demoReload_title.val(),
-                        time: demoReload_time.val()
+                        title: demoReload.val()
                     }
                 });
+            }, show: function () {
+                $("#m_url_div").show()
             }
         };
         //点击搜索按钮根据用户名称查询
         $('#selectbyCondition').on('click', function () {
             var type = $(this).data('type');
-//            console.log(type)
             active[type] ? active[type].call(this) : '';
         });
-
 
         //监听头工具栏事件
         table.on('toolbar(test)', function (obj) {
@@ -136,7 +108,7 @@
                     , data = checkStatus.data; //获取选中的数据
             switch (obj.event) {
                 case 'add':
-                    window.location.href = 'add.jsp'
+                    func7();
                     break;
                 case 'update':
                     if (data.length === 0) {
@@ -144,7 +116,7 @@
                     } else if (data.length > 1) {
                         layer.msg('只能同时编辑一个');
                     } else {
-                        window.location.href = wpt_serverName + '/module/notice/edit.jsp?id='+checkStatus.data[0].G_ID;
+                        edit(checkStatus.data[0].XMID);
                     }
                     break;
                 case 'delete':
@@ -155,7 +127,7 @@
                             layer.close(index);
                             var idArray = new Array();
                             for (var a = 0; a < data.length; a++) {
-                                var my_id = data[a].G_ID;
+                                var my_id = data[a].XMID;
                                 idArray.push(my_id)
                             }
                             layer.close(index);
@@ -171,7 +143,7 @@
         table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                     , layEvent = obj.event; //获得 lay-event 对应的值
-            var id = data.G_ID
+            var id = data.XMID
             if (layEvent === 'del') {
                 layer.confirm('真的删除行么', function (index) {
                     layer.close(index);
@@ -181,7 +153,7 @@
                     //向服务端发送删除指令
                 });
             } else if (layEvent === 'edit') {
-                window.location.href = wpt_serverName + '/module/notice/edit.jsp?id='+id;
+                edit(id)
             }
         });
 
@@ -198,17 +170,45 @@
                 }
             }
         });
-
-        //        slider.render({
-        //            elem: '#sliderDemo'
-        //            ,input: true //输入框
-        //        });
-
-
     });
+    function edit(id) {
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-rim', //加上边框
+            title: '编辑缴费项目',
+            area: ['70%', '68%'], //宽高
+            content: '/wptma/module/jfxm/edit.jsp?id='+id,  //调到新增页面
+            success: function (layero, index) {
+                // 新iframe窗口的对象
+                var iframeWin = layero.find('iframe')[0].contentWindow;
+                // 重新渲染checkbox,select同理
+                iframeWin.layui.form.render('checkbox');
+            }
+        })
+    }
+    function func7() {
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-rim', //加上边框
+            title: '添加缴费项目',
+            area: ['70%', '68%'], //宽高
+            content: '/wptma/module/jfxm/add.jsp',  //调到新增页面
+            success: function (layero, index) {
+                // 新iframe窗口的对象
+                var iframeWin = layero.find('iframe')[0].contentWindow;
+                // 重新渲染checkbox,select同理
+                iframeWin.layui.form.render('checkbox');
+            }
+        })
+    }
+    function closeAll() {
+        layer.closeAll();
+        window.location.href = wpt_serverName + '/module/jfxm/list.jsp';
+    }
+
     function del(array) {
         $.ajax({
-            url: wpt_serverName + "notice/del",
+            url: wpt_serverName + "jfxm/del",
             type: 'post',
             dataType: 'json',
             data: {id: array},
@@ -219,7 +219,7 @@
             success: function (data) {
                 if (data.RETURN_STATE == "SUCCESS") {
                     layer.alert('删除成功!', function (index) {
-                        window.location.href = wpt_serverName + '/module/notice/list.jsp';
+                        window.location.href = wpt_serverName + '/module/jfxm/list.jsp';
                     });
                 } else {
                     layer.msg(data.RETURN_MSG, {anim: 6, time: 2000});
@@ -230,6 +230,7 @@
             }
         })
     }
+
 </script>
 </body>
 </html>        

@@ -9,6 +9,15 @@ public class WptMaUserInfo {
     private String m_zh; //账号
     private String m_mm; //密码
     private String m_qx; //用户权限
+    private String menu; //用户权限
+
+    public String getMenu() {
+        return menu;
+    }
+
+    public void setMenu(String menu) {
+        this.menu = menu;
+    }
 
     public String getM_id() {
         return m_id;

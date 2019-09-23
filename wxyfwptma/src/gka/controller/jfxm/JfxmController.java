@@ -1,4 +1,4 @@
-package gka.controller.notice;
+package gka.controller.jfxm;
 
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
@@ -17,19 +17,18 @@ import java.util.Map;
  * @Date 2019/4/19
  * @Describe
  */
-@ControllerBind(controllerKey = "/notice")
-public class NoticeController extends Controller {
+@ControllerBind(controllerKey = "/jfxm")
+public class JfxmController extends Controller {
 
     public void list() {
         WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
         int page = Integer.parseInt(getPara("page"));
         int limit = Integer.parseInt(getPara("limit"));
         String title = getPara("title");
-        String time = getPara("time");
-        int count = NoticeDao.searchCount(userInfo.getM_id(),title,time);    // 查找数据条数
+        int count = JfxmDao.searchCount(userInfo.getM_id(), title);    // 查找数据条数
         int start = limit * page - limit + 1;
         int end = limit * page;
-        List<Record> list = NoticeDao.list(start, end, userInfo.getM_id(),title,time);
+        List<Record> list = JfxmDao.list(start, end, userInfo.getM_id(), title);
         Map map = ReKit.toMap(count, list);
         renderJson(map);
     }
@@ -37,11 +36,20 @@ public class NoticeController extends Controller {
     public void add() {
         try {
             WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
-            String g_state = getPara("g_state");
-            String g_title = getPara("g_title");
-            String g_text = getPara("g_text");
-            String g_xy = getPara("g_xy");
-            int result = NoticeDao.add(g_title, userInfo.getM_id(), g_text, g_state, g_xy);
+            String xmmc = getPara("xmmc");
+            String xmje = getPara("xmje");
+            String xmlxid = getPara("xmlxid");
+            String sfbx = getPara("sfbx");
+            String id = "";
+            while (true) {
+                id = JfxmDao.createXmId();
+                String sql = "select * from wpt_jfxm t where xmid=?";
+                Record record = Db.findFirst(sql, id);
+                if (record == null) {
+                    break;
+                }
+            }
+            int result = JfxmDao.add(id, xmmc, xmje, xmlxid, sfbx);
             if (result > 0) {
                 renderJson(ReturnKit.retOk());
             } else {
@@ -55,12 +63,12 @@ public class NoticeController extends Controller {
     public void edit() {
         try {
             WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
-            String g_id = getPara("g_id");
-            String g_state = getPara("g_state");
-            String g_title = getPara("g_title");
-            String g_text = getPara("g_text");
-            String g_xy = getPara("g_xy");
-            int result = NoticeDao.edit(g_title, userInfo.getM_id(), g_text, g_state, g_id, g_xy);
+            String xmid = getPara("xmid");
+            String xmmc = getPara("xmmc");
+            String xmje = getPara("xmje");
+            String xmlxid = getPara("xmlxid");
+            String sfbx = getPara("sfbx");
+            int result = JfxmDao.edit(xmid, xmmc, xmje, xmlxid, sfbx);
             if (result > 0) {
                 renderJson(ReturnKit.retOk());
             } else {
@@ -76,7 +84,7 @@ public class NoticeController extends Controller {
             String[] array = getParaValues("id[]");
             if (array.length > 0) {
                 for (int i = 0; i < array.length; i++) {
-                    Db.update("delete wptma_gg where g_id=?", array[i]);
+                    Db.update("delete wpt_jfxm where xmid=?", array[i]);
                 }
                 renderJson(ReturnKit.retOk());
             } else {
@@ -89,13 +97,13 @@ public class NoticeController extends Controller {
 
     public void query() {
         try {
-            Map map = new HashMap();
+            Map<String, Object> map = new HashMap<String, Object>();
             String id = getPara("id");
-            Record re = Db.findFirst("select * from wptma_gg where g_id=?", id);
+            Record re = Db.findFirst("select * from wpt_jfxm where xmid=?", id);
+            List<Record> list = Db.find("select * from wpt_jfxmlx");
             if (re != null) {
-                map.put("re", re);
-                List<Record> list = Db.find("select X_NAME,X_CODE from wptma_xygl");
-                map.put("xy", list);
+                map.put("jfxm", re);
+                map.put("jfxmlx", list);
                 renderJson(ReturnKit.retOk(map));
             } else {
                 renderJson(ReturnKit.retFail());
@@ -105,13 +113,13 @@ public class NoticeController extends Controller {
         }
     }
 
-    public void queryXy() {
+    public void queryjfxmlx() {
         try {
-            List<Record> list = Db.find("select X_NAME,X_CODE from wptma_xygl");
+            List<Record> list = Db.find("select * from wpt_jfxmlx ");
             if (list.size() > 0) {
                 renderJson(ReturnKit.retOk(list));
             } else {
-                renderJson(ReturnKit.retFail());
+                renderJson(ReturnKit.retFail("暂无缴费项目类型"));
             }
         } catch (Exception e) {
             e.printStackTrace();

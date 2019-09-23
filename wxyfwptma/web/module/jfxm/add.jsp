@@ -15,31 +15,37 @@
 <body>
 <jsp:include page="/login/auth.jsp"></jsp:include>
 <form class="layui-form" action="">
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">用户名称</label>
+    <div class="layui-form-item layui-form-text" style="margin-top: 5%;">
+        <label class="layui-form-label">项目名称</label>
 
         <div class="layui-input-inline">
-            <input type="text" name="m_name" required lay-verify="required" placeholder="请输入用户名称" autocomplete="off"
+            <input type="text" name="xmmc" required lay-verify="required" placeholder="请输入项目名称" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">用户账号</label>
+        <label class="layui-form-label">项目金额</label>
 
         <div class="layui-input-inline">
-            <input type="text" name="m_zh" required lay-verify="required|number" placeholder="请输入用户账号" autocomplete="off"
+            <input type="text" name="xmje" required lay-verify="required|number" placeholder="请输入项目金额" autocomplete="off"
                    class="layui-input">
         </div>
-        <div class="layui-form-mid layui-word-aux">用户初始密码为123456可登陆平台自行修改</div>
-        <%--<div style="color: red">用户初始密码为123456可登陆平台自行修改</div>--%>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">用户权限</label>
+        <label class="layui-form-label">项目类型</label>
 
         <div class="layui-input-inline">
-            <select name="m_qx" id="m_qx" required lay-verify="required">
+            <select name="xmlxid" id="xmlxid" required lay-verify="required">
 
             </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">是否必缴</label>
+
+        <div class="layui-input-block">
+            <input type="radio" name="sfbx" value="1" title="是" checked>
+            <input type="radio" name="sfbx" value="0" title="否">
         </div>
     </div>
     <div class="layui-form-item">
@@ -60,7 +66,7 @@
         var loadIndex;
         var faBool = true
         $.ajax({
-            url: wpt_serverName + "qxgl/queryQxgl",
+            url: wpt_serverName + "jfxm/queryjfxmlx",
             type: 'post',
             dataType: 'json',
             data: {},
@@ -72,9 +78,9 @@
                 if (data.RETURN_STATE == "SUCCESS") {
                     var html = '<option value=""></option>'
                     for (var i = 0; i < data.OUT_DATA.length; i++) {
-                        html += '<option value="' + data.OUT_DATA[i].Q_ID + '">' + data.OUT_DATA[i].Q_NAME + '</option>'
+                        html += '<option value="' + data.OUT_DATA[i].XMLXID + '">' + data.OUT_DATA[i].XMLXMC + '</option>'
                     }
-                    $("#m_qx").html(html)
+                    $("#xmlxid").html(html)
                     form.render()
                 } else {
                     faBool = false
@@ -87,10 +93,8 @@
         })
         //监听提交
         form.on('submit(formDemo)', function (data) {
-//            layer.msg(JSON.stringify(data.field));
-
                 $.ajax({
-                    url: wpt_serverName + "user/add",
+                    url: wpt_serverName + "jfxm/add",
                     type: 'post',
                     dataType: 'json',
                     data: data.field,
@@ -111,23 +115,7 @@
                         layer.close(loadIndex);
                     }
                 })
-
             return false
-        });
-        form.on("radio(m_level)", function (data) {
-            if (this.value == '1') {
-                $("#m_url_div").hide()
-                $("#m_father_div").hide()
-                if(!faBool){
-                    faBool=true
-                }
-            } else if (this.value == '2') {
-                $("#m_url_div").show()
-                $("#m_father_div").show()
-                if(!faBool){
-                    faBool=false
-                }
-            }
         });
     });
 
