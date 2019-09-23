@@ -44,6 +44,15 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">公告群体</label>
+
+        <div class="layui-input-block">
+            <input type="radio" name="g_group" value="00" title="全部">
+            <input type="radio" name="g_group" value="01" title="老师">
+            <input type="radio" name="g_group" value="02" title="学生">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">公告状态</label>
 
         <div class="layui-input-block">
@@ -100,6 +109,7 @@
                         , "g_text": data.OUT_DATA.re.G_TEXT
                         , "g_state": data.OUT_DATA.re.G_STATE
                         , "g_xy": data.OUT_DATA.re.G_XY
+                        , "g_group": data.OUT_DATA.re.G_GROUP
                     })
                 } else {
                     layer.alert('数据查询失败!', function (index) {

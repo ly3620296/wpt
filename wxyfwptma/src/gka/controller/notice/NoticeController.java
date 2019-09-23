@@ -41,7 +41,8 @@ public class NoticeController extends Controller {
             String g_title = getPara("g_title");
             String g_text = getPara("g_text");
             String g_xy = getPara("g_xy");
-            int result = NoticeDao.add(g_title, userInfo.getM_id(), g_text, g_state, g_xy);
+            String g_group = getPara("g_group");
+            int result = NoticeDao.add(g_title, userInfo.getM_id(), g_text, g_state, g_xy,g_group);
             if (result > 0) {
                 renderJson(ReturnKit.retOk());
             } else {
@@ -60,7 +61,8 @@ public class NoticeController extends Controller {
             String g_title = getPara("g_title");
             String g_text = getPara("g_text");
             String g_xy = getPara("g_xy");
-            int result = NoticeDao.edit(g_title, userInfo.getM_id(), g_text, g_state, g_id, g_xy);
+            String g_group = getPara("g_group");
+            int result = NoticeDao.edit(g_title, userInfo.getM_id(), g_text, g_state, g_id, g_xy,g_group);
             if (result > 0) {
                 renderJson(ReturnKit.retOk());
             } else {

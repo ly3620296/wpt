@@ -14,7 +14,7 @@ public class NoticeDao {
 
     public static List<Record> list(Integer start, Integer end, String u_id, String title, String time) {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT m_name,g_id,g_title,g_text,DECODE(g_state,'1','在线','下线') as g_state FROM ");
+        sb.append("SELECT m_name,g_id,g_title,g_text,DECODE(g_state,'1','在线','下线') as g_state ,DECODE(G_GROUP,'00','全部','01','老师','学生') as G_GROUP FROM ");
         sb.append("(SELECT ROWNUM AS rowno,d.m_name, t.*  FROM wptma_gg t,wptma_user d WHERE ROWNUM <= ? and d.m_id=t.g_uid) a WHERE a.rowno >= ?");
         if (title != null && !"".equals(title)) {
             sb.append("and a.g_title like '%" + title + "%'");
@@ -44,15 +44,15 @@ public class NoticeDao {
         return re.getInt("count(1)");
     }
 
-    public static Integer add(String g_title, String g_uid, String g_text, String g_state, String g_xy) {
-        String sql = "insert into wptma_gg (g_id,g_title,g_uid,g_text,g_xy,g_state) values(SEQ_WPTMA_GG.NEXTVAL,?,?,?,?,?)";
-        int i = Db.update(sql, g_title, g_uid, g_text, g_xy, g_state);
+    public static Integer add(String g_title, String g_uid, String g_text, String g_state, String g_xy,String g_group) {
+        String sql = "insert into wptma_gg (g_id,g_title,g_uid,g_text,g_xy,g_state,g_group) values(SEQ_WPTMA_GG.NEXTVAL,?,?,?,?,?,?)";
+        int i = Db.update(sql, g_title, g_uid, g_text, g_xy, g_state,g_group);
         return i;
     }
 
-    public static Integer edit(String g_title, String g_uid, String g_text, String g_state, String g_id, String g_xy) {
-        String sql = "update wptma_gg set g_title=?,g_text=?,g_state=?,g_xy=? where g_id=?";
-        int i = Db.update(sql, g_title, g_text, g_state, g_xy, g_id);
+    public static Integer edit(String g_title, String g_uid, String g_text, String g_state, String g_id, String g_xy,String g_group) {
+        String sql = "update wptma_gg set g_title=?,g_text=?,g_state=?,g_xy=?,g_group=? where g_id=?";
+        int i = Db.update(sql, g_title, g_text, g_state, g_xy,g_group, g_id);
         return i;
     }
 
