@@ -83,7 +83,8 @@
                 , {field: 'M_NAME', title: '创建用户',width:110}
                 , {field: 'G_TITLE', title: '公告标题'}
                 , {field: 'G_TEXT', title: '公告内容'}
-                , {field: 'G_STATE', title: '在线状态',width:80,color:'blue'}
+                , {field: 'G_STATE', title: '在线状态',color:'blue'}
+                , {field: 'G_GROUP', title: '公告群体',color:'blue'}
                 , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
 //            , height: 700

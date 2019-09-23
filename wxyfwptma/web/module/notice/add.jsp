@@ -42,6 +42,16 @@
             </select>
         </div>
     </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">公告群体</label>
+
+        <div class="layui-input-block">
+            <input type="radio" name="g_group" value="00" title="全部" checked>
+            <input type="radio" name="g_group" value="01" title="老师">
+            <input type="radio" name="g_group" value="02" title="学生">
+        </div>
+    </div>
     <div class="layui-form-item">
         <label class="layui-form-label">公告状态</label>
 
