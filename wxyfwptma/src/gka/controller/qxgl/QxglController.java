@@ -7,6 +7,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.ReKit;
 import gka.common.kit.ReturnKit;
+import gka.common.kit.controller.LController;
 import gka.controller.login.WptMaUserInfo;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @ControllerBind(controllerKey = "/qxgl")
-public class QxglController extends Controller {
+public class QxglController extends LController {
 
     public void list() {
         try {

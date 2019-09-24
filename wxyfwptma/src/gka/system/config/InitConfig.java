@@ -57,7 +57,6 @@ public class InitConfig extends JFinalConfig {
     }
 
     public void configInterceptor(Interceptors interceptors) {
-        interceptors.add(new LoginInterceptor());
     }
 
     public void configHandler(Handlers handlers) {

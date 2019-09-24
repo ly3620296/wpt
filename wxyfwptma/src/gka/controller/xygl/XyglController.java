@@ -6,6 +6,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.ReKit;
 import gka.common.kit.ReturnKit;
+import gka.common.kit.controller.LController;
 import gka.controller.login.WptMaUserInfo;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Map;
  * @Describe
  */
 @ControllerBind(controllerKey = "/xygl")
-public class XyglController extends Controller {
+public class XyglController extends LController {
 
     public void list() {
         WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");

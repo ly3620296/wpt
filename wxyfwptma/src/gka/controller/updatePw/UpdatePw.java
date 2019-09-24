@@ -6,6 +6,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.ReKit;
 import gka.common.kit.ReturnKit;
+import gka.common.kit.controller.LController;
 import gka.controller.login.WptMaUserInfo;
 import gka.controller.user.UserDao;
 
@@ -17,7 +18,7 @@ import java.util.Map;
  * Created by 小鹏鹏 on 2019/7/17.
  */
 @ControllerBind(controllerKey = "/pwd")
-public class UpdatePw extends Controller {
+public class UpdatePw extends LController {
     public void updatePw() {
         WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
         String old_pw = getPara("old_pw");

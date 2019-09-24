@@ -6,6 +6,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.ReKit;
 import gka.common.kit.ReturnKit;
+import gka.common.kit.controller.LController;
 import gka.controller.login.WptMaUserInfo;
 
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import java.util.Map;
  * @Describe
  */
 @ControllerBind(controllerKey = "/notice")
-public class NoticeController extends Controller {
+public class NoticeController extends LController {
 
     public void list() {
         WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");

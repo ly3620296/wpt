@@ -7,6 +7,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.ReKit;
 import gka.common.kit.ReturnKit;
+import gka.common.kit.controller.LController;
 import gka.controller.login.WptMaUserInfo;
 import gka.controller.user.UserDao;
 
@@ -16,7 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @ControllerBind(controllerKey = "/jfxmlx")
-public class JfxmlxController extends Controller {
+public class JfxmlxController extends LController {
 
     public void list() {
         try {

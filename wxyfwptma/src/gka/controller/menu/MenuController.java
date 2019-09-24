@@ -6,6 +6,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.ReKit;
 import gka.common.kit.ReturnKit;
+import gka.common.kit.controller.LController;
 import gka.controller.login.WptMaUserInfo;
 import gka.controller.notice.NoticeDao;
 
@@ -20,7 +21,7 @@ import java.util.Map;
  * @Describe
  */
 @ControllerBind(controllerKey = "/menu")
-public class MenuController extends Controller {
+public class MenuController extends LController {
 
     public void list() {
         try {
