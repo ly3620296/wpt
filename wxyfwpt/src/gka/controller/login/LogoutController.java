@@ -1,8 +1,10 @@
 package gka.controller.login;
 
+import com.alibaba.druid.util.StringUtils;
 import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
+import gka.auth2.Auth2Util;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +21,14 @@ public class LogoutController extends Controller {
                 session.invalidate();
             }
         }
-        renderJsp("/WEB-INF/index.jsp");
+        String channel = getRequest().getParameter("channel");
+        if (StringUtils.isEmpty(channel)) {
+            renderJsp("/WEB-INF/index.jsp");
+        } else if (channel.equals("wx")) {
+            redirect(Auth2Util.createAuth2Url());
+        } else {
+            renderJsp("/WEB-INF/index.jsp");
+        }
+
     }
 }
