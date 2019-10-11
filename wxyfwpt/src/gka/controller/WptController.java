@@ -24,7 +24,6 @@ public class WptController extends Controller {
 
     public void index() {
         WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%");
         if (wptUserInfo == null) {
             renderJsp("/WEB-INF/index.jsp");
         } else {
@@ -115,18 +114,24 @@ public class WptController extends Controller {
                 String zh = wptUserInfo.getZh();
                 String bindOpenId = (String) getSession().getAttribute("bindOpenId");
                 if (!StringUtils.isEmpty(bindOpenId)) {
-                    wptDao.bindOpenId(bindOpenId, zh);
-                    wptUserInfo.setOpenId(bindOpenId);
-                    getSession().removeAttribute("bindOpenId");
-                    returnInfo.setReturn_code("0");
-                    returnInfo.setReturn_msg("success");
+                    String oldOpenId = wptDao.findOpByZh(zh);
+                    if (StringUtils.isEmpty(oldOpenId)) {
+                        wptDao.bindOpenId(bindOpenId, zh);
+                        wptUserInfo.setOpenId(bindOpenId);
+                        getSession().removeAttribute("bindOpenId");
+                        returnInfo.setReturn_code("0");
+                        returnInfo.setReturn_msg("success");
+                    } else {
+                        returnInfo.setReturn_code("-3");
+                        returnInfo.setReturn_msg("该账号已经绑定微信，不可重复绑定!");
+                    }
                 } else {
                     returnInfo.setReturn_code("-1");
                     returnInfo.setReturn_msg("请从微信端登录!");
                 }
             } else {
                 returnInfo.setReturn_code("-2");
-                returnInfo.setReturn_msg("非微信渠道，禁止解绑！");
+                returnInfo.setReturn_msg("非微信渠道，禁止绑定！");
             }
         } catch (Exception e) {
             returnInfo.setReturn_code("-999");

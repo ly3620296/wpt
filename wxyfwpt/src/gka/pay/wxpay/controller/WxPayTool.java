@@ -137,7 +137,7 @@ public class WxPayTool {
         //
         static final String BODY = "科安";
         //支付异步回调地址
-        static final String NOTIFY_URL = "http://www.kean.com.cn/wpt/pay/wxpay/con/wxPayCallBackController";
+        static final String NOTIFY_URL = ProFactory.use("gkean.properties").getStr("domain_name") + "/wpt/pay/wxpay/con/wxPayCallBackController";
         //交易类型
         static final String JSAPI = "JSAPI";
     }
