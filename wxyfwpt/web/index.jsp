@@ -1,16 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2019/8/29
-  Time: 20:55
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="gka.auth2.Auth2Util" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String url = Auth2Util.createAuth2Url();
+    out.print(url);
+%>
 <html>
-  <head>
+<head>
     <title></title>
-  </head>
-  <body>
+</head>
+<body>
 
-  </body>
+</body>
 </html>
