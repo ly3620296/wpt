@@ -84,4 +84,12 @@ public class WyjfDao {
         return sb.toString();
     }
 
+
+    public boolean validateIsPay(String ids) {
+        return false;
+    }
+
+    public boolean noPayOrder(String xh) {
+        return true;
+    }
 }

@@ -121,6 +121,7 @@
                 , layer = layui.layer
                 , table = layui.table
                 , $ = layui.jquery
+        var loadIndex;
         var cacheBj = 0;
         var wpt_wyjfPay = {
             initTab: function () {
@@ -166,7 +167,6 @@
             },
 
             myOn: function () {
-
                 $("#tjdd").bind("click", function () {
                     alert($(".layui-table-total td[data-key='1-2-2'] div").html());
                 })
