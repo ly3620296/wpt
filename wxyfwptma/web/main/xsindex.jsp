@@ -19,13 +19,13 @@
     String userName = "";
     if (userInfo != null) {
         userName = userInfo.getXm();
-        System.out.println("userName"+userName);
+        System.out.println("userName" + userName);
     }
 %>
 <div class="layui-layout layui-layout-admin">
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <div class="layui-header">
-        <div class="layui-logo">学生缴费管理</div>
+        <div class="layui-logo">学生交费管理</div>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item"><a lay-href="">控制台</a></li>
             <li class="layui-nav-item"><a lay-href="">商品管理</a></li>
@@ -60,18 +60,22 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">
                         <i class="layui-icon layui-icon-home"></i>
-                        <cite>学生缴费管理</cite></a>
+                        <cite>学生交费管理</cite></a>
                     <dl class="layui-nav-child">
                         <dd class="layui-this">
-                            <a data-url="ly_home" data-id="ly_home" data-title="table-demo"
+                            <a data-url="" data-id="ly_home" data-title="table-demo"
                                data-type="tabAdd">个人交费信息</a>
                         </dd>
                         <dd>
-                            <a data-url="demo-table/table.html" data-id="00" data-title="动态表格"
+                            <a data-url="<%=Constant.server_name%>xsjfgl/grjfxx.jsp" data-id="00" data-title="个人交费信息"
+                               data-type="tabAdd">个人交费信息</a>
+                        </dd>
+                        <dd>
+                            <a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="01" data-title="我要交费"
                                data-type="tabAdd">我要交费</a>
                         </dd>
                         <dd>
-                            <a data-url="demo-switch/switch.html" data-title="轮播" data-id="01"
+                            <a data-url="demo-switch/switch.html" data-title="轮播" data-id="02"
                                data-type="tabAdd">订单查询</a>
                         </dd>
                     </dl>

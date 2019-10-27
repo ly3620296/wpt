@@ -73,6 +73,7 @@ var loginObj = {
         }
     }
 }
+
 function updateCaptcha() {
     $("#mobileImage").attr("src", "/wptma/XSlogin/captcha?v=" + Math.random());
     $("#vercode").val("");

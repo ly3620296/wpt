@@ -1,6 +1,6 @@
 /** layui-v2.4.5 MIT License By https://www.layui.com */
 html {
-    background-color: #f2f2f2;
+    /*background-color: #f2f2f2;*/
     color: #666;
 }
 ::-webkit-input-placeholder{color: #ccc}
@@ -3106,7 +3106,7 @@ a cite {
 }
 
 .layui-table-cell .layui-form-checkbox[lay-skin=primary] {
-    top: 3px;
+    top: -1px;
     padding: 0
 }
 
@@ -3281,7 +3281,7 @@ select.layui-table-edit {
 }
 
 .layui-table-view .layui-form-checkbox {
-    top: 0px;
+    top: -1px;
     height: 26px;
     line-height: 26px
 }
