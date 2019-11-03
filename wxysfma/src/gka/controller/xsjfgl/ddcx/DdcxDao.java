@@ -29,4 +29,10 @@ public class DdcxDao {
         Record re = Db.findFirst(sql, order_no);
         return re.getStr("IDS");
     }
+
+    public Record successOrderInfo(String order_no){
+        String sql = "SELECT IDS,TOTAL_FEE_CALLBACK, to_char(to_date(TIME_END,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_END FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
+        Record re = Db.findFirst(sql, order_no);
+        return  re;
+    }
 }

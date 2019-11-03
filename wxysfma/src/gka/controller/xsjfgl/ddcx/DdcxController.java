@@ -81,9 +81,11 @@ public class DdcxController extends Controller {
                 String xh = userInfo.getZh();
                 List<Record> titles = wyjfDao.queryTitle();
                 Record re = ddcxDao.getInfo(xh, xn);
-                String ids = ddcxDao.getIds(order_no);
-                List<JfInfo> jfInfoList = getJfinfo(titles, re, ids);
+                Record re1 = ddcxDao.successOrderInfo(order_no);
+                List<JfInfo> jfInfoList = getJfinfo(titles, re, re1.getStr("IDS"));
                 map.put("data", jfInfoList);
+                map.put("total_fee", re1.getStr("TOTAL_FEE_CALLBACK"));
+                map.put("time_end", re1.getStr("TIME_END"));
                 map.put("code", "0");
                 map.put("msg", "success");
             } else {

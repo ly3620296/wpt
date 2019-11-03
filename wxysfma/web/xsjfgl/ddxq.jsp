@@ -143,14 +143,14 @@
                     id: 'userTableReload'
                 });
             },
-            closeOrderInfo: function (xn, orderNo) {
+            closeOrderInfo: function (xn, orderNo, type) {
                 layer.open({
                     type: 2,
                     area: [parseInt(parent.$("#iframe_02").width()) * 0.7 + 'px', parseInt(parent.$("#iframe_02").height()) * 0.9 + 'px'],
                     title: "交费订单",
                     fixed: false, //不固定
                     maxmin: true,
-                    content: wpt_serverName + 'xsjfgl/ddxq_info.jsp?type=qx&order_no=' + orderNo + '&xn=' + xn
+                    content: wpt_serverName + 'xsjfgl/ddxq_info.jsp?type=' + type + '&order_no=' + orderNo + '&xn=' + xn
                 });
 
             },
@@ -167,14 +167,14 @@
                     }
                 });
             },
-            closeOrder: function (xn, orderNo, type) {
+            closeOrder: function (xn, orderNo) {
                 layer.open({
                     type: 2,
                     area: [parseInt(parent.$("#iframe_02").width()) * 0.9 + 'px', parseInt(parent.$("#iframe_02").height()) * 0.95 + 'px'],
                     title: "交费订单",
                     fixed: false, //不固定
                     maxmin: true,
-                    content: wpt_serverName + 'xsjfgl/wyjf-pay.jsp?type=' + type + '&order_no=' + orderNo + '&xn=' + xn,
+                    content: wpt_serverName + 'xsjfgl/wyjf-pay.jsp?type=qx&order_no=' + orderNo + '&xn=' + xn,
                     end: function () {
                         wpt_grjfxx.isFlush();
                     }
@@ -198,10 +198,9 @@
                     var xn = data.SFXN
                     if (layEvent === 'ddxz-qx') {
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "qx");
-                    } else if (layEvent === '  ddxz-cg') {
-                        wpt_grjfxx.cgOrder(xn, orderNo, "cg");
-                    }
-                    else if (layEvent === 'zf') {
+                    } else if (layEvent === 'ddxz-cg') {
+                        wpt_grjfxx.closeOrderInfo(xn, orderNo, "cg");
+                    } else if (layEvent === 'zf') {
                         wpt_grjfxx.zfOrder(xn, orderNo);
                     } else if (layEvent === 'qx') {
                         wpt_grjfxx.closeOrder(xn, orderNo);
