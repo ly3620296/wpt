@@ -197,7 +197,7 @@
                     <div class="gray">
                         <p><span class="left" id="ddh"></span></p>
 
-                        <p><span class="left" id="yfje"></span></p>
+                        <%--<p><span class="left" id="yfje"></span></p>--%>
 
                     </div>
                     <div class="graycenter">
@@ -327,8 +327,8 @@
             },
             tj_show: function (res) {
                 $("#ddh").html("订单编号：" + res.oreder_no);
-                $("#yfje").html(" 应付金额：￥" + res.money);
-                $("#yfje-zf").html("支付：￥" + res.money);
+//                $("#yfje").html(" 应付金额：￥" + res.money);
+                $("#yfje-zf").html("应付金额：￥" + res.money);
                 $("#ly-bh").html(res.oreder_no)
                 $("#ly-zt").html("<font color='red'>待支付</font>");
                 $("#bh-zt").show();
@@ -337,8 +337,8 @@
             },
             my_show: function (res) {
                 $("#ddh").html("订单编号：" + res.order_no);
-                $("#yfje").html(" 应付金额：￥" + res.total_fee);
-                $("#yfje-zf").html("支付：￥" + res.total_fee);
+//                $("#yfje").html(" 应付金额：￥" + res.total_fee);
+                $("#yfje-zf").html("应付金额：￥" + res.total_fee);
                 $("#ly-bh").html(res.order_no)
                 $("#ly-zt").html("<font color='red'>" + res.order_state + "</font>");
                 $("#bh-zt").show();
