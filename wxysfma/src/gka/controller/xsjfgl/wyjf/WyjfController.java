@@ -113,7 +113,7 @@ public class WyjfController extends Controller {
                     Record re1 = wyjfDao.queryJxzf(order_no);
                     if (re1 != null) {
                         Record re = wyjfDao.jf(xh, xn, titles);
-                        List<JfInfo> jfInfoList = getJfinfo(titles, re);
+                        List<JfInfo> jfInfoList = getJfinfo(titles, re, re1.getStr("IDS"));
                         map = ReKit.toMap(jfInfoList.size(), jfInfoList);
                         map.put("code_url", re1.getStr("CODE_URL"));
                         map.put("order_no", order_no);
@@ -141,7 +141,6 @@ public class WyjfController extends Controller {
 
     }
 
-
     private List<JfInfo> getJfinfo(List<Record> titles, Record re) {
         List<JfInfo> jfInfos = new ArrayList<JfInfo>();
         for (Record t : titles) {
@@ -157,6 +156,48 @@ public class WyjfController extends Controller {
                 jfInfo.setXmid(t.getStr("JFXMID"));
                 jfInfo.setSfbx(sfjf);
                 jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
+            }
+            jfInfos.add(jfInfo);
+        }
+        return jfInfos;
+    }
+
+
+    private List<JfInfo> getJfinfo(List<Record> titles, Record re, String ids) {
+        List<JfInfo> jfInfos = new ArrayList<JfInfo>();
+        String[] xmid = ids.split(",");
+        for (Record t : titles) {
+            boolean flag = false;
+            JfInfo jfInfo = new JfInfo();
+            String sfjf = t.getStr("SFBX");
+            if (sfjf.equals("1")) {
+                jfInfo.setXmmc(t.getStr("JFXMMC"));
+                jfInfo.setXmid(t.getStr("JFXMID"));
+                jfInfo.setSfbx(sfjf);
+                for (int j = 0; j < xmid.length; j++) {
+                    if (jfInfo.getXmid().equals(xmid[j])) {
+                        jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    jfInfo.setJfje("0.00");
+                }
+            } else {
+                jfInfo.setXmmc(t.getStr("JFXMMC") + "（选交）");
+                jfInfo.setXmid(t.getStr("JFXMID"));
+                jfInfo.setSfbx(sfjf);
+                for (int j = 0; j < xmid.length; j++) {
+                    if (jfInfo.getXmid().equals(xmid[j])) {
+                        jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    jfInfo.setJfje("0.00");
+                }
             }
             jfInfos.add(jfInfo);
         }

@@ -51,8 +51,9 @@ public class DdcxController extends Controller {
                 WptMaXSUserInfo userInfo = (WptMaXSUserInfo) getSession().getAttribute("wptMaXSUserInfo");
                 String xh = userInfo.getZh();
                 List<Record> titles = wyjfDao.queryTitle();
-                Record re = wyjfDao.jf(xh, xn, titles);
-                List<JfInfo> jfInfoList = getJfinfo(titles, re);
+                Record re = ddcxDao.getInfo(xh, xn);
+                String ids = ddcxDao.getIds(order_no);
+                List<JfInfo> jfInfoList = getJfinfo(titles, re, ids);
                 map.put("data", jfInfoList);
                 map.put("code", "0");
                 map.put("msg", "success");
@@ -69,21 +70,44 @@ public class DdcxController extends Controller {
         renderJson(map);
     }
 
-    private List<JfInfo> getJfinfo(List<Record> titles, Record re) {
+    private List<JfInfo> getJfinfo(List<Record> titles, Record re, String ids) {
         List<JfInfo> jfInfos = new ArrayList<JfInfo>();
+        String[] xmid = ids.split(",");
         for (Record t : titles) {
             JfInfo jfInfo = new JfInfo();
             String sfjf = t.getStr("SFBX");
+            boolean flag = false;
             if (sfjf.equals("1")) {
                 jfInfo.setXmmc(t.getStr("JFXMMC"));
                 jfInfo.setXmid(t.getStr("JFXMID"));
                 jfInfo.setSfbx(sfjf);
-                jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
+                for (int j = 0; j < xmid.length; j++) {
+                    if (jfInfo.getXmid().equals(xmid[j])) {
+                        jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    jfInfo.setJfje("0.00");
+                }
+
             } else {
                 jfInfo.setXmmc(t.getStr("JFXMMC") + "（选交）");
                 jfInfo.setXmid(t.getStr("JFXMID"));
                 jfInfo.setSfbx(sfjf);
                 jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
+                for (int j = 0; j < xmid.length; j++) {
+                    if (jfInfo.getXmid().equals(xmid[j])) {
+                        jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    jfInfo.setJfje("0.00");
+                }
+
             }
             jfInfos.add(jfInfo);
         }

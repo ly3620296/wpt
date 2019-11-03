@@ -17,4 +17,16 @@ public class DdcxDao {
         Record re = Db.findFirst(sql, xh);
         return re.getInt("count(1)");
     }
+
+    public Record getInfo(String xh, String xn) {
+        String sql = " SELECT * FROM XSSFB  WHERE XN=? AND XH=?";
+        Record re = Db.findFirst(sql, xn, xh);
+        return re;
+    }
+
+    public String getIds(String order_no) {
+        String sql = "SELECT IDS FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
+        Record re = Db.findFirst(sql, order_no);
+        return re.getStr("IDS");
+    }
 }

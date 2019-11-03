@@ -230,7 +230,7 @@
                     , cols: [[   //表头
                         {title: cols1, colspan: 2, align: "center", style: 'background-color: blue;'}
                     ], [
-                        {title: "收费项目", field: "jfje", align: "center", totalRowText: "本次交费合计："},
+                        {title: "收费项目", field: "xmmc", align: "center", totalRowText: "本次交费合计："},
                         {title: "收费金额", field: "jfje", align: "center", totalRow: true},
                     ]]
                     , url: url

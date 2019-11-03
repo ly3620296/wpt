@@ -37,7 +37,6 @@ public class WyjfDao {
     }
 
     public List<Record> queryTotalWjf(List<Record> title, String xh) {
-        System.out.println("--------------########-----------");
         String sql = "SELECT T1.XN," + getSqlWjf(title) +
                 " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? ORDER BY T1.XN";
         List<Record> list = Db.find(sql, xh);
@@ -107,10 +106,10 @@ public class WyjfDao {
             } else {
                 sql = "INSERT INTO YHSJB  SELECT * FROM XSSFB WHERE XH=? AND XN=?";
                 Db.update(sql, xh, sfxn);
-                sql = "UPDATE YHSJB " + getSqlIns(sfxn, xh) + " WHERE XH=? AND XN=?";
+                sql = "UPDATE YHSJB " + getSqlIns() + " WHERE XH=? AND XN=?";
                 Db.update(sql, xh, sfxn);
                 sql = "UPDATE YHSJB " + getSql(ids, sfxn, xh) + " WHERE XH=? AND XN=?";
-                updateStat = Db.update(sql,xh, sfxn);
+                updateStat = Db.update(sql, xh, sfxn);
             }
         }
 
@@ -126,28 +125,28 @@ public class WyjfDao {
         if (re != null) {
             sb = new StringBuffer("SET ");
             String[] idArr = ids.split(",");
-            for (int i = 0; i < ids.length(); i++) {
-                if (i < ids.length() - 2) {
-                    sb.append(idArr[0] + "=" + re.getStr(idArr[0]) + ",");
+            for (int i = 0; i < idArr.length; i++) {
+                if (i < idArr.length - 1) {
+                    sb.append(idArr[i] + "=" + re.getStr(idArr[i]) + ",");
                 } else {
-                    sb.append(idArr[0] + "=" + re.getStr(idArr[0]));
+                    sb.append(idArr[i] + "=" + re.getStr(idArr[i]));
                 }
             }
         }
         return sb != null ? sb.toString() : null;
     }
 
-    private String getSqlIns(String xn, String xh) {
+    private String getSqlIns() {
         StringBuffer sb = null;
         String sql = "SELECT JFXMID FROM JFXMDM";
-        List<Record> list = Db.find(sql, xh, xn);
+        List<Record> list = Db.find(sql);
         if (list != null) {
             sb = new StringBuffer("SET ");
             for (int i = 0; i < list.size(); i++) {
-                if (i < list.size() - 2) {
-                    sb.append(list.get(i).getStr("JFXMID") + "=0.00,");
+                if (i < list.size() - 1) {
+                    sb.append(list.get(i).getStr("JFXMID") + "='0.00',");
                 } else {
-                    sb.append(list.get(i).getStr("JFXMID") + "=0.00");
+                    sb.append(list.get(i).getStr("JFXMID") + "='0.00'");
                 }
             }
         }
@@ -280,7 +279,7 @@ public class WyjfDao {
 
 
     public Record queryJxzf(String order_no) {
-        Record re = Db.findFirst("SELECT TOTAL_FEE,CODE_URL,ORDER_STATE FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=? AND ORDER_STATE=?", order_no, MyWxpayConstant.ORDER_STATE_NOPAY);
+        Record re = Db.findFirst("SELECT IDS,TOTAL_FEE,CODE_URL,ORDER_STATE FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=? AND ORDER_STATE=?", order_no, MyWxpayConstant.ORDER_STATE_NOPAY);
         return re;
     }
 }
