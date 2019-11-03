@@ -12,9 +12,9 @@
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/echarts4.40/echarts.min.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/echarts4.40/map/js/china.js"></script>
     <style>
-        /*#ly_home {*/
-            /*overflow: scroll !important;*/
-        /*}*/
+        #iframe_ly_home {
+            overflow: scroll !important;
+        }
     </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>
@@ -163,7 +163,6 @@
 </body>
 <script type="application/javascript">
     $(function () {
-        console.log(document.body.scrollWidth)
         $("#loginOut").on("click", function () {
             var loadIndex;
             $.ajax({
