@@ -146,7 +146,7 @@
             closeOrderInfo: function (xn, orderNo) {
                 layer.open({
                     type: 2,
-                    area: [parseInt(parent.$("#iframe_02").width()) * 0.6 + 'px', parseInt(parent.$("#iframe_02").height()) * 0.9 + 'px'],
+                    area: [parseInt(parent.$("#iframe_02").width()) * 0.7 + 'px', parseInt(parent.$("#iframe_02").height()) * 0.9 + 'px'],
                     title: "交费订单",
                     fixed: false, //不固定
                     maxmin: true,
@@ -157,7 +157,7 @@
             zfOrder: function (xn, order_no) {
                 layer.open({
                     type: 2,
-                    area: [parseInt(parent.$("#iframe_02").width()) * 0.8 + 'px', parseInt(parent.$("#iframe_02").height()) * 0.95 + 'px'],
+                    area: [parseInt(parent.$("#iframe_02").width()) * 0.9 + 'px', parseInt(parent.$("#iframe_02").height()) * 0.95 + 'px'],
                     title: "交费订单",
                     fixed: false, //不固定
                     maxmin: true,
@@ -169,7 +169,7 @@
             }, closeOrder: function (xn, orderNo) {
                 layer.open({
                     type: 2,
-                    area: [parseInt(parent.$("#iframe_02").width()) * 0.8 + 'px', parseInt(parent.$("#iframe_02").height()) * 0.95 + 'px'],
+                    area: [parseInt(parent.$("#iframe_02").width()) * 0.9 + 'px', parseInt(parent.$("#iframe_02").height()) * 0.95 + 'px'],
                     title: "交费订单",
                     fixed: false, //不固定
                     maxmin: true,

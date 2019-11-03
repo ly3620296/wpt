@@ -195,7 +195,9 @@
                 <div class="layui-card-header" style="font-weight: bold;font-size: 15px!important;">收银台</div>
                 <div class="layui-card-body">
                     <div class="gray">
-                        <p><span class="left" id="ddh"></span> <span class="right" id="yfje"></span></p>
+                        <p><span class="left" id="ddh"></span></p>
+
+                        <p><span class="left" id="yfje"></span></p>
 
                     </div>
                     <div class="graycenter">
@@ -227,6 +229,7 @@
                 , layer = layui.layer
                 , table = layui.table
                 , $ = layui.jquery
+        console.log(window.screen.availWidth);
         var loadIndex;
         var cacheBj = 0;
         var qrcode = new QRCode(document.getElementById("qrcode"), {
