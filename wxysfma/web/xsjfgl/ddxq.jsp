@@ -88,7 +88,7 @@
     {{#  } else if(d.ORDER_STATE == 1){ }}
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-qx">订单详情</a>
     {{#  } else if(d.ORDER_STATE == 2){ }}
-    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-qx">订单详情</a>
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
     {{#  } else { }}
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-qx">订单详情</a>
     {{#  } }}
@@ -111,7 +111,7 @@
                     , cols: [
                         [
                             {title: "订单编号", field: "ORDER_NO", align: "center", width: "10%", fixed: "left"},
-                            {title: "交费学年", field: "SFXN", align: "center", sort: true,width: "8%"},
+                            {title: "交费学年", field: "SFXN", align: "center", sort: true, width: "8%"},
                             {title: "下单时间", field: "TIME_START", align: "center", sort: true, width: "10%"},
                             {title: "订单合计（元）", field: "TOTAL_FEE", align: "center", sort: true, width: "9%"},
                             {title: "支付金额（元）", field: "TOTAL_FEE_CALLBACK", align: "center", sort: true, width: "9%"},
@@ -127,7 +127,7 @@
                     ]
                     , url: wpt_serverName + 'xsjfgl/ddcx' //数据接口地址
                     , title: '用户表'
-                    , height: window.screen.height-300
+                    , height: window.screen.height - 300
                     , page: true //开启分页
                     , loading: true
                     , even: true  //隔行换色 默认false,
@@ -166,14 +166,15 @@
                         wpt_grjfxx.isFlush();
                     }
                 });
-            }, closeOrder: function (xn, orderNo) {
+            },
+            closeOrder: function (xn, orderNo, type) {
                 layer.open({
                     type: 2,
                     area: [parseInt(parent.$("#iframe_02").width()) * 0.9 + 'px', parseInt(parent.$("#iframe_02").height()) * 0.95 + 'px'],
                     title: "交费订单",
                     fixed: false, //不固定
                     maxmin: true,
-                    content: wpt_serverName + 'xsjfgl/wyjf-pay.jsp?type=qx&order_no=' + orderNo + '&xn=' + xn,
+                    content: wpt_serverName + 'xsjfgl/wyjf-pay.jsp?type=' + type + '&order_no=' + orderNo + '&xn=' + xn,
                     end: function () {
                         wpt_grjfxx.isFlush();
                     }
@@ -196,8 +197,11 @@
                     var orderNo = data.ORDER_NO;
                     var xn = data.SFXN
                     if (layEvent === 'ddxz-qx') {
-                        wpt_grjfxx.closeOrderInfo(xn, orderNo);
-                    } else if (layEvent === 'zf') {
+                        wpt_grjfxx.closeOrderInfo(xn, orderNo, "qx");
+                    } else if (layEvent === '  ddxz-cg') {
+                        wpt_grjfxx.cgOrder(xn, orderNo, "cg");
+                    }
+                    else if (layEvent === 'zf') {
                         wpt_grjfxx.zfOrder(xn, orderNo);
                     } else if (layEvent === 'qx') {
                         wpt_grjfxx.closeOrder(xn, orderNo);

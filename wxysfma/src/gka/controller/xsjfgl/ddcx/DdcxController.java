@@ -70,6 +70,36 @@ public class DdcxController extends Controller {
         renderJson(map);
     }
 
+
+    public void cgInfo() {
+        Map map = new HashMap();
+        try {
+            String xn = getPara("xn");
+            String order_no = getPara("order_no");
+            if (!StringUtils.isEmpty(xn) && !StringUtils.isEmpty(order_no)) {
+                WptMaXSUserInfo userInfo = (WptMaXSUserInfo) getSession().getAttribute("wptMaXSUserInfo");
+                String xh = userInfo.getZh();
+                List<Record> titles = wyjfDao.queryTitle();
+                Record re = ddcxDao.getInfo(xh, xn);
+                String ids = ddcxDao.getIds(order_no);
+                List<JfInfo> jfInfoList = getJfinfo(titles, re, ids);
+                map.put("data", jfInfoList);
+                map.put("code", "0");
+                map.put("msg", "success");
+            } else {
+                map.put("code", "-2");
+                map.put("msg", "请从正规渠道支付！");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("code", "-1");
+            map.put("msg", "系统繁忙，请稍后重试！");
+        }
+        renderJson(map);
+    }
+
+
     private List<JfInfo> getJfinfo(List<Record> titles, Record re, String ids) {
         List<JfInfo> jfInfos = new ArrayList<JfInfo>();
         String[] xmid = ids.split(",");
