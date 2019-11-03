@@ -1,6 +1,7 @@
 package gka.controller.xsjfgl.wyjf;
 
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import gka.controller.xsjfgl.MyUtil;
@@ -8,8 +9,10 @@ import gka.controller.xsjfgl.grjfxx.MyConstant;
 import gka.pay.wxpay.WXPayConstants;
 import gka.pay.wxpay.controller.MyWxpayConstant;
 
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 public class WyjfDao {
 
@@ -18,12 +21,14 @@ public class WyjfDao {
         List<Record> list = Db.find(sql);
         return list;
     }
+
     public Page<Record> queryTotalPage(List<Record> title, String xh, int pageNum, int pageSize) {
         String selectSql = "SELECT T1.XN,T1.YSHJ," + getSql(title);
         String fromSql = " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? ORDER BY T1.XN";
         Page<Record> paginate = Db.paginate(pageNum, pageSize, selectSql, fromSql, xh);
         return paginate;
     }
+
     public List<Record> queryTotal(List<Record> title, String xh) {
         String sql = "SELECT T1.XN,T1.YSHJ," + getSql(title) +
                 " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? ORDER BY T1.XN";
@@ -45,6 +50,108 @@ public class WyjfDao {
         Record re = Db.findFirst(sql, xh, xn);
         return re;
 
+    }
+
+    public static String preMoney(String orderNo) {
+        String preMoney = "";
+        String sql = "SELECT TOTAL_FEE FROM  WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+        Record re = Db.findFirst(sql, orderNo);
+        if (re != null) {
+            preMoney = re.getStr("TOTAL_FEE");
+        }
+        return preMoney;
+    }
+
+    public static void updateIllegalMoneyOrder(final Map<String, String> repData) {
+        Db.tx(new IAtom() {
+            @Override
+            public boolean run() throws SQLException {
+                String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK WHERE OUT_TRADE_NO=?";
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), repData.get("total_fee"), repData.get("out_trade_no"));
+                sql = "";
+                int upYsf = Db.update(sql);
+                return upOrder * upYsf >= 1;
+            }
+        });
+    }
+
+
+    public void updateNormalOrder(final Map<String, String> repData) {
+        Db.tx(new IAtom() {
+            @Override
+            public boolean run() throws SQLException {
+                String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=? WHERE OUT_TRADE_NO=?";
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_PAY, MyWxpayConstant.RETURN_CODE_SUCCESS, repData.get("result_code"), repData.get("transaction_id"), repData.get("total_fee"), repData.get("out_trade_no"));
+                int upYsf = updateOrder(repData.get("out_trade_no"));
+                return upOrder * upYsf >= 1;
+            }
+        });
+    }
+
+    public int updateOrder(String out_trade_no) {
+        String sql = "SELECT IDS,SFXN,XH FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+        Record re = Db.findFirst(sql, out_trade_no);
+        int updateStat = 0;
+        String ids = "";
+        String sfxn = "";
+        String xh = "";
+        if (re != null) {
+            ids = re.getStr("IDS");
+            sfxn = re.getStr("SFXN");
+            xh = re.getStr("XH");
+            sql = "SELECT XN FROM YHSJB WHERE XN=? AND XH=?";
+            re = Db.findFirst(sql, sfxn, xh);
+            if (re != null) {
+                sql = "UPDATE YHSJB " + getSql(ids, sfxn, xh) + " WHERE XH=? AND XN=?";
+                updateStat = Db.update(sql, xh, sfxn);
+            } else {
+                sql = "INSERT INTO YHSJB  SELECT * FROM XSSFB WHERE XH=? AND XN=?";
+                Db.update(sql, xh, sfxn);
+                sql = "UPDATE YHSJB " + getSqlIns(sfxn, xh) + " WHERE XH=? AND XN=?";
+                Db.update(sql, xh, sfxn);
+                sql = "UPDATE YHSJB " + getSql(ids, sfxn, xh) + " WHERE XH=? AND XN=?";
+                updateStat = Db.update(sql,xh, sfxn);
+            }
+        }
+
+        return updateStat;
+
+    }
+
+
+    private String getSql(String ids, String xn, String xh) {
+        StringBuffer sb = null;
+        String sql = "SELECT " + ids + " FROM XSSFB WHERE XH=? AND XN=?";
+        Record re = Db.findFirst(sql, xh, xn);
+        if (re != null) {
+            sb = new StringBuffer("SET ");
+            String[] idArr = ids.split(",");
+            for (int i = 0; i < ids.length(); i++) {
+                if (i < ids.length() - 2) {
+                    sb.append(idArr[0] + "=" + re.getStr(idArr[0]) + ",");
+                } else {
+                    sb.append(idArr[0] + "=" + re.getStr(idArr[0]));
+                }
+            }
+        }
+        return sb != null ? sb.toString() : null;
+    }
+
+    private String getSqlIns(String xn, String xh) {
+        StringBuffer sb = null;
+        String sql = "SELECT JFXMID FROM JFXMDM";
+        List<Record> list = Db.find(sql, xh, xn);
+        if (list != null) {
+            sb = new StringBuffer("SET ");
+            for (int i = 0; i < list.size(); i++) {
+                if (i < list.size() - 2) {
+                    sb.append(list.get(i).getStr("JFXMID") + "=0.00,");
+                } else {
+                    sb.append(list.get(i).getStr("JFXMID") + "=0.00");
+                }
+            }
+        }
+        return sb != null ? sb.toString() : null;
     }
 
     private String getSql(List<Record> title) {
@@ -170,7 +277,6 @@ public class WyjfDao {
         }
         return noPayOrderInfo;
     }
-
 
 
     public Record queryJxzf(String order_no) {

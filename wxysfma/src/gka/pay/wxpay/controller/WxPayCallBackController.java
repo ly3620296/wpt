@@ -3,6 +3,7 @@ package gka.pay.wxpay.controller;
 import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
+import gka.controller.xsjfgl.wyjf.WyjfDao;
 import gka.pay.wxpay.WXPay;
 import gka.pay.wxpay.WXPayUtil;
 
@@ -17,8 +18,9 @@ public class WxPayCallBackController extends Controller {
             "<return_code><![CDATA[SUCCESS]]></return_code>" +
             "<return_msg><![CDATA[OK]]></return_msg>" +
             "</xml>";
-
+    private WyjfDao wyjfDao = new WyjfDao();
     public void index() {
+        System.out.println("#####$#$#$@#$@#$@#$#");
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(getRequest().getInputStream(), "UTF-8"));
             StringBuffer sf = new StringBuffer();
@@ -28,35 +30,37 @@ public class WxPayCallBackController extends Controller {
 
             }
             Map<String, String> repData = WXPayUtil.xmlToMap(sf.toString());
+
             System.out.println(repData);
-//            WXPay wxPay = WxPayTool.getWxPay();
+            WXPay wxPay = WxPayTool.getWxPay();
 //            //判断签名是否有效
-//            boolean signValid = wxPay.isResponseSignatureValid(repData);
-//            //签名无效 直接返回
-//            if (!signValid) {
-//                //通知微信
-//                renderText(callBackString);
-//                return;
-//            }
-//            //判断下单时候的金额是否和回调时候的金额一致 否则视为非法订单 直接返回
-//            String out_trade_no = repData.get("out_trade_no");
-//            if (!XzfDao.preMoney(out_trade_no).equals(repData.get("total_fee"))) {
-//                //通知微信
-//                renderText(callBackString);
-//                //修改订单为非法订单
-//                XzfDao.updateIllegalMoneyOrder(repData);
-//                return;
-//            }
-//
-//            //通知微信
+            boolean signValid = wxPay.isResponseSignatureValid(repData);
+            //签名无效 直接返回
+            if (!signValid) {
+                //通知微信
+                renderText(callBackString);
+                return;
+            }
+            System.out.println("############");
+            //判断下单时候的金额是否和回调时候的金额一致 否则视为非法订单 直接返回
+            String out_trade_no = repData.get("out_trade_no");
+            if (!wyjfDao.preMoney(out_trade_no).equals(repData.get("total_fee"))) {
+                //通知微信
+                renderText(callBackString);
+                //修改订单为非法订单
+                wyjfDao.updateIllegalMoneyOrder(repData);
+                return;
+            }
+
+            //通知微信
             renderText(callBackString);
-//
-//            /**
-//             * 修改订单状态
-//             * 1. 修改订单表
-//             * 2. 修改缴费表
-//             */
-//            XzfDao.updateNormalOrder(repData);
+
+            /**
+             * 修改订单状态
+             * 1. 修改订单表
+             * 2. 修改缴费表
+             */
+            wyjfDao.updateNormalOrder(repData);
 
         } catch (Exception e) {
             e.printStackTrace();
