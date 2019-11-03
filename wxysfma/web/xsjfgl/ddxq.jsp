@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <style>
         .layui-table-tool-temp {
             padding-right: 30px !important;
@@ -126,7 +127,7 @@
                     ]
                     , url: wpt_serverName + 'xsjfgl/ddcx' //数据接口地址
                     , title: '用户表'
-                    , height: 'full-250'
+                    , height: '450'
                     , page: true //开启分页
                     , loading: true
                     , even: true  //隔行换色 默认false,

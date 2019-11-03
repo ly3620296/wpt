@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <style>
         .zoomImage {
             object-fit:cover;

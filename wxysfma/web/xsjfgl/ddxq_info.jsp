@@ -14,6 +14,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
     <style>
         .layui-btn-disabled-my, .layui-btn-disabled-my:active, .layui-btn-disabled-my:hover {

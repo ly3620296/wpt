@@ -7,6 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
     <%--<script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>--%>
 </head>
@@ -74,8 +75,8 @@
                 , layer = layui.layer
                 , table = layui.table
                 , $ = layui.jquery
-
         var loadIndex;
+        console.log(document.body.scrollWidth)
         var wpt_grjfxx = {
             init: function () {
                 $.ajax({
@@ -163,7 +164,7 @@
                         {title: "身份证号", field: "sfzh", align: "center", width: "11%"},
                         {title: "学号/考生号", field: "xh", align: "center", width: "8%"},
                         {title: "状态", field: "zt", align: "center", width: "6%"},
-                        {title: "操作", align: "center", toolbar: '#barDemo1', fixed: "right"},
+                        {title: "操作", align: "center", toolbar: '#barDemo1', fixed: "right", width: "15%"},
                     ]],
                     data: dataArr, //数据接口地址
                     title: '用户表',
