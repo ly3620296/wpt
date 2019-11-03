@@ -76,7 +76,7 @@
                 , table = layui.table
                 , $ = layui.jquery
         var loadIndex;
-        console.log(document.body.scrollWidth)
+        console.log(document.body.clientWidth)
         var wpt_grjfxx = {
             init: function () {
                 $.ajax({

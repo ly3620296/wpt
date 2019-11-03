@@ -121,13 +121,13 @@
                             {title: "姓名", field: "XM", align: "center"},
                             {title: "身份证号", field: "ZJHM", align: "center"},
                             {title: "学号/考生号", field: "ZH", align: "center"},
-                            {title: "状态", field: "ORDER_STATE", align: "center", templet: '#titleTpl', width: "6%"},
+                            {title: "状态", field: "ORDER_STATE", align: "center", templet: '#titleTpl', width: "7%"},
                             {title: "操作", align: "center", templet: "#barDemo1", width: "14%", fixed: "right"}
                         ]
                     ]
                     , url: wpt_serverName + 'xsjfgl/ddcx' //数据接口地址
                     , title: '用户表'
-                    , height: window.screen.height - 300
+                    , height: window.screen.height - 350
                     , page: true //开启分页
                     , loading: true
                     , even: true  //隔行换色 默认false,
