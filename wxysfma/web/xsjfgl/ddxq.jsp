@@ -127,7 +127,7 @@
                     ]
                     , url: wpt_serverName + 'xsjfgl/ddcx' //数据接口地址
                     , title: '用户表'
-                    , height: '450'
+                    , height: window.screen.height-300
                     , page: true //开启分页
                     , loading: true
                     , even: true  //隔行换色 默认false,
