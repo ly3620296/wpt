@@ -99,7 +99,7 @@
         }
 
         .caca {
-            padding-bottom: 32px;
+            padding-bottom: 22px;
             margin-top: 10px !important;
         }
     </style>

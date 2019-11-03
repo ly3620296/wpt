@@ -110,8 +110,8 @@
                     elem: '#jfjl-table'  //容器id
                     , cols: [
                         [
-                            {title: "订单编号", field: "ORDER_NO", align: "center", width: "15%", fixed: "left"},
-                            {title: "交费学年", field: "SFXN", align: "center", sort: true},
+                            {title: "订单编号", field: "ORDER_NO", align: "center", width: "10%", fixed: "left"},
+                            {title: "交费学年", field: "SFXN", align: "center", sort: true,width: "8%"},
                             {title: "下单时间", field: "TIME_START", align: "center", sort: true, width: "10%"},
                             {title: "订单合计（元）", field: "TOTAL_FEE", align: "center", sort: true, width: "9%"},
                             {title: "支付金额（元）", field: "TOTAL_FEE_CALLBACK", align: "center", sort: true, width: "9%"},
