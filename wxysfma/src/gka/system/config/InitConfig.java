@@ -5,6 +5,7 @@ import com.jfinal.config.*;
 import com.jfinal.ext.route.ControllerRoute;
 import com.jfinal.template.Engine;
 import gka.interceptor.LoginInterceptor;
+import gka.pay.wxpay.controller.WxPayTool;
 import gka.resource.properties.ProKit;
 import gka.resource.xml.InitXml;
 import gka.system.config.dbconfig.DbConfig;
@@ -67,6 +68,7 @@ public class InitConfig extends JFinalConfig {
      * 本方法会在 jfinal 启动过程完成之后被回调，详见 jfinal 手册
      */
     public void afterJFinalStart() {
+        WxPayTool.getInstance();
     }
 
     /**

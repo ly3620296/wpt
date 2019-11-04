@@ -31,10 +31,12 @@ public class WxPayCallBackController extends Controller {
                 sf.append(len);
 
             }
+            System.out.println("asdasdasdasd===================" + sf.toString());
             Map<String, String> repData = WXPayUtil.xmlToMap(sf.toString());
 //            Map<String, String> repData = getTest();
             System.out.println(repData);
             WXPay wxPay = WxPayTool.getWxPay();
+            System.out.println("wxPay=========" + wxPay);
             //判断签名是否有效
             boolean signValid = wxPay.isResponseSignatureValid(repData);
             //签名无效 直接返回
