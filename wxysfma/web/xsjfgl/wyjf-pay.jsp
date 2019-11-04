@@ -186,8 +186,8 @@
                 <div class="layui-card-body">
                     <table class="layui-table" id="jfjl" lay-filter="jfjl-fil">
                     </table>
-                    <button type="button" class="layui-btn layui-btn-fluid" id="tjdd">提交订单</button>
                 </div>
+                <button type="button" class="layui-btn layui-btn-fluid" id="tjdd">提交订单</button>
             </div>
         </div>
         <div class="layui-col-md5">
@@ -436,8 +436,12 @@
                         timeout: 10000,
                         success: function (data) {
                             if (data.code == "2") {
-                                layer.alert('付款成功', {icon: 6, title: '温馨提示'})
                                 clearInterval(intVe);
+                                layer.alert('付款成功', {
+                                    icon: 6, title: '温馨提示', end: function () {
+                                        parent.location.reload();
+                                    }
+                                })
                             }
                         },
                         complete: function () {

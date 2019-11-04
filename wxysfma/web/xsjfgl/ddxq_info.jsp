@@ -114,13 +114,13 @@
 <body>
 <input type="hidden" value="0" id="hideIf">
 
-<div style="padding: 10px;">
+<div style="padding: 10px;" id="print">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body">
                     <%--<div class="layui-form">--%>
-                    <table class="layui-table">
+                    <table class="layui-table" id="myInfo">
                         <thead>
                         <tr>
                             <th colspan="4" style="background-color: #eef9fb">
@@ -187,13 +187,12 @@
                 <div class="layui-card-body">
                     <table class="layui-table" id="jfjl" lay-filter="jfjl-fil">
                     </table>
+                    <button type="button" class="layui-btn layui-btn-fluid" id="myPrint">打印</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/qrcode.min.js"></script>
 <script>
@@ -228,7 +227,6 @@
                 }
                 table.render({
                     elem: '#jfjl'  //容器id
-
                     , cols: [[   //表头
                         {title: cols1, colspan: 2, align: "center", style: 'background-color: blue;'}
                     ], [
@@ -280,39 +278,58 @@
             },
 
             myOn: function () {
-                table.on('checkbox(jfjl-fil)', function (obj) {
-                    if (obj.type == "one") {
-                        var currTr = obj.data.jfje
-                        var curr = $(".layui-table-total td[data-key='1-1-2'] div").html();
-                        console.log(currTr)
-                        console.log(curr)
-                        if (obj.data.sfbx == "0") {
-                            if (obj.checked) {
-                                $(".layui-table-total td[data-key='1-1-2'] div").html((parseFloat(curr) + parseFloat(currTr)).toFixed(2));
-                            } else {
-                                $(".layui-table-total td[data-key='1-1-2'] div").html((parseFloat(curr) - parseFloat(currTr)).toFixed(2));
-                            }
-                        }
-                    } else if (obj.type == "all") {
-                        var checkStatus = table.checkStatus('userTableReload');
-                        var checkData = checkStatus.data;
-                        var tot = 0;
-                        if (checkData) {
-                            for (var i = 0; i < checkData.length; i++) {
-                                tot += parseInt(checkData[i].jfje);
-                            }
-                            if (checkData.length == 0) {
-                                $(".layui-table-total td[data-key='1-1-2'] div").html(parseFloat(cacheBj).toFixed(2));
-                            } else {
-                                $(".layui-table-total td[data-key='1-1-2'] div").html(parseFloat(tot).toFixed(2));
-                            }
-                        }
-                    }
-                });
+                var tablelayid = "userTableReload";
+                $("#myPrint").bind("click", function () {
+                    var h = window.open("打印窗口", "_blank");
+                    var v1 = document.createElement("div");
+                    $(v1).append('<table cellspacing="0" cellpadding="0" border="0" class="layui-table"></table>');
+                    $(v1).find("table").append($("#myInfo").html());
+                    h.document.write($(v1).prop("outerHTML"));
+                    var v = document.createElement("div");
+                    var f = ["<head>", "<style>", "body{font-size: 12px; color: #666;}", "table{width: 100%; border-collapse: collapse; border-spacing: 0;}", "th,td{line-height: 20px; padding: 9px 15px; border: 1px solid #ccc; text-align: left; font-size: 12px; color: #666;}", "a{color: #666; text-decoration:none;}", "*.layui-hide{display: none}", "</style>", "</head>"].join("");
+                    $(v).append($(".layui-table-box").find(".layui-table-header").html());
+                    $(v).find("table").append($("[lay-id=\"" + tablelayid + "\"] .layui-table-body.layui-table-main table").html());
+                    h.document.write(f + $(v).prop("outerHTML"));
+                    h.document.close();
+                    h.print();
+                    h.close();
+                })
+//
+//
+//                table.on('checkbox(jfjl-fil)', function (obj) {
+//                    if (obj.type == "one") {
+//                        var currTr = obj.data.jfje
+//                        var curr = $(".layui-table-total td[data-key='1-1-2'] div").html();
+//                        console.log(currTr)
+//                        console.log(curr)
+//                        if (obj.data.sfbx == "0") {
+//                            if (obj.checked) {
+//                                $(".layui-table-total td[data-key='1-1-2'] div").html((parseFloat(curr) + parseFloat(currTr)).toFixed(2));
+//                            } else {
+//                                $(".layui-table-total td[data-key='1-1-2'] div").html((parseFloat(curr) - parseFloat(currTr)).toFixed(2));
+//                            }
+//                        }
+//                    } else if (obj.type == "all") {
+//                        var checkStatus = table.checkStatus('userTableReload');
+//                        var checkData = checkStatus.data;
+//                        var tot = 0;
+//                        if (checkData) {
+//                            for (var i = 0; i < checkData.length; i++) {
+//                                tot += parseInt(checkData[i].jfje);
+//                            }
+//                            if (checkData.length == 0) {
+//                                $(".layui-table-total td[data-key='1-1-2'] div").html(parseFloat(cacheBj).toFixed(2));
+//                            } else {
+//                                $(".layui-table-total td[data-key='1-1-2'] div").html(parseFloat(tot).toFixed(2));
+//                            }
+//                        }
+//                    }
+//                });
             }
 
         }
         wpt_wyjfPay.initTab();
+        wpt_wyjfPay.myOn();
 
 
     });
