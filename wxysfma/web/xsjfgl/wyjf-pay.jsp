@@ -406,6 +406,7 @@
                                         $("#tjdd").attr('disabled', "true");
                                         $("#tjdd").addClass('layui-btn-disabled-my');
                                         wpt_wyjfPay.tj_show(data);
+                                        wpt_wyjfPay.initOrderPull(data.oreder_no)
                                     } else {
                                         layer.msg(msg, {
                                             anim: 6, time: 4000, end: function () {
@@ -424,6 +425,27 @@
                     });
 
                 })
+            },
+            initOrderPull: function (order_no) {
+                var intVe = setInterval(function () {
+                    $.ajax({
+                        url: wpt_serverName + "xsjfgl/wheel",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {order_no: order_no},
+                        timeout: 10000,
+                        success: function (data) {
+                            if (data.code == "2") {
+                                layer.alert('付款成功', {icon: 6, title: '温馨提示'})
+                                clearInterval(intVe);
+                            }
+                        },
+                        complete: function () {
+                            layer.close(loadIndex);
+                        }
+                    })
+                }, 5000);
+
             },
             changePar: function () {
                 parent.document.getElementById("my_status").value = "1";
