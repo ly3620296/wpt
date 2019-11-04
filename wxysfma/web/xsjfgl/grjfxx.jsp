@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <style>
         .zoomImage {
-            object-fit:cover;
+            object-fit: cover;
             max-width: 180px !important;
         }
     </style>
@@ -22,12 +22,14 @@
     WptMaXSUserInfo userInfo = (WptMaXSUserInfo) session.getAttribute("wptMaXSUserInfo");
 %>
 <div class="layui-fluid">
+
     <div>
         <fieldset class="layui-elem-field layui-field-title"
                   style="margin-top: 20px;border-color: #009688 !important;">
             <legend>个人信息</legend>
         </fieldset>
     </div>
+
 </div>
 <div class="layui-fluid">
     <div class="layui-row">
@@ -51,7 +53,7 @@
                         </tr>
                         </thead>
                         <tbody align="center">
-                        <tr >
+                        <tr>
                             <td style="background-color: #eef9fb">姓名</td>
                             <td><%=userInfo.getXm()%>
                             </td>
@@ -59,7 +61,7 @@
                             <td><%=userInfo.getZh()%>
                             </td>
                             <td rowspan="4" style="width: 500px;">
-                                <img src="<%=Constant.server_name%>img/tx.jpg"  class="zoomImage"/>
+                                <img src="<%=Constant.server_name%>img/tx.jpg" class="zoomImage"/>
                             </td>
                         </tr>
                         <tr>

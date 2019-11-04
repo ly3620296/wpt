@@ -59,12 +59,12 @@ public class GrjfxxController extends Controller {
             boolean flag = true;
             for (Record title : titles) {
                 String val = total.getStr(title.getStr("JFXMID"));
-                if (val.equals("0")) {
+                if (!val.equals("0")) {
                     flag = false;
                     break;
                 }
             }
-            if (flag) {
+            if (!flag) {
                 yj.add(total);
             }
         }

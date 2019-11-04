@@ -61,14 +61,13 @@ public class WyjfDao {
         return preMoney;
     }
 
-    public static void updateIllegalMoneyOrder(final Map<String, String> repData) {
+    public  void updateIllegalMoneyOrder(final Map<String, String> repData) {
         Db.tx(new IAtom() {
             @Override
             public boolean run() throws SQLException {
-                String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=? WHERE OUT_TRADE_NO=?";
-                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), repData.get("total_fee"), repData.get("out_trade_no"));
-                sql = "";
-                int upYsf = Db.update(sql);
+                String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=? WHERE OUT_TRADE_NO=?";
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), repData.get("total_fee"), repData.get("openid"),  repData.get("out_trade_no"));
+                int upYsf = updateOrder(repData.get("out_trade_no"));
                 return upOrder * upYsf >= 1;
             }
         });
@@ -79,8 +78,8 @@ public class WyjfDao {
         Db.tx(new IAtom() {
             @Override
             public boolean run() throws SQLException {
-                String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=? WHERE OUT_TRADE_NO=?";
-                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_PAY, MyWxpayConstant.RETURN_CODE_SUCCESS, repData.get("result_code"), repData.get("transaction_id"), repData.get("total_fee"), repData.get("out_trade_no"));
+                String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=? WHERE OUT_TRADE_NO=?";
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_PAY, MyWxpayConstant.RETURN_CODE_SUCCESS, repData.get("result_code"), repData.get("transaction_id"), repData.get("total_fee"), repData.get("openid"), repData.get("out_trade_no"));
                 int upYsf = updateOrder(repData.get("out_trade_no"));
                 return upOrder * upYsf >= 1;
             }
