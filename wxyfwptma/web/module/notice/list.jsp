@@ -80,12 +80,13 @@
             , cols: [[   //表头
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'G_ID', title: 'ID',width:70, sort: true, fixed: 'left'}
-                , {field: 'M_NAME', title: '创建用户',width:110}
-                , {field: 'G_TITLE', title: '公告标题'}
+                , {field: 'M_NAME', title: '创建用户',width:100}
+                , {field: 'G_TITLE', title: '公告标题',width:100}
                 , {field: 'G_TEXT', title: '公告内容'}
-                , {field: 'G_STATE', title: '在线状态',color:'blue'}
-                , {field: 'G_GROUP', title: '公告群体',color:'blue'}
-                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
+                , {field: 'G_STATE', title: '在线状态',color:'blue',width:90}
+                , {field: 'G_GROUP', title: '公告群体',color:'blue',width:90}
+                , {field: 'G_TIME', title: '录入时间',color:'blue'}
+                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo',width:120}
             ]]
 //            , height: 700
 //            , width: 1000

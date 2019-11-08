@@ -13,7 +13,7 @@
     <script type="text/javascript" src="<%=Constant.server_name%>main/index.js"></script>
 </head>
 <body class="layui-layout-body">
-<jsp:include page="/login/auth.jsp"></jsp:include>
+<jsp:include page="/login/indexAuth.jsp"></jsp:include>
 <%
     WptMaUserInfo userInfo = (WptMaUserInfo) session.getAttribute("wptMaUserInfo");
     String userName = "";

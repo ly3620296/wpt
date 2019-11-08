@@ -20,8 +20,8 @@ public class LoginInterceptor implements Interceptor {
         HttpSession session = request.getSession();
         WptMaUserInfo userInfo = (WptMaUserInfo) session.getAttribute("wptMaUserInfo");
         if (userInfo == null) {
-//            inv.getController().redirect("/");
-            inv.getController().render("/login/login.jsp");
+            inv.getController().redirect("/");
+//            inv.getController().renderJsp("/login/login.jsp");
         } else {
             inv.invoke();
         }
