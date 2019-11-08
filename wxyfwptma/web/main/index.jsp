@@ -28,27 +28,27 @@
     <div class="layui-header">
         <div class="layui-logo">微平台后台管理</div>
         <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item"><a lay-href="">控制台</a></li>
-            <li class="layui-nav-item"><a lay-href="">商品管理</a></li>
-            <li class="layui-nav-item"><a lay-href="">用户</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="#"><span class="nav-ly-child">邮件管理</span></a></dd>
-                    <dd><a href="#"><span class="nav-ly-child">消息管理</span></a></dd>
-                    <dd><a href="#"><span class="nav-ly-child">授权管理</span></a></dd>
-                </dl>
-            </li>
+            <%--<li class="layui-nav-item"><a lay-href="">控制台</a></li>--%>
+            <%--<li class="layui-nav-item"><a lay-href="">商品管理</a></li>--%>
+            <%--<li class="layui-nav-item"><a lay-href="">用户</a></li>--%>
+            <%--<li class="layui-nav-item">--%>
+                <%--<a href="javascript:;">其它系统</a>--%>
+                <%--<dl class="layui-nav-child">--%>
+                    <%--<dd><a href="#"><span class="nav-ly-child">邮件管理</span></a></dd>--%>
+                    <%--<dd><a href="#"><span class="nav-ly-child">消息管理</span></a></dd>--%>
+                    <%--<dd><a href="#"><span class="nav-ly-child">授权管理</span></a></dd>--%>
+                <%--</dl>--%>
+            <%--</li>--%>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <%=userName%>
                 </a>
-                <dl class="layui-nav-child">
-                    <dd><a href=""><span class="nav-ly-child">基本资料</span></a></dd>
-                    <dd><a href=""><span class="nav-ly-child">安全设置</span></a></dd>
-                </dl>
+                <%--<dl class="layui-nav-child">--%>
+                    <%--<dd><a href=""><span class="nav-ly-child">基本资料</span></a></dd>--%>
+                    <%--<dd><a href=""><span class="nav-ly-child">安全设置</span></a></dd>--%>
+                <%--</dl>--%>
             </li>
             <li class="layui-nav-item"><a href="" id="loginOut">退出</a></li>
         </ul>
