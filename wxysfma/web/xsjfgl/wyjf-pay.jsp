@@ -395,14 +395,13 @@
                                 if (data) {
                                     var code = data.returnInfo.return_code;
                                     var msg = data.returnInfo.return_msg;
+                                    wpt_wyjfPay.changePar();
                                     if (code == "0") {
-                                        wpt_wyjfPay.changePar();
                                         layer.msg('订单填写成功，订单号【' + data.oreder_no + '】。', {
                                             icon: 1,
                                             shade: [0.3, '#000']
                                         });
                                         qrcode.makeCode(data.code_url);
-
                                         $("#tjdd").attr('disabled', "true");
                                         $("#tjdd").addClass('layui-btn-disabled-my');
                                         wpt_wyjfPay.tj_show(data);
@@ -470,8 +469,8 @@
                                 loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
                             },
                             success: function (data) {
+                                wpt_wyjfPay.changePar();
                                 if (data.returnInfo.return_code == "0") {
-                                    wpt_wyjfPay.changePar();
                                     $("#tjdd").html('返回');
                                     $("#tjdd").unbind();
                                     $("#tjdd").bind('click', function () {

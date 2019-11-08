@@ -49,7 +49,7 @@ public class WxPayCallBackController extends Controller {
 //            }
 //
 //            //通知微信
-//            renderText(callBackString);
+            renderText(callBackString);
 //
 //            /**
 //             * 修改订单状态

@@ -64,7 +64,7 @@
                     <dl class="layui-nav-child">
                         <dd class="layui-this">
                             <a data-url="" data-id="ly_home" data-title="table-demo"
-                               data-type="tabAdd">个人交费信息</a>
+                               data-type="tabAdd">通知公告</a>
                         </dd>
                         <dd>
                             <a data-url="<%=Constant.server_name%>xsjfgl/grjfxx.jsp" data-id="00" data-title="个人交费信息"
@@ -75,7 +75,7 @@
                                data-type="tabAdd">我要交费</a>
                         </dd>
                         <dd>
-                            <a data-url="demo-switch/switch.html" data-title="轮播" data-id="02"
+                            <a data-url="<%=Constant.server_name%>xsjfgl/ddxq.jsp" data-title="订单查询" data-id="02"
                                data-type="tabAdd">订单查询</a>
                         </dd>
                     </dl>

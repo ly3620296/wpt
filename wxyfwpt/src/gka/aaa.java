@@ -10,9 +10,6 @@ import java.util.regex.Pattern;
  * @Describe
  */
 public class aaa {
-    static {
-        System.out.println("3s########################");
-    }
     public static void main(String[] args) {
 //        formatZc("1,2,3,4,5,6,7,8,10,11,12");
 //        System.out.println(formatZc("2,4,6,8"));

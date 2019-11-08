@@ -36,6 +36,12 @@ public class WxPayOrder {
     private String xh;
     //微信生成的预支付会话标识
     private String PREPAY_ID;
+    //二维码地址
+    private String code_url;
+
+    private String sfxn;
+
+    private String orderNo;
 
     public String getOut_trade_no() {
         return out_trade_no;
@@ -157,24 +163,27 @@ public class WxPayOrder {
         this.PREPAY_ID = PREPAY_ID;
     }
 
-    @Override
-    public String toString() {
-        return "WxPayOrder{" +
-                "out_trade_no='" + out_trade_no + '\'' +
-                ", ids='" + ids + '\'' +
-                ", pay_type='" + pay_type + '\'' +
-                ", total_fee='" + total_fee + '\'' +
-                ", appid='" + appid + '\'' +
-                ", mch_id='" + mch_id + '\'' +
-                ", openid='" + openid + '\'' +
-                ", payIp='" + payIp + '\'' +
-                ", time_start='" + time_start + '\'' +
-                ", time_end='" + time_end + '\'' +
-                ", order_state='" + order_state + '\'' +
-                ", return_code='" + return_code + '\'' +
-                ", result_code='" + result_code + '\'' +
-                ", xh='" + xh + '\'' +
-                ", PREPAY_ID='" + PREPAY_ID + '\'' +
-                '}';
+    public String getSfxn() {
+        return sfxn;
+    }
+
+    public void setSfxn(String sfxn) {
+        this.sfxn = sfxn;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getCode_url() {
+        return code_url;
+    }
+
+    public void setCode_url(String code_url) {
+        this.code_url = code_url;
     }
 }
