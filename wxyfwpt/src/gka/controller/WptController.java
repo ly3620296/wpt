@@ -114,16 +114,22 @@ public class WptController extends Controller {
                 String zh = wptUserInfo.getZh();
                 String bindOpenId = (String) getSession().getAttribute("bindOpenId");
                 if (!StringUtils.isEmpty(bindOpenId)) {
-                    String oldOpenId = wptDao.findOpByZh(zh);
-                    if (StringUtils.isEmpty(oldOpenId)) {
-                        wptDao.bindOpenId(bindOpenId, zh);
-                        wptUserInfo.setOpenId(bindOpenId);
-                        getSession().removeAttribute("bindOpenId");
-                        returnInfo.setReturn_code("0");
-                        returnInfo.setReturn_msg("success");
+                    boolean isBind = wptDao.isBindOpenId(bindOpenId);
+                    if (!isBind) {
+                        String oldOpenId = wptDao.findOpByZh(zh);
+                        if (StringUtils.isEmpty(oldOpenId)) {
+                            wptDao.bindOpenId(bindOpenId, zh);
+                            wptUserInfo.setOpenId(bindOpenId);
+                            getSession().removeAttribute("bindOpenId");
+                            returnInfo.setReturn_code("0");
+                            returnInfo.setReturn_msg("success");
+                        } else {
+                            returnInfo.setReturn_code("-3");
+                            returnInfo.setReturn_msg("该账号已经绑定微信，不可重复绑定!");
+                        }
                     } else {
-                        returnInfo.setReturn_code("-3");
-                        returnInfo.setReturn_msg("该账号已经绑定微信，不可重复绑定!");
+                        returnInfo.setReturn_code("-4");
+                        returnInfo.setReturn_msg("该微信已经绑定账号，不可重复绑定!");
                     }
                 } else {
                     returnInfo.setReturn_code("-1");

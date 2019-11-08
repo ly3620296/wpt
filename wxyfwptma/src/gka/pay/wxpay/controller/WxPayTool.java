@@ -1,5 +1,6 @@
 package gka.pay.wxpay.controller;
 
+import gka.common.kit.OrderCodeFactory;
 import gka.pay.wxpay.*;
 import gka.resource.properties.ProFactory;
 import gka.resource.properties.ProKit;
@@ -84,11 +85,12 @@ public class WxPayTool {
         map.put("spbill_create_ip", wxPayBean.getSpbill_create_ip());
         map.put("notify_url", PayConstant.NOTIFY_URL);
         map.put("trade_type", PayConstant.NATIVE);
-        map.put("openid", wxPayBean.getOpenId());
+//        map.put("openid", wxPayBean.getOpenId());
         map.put("product_id", String.valueOf(System.currentTimeMillis() + new Random().nextInt(10000000)));
         Map<String, String> result = null;
         try {
             result = wxPay.unifiedOrder(map);
+            System.out.println("result" + result);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -167,12 +169,12 @@ public class WxPayTool {
 
     static class PayConstant {
         //
-        static final String BODY = "科安";
+        static final String BODY = ProKit.use("gkean.properties").getStr("BODY");
         //支付异步回调地址
-        static final String NOTIFY_URL = "http://www.kean.com.cn/wptma/pay/wxpay/con/wxPayCallBackController";
-        //交易类型
+        static final String NOTIFY_URL = ProKit.use("gkean.properties").getStr("domain_name") + ProKit.use("gkean.properties").getStr("server_name") + "pay/wxpay/con/wxPayCallBackController";
+        //交易类型 js拉起支付
         static final String JSAPI = "JSAPI";
-
+        //交易类型  扫码支付
         static final String NATIVE = "NATIVE";
     }
 

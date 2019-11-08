@@ -18,9 +18,9 @@ import java.util.Map;
 public class WxPayDao {
 
     public void insertOrder(WxPayOrder wxPayOrder) {
-        String sql = "INSERT INTO WPT_WXZF_ORDER (XH,OUT_TRADE_NO,IDS,PAY_TYPE,TOTAL_FEE,APPID,MCH_ID,OPENID,PAYIP,TIME_START,ORDER_STATE,PREPAY_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO WPT_WXZF_SPECIAL_ORDER (XH,OUT_TRADE_NO,IDS,PAY_TYPE,TOTAL_FEE,APPID,MCH_ID,OPENID,PAYIP,TIME_START,ORDER_STATE,PREPAY_ID,SFXN,ORDER_NO,CODE_URL) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         Db.update(sql, wxPayOrder.getXh(), wxPayOrder.getOut_trade_no(), wxPayOrder.getIds(), wxPayOrder.getPay_type(), wxPayOrder.getTotal_fee(), wxPayOrder.getAppid(),
-                wxPayOrder.getMch_id(), wxPayOrder.getOpenid(), wxPayOrder.getPayIp(), wxPayOrder.getTime_start(), MyWxpayConstant.ORDER_STATE_NOPAY, wxPayOrder.getPREPAY_ID());
+                wxPayOrder.getMch_id(), wxPayOrder.getOpenid(), wxPayOrder.getPayIp(), wxPayOrder.getTime_start(), MyWxpayConstant.ORDER_STATE_NOPAY, wxPayOrder.getPREPAY_ID(), wxPayOrder.getSfxn(), wxPayOrder.getOrderNo(), wxPayOrder.getCode_url());
     }
 
 
@@ -29,7 +29,7 @@ public class WxPayDao {
         //未支付 或异常订单 将被关闭
         if (state.equals(MyWxpayConstant.ORDER_STATE_NOPAY) || state.equals(MyWxpayConstant.ORDER_STATE_ILLEGALMONEY)) {
             SimpleDateFormat sp = new SimpleDateFormat("yyyyMMddHHmmss");
-            String sql = "UPDATE WPT_WXZF_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=? WHERE OUT_TRADE_NO=? ";
+            String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=? WHERE OUT_TRADE_NO=? ";
             if (who.equals("sys")) {
                 Db.update(sql, sp.format(new Date()), MyWxpayConstant.ORDER_STATE_CLOSE, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_CLOSE, out_trade_no);
             } else if (who.equals("user")) {
@@ -40,10 +40,12 @@ public class WxPayDao {
     }
 
     public static String orderState(String out_trade_no) {
-        String sql = "SELECT ORDER_STATE FROM WPT_WXZF_ORDER WHERE OUT_TRADE_NO=?";
+        String sql = "SELECT ORDER_STATE FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
         Record re = Db.findFirst(sql, out_trade_no);
         return re == null ? "" : re.getStr("ORDER_STATE");
-    } public List<Record> xzf(String xh) {
+    }
+
+    public List<Record> xzf(String xh) {
         String sql = "SELECT T1.ID,T1.XH,T1.SFJF,T1.XNXQ,T2.XMMC,T2.XMJE,T2.SFBX FROM WPT_YSFY T1 LEFT JOIN WPT_JFXM T2 " +
                 "ON T1.XMID = T2.XMID  WHERE T1.XH=? AND T2.XMLXID=? ORDER BY T1.XNXQ DESC";
         List<Record> sfzhList = Db.find(sql, xh, MyWxpayConstant.XMLXID_XZF);
@@ -144,13 +146,6 @@ public class WxPayDao {
         Record re = Db.findFirst(sql, zh, MyWxpayConstant.ORDER_STATE_NOPAY);
         return re != null;
     }
-    public String queryOutTradeNo(String prepay_id) {
-        String outTradeNo="";
-        String sql = "SELECT OUT_TRADE_NO FROM WPT_WXZF_ORDER WHERE PREPAY_ID=?";
-        Record re = Db.findFirst(sql, prepay_id);
-        if(re!=null){
-            outTradeNo=re.getStr("OUT_TRADE_NO");
-        }
-        return outTradeNo;
-    }
+
+
 }

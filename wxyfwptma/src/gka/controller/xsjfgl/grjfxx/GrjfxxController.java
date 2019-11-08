@@ -24,8 +24,10 @@ public class GrjfxxController extends Controller {
             String xh = userInfo.getZh();
             List<Record> titles = wyjfDao.queryTitle();
             List<Record> jfjl = getJfjl(titles, xh);
-            map = ReKit.toMap(jfjl.size(), jfjl);
             map.put("titles", titles);
+            map.put("code", "0");
+            map.put("msg", "success");
+            map.put("data", jfjl);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", "-1");

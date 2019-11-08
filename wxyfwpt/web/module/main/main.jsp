@@ -87,17 +87,17 @@
 
         </div>
     </div>
-    <%--<div style="display: block;">--%>
-        <%--<div class="tc">--%>
-            <%--<div class="name">--%>
-                <%--<p>校内公告</p>--%>
-                <%--<a class="btnbj" href="javascript:void(0)" id="gd">更多</a>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<ul class="gg-list" id="gg">--%>
-          <%----%>
-        <%--</ul>--%>
-    <%--</div>--%>
+    <div style="display: block;">
+        <div class="tc">
+            <div class="name">
+                <p>校内公告</p>
+                <a class="btnbj" href="javascript:void(0)" id="gd">更多</a>
+            </div>
+        </div>
+        <ul class="gg-list" id="gg">
+
+        </ul>
+    </div>
 </div>
 
 <div class="footer-nav" style="display: block;">

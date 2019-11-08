@@ -1,5 +1,8 @@
 package gka.pay.wxpay.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @Auther ly
  * @Date 2019/9/15
@@ -14,7 +17,13 @@ public class MyWxpayConstant {
     public static final String ORDER_STATE_PAY = "2";
     //异常订单，total_fee不匹配
     public static final String ORDER_STATE_ILLEGALMONEY = "3";
+    public static Map<String,String> ORDER_STATE_DESC = new HashMap<String, String>();
+    static {
+        ORDER_STATE_DESC.put(ORDER_STATE_NOPAY,"待支付");
+        ORDER_STATE_DESC.put(ORDER_STATE_CLOSE,"待支付1");
+        ORDER_STATE_DESC.put(ORDER_STATE_PAY,"待支付2");
 
+    }
 
     //已经缴费
     public static final String ORDER_YSFY_JF = "1";

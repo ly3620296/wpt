@@ -42,21 +42,21 @@
     <div class="head">
         <div class="people">
             <ul class="">
-                <%--<li>--%>
-                <%--<p class="p1">周课程</p>--%>
+                <li>
+                    <p class="p1">周课程</p>
 
-                <%--<p>15节</p>--%>
-                <%--</li>--%>
-                <%--<li>--%>
-                <%--<p class="p1">周活动</p>--%>
+                    <p>15节</p>
+                </li>
+                <li>
+                    <p class="p1">周活动</p>
 
-                <%--<p>5次</p>--%>
-                <%--</li>--%>
-                <%--<li>--%>
-                <%--<p class="p1">我的考试</p>--%>
+                    <p>5次</p>
+                </li>
+                <li>
+                    <p class="p1">我的考试</p>
 
-                <%--<p>55分</p>--%>
-                <%--</li>--%>
+                    <p>55分</p>
+                </li>
 
                 <li>
                     <p class="p1"></p>
@@ -84,18 +84,18 @@
     </div>
 
     <ul class="tableTabul">
-        <%--<li>--%>
-        <%--<span>我的课程</span>--%>
-        <%--<i class="righticon fa fa-angle-right fa-lg"></i>--%>
-        <%--</li>--%>
-        <%--<li>--%>
-        <%--<span>我的考试</span>--%>
-        <%--<i class="righticon fa fa-angle-right fa-lg"></i>--%>
-        <%--</li>--%>
-        <%--<li>--%>
-        <%--<span>我的申请</span>--%>
-        <%--<i class="righticon fa fa-angle-right fa-lg"></i>--%>
-        <%--</li>--%>
+        <li>
+            <span>我的课程</span>
+            <i class="righticon fa fa-angle-right fa-lg"></i>
+        </li>
+        <li>
+            <span>我的考试</span>
+            <i class="righticon fa fa-angle-right fa-lg"></i>
+        </li>
+        <li>
+            <span>我的申请</span>
+            <i class="righticon fa fa-angle-right fa-lg"></i>
+        </li>
         <li style="margin-top: 3%;display: none" id="bd">
             <span>绑定微信</span>
             <i class="righticon fa fa-angle-right fa-lg"></i>
@@ -104,10 +104,10 @@
             <span>解除绑定</span>
             <i class="righticon fa fa-angle-right fa-lg"></i>
         </li>
-        <%--<li id="gg">--%>
-            <%--<span>公告</span>--%>
-            <%--<i class="righticon fa fa-angle-right fa-lg"></i>--%>
-        <%--</li>--%>
+        <li id="gg">
+            <span>公告</span>
+            <i class="righticon fa fa-angle-right fa-lg"></i>
+        </li>
         <li id="xgmm">
             <span>修改密码</span>
             <i class="righticon fa fa-angle-right fa-lg"></i>

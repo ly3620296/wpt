@@ -230,6 +230,12 @@ public class WyjfDao {
         return isNoPay;
     }
 
+    public String queryOrderState(String out_trade_no){
+        String sql="SELECT ORDER_STATE FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
+        Record re = Db.findFirst(sql,out_trade_no);
+        return re==null?"":re.getStr("ORDER_STATE");
+    }
+
     //查询是否存在未支付订单
     public boolean noPayOrder(String xh) {
         String sql = "SELECT IDS FROM WPT_WXZF_SPECIAL_ORDER WHERE XH=? AND ORDER_STATE=?";

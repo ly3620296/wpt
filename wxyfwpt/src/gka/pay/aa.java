@@ -22,7 +22,6 @@ public class aa {
         WXPay wxPay = new WXPay(wxPayConfig);
         map.put("body", "科安");
         String orderNo = WXPayUtil.generateOrder();
-        System.out.println("orderNo--------------"+orderNo);
         map.put("out_trade_no", orderNo);
         map.put("total_fee", "1");
         map.put("spbill_create_ip", "222.168.8.114");

@@ -5,8 +5,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.ReKit;
-import gka.controller.xsjfgl.grjfxx.GrjfxxDao;
-import gka.controller.xsjfgl.grjfxx.HeaderInfo;
+import gka.pay.wxpay.controller.MyWxpayConstant;
 import gka.xsjfgl.login.WptMaXSUserInfo;
 
 import java.util.ArrayList;
@@ -25,8 +24,30 @@ public class WyjfController extends Controller {
             String xh = userInfo.getZh();
             List<Record> titles = wyjfDao.queryTitle();
             List<Record> jfjl = getWjfjl(titles, xh);
-            map = ReKit.toMap(jfjl.size(), jfjl);
+            NoPayOrderInfo noPayOrderInfo = wyjfDao.getNoPayOrderInfo(xh);
+            map.put("noPayOrderInfo", noPayOrderInfo);
+            map.put("code", "0");
+            map.put("msg", "success");
+            map.put("data", jfjl);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("code", "-1");
+            map.put("msg", "系统繁忙，请稍后重试！");
+        }
+        renderJson(map);
+    }
+
+    public void title() {
+        Map map = new HashMap();
+        try {
+            WptMaXSUserInfo userInfo = (WptMaXSUserInfo) getSession().getAttribute("wptMaXSUserInfo");
+            String xh = userInfo.getZh();
+            List<Record> titles = wyjfDao.queryTitle();
+            NoPayOrderInfo noPayOrderInfo = wyjfDao.getNoPayOrderInfo(xh);
+            map.put("noPayOrderInfo", noPayOrderInfo);
             map.put("titles", titles);
+            map.put("code", "0");
+            map.put("msg", "success");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", "-1");
@@ -76,6 +97,51 @@ public class WyjfController extends Controller {
     }
 
 
+    //继续缴费
+    public void jxWjfjl() {
+        Map map = new HashMap();
+        try {
+            String xn = getPara("xn");
+            String order_no = getPara("order_no");
+            if (!StringUtils.isEmpty(xn) && !StringUtils.isEmpty(order_no)) {
+                WptMaXSUserInfo userInfo = (WptMaXSUserInfo) getSession().getAttribute("wptMaXSUserInfo");
+                String xh = userInfo.getZh();
+                List<Record> titles = wyjfDao.queryTitle();
+                //是否未缴费
+                boolean isPay = validate(titles, xh, xn);
+                if (!isPay) {
+                    Record re1 = wyjfDao.queryJxzf(order_no);
+                    if (re1 != null) {
+                        Record re = wyjfDao.jf(xh, xn, titles);
+                        List<JfInfo> jfInfoList = getJfinfo(titles, re);
+                        map = ReKit.toMap(jfInfoList.size(), jfInfoList);
+                        map.put("code_url", re1.getStr("CODE_URL"));
+                        map.put("order_no", order_no);
+                        map.put("total_fee", re1.getStr("TOTAL_FEE"));
+                        map.put("order_state", MyWxpayConstant.ORDER_STATE_DESC.get(re1.getStr("ORDER_STATE")));
+                    } else {
+                        map.put("code", "-5");
+                        map.put("msg", "目前不存在未支付订单！");
+                    }
+                } else {
+                    map.put("code", "-4");
+                    map.put("msg", "已经支付过，请误重新支付！");
+                }
+            } else {
+                map.put("code", "-2");
+                map.put("msg", "请从正规渠道支付！");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("code", "-1");
+            map.put("msg", "系统繁忙，请稍后重试！");
+        }
+        renderJson(map);
+
+    }
+
+
     private List<JfInfo> getJfinfo(List<Record> titles, Record re) {
         List<JfInfo> jfInfos = new ArrayList<JfInfo>();
         for (Record t : titles) {
@@ -86,8 +152,8 @@ public class WyjfController extends Controller {
                 jfInfo.setXmid(t.getStr("JFXMID"));
                 jfInfo.setSfbx(sfjf);
                 jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
-            }else{
-                jfInfo.setXmmc(t.getStr("JFXMMC")+"（选交）");
+            } else {
+                jfInfo.setXmmc(t.getStr("JFXMMC") + "（选交）");
                 jfInfo.setXmid(t.getStr("JFXMID"));
                 jfInfo.setSfbx(sfjf);
                 jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
@@ -106,7 +172,7 @@ public class WyjfController extends Controller {
             boolean flag = true;
             for (Record title : titles) {
                 String val = total.getStr(title.getStr("JFXMID"));
-                if (val.equals("0")) {
+                if (!val.equals("0")) {
                     flag = false;
                     break;
                 }

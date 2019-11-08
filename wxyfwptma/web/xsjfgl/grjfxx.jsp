@@ -7,8 +7,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
+    <style>
+        .zoomImage {
+            object-fit:cover;
+            max-width: 180px !important;
+        }
+    </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
-    <%--<script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>--%>
 </head>
 <body>
 <jsp:include page="/login/xsauth.jsp"></jsp:include>
@@ -30,10 +35,10 @@
                 <div class="layui-form">
                     <table class="layui-table">
                         <colgroup>
-                            <col width="150">
-                            <col width="150">
-                            <col width="200">
-                            <col>
+                            <col width="15%">
+                            <col width="25%">
+                            <col width="15%">
+                            <col width="25%">
                         </colgroup>
                         <thead>
                         <tr>
@@ -44,15 +49,17 @@
                             </th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
+                        <tbody align="center">
+                        <tr >
                             <td style="background-color: #eef9fb">姓名</td>
                             <td><%=userInfo.getXm()%>
                             </td>
                             <td style="background-color: #eef9fb">学号/考生号</td>
                             <td><%=userInfo.getZh()%>
                             </td>
-                            <td rowspan="4" style="width: 500px;"></td>
+                            <td rowspan="4" style="width: 500px;">
+                                <img src="<%=Constant.server_name%>img/tx.jpg"  class="zoomImage"/>
+                            </td>
                         </tr>
                         <tr>
                             <td style="background-color: #eef9fb">年级</td>
@@ -139,7 +146,11 @@
             },
             initTab: function (titles) {
                 var col = titles.length + 2;
-                var cols2 = [{title: "学年", field: "XN", align: "center"}, {title: "交费合计", field: "YSHJ", align: "center"}];
+                var cols2 = [{title: "学年", field: "XN", align: "center"}, {
+                    title: "交费合计",
+                    field: "YSHJ",
+                    align: "center"
+                }];
                 for (var i = 0; i < titles.length; i++) {
                     if (titles[i].SFBX == "1") {
                         cols2[i + 2] = {title: titles[i].JFXMMC, field: titles[i].JFXMID, align: "center"};
@@ -155,11 +166,11 @@
                     ], cols2]
                     , url: wpt_serverName + 'xsjfgl/grjfxx?' //数据接口地址
                     , title: '用户表'
-                    , page: true //开启分页
+//                    , page: true //开启分页
                     , loading: true
 //                    , even: true  //隔行换色 默认false
                     , done: function (res, curr, count) { //加载完回调
-                        $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5','font-weight':'bold'})
+                        $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5', 'font-weight': 'bold'})
                     },
                     id: 'userTableReload'
                 });

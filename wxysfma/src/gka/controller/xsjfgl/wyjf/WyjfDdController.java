@@ -6,10 +6,7 @@ import com.jfinal.ext.route.ControllerBind;
 import gka.common.kit.IpKit;
 import gka.common.kit.OrderCodeFactory;
 import gka.pay.wxpay.WXPayUtil;
-import gka.pay.wxpay.controller.WxPayBean;
-import gka.pay.wxpay.controller.WxPayDao;
-import gka.pay.wxpay.controller.WxPayOrder;
-import gka.pay.wxpay.controller.WxPayTool;
+import gka.pay.wxpay.controller.*;
 import gka.system.ReturnInfo;
 import gka.xsjfgl.login.WptMaXSUserInfo;
 
@@ -151,15 +148,24 @@ public class WyjfDdController extends Controller {
                 String out_trade_no = wyjfDao.queryOutTradeNo(order_no);
                 reqData.put("out_trade_no", out_trade_no);
                 if (!out_trade_no.equals("")) {
-                    WxPayTool wxPayTool = WxPayTool.getInstance();
-                    Map<String, String> map = wxPayTool.closeOrder(reqData);
-                    System.out.println("result" + map);
-                    //更改订单状态
-                    WxPayDao.closeOrderDb(out_trade_no, "user");
+                    String order_state = wyjfDao.queryOrderState(order_no);
+                    if (order_state.equals(MyWxpayConstant.ORDER_STATE_NOPAY)) {
+                        WxPayTool wxPayTool = WxPayTool.getInstance();
+                        Map<String, String> map = wxPayTool.closeOrder(reqData);
+                        System.out.println("result" + map);
+                        //更改订单状态
+                        WxPayDao.closeOrderDb(out_trade_no, "user");
+                        returnInfo.setReturn_code("0");
+                        returnInfo.setReturn_msg("success");
+                    } else {
+                        returnInfo.setReturn_code("-3");
+                        returnInfo.setReturn_msg("该订单状态目前不可关闭！");
+                    }
+                } else {
+                    returnInfo.setReturn_code("-2");
+                    returnInfo.setReturn_msg("非法请求！");
                 }
 
-                returnInfo.setReturn_code("0");
-                returnInfo.setReturn_msg("success");
             } else {
                 returnInfo.setReturn_code("-1");
                 returnInfo.setReturn_msg("非法请求！");

@@ -117,7 +117,6 @@ public class WXPay {
      */
     public boolean isPayResultNotifySignatureValid(Map<String, String> reqData) throws Exception {
         String signTypeInData = reqData.get(WXPayConstants.FIELD_SIGN_TYPE);
-        System.out.println("signTypeInData------" + signTypeInData);
         SignType signType;
         if (signTypeInData == null) {
             signType = SignType.MD5;

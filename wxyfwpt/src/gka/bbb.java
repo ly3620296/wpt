@@ -14,7 +14,6 @@ public class bbb {
     static int j;
 
     public bbb() {
-        System.out.println("------");
         i++;
         j++;
         i = i + 12;
