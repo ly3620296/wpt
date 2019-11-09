@@ -14,7 +14,7 @@ public class NoticeDao {
 
     public static List<Record> list(Integer start, Integer end, String u_id, String title, String time) {
         StringBuffer sb = new StringBuffer();
-        sb.append("SELECT m_name,g_id,g_title,g_text,DECODE(g_state,'1','在线','下线') as g_state ,DECODE(G_GROUP,'00','全部','01','老师','学生') as G_GROUP FROM ");
+        sb.append("SELECT m_name,g_id,g_title,g_text,DECODE(g_state,'1','在线','下线') as g_state ,DECODE(G_GROUP,'00','全部','01','老师','学生') as G_GROUP,G_TIME FROM ");
         sb.append("(SELECT ROWNUM AS rowno,d.m_name, t.*  FROM wptma_gg t,wptma_user d WHERE ROWNUM <= ? and d.m_id=t.g_uid) a WHERE a.rowno >= ?");
         if (title != null && !"".equals(title)) {
             sb.append("and a.g_title like '%" + title + "%'");
