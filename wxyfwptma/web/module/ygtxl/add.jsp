@@ -73,13 +73,11 @@
                         <div class="layui-upload-drag" id="test3" style="width: 388px;height: 240px;">
                             <i class="layui-icon"
                                style="    display: inline-block;margin-top: 70px;font-size: 55px;"></i>
-
                             <p>点击上传，或将文件拖拽到此处</p>
                         </div>
-
                     </div>
                     <button type="button" class="layui-btn" style="margin-bottom: 10px;margin-left: 14px;width: 452px;"
-                            id="btn" lay-submit lay-filter="formDemo">立即提交
+                            id="btn">立即提交
                     </button>
 
                     <%--<button class="layui-btn" >立即提交</button>--%>
