@@ -85,12 +85,23 @@
                             , id: 'demoId1'
                         });
                         var this_re = data.OUT_DATA.this_re;
-                        if(this_re.length>0){
+                        var allFatherMenu = data.OUT_DATA.allFatherMenu;
+                        if (this_re.length > 0) {
                             var myMenu = new Array();
-                            for(var i=0;i<this_re.length;i++){
-                                var m_id=Number(this_re[i].M_ID);
+                            for (var i = 0; i < this_re.length; i++) {
+                                var m_id = Number(this_re[i].M_ID);
                                 console.log(m_id)
-                                myMenu.push(m_id)
+//                                if (m_id != 14)
+                                var bool = false;
+                                for (var a = 0; a < allFatherMenu.length; a++) {
+                                    var fatherID = Number(allFatherMenu[a].M_ID);
+                                    if (fatherID == m_id) {
+                                        bool = true;
+                                        break;
+                                    }
+                                }
+                                if (!bool)
+                                    myMenu.push(m_id)
                             }
                             console.log(myMenu)
                             tree.setChecked('demoId1', myMenu); //勾选指定节点
@@ -133,7 +144,7 @@
                 url: wpt_serverName + "qxgl/edit",
                 type: 'post',
                 dataType: 'json',
-                data: {menu: menu,jsid:data.field.q_id},
+                data: {menu: menu, jsid: data.field.q_id},
                 timeout: 10000,
                 beforeSend: function () {
                     loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
