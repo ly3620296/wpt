@@ -85,12 +85,13 @@ public class ScyhController extends ServiceController {
                             fail_sum++;
                             e.printStackTrace();
                         }
-                        msg += "其中成功" + success_sum + "条，失败" + fail_sum + "条";
-                        if (fail_sum > 0) {
-                            msg += "，失败账号对应为[" + fail + "]";
-                        }
-                        renderJson(ReturnKit.retOk(msg));
                     }
+                    msg += "其中成功" + success_sum + "条，失败" + fail_sum + "条";
+                    if (fail_sum > 0) {
+                        msg += "，失败账号对应为[" + fail + "]";
+                    }
+                    renderJson(ReturnKit.retOk(msg));
+
                 } else {
                     renderJson(ReturnKit.retOk("文件中暂无数据"));
                 }
