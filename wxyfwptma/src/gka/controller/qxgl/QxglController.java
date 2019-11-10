@@ -103,6 +103,8 @@ public class QxglController extends LController {
                 map.put("re", re);
                 String menuTree = QxglDao.createMenuTree();
                 map.put("menuTree", JSONArray.parseArray(menuTree));
+                List<Record> allFatherMenu = Db.find("select m_id from wptma_menu where m_level='1' and m_state='1'");
+                map.put("allFatherMenu",allFatherMenu);
                 List<Record> this_re = Db.find("select m_id from wptma_jscd where q_id=?", id);
                 map.put("this_re", this_re);
                 renderJson(ReturnKit.retOk(map));
