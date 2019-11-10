@@ -14,20 +14,42 @@
 </head>
 <body>
 <jsp:include page="/login/auth.jsp"></jsp:include>
-    <div class="layui-form-item layui-form-text" style="margin-top: 45px;">
-        <label class="layui-form-label">选择文件:</label>
 
-        <div class="button-hide">
-            <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
-            <a style="text-decoration:underline;color: #0000FF" href="用户导入模板.xls">下载模板</a>
-        </div>
+<div class="layui-fluid">
+
+    <div>
+        <fieldset class="layui-elem-field layui-field-title"
+                  style="margin-top: 20px;border-color: #009688 !important;">
+            <legend>用户信息导入</legend>
+        </fieldset>
     </div>
 
-    <div class="layui-form-item" style="margin-top: 45px;">
-        <div class="layui-input-block">
-            <button class="layui-btn" id="btn" lay-submit lay-filter="formDemo">立即提交</button>
+</div>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-card">
+            <div class="layui-card-header">
+                <i class="layui-icon   layui-icon-link"></i>
+                <a style="text-decoration:underline;color: #0000FF" href="用户导入模板.xls">
+                    下载用户导入模板</a>
+            </div>
+            <div class="layui-card-body">
+                <%--<a style="text-decoration:underline;color: #0000FF" href="用户导入模板.xls">下载模板</a>--%>
+
+                <div class="layui-upload-drag" id="test3" style="width: 388px;height: 240px;">
+                    <i class="layui-icon" style="    display: inline-block;margin-top: 70px;font-size: 55px;"></i>
+
+                    <p>点击上传，或将文件拖拽到此处</p>
+                </div>
+
+            </div>
+            <button type="button" class="layui-btn" style="    margin-bottom: 10px;margin-left: 14px;width: 452px;"
+                    id="btn" lay-submit lay-filter="formDemo">立即提交
+            </button>
+            <%--<button class="layui-btn" >立即提交</button>--%>
         </div>
     </div>
+</div>
 
 
 <script type="text/javascript">

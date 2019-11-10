@@ -23,25 +23,25 @@
         <div class="layui-tab-item layui-show">
             <form class="layui-form" action="">
                 <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">员工姓名</label>
+                    <label class="layui-form-label">姓名</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" name="xm" required lay-verify="required" placeholder="请输入员工姓名"
+                        <input type="text" name="xm" required lay-verify="required" placeholder="请输入姓名"
                                autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-form-text">
-                    <label class="layui-form-label">员工号码</label>
+                    <label class="layui-form-label">电话号码</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" name="dh" required lay-verify="required|number" placeholder="请输入员工号码"
+                        <input type="text" name="dh" required lay-verify="required|number" placeholder="请输入电话号码"
                                autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">所属院校</label>
+                    <label class="layui-form-label">部门名称</label>
 
                     <div class="layui-input-inline">
                         <select name="xyid" id="xyid" required lay-verify="required">
@@ -58,24 +58,52 @@
             </form>
         </div>
         <div class="layui-tab-item">
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">选择文件:</label>
+            <%--<div class="layui-fluid">--%>
+            <div class="layui-row">
+                <div class="layui-card">
+                    <div class="layui-card-header" style="height: 74px">
+                        <span style="color: red;">温馨提示：模板中的学院编码可在【权限管理->学院管理】中查询对应关系</span></br>
+                        <i class="layui-icon   layui-icon-link"></i>
+                        <a style="text-decoration:underline;color: #0000FF" href="通讯录导入模板.xls">
+                            下载通讯录导入模板</a>
+                    </div>
+                    <div class="layui-card-body">
+                        <%--<a style="text-decoration:underline;color: #0000FF" href="用户导入模板.xls">下载模板</a>--%>
 
-                <div class="button-hide">
-                    <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
-                    <a style="text-decoration:underline;color: #0000FF" href="通讯录导入模板.xls">下载模板</a>
+                        <div class="layui-upload-drag" id="test3" style="width: 388px;height: 240px;">
+                            <i class="layui-icon"
+                               style="    display: inline-block;margin-top: 70px;font-size: 55px;"></i>
+
+                            <p>点击上传，或将文件拖拽到此处</p>
+                        </div>
+
+                    </div>
+                    <button type="button" class="layui-btn" style="margin-bottom: 10px;margin-left: 14px;width: 452px;"
+                            id="btn" lay-submit lay-filter="formDemo">立即提交
+                    </button>
+
+                    <%--<button class="layui-btn" >立即提交</button>--%>
                 </div>
+                <%--</div>--%>
             </div>
-            <div class="layui-form-item layui-form-text">
-                <div class="button-hide">
-                    <span style="color: red;margin-left: 61px;">注意:模板中的学院编码可在学院管理中查询对应关系</span>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn" id="btn">立即提交</button>
-                </div>
-            </div>
+            <%--<div class="layui-form-item layui-form-text">--%>
+            <%--<label class="layui-form-label">选择文件:</label>--%>
+
+            <%--<div class="button-hide">--%>
+            <%--<button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>--%>
+            <%--<a style="text-decoration:underline;color: #0000FF" href="通讯录导入模板.xls">下载模板</a>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="layui-form-item layui-form-text">--%>
+            <%--<div class="button-hide">--%>
+            <%--<span style="color: red;margin-left: 61px;">注意:模板中的学院编码可在学院管理中查询对应关系</span>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="layui-form-item">--%>
+            <%--<div class="layui-input-block">--%>
+            <%--<button class="layui-btn" id="btn">立即提交</button>--%>
+            <%--</div>--%>
+            <%--</div>--%>
         </div>
     </div>
 </div>

@@ -47,7 +47,7 @@
     <div class="selectDiv">
         <form class="layui-form">
             <div class="layui-input-block" style="width: 100%;margin: 2% 0%;">
-                <select name="interest" id="jskb_zc" lay-filter="jskb_zc">
+                <select name="interest" id="bm" lay-filter="bm-filter">
                     <option value="">请选择部门</option>
                     <option value="">教务处</option>
                     <option value="">校长室</option>
@@ -57,39 +57,15 @@
         </form>
     </div>
 
-    <ul class="textlist">
-        <li>
-            <p class="lefttext"><i class="fa fa-address-book fa-lg"></i>李晓红</p>
-
-            <p class="righttext">18844092305</p>
-        </li>
-        <li>
-            <p class="lefttext"><i class="fa fa-address-book fa-lg"></i>王小懒</p>
-
-            <p class="righttext">13944402683</p>
-        </li>
-        <li>
-            <p class="lefttext"><i class="fa fa-address-book fa-lg"></i>张大胖</p>
-
-            <p class="righttext">13943778933</p>
-        </li>
-        <li>
-            <p class="lefttext"><i class="fa fa-address-book fa-lg"></i>赵小欠</p>
-
-            <p class="righttext">15754303333</p>
-        </li>
+    <ul class="textlist" id="txl-li">
     </ul>
 
 
 </div>
 
 <script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
-<script>
-    layui.use('form', function () {
-        var form = layui.form,
-                $ = layui.jquery;
-    })
-</script>
+<script src="<%=Constant.server_name%>module/fwzx/xsfwl/bmtxlcx/js/bmtxlcx.js" charset="utf-8"></script>
+
 </body>
 
 </html>
