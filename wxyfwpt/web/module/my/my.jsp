@@ -84,18 +84,18 @@
     </div>
 
     <ul class="tableTabul">
-        <li>
-            <span>我的课程</span>
-            <i class="righticon fa fa-angle-right fa-lg"></i>
-        </li>
-        <li>
-            <span>我的考试</span>
-            <i class="righticon fa fa-angle-right fa-lg"></i>
-        </li>
-        <li>
-            <span>我的申请</span>
-            <i class="righticon fa fa-angle-right fa-lg"></i>
-        </li>
+        <%--<li>--%>
+        <%--<span>我的课程</span>--%>
+        <%--<i class="righticon fa fa-angle-right fa-lg"></i>--%>
+        <%--</li>--%>
+        <%--<li>--%>
+        <%--<span>我的考试</span>--%>
+        <%--<i class="righticon fa fa-angle-right fa-lg"></i>--%>
+        <%--</li>--%>
+        <%--<li>--%>
+        <%--<span>我的申请</span>--%>
+        <%--<i class="righticon fa fa-angle-right fa-lg"></i>--%>
+        <%--</li>--%>
         <li style="margin-top: 3%;display: none" id="bd">
             <span>绑定微信</span>
             <i class="righticon fa fa-angle-right fa-lg"></i>
