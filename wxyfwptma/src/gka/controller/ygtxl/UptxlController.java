@@ -3,7 +3,6 @@ package gka.controller.ygtxl;
 import com.jfinal.aop.Clear;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Db;
-import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.upload.UploadFile;
 import gka.common.kit.ReturnKit;
 import gka.common.kit.controller.ServiceController;
@@ -33,14 +32,25 @@ public class UptxlController extends ServiceController {
                 renderJson(ReturnKit.retOk("用户登录超时请，请返回重新登陆!"));
             } else {
                 UploadFile file = this.getFile();
-                String path = getSession().getServletContext().getRealPath("/") + "upload/" + file.getFileName();
-                System.out.println("path=======" + path);
+                String basePath = getSession().getServletContext().getRealPath("/");
+                String path = "uploadygtxl/";
+                String fin_path = basePath + path;
+                File imgFile = new File(fin_path);
+                if (!imgFile.exists()) {
+                    imgFile.mkdirs();
+                }
+                String fileName = file.getOriginalFileName();
+                path += System.currentTimeMillis() + "_" + fileName;
+                String imgPath = basePath + path;
+                file.getFile().renameTo(new File(imgPath));
+                file.getFile().delete();
+                System.out.println("path=======" + imgPath);
                 List<Map<Integer, String>> list = null;
                 if (path.endsWith(".xls")) {
-                    list = dealDataByPath(path);    // 分析EXCEL数据
+                    list = dealDataByPath(imgPath);    // 分析EXCEL数据
                 }
                 if (path.endsWith(".xlsx")) {
-                    list = dealDataByPathxlsx(path);    // 分析EXCEL数据
+                    list = dealDataByPathxlsx(imgPath);    // 分析EXCEL数据
                 }
                 if (list.size() > 1) {
                     for (int i = 1; i < list.size(); i++) {
@@ -52,9 +62,8 @@ public class UptxlController extends ServiceController {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                     }
-                    renderJson(ReturnKit.retOk("录入完成!共计"+(list.size()-1)+"条!"));
+                    renderJson(ReturnKit.retOk("录入完成!共计" + (list.size() - 1) + "条!"));
                 } else {
                     renderJson(ReturnKit.retOk("文件中暂无数据"));
                 }
