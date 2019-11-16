@@ -60,7 +60,6 @@ public class GzwhController extends Controller {
         }
     }
 
-    @Clear
     public void table() {
         String id = getPara("id");
         try {

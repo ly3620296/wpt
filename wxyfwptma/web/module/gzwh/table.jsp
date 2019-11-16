@@ -67,7 +67,7 @@
                     }
                     $("#table").html(html)
                 } else {
-                    layer.alert('数据查询失败!', function (index) {
+                    layer.alert(data.RETURN_MSG, function (index) {
                         parent.closeAll()
                     });
                 }
