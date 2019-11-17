@@ -11,9 +11,29 @@
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
+    <style type="text/css">
+        .tablelist{
+            width: 100%;
+
+        }
+        .tablelist td{
+            font-size: 14px;
+            text-align: center;
+            padding: 8px 0;
+            background: #ffffff;
+            border: 1px solid #e4eff5;
+        }
+        .tablelist tr:first-child td{
+            text-align: center;
+            color: #ffffff;
+            background: #009688;
+            border: 1px solid #fff;
+        }
+    </style>
 </head>
 <body>
-<table border="1" cellspacing="1" cellpadding="1" id="table">
+
+<table class="tablelist" border="1" cellspacing="1" cellpadding="1" id="table">
 
 </table>
 <script type="application/javascript">
