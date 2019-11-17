@@ -11,6 +11,8 @@ import gka.controller.xsjfgl.wyjf.JfInfo;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
 import gka.pay.wxpay.controller.MyWxpayConstant;
 import gka.xsjfgl.login.WptMaXSUserInfo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,9 +24,13 @@ public class DdcxController extends Controller {
     private DdcxDao ddcxDao = new DdcxDao();
     private WyjfDao wyjfDao = new WyjfDao();
 
+    private static final Logger logger = LogManager.getLogger(DdcxController.class);
     public void index() {
         Map map = new HashMap();
         try {
+            logger.info("dd");
+            logger.warn("aa");
+            logger.error("dss");
             WptMaXSUserInfo userInfo = (WptMaXSUserInfo) getSession().getAttribute("wptMaXSUserInfo");
             String xh = userInfo.getZh();
             int page = Integer.parseInt(getPara("page"));

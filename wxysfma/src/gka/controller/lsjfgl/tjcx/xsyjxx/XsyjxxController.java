@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ControllerBind(controllerKey = "/lsjfgl/tjcx/xsddcx")
+@ControllerBind(controllerKey = "/lsjfgl/tjcx/xsyjxx")
 public class XsyjxxController extends Controller {
     private XsyjxxDao ddcxDao = new XsyjxxDao();
     private WyjfDao wyjfDao = new WyjfDao();

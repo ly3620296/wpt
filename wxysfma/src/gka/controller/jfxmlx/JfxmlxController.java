@@ -9,7 +9,6 @@ import gka.common.kit.ReKit;
 import gka.common.kit.ReturnKit;
 import gka.common.kit.controller.LController;
 import gka.controller.login.WptMaUserInfo;
-import gka.controller.user.UserDao;
 
 import java.util.HashMap;
 import java.util.List;
