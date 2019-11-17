@@ -9,10 +9,10 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * @Auther ly
- * @Date 2019/4/3
- * @Describe
- */
+* @Auther ly
+* @Date 2019/4/3
+* @Describe
+*/
 public class JskbDao {
     public List<Record> jskb(String jgh, String xnxq, HttpSession session) {
         List<Record> jskbList = (List<Record>) session.getAttribute("jskbList");
