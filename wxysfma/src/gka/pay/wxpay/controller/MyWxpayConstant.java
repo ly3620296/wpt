@@ -17,6 +17,8 @@ public class MyWxpayConstant {
     public static final String ORDER_STATE_PAY = "2";
     //异常订单，total_fee不匹配
     public static final String ORDER_STATE_ILLEGALMONEY = "3";
+    //老师关闭
+    public static final String ORDER_STATE_CLOSE_TEACHER = "4";
     public static Map<String,String> ORDER_STATE_DESC = new HashMap<String, String>();
     static {
         ORDER_STATE_DESC.put(ORDER_STATE_NOPAY,"待支付");
