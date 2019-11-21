@@ -109,7 +109,7 @@
                     var bodyList = data.OUT_DATA.bodyList;
                     var html = '';
                     if (headList != null && bodyList != null) {
-                        html += '<tr><td>用户名</td><td>' + bodyList.YHM + '</td></tr>'
+                        html += '<tr><td>工号</td><td>' + bodyList.YHM + '</td></tr>'
                         html += '<tr><td>姓名</td><td>' + bodyList.XM + '</td></tr>'
                         for (var i = 0; i < headList.length; i++) {
                             html += '<tr><td>' + headList[i].ZDMS + '</td><td>' + (bodyList[(headList[i].ZD).toUpperCase()] == null ? "" : bodyList[(headList[i].ZD).toUpperCase()]) + '</td></tr>'
