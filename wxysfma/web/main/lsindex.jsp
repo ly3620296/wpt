@@ -70,7 +70,7 @@
                         <cite>统计查询</cite></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a data-url="" data-id="00" data-title="table-demo" data-title="学生订单查询"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/xsddcx/ddxq.jsp" data-id="00"  data-title="学生订单查询"
                                data-type="tabAdd">学生订单查询</a>
                         </dd>
                         <dd>

@@ -4,6 +4,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Record;
 import gka.controller.login.WptUserInfo;
+import gka.controller.xxts.oa.OaDao;
 import gka.controller.xxts.tsgh.controller.TsjyDao;
 import gka.system.ReturnInfo;
 
@@ -17,6 +18,8 @@ public class TtkController extends Controller {
     private TtkDao ttkDao = new TtkDao();
     //图书借阅
     private TsjyDao tsjyDao = new TsjyDao();
+    //oa
+    private OaDao oaDao = new OaDao();
 
     public void index() {
         Map<String, Object> result = new HashMap<String, Object>();
@@ -119,8 +122,57 @@ public class TtkController extends Controller {
             WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
             String sfzh = wptUserInfo.getZjhm();
             String tsjyxxid = getPara("tsjyxxid");
+
             tsjyDao.upYd(tsjyxxid, sfzh);
             Record ttkXx = tsjyDao.xx(tsjyxxid, sfzh);
+            result.put("ttkXx", ttkXx);
+            returnInfo.setReturn_code("0");
+            returnInfo.setReturn_msg("success");
+        } catch (Exception e) {
+            returnInfo.setReturn_code("-999");
+            returnInfo.setReturn_msg("服务繁忙，请稍后重试！");
+            e.printStackTrace();
+        }
+        result.put("returnInfo", returnInfo);
+        renderJson(result);
+    }
+
+
+    /**
+     *
+     */
+    public void ydOa() {
+        Map<String, Object> result = new HashMap<String, Object>();
+        ReturnInfo returnInfo = new ReturnInfo();
+        try {
+            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+            String zh = wptUserInfo.getZh();
+            String xxid = getPara("xxid");
+            Record tsjyXx = oaDao.xx(xxid, zh);
+            result.put("ttkXx", tsjyXx);
+            returnInfo.setReturn_code("0");
+            returnInfo.setReturn_msg("success");
+        } catch (Exception e) {
+            returnInfo.setReturn_code("-999");
+            returnInfo.setReturn_msg("服务繁忙，请稍后重试！");
+            e.printStackTrace();
+        }
+        result.put("returnInfo", returnInfo);
+        renderJson(result);
+    }
+
+    /**
+     *
+     */
+    public void wdOa() {
+        Map<String, Object> result = new HashMap<String, Object>();
+        ReturnInfo returnInfo = new ReturnInfo();
+        try {
+            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+            String zh = wptUserInfo.getZh();
+            String xxid = getPara("xxid");
+            oaDao.upYd(xxid, zh);
+            Record ttkXx = oaDao.xx(xxid, zh);
             result.put("ttkXx", ttkXx);
             returnInfo.setReturn_code("0");
             returnInfo.setReturn_msg("success");

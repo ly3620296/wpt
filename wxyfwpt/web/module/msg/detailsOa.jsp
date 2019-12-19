@@ -13,7 +13,7 @@
 
 </head>
 <%
-    String tsjyxxid = request.getParameter("tsjyxxid");
+    String xxid = request.getParameter("xxid");
     String type = request.getParameter("channel");
 %>
 <body style="background-color: #f3f3f3">
@@ -27,7 +27,7 @@
     </div>
     <ul class="listText">
         <li>
-            <p class="titleT">图书归还通知</p>
+            <p class="titleT">[OA]通知</p>
 
             <p>尊敬的老师、同学您好:</p>
 
@@ -48,15 +48,14 @@
         var layer = layui.layer;
         var $ = layui.jquery;
         var loadIndex;
-
         wpt_DetailMsg = {
             loadMsg: function () {
                 $.ajax({
-                    url: wpt_serverName + "xxts/ttk/wdTsjy",
+                    url: wpt_serverName + "xxts/ttk/wdOa",
                     type: 'post',
                     dataType: 'json',
                     timeout: 10000,
-                    data: {tsjyxxid: '<%=tsjyxxid%>'},
+                    data: {xxid: '<%=xxid%>'},
                     beforeSend: function () {
                         layer.ready(function () {
                             loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
@@ -81,11 +80,11 @@
             },
             getTtk: function () {
                 $.ajax({
-                    url: wpt_serverName + "xxts/ttk/ydTsjy",
+                    url: wpt_serverName + "xxts/ttk/ydOa",
                     type: 'post',
                     dataType: 'json',
                     timeout: 10000,
-                    data: {tsjyxxid: '<%=tsjyxxid%>'},
+                    data: {xxid: '<%=xxid%>'},
                     beforeSend: function () {
                         layer.ready(function () {
                             loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
@@ -110,17 +109,10 @@
                 })
             },
             initTtk: function (ttkXx) {
-                var xx = '<p style="text-indent: 2em;" >' +
-                        '您在' + ttkXx.JCSK + '借阅的' + ttkXx.ZTM + ',将于' + ttkXx.XHSK + '到期，请及时归还！' + '</p>' +
-                        '<p class="timeT">' + ttkXx.D_TIPS_DATE + '</p>';
+                var xx = '<p style="text-indent: 2em;" >' + ttkXx.CONTENT + '</p>' +
+                        '<p class="timeT">' + ttkXx.TIME + '</p>';
                 $("#ttk").html(xx);
             }
-
-//            dateDiff: function (sDate) {
-//                var endTime = new Date(sDate).getTime() / 1000 - parseInt(new Date().getTime() / 1000);
-//                var timeDay = parseInt(endTime / 60 / 60 / 24);
-//                return timeDay;
-//            }
 
         }
         var type = '<%=type%>';

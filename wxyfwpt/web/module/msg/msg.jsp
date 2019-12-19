@@ -53,6 +53,9 @@
                 else if (xxType == 1) {
                     window.location.replace(wpt_serverName + 'module/msg/detailsTsjy.jsp?channel=' + type + '&tsjyxxid=' + ttkxxid);
                 }
+                else if (xxType == 2) {
+                    window.location.replace(wpt_serverName + 'module/msg/detailsOa.jsp?channel=' + type + '&xxid=' + ttkxxid);
+                }
             },
             initFoot: function () {
                 $("#wpt_foot>li").on("click", function () {
@@ -118,13 +121,22 @@
                 for (var i in ttkXxList) {
                     var ttkxx = ttkXxList[i];
                     var ydOrwd = ttkxx.V_STATUS;
+                    var v_type = ttkxx.V_TYPE;
+                    if (v_type == 0) {
+                        v_type = "调停课通知";
+                    } else if (v_type == 1) {
+                        v_type = "图书归还通知";
+                    } else if (v_type == 2) {
+                        v_type = "[OA]通知";
+                    }
+
                     if (ydOrwd == "0") {
                         wdHtml += '<li>' +
                         '<div class="left">' +
                         '<i class="fa fa-envelope-o"></i>' +
                         '</div>' +
                         '<div class="right">' +
-                        '<p class="title">' + (ttkxx.V_TYPE == 0 ? '调停课通知' : '图书归还通知') + '</p>' +
+                        '<p class="title">' + v_type + '</p>' +
                         '<p class="time">' + ttkxx.KCMC +
                         '<a href="javascript:void(0)"  onclick= "wpt_msg.myHref(0,\'' + ttkxx.TTKXX_ID + '\',\'' + ttkxx.V_TYPE + '\')"><span class="more">【详细信息】</span></a>' +
                         '<span>' + ttkxx.D_TIPS_DATE + '</span></p>' +
@@ -136,7 +148,7 @@
                         '<i class="fa fa-envelope-open-o"></i>' +
                         '</div>' +
                         '<div class="right">' +
-                        '<p class="title">' + (ttkxx.V_TYPE == 0 ? '调停课通知' : '图书归还通知') + '</p>' +
+                        '<p class="title">' + v_type + '</p>' +
                         '<p class="time">' + ttkxx.KCMC +
                         '<a href="javascript:void(0)" onclick= "wpt_msg.myHref(1,\'' + ttkxx.TTKXX_ID + '\',\'' + ttkxx.V_TYPE + '\')"><span class="more">【详细信息】</span></a>' +
                         '<span>' + ttkxx.D_TIPS_DATE + '</span></p>' +

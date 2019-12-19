@@ -27,11 +27,20 @@
     if (wptUser == null) {
         wptUser = new WptUserInfo();
     }
+    String pageSource = request.getParameter("pageSource");
+    if (pageSource != null) {
+        if (pageSource.equals("fwzx")) {
+            pageSource = Constant.server_name + "module/fwzx/fwzxapp.jsp";
+        } else if (pageSource.equals("main")) {
+            pageSource = Constant.server_name + "module/main/main.jsp";
+        }
+
+    }
 %>
 <div class="gzcx">
     <div class="titledddiv">
         <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png"
-             onclick="javascript:window.location.replace(document.referrer)"/>
+             onclick="javascript:window.location.replace('<%=pageSource%>')"/>
 
         <p class="titleName">工资查询</p>
     </div>
