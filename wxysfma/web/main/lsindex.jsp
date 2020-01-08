@@ -78,7 +78,7 @@
                                data-type="tabAdd">对账情况</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="01" data-title="应交费信息"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/yjfxx/yjfxx.jsp" data-id="01" data-title="应交费信息"
                                data-type="tabAdd">应交费信息</a>
                         </dd>
                         <dd>
@@ -86,7 +86,7 @@
                                data-type="tabAdd">已交费信息</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/ddxq.jsp" data-title="未交费信息" data-id="02"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/wjfxx/wjfxx.jsp" data-title="未交费信息" data-id="02"
                                data-type="tabAdd">未交费信息</a>
                         </dd>
                         <dd>
