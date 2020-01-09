@@ -4,59 +4,31 @@ package gka.controller.lsjfgl.tjcx.yjfxx;
  * Created by Administrator on 2019/11/11 0011.
  */
 public class YjfxxSearch {
-    String ddbh;
-    String xn;
-    String xm;
-    String ddzt;
+    String nj;
     String xh;
-    String sfzh;
-    String dateStart;
-    String dateEnd;
+    String xm;
+    String xymc;
+    String zymc;
+    String bjmc;
 
     public YjfxxSearch() {
     }
 
-    public YjfxxSearch(String ddbh, String xn, String xm, String ddzt, String xh, String sfzh, String dateStart, String dateEnd) {
-        this.ddbh = ddbh;
-        this.xn = xn;
-        this.xm = xm;
-        this.ddzt = ddzt;
+    public YjfxxSearch(String nj, String xh, String xm, String xymc, String zymc, String bjmc) {
+        this.nj = nj;
         this.xh = xh;
-        this.sfzh = sfzh;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-    }
-
-    public String getDdbh() {
-        return ddbh;
-    }
-
-    public void setDdbh(String ddbh) {
-        this.ddbh = ddbh;
-    }
-
-    public String getXn() {
-        return xn;
-    }
-
-    public void setXn(String xn) {
-        this.xn = xn;
-    }
-
-    public String getXm() {
-        return xm;
-    }
-
-    public void setXm(String xm) {
         this.xm = xm;
+        this.xymc = xymc;
+        this.zymc = zymc;
+        this.bjmc = bjmc;
     }
 
-    public String getDdzt() {
-        return ddzt;
+    public String getNj() {
+        return nj;
     }
 
-    public void setDdzt(String ddzt) {
-        this.ddzt = ddzt;
+    public void setNj(String nj) {
+        this.nj = nj;
     }
 
     public String getXh() {
@@ -67,27 +39,35 @@ public class YjfxxSearch {
         this.xh = xh;
     }
 
-    public String getSfzh() {
-        return sfzh;
+    public String getXm() {
+        return xm;
     }
 
-    public void setSfzh(String sfzh) {
-        this.sfzh = sfzh;
+    public void setXm(String xm) {
+        this.xm = xm;
     }
 
-    public String getDateStart() {
-        return dateStart;
+    public String getXymc() {
+        return xymc;
     }
 
-    public void setDateStart(String dateStart) {
-        this.dateStart = dateStart;
+    public void setXymc(String xymc) {
+        this.xymc = xymc;
     }
 
-    public String getDateEnd() {
-        return dateEnd;
+    public String getZymc() {
+        return zymc;
     }
 
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
+    public void setZymc(String zymc) {
+        this.zymc = zymc;
+    }
+
+    public String getBjmc() {
+        return bjmc;
+    }
+
+    public void setBjmc(String bjmc) {
+        this.bjmc = bjmc;
     }
 }
