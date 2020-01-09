@@ -82,7 +82,7 @@
                                data-type="tabAdd">应交费信息</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/ddxq.jsp" data-title="已交费信息" data-id="02"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/ijfxx/ijfxx.jsp" data-title="已交费信息" data-id="02"
                                data-type="tabAdd">已交费信息</a>
                         </dd>
                         <dd>

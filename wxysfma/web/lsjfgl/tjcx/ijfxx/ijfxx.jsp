@@ -52,7 +52,7 @@
     <div>
         <fieldset class="layui-elem-field layui-field-title"
                   style="margin-top: 20px;border-color: #009688 !important;">
-            <legend>应交费信息查询</legend>
+            <legend>已交费信息查询</legend>
         </fieldset>
     </div>
 </div>
@@ -149,7 +149,7 @@
         var wpt_grjfxx = {
             init: function () {
                 $.ajax({
-                    url: wpt_serverName + "lsjfgl/tjcx/yjfxx/title",
+                    url: wpt_serverName + "xsjfgl/grjfxx/title",
                     type: 'post',
                     dataType: 'json',
                     timeout: 10000,
@@ -192,7 +192,7 @@
                 table.render({
                     elem: '#jfjl-table'  //容器id
                     , cols: [cols2]
-                    , url: wpt_serverName + 'lsjfgl/tjcx/yjfxx' //数据接口地址
+                    , url: wpt_serverName + 'lsjfgl/tjcx/ijfxx' //数据接口地址
                     , title: '用户表'
                     , height: window.screen.height - 450
                     , page: true //开启分页

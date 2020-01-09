@@ -1,21 +1,20 @@
-package gka.controller.lsjfgl.tjcx.yjfxx;
+package gka.controller.lsjfgl.tjcx.ijfxx;
 
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
-import gka.controller.lsjfgl.tjcx.xsddcx.XxddcxSearch;
-import gka.controller.xsjfgl.wyjf.NoPayOrderInfo;
+import gka.controller.lsjfgl.tjcx.yjfxx.YjfxxDao;
+import gka.controller.lsjfgl.tjcx.yjfxx.YjfxxSearch;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
-import gka.xsjfgl.login.WptMaXSUserInfo;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@ControllerBind(controllerKey = "/lsjfgl/tjcx/yjfxx")
-public class YjfxxController extends Controller {
-    private YjfxxDao yjfxxDao = new YjfxxDao();
+@ControllerBind(controllerKey = "/lsjfgl/tjcx/ijfxx")
+public class IjfxxController extends Controller {
+    private IjfxxDao ijfxxDao = new IjfxxDao();
     private WyjfDao wyjfDao = new WyjfDao();
 
     public void index() {
@@ -31,26 +30,11 @@ public class YjfxxController extends Controller {
             int page = Integer.parseInt(getPara("page"));
             int limit = Integer.parseInt(getPara("limit"));
             List<Record> titles = wyjfDao.queryTitle();
-            Page<Record> paginate = yjfxxDao.getOrderInfo(titles, page, limit, search);
+            Page<Record> paginate = ijfxxDao.getOrderInfo(titles, page, limit, search);
             map.put("code", "0");
             map.put("msg", "success");
             map.put("data", paginate.getList());
             map.put("count", paginate.getTotalRow());
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("code", "-1");
-            map.put("msg", "系统繁忙，请稍后重试！");
-        }
-        renderJson(map);
-    }
-
-    public void title() {
-        Map map = new HashMap();
-        try {
-            List<Record> titles = wyjfDao.queryTitle();
-            map.put("titles", titles);
-            map.put("code", "0");
-            map.put("msg", "success");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", "-1");
