@@ -58,22 +58,14 @@
 </div>
 
 <div class="layui-fluid">
-    <%--<div class="layui-row">--%>
     <div class="layui-card">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item" id="my-header">
-                <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">订单编号：</label>--%>
-
-                <%--<div class="layui-input-inline">--%>
-                <%--<input type="text" id="search-ddbh" placeholder="订单编号" autocomplete="off" class="layui-input">--%>
-                <%--</div>--%>
-                <%--</div>--%>
                 <div class="layui-inline ">
-                    <label class="layui-form-label">入学年级：</label>
+                    <label class="layui-form-label">缴费学年：</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" id="search-nj" placeholder="入学年级" autocomplete="off" class="layui-input">
+                        <input type="text" id="search-sfxn" placeholder="缴费学年" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -109,6 +101,42 @@
 
                     <div class="layui-input-inline">
                         <input type="text" id="search-bjmc" placeholder="班级名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">支付时间：</label>
+
+                    <div class="layui-input-inline" style="width: 133px;">
+                        <input type="text" name="title" placeholder="开始时间" autocomplete="off" class="layui-input"
+                               id="dateStart">
+                    </div>
+                    <div class="layui-input-inline" style="width: 15px">
+                        至
+                    </div>
+                    <div class="layui-input-inline" style="width: 133px;">
+                        <input type="text" name="title" placeholder="结束时间" autocomplete="off" class="layui-input"
+                               id="dateEnd">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">缴费类型：</label>
+
+                    <div class="layui-input-inline">
+                        <select name="city" lay-verify="required" id="search-pay_type">
+                            <option value=""></option>
+                            <option value="CASH">现金</option>
+                            <option value="CARD">刷卡</option>
+                            <option value="JSAPI">APP微信</option>
+                            <option value="NATIVE">微信扫码</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">入学年级：</label>
+
+                    <div class="layui-input-inline">
+                        <input type="text" id="search-nj" placeholder="入学年级" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline" style="margin-left: 50px;">
@@ -171,15 +199,15 @@
             initTabTitles: function (titles) {
                 var col = titles.length + 3;
                 var cols2 = [
-                    {title: "缴费学年", field: "XN", align: "center", width: "7%", fixed: "left"},
+                    {title: "缴费学年", field: "SFXN", align: "center", width: "7%", fixed: "left"},
                     {title: "学号", field: "XH", align: "center"},
+                    {title: "订单号", field: "ORDER_NO", align: "center"},
                     {title: "姓名", field: "XM", align: "center"},
                     {title: "性别", field: "XB", align: "center"},
-                    {title: "入学年级", field: "NJ", align: "center"},
                     {title: "学院名称", field: "XYMC", align: "center"},
                     {title: "专业名称", field: "ZYMC", align: "center"},
                     {title: "班级名称", field: "BJMC", align: "center"},
-                    {title: "交费合计", field: "YSHJ", align: "center"}
+                    {title: "交费合计", field: "TOTAL_FEE", align: "center"}
                 ];
                 for (var i = 0; i < titles.length; i++) {
                     if (titles[i].SFBX == "1") {
@@ -187,8 +215,9 @@
                     } else {
                         cols2[i + 9] = {title: titles[i].JFXMMC + "（选交）", field: titles[i].JFXMID, align: "center"};
                     }
-
                 }
+                cols2[titles.length + 9] = {title: "缴费类型", field: "PAY_TYPE", align: "center"}
+                cols2[titles.length + 10] = {title: "下单时间", field: "TIME_START", align: "center"}
                 table.render({
                     elem: '#jfjl-table'  //容器id
                     , cols: [cols2]
@@ -216,6 +245,33 @@
                     window.location.reload();
                 })
             },
+
+            initDate: function () {
+                //初始化开始日期控件
+                var start = laydate.render({
+                    elem: '#dateStart',
+                    max: new Date().toLocaleDateString(),
+                    done: function (value, date, endDate) {
+                        end.config.min = {
+                            year: date.year,
+                            month: date.month - 1,
+                            date: date.date
+                        }; //重置结束日期最小值
+                    }
+                });
+                //初始化结束日期控件
+                var end = laydate.render({
+                    elem: '#dateEnd',
+                    max: new Date().toLocaleDateString(),
+                    done: function (value, date, endDate) {
+                        start.config.max = {
+                            year: date.year,
+                            month: date.month - 1,
+                            date: date.date
+                        }; //重置开始日期最大值
+                    }
+                });
+            },
             bindCli: function () {
                 //重置
                 $("#my-reset").bind("click", function () {
@@ -225,13 +281,16 @@
 
 
                 $("#my-search").bind("click", function () {
-                    var nj = $('#search-nj').val(); //入学年级
+                    var sfxn = $('#search-sfxn').val(); //缴费学年
                     var xh = $('#search-xh').val(); //学号
                     var xm = $('#search-xm').val(); //姓名
                     var xymc = $('#search-xymc').val();  //学院名称
                     var zymc = $('#search-zymc').val();  //专业名称
                     var bjmc = $('#search-bjmc').val();  //班级名称
-
+                    var dateStart = $('#dateStart').val();  //开始时间
+                    var dateEnd = $('#dateEnd').val();  //结束时间
+                    var pay_type = $('#search-pay_type').val();  //缴费类型
+                    var nj = $('#search-nj').val();  //入学年级
                     //执行重载
                     table.reload('userTableReload', {
                         page: {
@@ -239,12 +298,16 @@
                         }
                         //根据条件查询
                         , where: {
-                            nj: nj,
+                            sfxn: sfxn,
                             xh: xh,
                             xm: xm,
                             xymc: xymc,
                             zymc: zymc,
-                            bjmc: bjmc
+                            bjmc: bjmc,
+                            dateStart: dateStart,
+                            dateEnd: dateEnd,
+                            pay_type: pay_type,
+                            nj: nj
                         }
                     });
                 })
@@ -252,6 +315,7 @@
         }
         wpt_grjfxx.init();
         wpt_grjfxx.listenTool();
+        wpt_grjfxx.initDate();
         wpt_grjfxx.bindCli();
     });
 
