@@ -1,17 +1,11 @@
 package gka.controller.lsjfgl.tjcx.wjfxx;
 
-
-import com.alibaba.druid.util.StringUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
-import gka.controller.lsjfgl.tjcx.xsddcx.XsDdcxDao;
-import gka.controller.lsjfgl.tjcx.xsddcx.XxddcxSearch;
-import gka.controller.xsjfgl.wyjf.JfInfo;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,18 +18,18 @@ public class WjfxxController extends Controller {
     public void index() {
         Map map = new HashMap();
         try {
-            String ddbh = getPara("ddbh");
-            String xn = getPara("xn");
-            String xm = getPara("xm");
-            String ddzt = getPara("ddzt");
-            String xh = getPara("xh");
-            String sfzh = getPara("sfzh");
-            String dateStart = getPara("dateStart");
-            String dateEnd = getPara("dateEnd");
-            XxddcxSearch search = new XxddcxSearch(ddbh, xn, xm, ddzt, xh, sfzh, dateStart, dateEnd);
+            String xn = getPara("xn"); //学年
+            String nj = getPara("nj"); //入学年级
+            String xh = getPara("xh"); //学号
+            String xm = getPara("xm"); //姓名
+            String xymc = getPara("xymc");  //学院名称
+            String zymc = getPara("zymc");  //专业名称
+            String bjmc = getPara("bjmc");  //班级名称
+            WjfxxSearch search = new WjfxxSearch(xn,nj, xh, xm, xymc, zymc, bjmc);
             int page = Integer.parseInt(getPara("page"));
             int limit = Integer.parseInt(getPara("limit"));
-            Page<Record> paginate = wjfxxDao.getOrderInfo(page, limit, search);
+            List<Record> titles = wyjfDao.queryTitle();
+            Page<Record> paginate = wjfxxDao.getOrderInfo(titles, page, limit, search);
             map.put("code", "0");
             map.put("msg", "success");
             map.put("data", paginate.getList());
@@ -48,27 +42,13 @@ public class WjfxxController extends Controller {
         renderJson(map);
     }
 
-    public void qxInfo() {
+    public void title() {
         Map map = new HashMap();
         try {
-            String xn = getPara("xn");
-            String order_no = getPara("order_no");
-            String zh = getPara("zh");
-            if (!StringUtils.isEmpty(xn) && !StringUtils.isEmpty(order_no) && !StringUtils.isEmpty(zh)) {
-                List<Record> titles = wyjfDao.queryTitle();
-                Record re = wjfxxDao.getInfo(zh, xn);
-                String ids = wjfxxDao.getIds(order_no);
-                List<JfInfo> jfInfoList = getJfinfo(titles, re, ids);
-                Record userInfo = wjfxxDao.userInfo(zh);
-                map.put("data", jfInfoList);
-                map.put("userInfo", userInfo);
-                map.put("code", "0");
-                map.put("msg", "success");
-            } else {
-                map.put("code", "-2");
-                map.put("msg", "请从正规渠道支付！");
-            }
-
+            List<Record> titles = wyjfDao.queryTitle();
+            map.put("titles", titles);
+            map.put("code", "0");
+            map.put("msg", "success");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", "-1");
@@ -77,81 +57,4 @@ public class WjfxxController extends Controller {
         renderJson(map);
     }
 
-
-    public void cgInfo() {
-        Map map = new HashMap();
-        try {
-            String xn = getPara("xn");
-            String order_no = getPara("order_no");
-            String zh = getPara("zh");
-            if (!StringUtils.isEmpty(xn) && !StringUtils.isEmpty(order_no) && !StringUtils.isEmpty(zh)) {
-                List<Record> titles = wyjfDao.queryTitle();
-                Record re = wjfxxDao.getInfo(zh, xn);
-                Record re1 = wjfxxDao.successOrderInfo(order_no);
-                List<JfInfo> jfInfoList = getJfinfo(titles, re, re1.getStr("IDS"));
-                Record userInfo = wjfxxDao.userInfo(zh);
-                map.put("data", jfInfoList);
-                map.put("userInfo", userInfo);
-                map.put("total_fee", re1.getStr("TOTAL_FEE_CALLBACK"));
-                map.put("time_end", re1.getStr("TIME_END"));
-                map.put("re", re1.getStr("TIME_END"));
-                map.put("code", "0");
-                map.put("msg", "success");
-            } else {
-                map.put("code", "-2");
-                map.put("msg", "请从正规渠道支付！");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            map.put("code", "-1");
-            map.put("msg", "系统繁忙，请稍后重试！");
-        }
-        renderJson(map);
-    }
-
-
-    private List<JfInfo> getJfinfo(List<Record> titles, Record re, String ids) {
-        List<JfInfo> jfInfos = new ArrayList<JfInfo>();
-        String[] xmid = ids.split(",");
-        for (Record t : titles) {
-            JfInfo jfInfo = new JfInfo();
-            String sfjf = t.getStr("SFBX");
-            boolean flag = false;
-            if (sfjf.equals("1")) {
-                jfInfo.setXmmc(t.getStr("JFXMMC"));
-                jfInfo.setXmid(t.getStr("JFXMID"));
-                jfInfo.setSfbx(sfjf);
-                for (int j = 0; j < xmid.length; j++) {
-                    if (jfInfo.getXmid().equals(xmid[j])) {
-                        jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag) {
-                    jfInfo.setJfje("0.00");
-                }
-
-            } else {
-                jfInfo.setXmmc(t.getStr("JFXMMC") + "（选交）");
-                jfInfo.setXmid(t.getStr("JFXMID"));
-                jfInfo.setSfbx(sfjf);
-                jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
-                for (int j = 0; j < xmid.length; j++) {
-                    if (jfInfo.getXmid().equals(xmid[j])) {
-                        jfInfo.setJfje(re.getStr(jfInfo.getXmid()));
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag) {
-                    jfInfo.setJfje("0.00");
-                }
-
-            }
-            jfInfos.add(jfInfo);
-        }
-        return jfInfos;
-    }
 }

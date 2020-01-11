@@ -4,67 +4,59 @@ import com.alibaba.druid.util.StringUtils;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
-import gka.controller.lsjfgl.tjcx.xsddcx.XxddcxSearch;
+import gka.controller.lsjfgl.tjcx.yjfxx.YjfxxSearch;
+
+import java.util.List;
 
 public class WjfxxDao {
-    public Page<Record> getOrderInfo(int page, int limit, XxddcxSearch search) {
-        String selectSql = "SELECT T1.ORDER_NO,T1.SFXN, to_char(to_date(T1.TIME_START,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_START,to_char(to_date(T1.TIME_END,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_END,T1.TOTAL_FEE,NVL(T1.TOTAL_FEE_CALLBACK,0) TOTAL_FEE_CALLBACK,T1.ORDER_STATE,T2.ZYMC,T2.JGMC,T2.BJMC,T2.XM,T2.ZH,T2.ZJHM ";
-        String fromSql = " FROM WPT_WXZF_SPECIAL_ORDER T1 LEFT JOIN  WPT_YH T2 ON T1.XH=T2.ZH  WHERE 1=1 ";
-        if (!StringUtils.isEmpty(search.getDdbh())) {
-            fromSql += " AND T1.ORDER_NO='" + search.getDdbh() + "'";
-        }
+
+    public Page<Record> getOrderInfo(List<Record> title, int page, int limit, WjfxxSearch search) {
+        String selectSql = "SELECT T1.XN,T1.XH,T1.XM,T1.XB,T1.NJ,T1.XYMC,T1.BJMC,T1.ZYMC,T1.SFZH," + getSqlWjf(title);
+        String fromSql = " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  where 1=1 ";
         if (!StringUtils.isEmpty(search.getXn())) {
-            fromSql += " AND T1.SFXN='" + search.getXn() + "'";
+            fromSql += " AND T1.XN='" + search.getXn() + "'";
         }
-        if (!StringUtils.isEmpty(search.getXm())) {
-            fromSql += " AND T2.XM like '%" + search.getXm() + "%'";
-        }
-        if (!StringUtils.isEmpty(search.getDdzt())) {
-            fromSql += " AND T1.ORDER_STATE='" + search.getDdzt() + "'";
+        if (!StringUtils.isEmpty(search.getNj())) {
+            fromSql += " AND T1.NJ='" + search.getNj() + "'";
         }
         if (!StringUtils.isEmpty(search.getXh())) {
-            fromSql += " AND T2.ZH='" + search.getXh() + "'";
+            fromSql += " AND T1.XH='" + search.getXh() + "'";
         }
-        if (!StringUtils.isEmpty(search.getSfzh())) {
-            fromSql += " AND T2.ZJHM='" + search.getSfzh() + "'";
+        if (!StringUtils.isEmpty(search.getXm())) {
+            fromSql += " AND T1.XM like '%" + search.getXm() + "%'";
         }
-        if (!StringUtils.isEmpty(search.getDateStart())) {
-            fromSql += " AND  to_date(TIME_END,'yyyymmddhh24miss')>=to_date('" + search.getDateStart() + "','yyyy-mm-dd') ";
+        if (!StringUtils.isEmpty(search.getXymc())) {
+            fromSql += " AND T1.XYMC like '%" + search.getXymc() + "%'";
         }
-        if (!StringUtils.isEmpty(search.getDateEnd())) {
-            fromSql += " AND  to_date(TIME_END,'yyyymmddhh24miss')<=to_date('" + search.getDateEnd() + "','yyyy-mm-dd')+1 ";
+        if (!StringUtils.isEmpty(search.getZymc())) {
+            fromSql += " AND T1.ZYMC like '%" + search.getZymc() + "%'";
         }
-        if (fromSql.contains("to_date")) {
-            fromSql += " AND TIME_END IS NOT NULL";
+        if (!StringUtils.isEmpty(search.getBjmc())) {
+            fromSql += " AND T1.BJMC='" + search.getBjmc() + "'";
         }
-        fromSql += "  ORDER BY T1.TIME_START DESC";
-
         Page<Record> paginate = Db.paginate(page, limit, selectSql, fromSql);
         return paginate;
     }
 
 
-    public Record getInfo(String xh, String xn) {
-        String sql = " SELECT * FROM XSSFB  WHERE XN=? AND XH=?";
-        Record re = Db.findFirst(sql, xn, xh);
-        return re;
-    }
+    private String getSqlWjf(List<Record> title) {
+        StringBuffer sb = new StringBuffer();
+        StringBuffer hj = new StringBuffer("(T1.YSHJ");
+        for (int i = 0; i < title.size(); i++) {
+            Record re = title.get(i);
 
-    public String getIds(String order_no) {
-        String sql = "SELECT IDS FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
-        Record re = Db.findFirst(sql, order_no);
-        return re.getStr("IDS");
-    }
-
-    public Record successOrderInfo(String order_no) {
-        String sql = "SELECT IDS,TOTAL_FEE_CALLBACK, to_char(to_date(TIME_END,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_END FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
-        Record re = Db.findFirst(sql, order_no);
-        return re;
-    }
-
-    public Record userInfo(String zh) {
-        String sql = " SELECT XM,ZJHM,BJMC,ZYMC,JGMC,NJMC FROM WPT_YH WHERE ZH=?";
-        Record re = Db.findFirst(sql, zh);
-        return re;
+            String jfxmId = re.getStr("JFXMID");
+            if (i < title.size() - 1) {
+                sb.append("(NVL(T1." + jfxmId + ",0)-");
+                sb.append("NVL(T2." + jfxmId + ",0)) " + jfxmId + ",");
+                hj.append("-" + "NVL(T2." + jfxmId + ",0)");
+            } else {
+                sb.append("(NVL(T1." + jfxmId + ",0)-");
+                sb.append("NVL(T2." + jfxmId + ",0)) " + jfxmId + ",");
+                hj.append("-" + "NVL(T2." + jfxmId + ",0)) YSHJ");
+            }
+        }
+        sb.append(hj);
+        return sb.toString();
     }
 }

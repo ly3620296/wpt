@@ -1,5 +1,5 @@
 <%@ page import="gka.resource.Constant" %>
-<%@ page import="gka.xsjfgl.login.WptMaXSUserInfo" %>
+<%@ page import="gka.lsjfgl.login.WptMaLSUserInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <head>
@@ -21,15 +21,19 @@
     <title>学生缴费管理</title>
 </head>
 <body class="layui-layout-body">
-<jsp:include page="/login/lsauth.jsp"></jsp:include>
 <%
-    //    WptMaXSUserInfo userInfo = (WptMaXSUserInfo) session.getAttribute("wptMaXSUserInfo");
-//    String userName = "";
-//    if (userInfo != null) {
-//        userName = userInfo.getXm();
-//        System.out.println("userName" + userName);
-//    }
-    String userName = "老师";
+    WptMaLSUserInfo userInfo = (WptMaLSUserInfo) session.getAttribute("wptMaLSUserInfo");
+    String userName = "";
+    if (userInfo != null) {
+        userName = userInfo.getXm();
+        System.out.println("userName" + userName);
+    } else {
+%>
+<script>
+    window.location.href = wpt_serverName + "login/lslogin.jsp";
+</script>
+<%
+    }
 %>
 <div class="layui-layout layui-layout-admin">
     <!-- 头部区域（可配合layui已有的水平导航） -->
@@ -70,27 +74,31 @@
                         <cite>统计查询</cite></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/xsddcx/ddxq.jsp" data-id="00"  data-title="学生订单查询"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/xsddcx/ddxq.jsp" data-id="00"
+                               data-title="学生订单查询"
                                data-type="tabAdd">学生订单查询</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/grjfxx.jsp" data-id="00" data-title="对账情况"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/xsddcx/ddxq.jsp" data-id="01" data-title="对账情况"
                                data-type="tabAdd">对账情况</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/yjfxx/yjfxx.jsp" data-id="01" data-title="应交费信息"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/yjfxx/yjfxx.jsp" data-id="02"
+                               data-title="应交费信息"
                                data-type="tabAdd">应交费信息</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/ijfxx/ijfxx.jsp" data-title="已交费信息" data-id="02"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/ijfxx/ijfxx.jsp" data-title="已交费信息"
+                               data-id="03"
                                data-type="tabAdd">已交费信息</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/wjfxx/wjfxx.jsp" data-title="未交费信息" data-id="02"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/wjfxx/wjfxx.jsp" data-title="未交费信息"
+                               data-id="04"
                                data-type="tabAdd">未交费信息</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/ddxq.jsp" data-title="票据信息" data-id="02"
+                            <a data-url="" data-title="票据信息" data-id="05"
                                data-type="tabAdd">票据信息</a>
                         </dd>
                     </dl>
@@ -196,7 +204,7 @@
         $("#loginOut").on("click", function () {
             var loadIndex;
             $.ajax({
-                url: wpt_serverName + "XSlogin/loginOut",
+                url: wpt_serverName + "LSlogin/loginOut",
                 type: 'post',
                 dataType: 'json',
                 data: {},
@@ -209,7 +217,7 @@
                         var code = data.return_code;
                         var msg = data.return_msg;
                         if (code == "0") {
-//                            window.location.href = wpt_serverName + "login/xslogin.jsp";
+                            window.location.href = wpt_serverName + "login/lslogin.jsp";
                         } else {
                             layer.msg("登出失败,请稍后再试!", {anim: 6, time: 2000});
                         }

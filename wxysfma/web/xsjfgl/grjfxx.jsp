@@ -1,5 +1,4 @@
 <%@ page import="gka.resource.Constant" %>
-<%@ page import="gka.controller.login.WptMaUserInfo" %>
 <%@ page import="gka.xsjfgl.login.WptMaXSUserInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -17,12 +16,25 @@
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>
-<jsp:include page="/login/xsauth.jsp"></jsp:include>
+<%--<jsp:include page="/login/xsauth.jsp"></jsp:include>--%>
 <%
     WptMaXSUserInfo userInfo = (WptMaXSUserInfo) session.getAttribute("wptMaXSUserInfo");
+    if (userInfo == null) {
+%>
+<script>
+    if (!!(window.attachEvent && !window.opera)) {
+        document.execCommand("stop");
+    }
+    else {
+        window.stop();
+    }
+    parent.location.reload();
+    //    window.location.href = wpt_serverName+"login/xslogin.jsp";
+</script>
+<%
+} else {
 %>
 <div class="layui-fluid">
-
     <div>
         <fieldset class="layui-elem-field layui-field-title"
                   style="margin-top: 20px;border-color: #009688 !important;">
@@ -186,5 +198,8 @@
 
 
 </script>
+<%
+    }
+%>
 </body>
 </html>

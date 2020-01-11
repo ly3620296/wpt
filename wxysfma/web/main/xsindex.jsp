@@ -21,13 +21,18 @@
     <title>学生缴费管理</title>
 </head>
 <body class="layui-layout-body">
-<jsp:include page="/login/xsauth.jsp"></jsp:include>
 <%
     WptMaXSUserInfo userInfo = (WptMaXSUserInfo) session.getAttribute("wptMaXSUserInfo");
     String userName = "";
     if (userInfo != null) {
         userName = userInfo.getXm();
         System.out.println("userName" + userName);
+    } else {
+%>
+<script>
+    window.location.href = wpt_serverName + "login/xslogin.jsp";
+</script>
+<%
     }
 %>
 <div class="layui-layout layui-layout-admin">
