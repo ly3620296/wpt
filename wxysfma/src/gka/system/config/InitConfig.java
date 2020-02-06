@@ -9,6 +9,7 @@ import gka.pay.wxpay.controller.WxPayTool;
 import gka.resource.properties.ProKit;
 import gka.resource.xml.InitXml;
 import gka.system.config.dbconfig.DbConfig;
+import gka.thread.ThreadStart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
@@ -19,7 +20,7 @@ public class InitConfig extends JFinalConfig {
     Document document = InitXml.initDbXml(InitXml.DEV_MODE);
 
     public InitConfig() {
-
+        ThreadStart.start();
     }
 
     public void configConstant(Constants constants) {

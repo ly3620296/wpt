@@ -79,7 +79,7 @@
                                data-type="tabAdd">学生订单查询</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/xsddcx/ddxq.jsp" data-id="01" data-title="对账情况"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/dzqk/dzqk.jsp" data-id="01" data-title="对账情况"
                                data-type="tabAdd">对账情况</a>
                         </dd>
                         <dd>
