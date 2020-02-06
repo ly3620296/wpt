@@ -133,6 +133,9 @@
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="reset" id="my-reset">
                         重置
                     </button>
+                    <button class="layui-btn layuiadmin-btn-list" lay-filter="export" id="my-export">
+                        导出
+                    </button>
                 </div>
             </div>
         </div>
@@ -301,6 +304,10 @@
                 $("#my-reset").bind("click", function () {
                     $("#my-header input").val("");
                     $("#my-header select").val("");
+                })
+//                导出
+                $("#my-export").bind("click", function () {
+                    window.location.href = wpt_serverName + 'lsjfgl/tjcx/xsddcx/export' //数据接口地址
                 })
 
 
