@@ -6,10 +6,11 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+import gka.common.kit.ExcelExportUtil;
 import gka.controller.xsjfgl.wyjf.JfInfo;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
-import gka.xsjfgl.login.WptMaXSUserInfo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,32 @@ public class XsDdcxController extends Controller {
             map.put("msg", "系统繁忙，请稍后重试！");
         }
         renderJson(map);
+    }
+
+    public void export() {
+        try {
+            String sql = "SELECT T1.ORDER_NO,T1.SFXN, to_char(to_date(T1.TIME_START,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_START,to_char(to_date(T1.TIME_END,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_END,T1.TOTAL_FEE,NVL(T1.TOTAL_FEE_CALLBACK,0) TOTAL_FEE_CALLBACK,decode(T1.ORDER_STATE,'0','待支付','1','已取消','2','支付成功','3','问题订单','4','教师取消') ORDER_STATE,T2.ZYMC,T2.JGMC,T2.BJMC,T2.XM,T2.ZH,T2.ZJHM FROM WPT_WXZF_SPECIAL_ORDER T1 LEFT JOIN  WPT_YH T2 ON T1.XH=T2.ZH ORDER BY T1.TIME_START DESC";
+            Map<String, String> titleData = new HashMap<String, String>();//标题，后面用到
+            titleData.put("ORDER_NO", "订单编号");
+            titleData.put("SFXN", "交费学年");
+            titleData.put("XM", "姓名");
+            titleData.put("ZH", "学号");
+            titleData.put("TIME_START", "下单时间");
+            titleData.put("TOTAL_FEE", "订单合计");
+            titleData.put("TIME_END", "支付时间");
+            titleData.put("TOTAL_FEE_CALLBACK", "支付金额");
+            titleData.put("JGMC", "学院名称");
+            titleData.put("ZYMC", "专业名称");
+            titleData.put("BJMC", "班级名称");
+            titleData.put("ORDER_STATE", "状态");
+            File file = new File(ExcelExportUtil.getTitle("学生订单数据"));
+            file = ExcelExportUtil.saveFile(titleData, sql, file);
+            this.renderFile(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+            setAttr("errorMessage", "导出失败请稍后再试，错误信息：" + e.toString());
+            render("/error/400.html");
+        }
     }
 
     public void qxInfo() {

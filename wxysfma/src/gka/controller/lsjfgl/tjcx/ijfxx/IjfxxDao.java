@@ -48,7 +48,6 @@ public class IjfxxDao {
         Page<Record> paginate = Db.paginate(page, limit, selectSql, fromSql);
         return paginate;
     }
-//    select o.*, y.* from wpt_wxzf_special_order o,yhsjb y where y.xh=o.xh and y.xn=o.sfxn and o.return_code='success'
 
     public List<Record> getList(List<Record> out_list, List<Record> titles) {
         List<Record> list = new ArrayList<Record>();
