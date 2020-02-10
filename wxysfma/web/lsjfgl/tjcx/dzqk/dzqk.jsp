@@ -133,7 +133,7 @@
                     if (layEvent === 'ddxz-qx') {
                         alert("暂无对账单!")
                     } else if (layEvent === 'ddxz-cg') {
-//                        下载对账单
+                        window.location.href = wpt_serverName + 'lsjfgl/tjcx/dzqk/export?dzsj=' + dzsj; //数据接口地址
                     }
                 });
             },
