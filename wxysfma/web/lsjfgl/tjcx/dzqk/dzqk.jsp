@@ -58,24 +58,73 @@
 </div>
 <div class="layui-fluid">
     <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item" id="my-header">
+                <div class="layui-inline">
+                    <label class="layui-form-label">账务日期：</label>
+
+                    <div class="layui-input-inline" style="width: 133px;">
+                        <input type="text" name="title" placeholder="开始时间" autocomplete="off" class="layui-input"
+                               id="dateStart">
+                    </div>
+                    <div class="layui-input-inline" style="width: 15px">
+                        至
+                    </div>
+                    <div class="layui-input-inline" style="width: 133px;">
+                        <input type="text" name="title" placeholder="结束时间" autocomplete="off" class="layui-input"
+                               id="dateEnd">
+                    </div>
+                </div>
+                <div class="layui-inline" style="margin-left: 50px;">
+                    <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-search">
+                        查询
+                    </button>
+                    <button class="layui-btn layuiadmin-btn-list" lay-filter="reset" id="my-reset">
+                        重置
+                    </button>
+                    <button class="layui-btn layuiadmin-btn-list" lay-filter="export" id="my-export">
+                        导出
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="layui-card-body">
             <div class="layui-form">
                 <table class="layui-table" id="jfjl-table" lay-filter="jfFilter">
                 </table>
             </div>
         </div>
-    </div>
-    <%--</div>--%>
-</div>
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item" id="my-footer">
+                <div class="layui-inline">
+                    <label class="layui-form-label"
+                           style="width: 200px;font-size: 20px;font-weight: 200">手动对账日期：</label>
 
+                    <div class="layui-input-inline" style="width: 133px;">
+                        <input type="text" name="title" placeholder="对账时间" autocomplete="off" class="layui-input"
+                               id="myTime">
+                    </div>
+                    <div class="layui-input-inline" style="width: 15px">
+
+                    </div>
+                    <div class="layui-inline" style="margin-left: 50px;">
+                        <button class="layui-btn layuiadmin-btn-list" lay-filter="export" id="my-handle">
+                            确认对账
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--</div>--%>
+    </div>
+</div>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-inline myDef" title="刷新" id="refresh">
         <i class="layui-icon layui-icon-refresh" style="font-size: 16px; color: #1E9FFF;"></i>
     </div>
-
 </script>
 <script type="text/html" id="barDemo1">
-    {{#  if(d.XX == "无对账文件"){ }}
+    {{#  if(d.DZJG == "无对账文件"){ }}
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-qx">导出对账</a>
     {{#  } else { }}
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">导出对账</a>
@@ -98,8 +147,14 @@
                     elem: '#jfjl-table'  //容器id
                     , cols: [
                         [
-                            {title: "对账时间", field: "DZSJ", align: "center", fixed: "left"},
-                            {title: "对账信息", field: "XX", align: "center", templet: '#titleTpl'},
+                            {title: "账务日期", field: "DZSJ", align: "center", fixed: "left"},
+                            {title: "状态", field: "XX", align: "center"},
+                            {title: "对账结果", field: "DZJG", align: "center"},
+                            {title: "订单已支付条数", field: "TS", align: "center"},
+                            {title: "订单合计金额", field: "JE", align: "center"},
+                            {title: "微信对账支付条数", field: "WXTS", align: "center"},
+                            {title: "微信对账合计金额", field: "WXJE", align: "center"},
+                            {title: "异常订单数量", field: "YCBS", align: "center"},
                             {title: "操作", align: "center", templet: "#barDemo1", fixed: "right"}
                         ]
                     ]
@@ -162,6 +217,18 @@
                         }; //重置开始日期最大值
                     }
                 });
+                //初始化开始日期控件
+                var myTime = laydate.render({
+                    elem: '#myTime',
+                    max: new Date().toLocaleDateString(),
+                    done: function (value, date, endDate) {
+                        start.config.max = {
+                            year: date.year,
+                            month: date.month - 1,
+                            date: date.date
+                        }; //重置开始日期最大值
+                    }
+                });
             },
             bindCli: function () {
                 //重置
@@ -170,15 +237,38 @@
                     $("#my-header select").val("");
                 })
 
-
+                $("#my-handle").bind("click", function () {
+                    var myTime = $('#myTime').val();
+                    if (myTime == "" || myTime == null) {
+                        alert("请选择对账时间!")
+                    } else {
+                        $.ajax({
+                            url: wpt_serverName + 'lsjfgl/tjcx/dzqk/sddz', //数据接口地址
+                            type: 'post',
+                            dataType: 'json',
+                            data: {myTime: myTime},
+                            timeout: 10000,
+                            beforeSend: function () {
+                                loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+                            },
+                            success: function (data) {
+                                if (data.RETURN_STATE == "SUCCESS") {
+                                    layer.alert('对账成功!')
+                                } else {
+                                    layer.alert(data.RETURN_MSG)
+                                }
+                            },
+                            complete: function () {
+                                layer.close(loadIndex);
+                            }
+                        })
+                    }
+                })
+                $("#my-export").bind("click", function () {
+                    window.location.href = wpt_serverName + 'lsjfgl/tjcx/dzqk/exportAll' //数据接口地址
+                })
                 $("#my-search").bind("click", function () {
                     //获取用户名
-                    var ddbh = $('#search-ddbh').val();
-                    var xn = $('#search-xn').val();
-                    var xm = $('#search-xm').val();
-                    var ddzt = $('#search-ddzt').val();
-                    var xh = $('#search-xh').val();
-                    var sfzh = $('#search-sfzh').val();
                     var dateStart = $('#dateStart').val();
                     var dateEnd = $('#dateEnd').val();
 
@@ -189,12 +279,6 @@
                         }
                         //根据条件查询
                         , where: {
-                            ddbh: ddbh,
-                            xn: xn,
-                            xm: xm,
-                            ddzt: ddzt,
-                            xh: xh,
-                            sfzh: sfzh,
                             dateStart: dateStart,
                             dateEnd: dateEnd
                         }
