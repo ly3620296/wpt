@@ -14,9 +14,16 @@ import java.util.List;
 public class XSLoginDao {
 
     public Record loginValidate(String account, String password) {
+        password = getMd5Pass(password);
         String sql = "SELECT ZH,XM,XB,MZ,ZZMM,ZJLX,ZJHM,JGDM,JGMC,ZYDM,ZYMC,BJDM,BJMC,NJDM,NJMC,XZ,SFZX,XJZT,LXDH,YX,JSDM,JSMC,ZYFXDM,ZYFXMC,OPENID FROM WPT_YH WHERE ZH=? AND KL=?";
         Record re = Db.findFirst(sql, account, password);
         return re;
+    }
+
+    public String getMd5Pass(String password) {
+        String sql = "SELECT '{MD5}'||utl_raw.cast_to_varchar2(utl_encode.base64_encode(Utl_Raw.Cast_To_Raw(sys.dbms_obfuscation_toolkit.md5(input_string => '" + password + "')))) mm FROM DUAL WHERE 1=1";
+        Record first = Db.findFirst(sql);
+        return first.getStr("MM");
     }
 
     public static void setSession(Record record, HttpSession session) {
