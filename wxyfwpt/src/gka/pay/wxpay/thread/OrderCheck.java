@@ -52,7 +52,7 @@ public class OrderCheck implements Runnable {
     }
 
     private List<Record> queryNoPayOrder() {
-        String sql = "SELECT TIME_START,OUT_TRADE_NO FROM WPT_WXZF_ORDER WHERE ORDER_STATE=?";
+        String sql = "SELECT TIME_START,OUT_TRADE_NO FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_STATE=?";
         List<Record> list = Db.find(sql, MyWxpayConstant.ORDER_STATE_NOPAY);
         return list;
     }

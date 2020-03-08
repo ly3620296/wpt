@@ -92,7 +92,7 @@ public class WxPayTool {
     /**
      * 提取订单记录数据
      */
-    public WxPayOrder fillOrder(Map<String, String> unifiedOrder, String ids, String ip, String zh, String prepay_id) {
+    public WxPayOrder fillOrder(Map<String, String> unifiedOrder, String ids, String ip, String zh, String prepay_id, String sfxn) {
         WxPayOrder wxPayOrder = new WxPayOrder();
         wxPayOrder.setOut_trade_no(unifiedOrder.get("out_trade_no"));
         wxPayOrder.setIds(ids);
@@ -105,6 +105,7 @@ public class WxPayTool {
         wxPayOrder.setPayIp(ip);
         wxPayOrder.setTime_start(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
         wxPayOrder.setXh(zh);
+        wxPayOrder.setSfxn(sfxn);
         return wxPayOrder;
     }
 
