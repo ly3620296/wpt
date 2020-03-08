@@ -184,9 +184,9 @@
             content: '/wptma/module/gzwh/add.jsp',  //调到新增页面
             success: function (layero, index) {
                 // 新iframe窗口的对象
-                var iframeWin = layero.find('iframe')[0].contentWindow;
-                // 重新渲染checkbox,select同理
-                iframeWin.layui.form.render('checkbox');
+//                var iframeWin = layero.find('iframe')[0].contentWindow;
+//                // 重新渲染checkbox,select同理
+//                iframeWin.layui.form.render('checkbox');
             }
         })
     }
