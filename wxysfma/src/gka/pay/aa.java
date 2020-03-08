@@ -20,6 +20,19 @@ public class aa {
         Map<String, String> map = new HashMap<String, String>();
         WXPayConfig wxPayConfig = new MyWxConfig();
         WXPay wxPay = new WXPay(wxPayConfig);
+
+        map.put("bill_date", "20190808");
+
+        Map<String, String> mapNew = wxPay.downloadBill(map);
+        System.out.println(mapNew);
+        System.out.println(WXPayUtil.mapToXml(mapNew));
+    }
+    public static void aa() throws Exception {
+        String aa = WXPayUtil.generateNonceStr();
+        System.out.println(aa);
+        Map<String, String> map = new HashMap<String, String>();
+        WXPayConfig wxPayConfig = new MyWxConfig();
+        WXPay wxPay = new WXPay(wxPayConfig);
         map.put("body", "科安");
         String orderNo = WXPayUtil.generateOrder();
         System.out.println("orderNo--------------"+orderNo);

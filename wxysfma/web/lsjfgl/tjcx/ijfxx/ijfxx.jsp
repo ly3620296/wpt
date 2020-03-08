@@ -52,31 +52,30 @@
     <div>
         <fieldset class="layui-elem-field layui-field-title"
                   style="margin-top: 20px;border-color: #009688 !important;">
-            <legend>学生订单查询</legend>
+            <legend>已交费信息查询</legend>
         </fieldset>
     </div>
 </div>
 
 <div class="layui-fluid">
-    <%--<div class="layui-row">--%>
     <div class="layui-card">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item" id="my-header">
-                <div class="layui-inline">
-                    <label class="layui-form-label">订单编号：</label>
+                <div class="layui-inline ">
+                    <label class="layui-form-label">缴费学年：</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" id="search-ddbh" placeholder="订单编号" autocomplete="off" class="layui-input">
+                        <input type="text" id="search-sfxn" placeholder="缴费学年" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">学号：</label>
+
+                    <div class="layui-input-inline">
+                        <input type="text" id="search-xh" placeholder="学号" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline ">
-                    <label class="layui-form-label">学年：</label>
-
-                    <div class="layui-input-inline">
-                        <input type="text" id="search-xn" placeholder="学年" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
                     <label class="layui-form-label">姓名：</label>
 
                     <div class="layui-input-inline">
@@ -84,33 +83,27 @@
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">订单状态：</label>
+                    <label class="layui-form-label">学院名称：</label>
 
                     <div class="layui-input-inline">
-                        <select name="city" lay-verify="required" id="search-ddzt">
-                            <option value=""></option>
-                            <option value="0">待支付</option>
-                            <option value="2">支付成功</option>
-                            <option value="3">问题订单</option>
-                            <option value="1">已取消</option>
-                            <option value="4">教师取消</option>
-                        </select>
+                        <input type="text" id="search-xymc" placeholder="学院名称" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">学号：</label>
+                    <label class="layui-form-label">专业名称：</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" id="search-xh" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" id="search-zymc" placeholder="专业名称" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">身份证号：</label>
+                    <label class="layui-form-label">班级名称：</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" id="search-sfzh" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" id="search-bjmc" placeholder="班级名称" autocomplete="off" class="layui-input">
                     </div>
                 </div>
+
                 <div class="layui-inline">
                     <label class="layui-form-label">支付时间：</label>
 
@@ -126,15 +119,33 @@
                                id="dateEnd">
                     </div>
                 </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">缴费类型：</label>
+
+                    <div class="layui-input-inline">
+                        <select name="city" lay-verify="required" id="search-pay_type">
+                            <option value=""></option>
+                            <option value="CASH">现金</option>
+                            <option value="CARD">刷卡</option>
+                            <option value="JSAPI">APP微信</option>
+                            <option value="NATIVE">微信扫码</option>
+                            <option value="GXZZ">微信扫码</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">入学年级：</label>
+
+                    <div class="layui-input-inline">
+                        <input type="text" id="search-nj" placeholder="入学年级" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
                 <div class="layui-inline" style="margin-left: 50px;">
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-search">
                         查询
                     </button>
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="reset" id="my-reset">
                         重置
-                    </button>
-                    <button class="layui-btn layuiadmin-btn-list" lay-filter="export" id="my-export">
-                        导出
                     </button>
                 </div>
             </div>
@@ -148,43 +159,10 @@
     </div>
     <%--</div>--%>
 </div>
-<script type="text/html" id="titleTpl">
-    {{#  if(d.ORDER_STATE == 0){ }}
-    <font color="red">待支付</font>
-    {{#  } else if(d.ORDER_STATE == 1){ }}
-    <font color="red">已取消</font>
-    {{#  } else if(d.ORDER_STATE == 2){ }}
-    <font color="red">支付成功</font>
-    {{#  } else if(d.ORDER_STATE == 3){ }}
-    <font color="red">问题订单</font>
-    {{#  } else if(d.ORDER_STATE == 4){ }}
-    <font color="red">教师取消</font>
-    {{#  } }}
-</script>
 <script type="text/html" id="toolbarDemo">
     <div class="layui-inline myDef" title="刷新" id="refresh">
         <i class="layui-icon layui-icon-refresh" style="font-size: 16px; color: #1E9FFF;"></i>
     </div>
-    <%--<a class="layui-btn layui-btn-normal layui-btn-sm" style="float: right" lay-event="jf">--%>
-
-    <%--</a>--%>
-</script>
-<script type="text/html" id="barDemo1">
-    {{#  if(d.ORDER_STATE == 1){ }}
-    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-qx">订单详情</a>
-    {{#  } else if(d.ORDER_STATE == 2){ }}
-    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
-    {{#  } else if(d.ORDER_STATE == 3){ }}
-    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
-    {{#  } else if(d.ORDER_STATE == 4){ }}
-    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
-    {{#  } }}
-</script>
-<script type="text/html" id="barDemo2">
-    {{#  if(d.ORDER_STATE == 2){ }}
-    {{d.TIME_END}}
-    {{#  } else{ }}
-    {{#  } }}
 </script>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script>
@@ -198,38 +176,57 @@
 
         var loadIndex;
         var wpt_grjfxx = {
-            initTab: function () {
+            init: function () {
+                $.ajax({
+                    url: wpt_serverName + "xsjfgl/grjfxx/title",
+                    type: 'post',
+                    dataType: 'json',
+                    timeout: 10000,
+                    beforeSend: function () {
+                        loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+                    },
+                    success: function (data) {
+                        if (data.code == "0") {
+                            wpt_grjfxx.initTabTitles(data.titles);
+                        } else {
+                            layer.msg(data.msg, {anim: 6, time: 2000});
+                        }
+                    },
+                    complete: function () {
+                        layer.close(loadIndex);
+                    }
+                })
+            },
+            initTabTitles: function (titles) {
+                var col = titles.length + 3;
+                var cols2 = [
+                    {title: "缴费学年", field: "SFXN", align: "center", width: "7%", fixed: "left"},
+                    {title: "学号", field: "XH", align: "center"},
+                    {title: "订单号", field: "ORDER_NO", align: "center"},
+                    {title: "姓名", field: "XM", align: "center"},
+                    {title: "性别", field: "XB", align: "center"},
+                    {title: "学院名称", field: "XYMC", align: "center"},
+                    {title: "专业名称", field: "ZYMC", align: "center"},
+                    {title: "班级名称", field: "BJMC", align: "center"},
+                    {title: "交费合计", field: "TOTAL_FEE", align: "center"}
+                ];
+                for (var i = 0; i < titles.length; i++) {
+                    if (titles[i].SFBX == "1") {
+                        cols2[i + 9] = {title: titles[i].JFXMMC, field: titles[i].JFXMID, align: "center"};
+                    } else {
+                        cols2[i + 9] = {title: titles[i].JFXMMC + "（选交）", field: titles[i].JFXMID, align: "center"};
+                    }
+                }
+                cols2[titles.length + 9] = {title: "缴费类型", field: "PAY_TYPE", align: "center"}
+                cols2[titles.length + 10] = {title: "下单时间", field: "TIME_START", align: "center"}
                 table.render({
                     elem: '#jfjl-table'  //容器id
-                    , cols: [
-                        [
-                            {title: "订单编号", field: "ORDER_NO", align: "center", width: "10%", fixed: "left"},
-                            {title: "交费学年", field: "SFXN", align: "center", sort: true, width: "8%"},
-                            {title: "下单时间", field: "TIME_START", align: "center", sort: true, width: "10%"},
-                            {
-                                title: "支付时间",
-                                field: "TIME_END",
-                                align: "center",
-                                sort: true,
-                                width: "10%",
-                                templet: "#barDemo2"
-                            },
-                            {title: "订单合计（元）", field: "TOTAL_FEE", align: "center", sort: true, width: "9%"},
-                            {title: "支付金额（元）", field: "TOTAL_FEE_CALLBACK", align: "center", sort: true, width: "9%"},
-                            {title: "学院名称", field: "JGMC", align: "center"},
-                            {title: "专业名称", field: "ZYMC", align: "center"},
-                            {title: "班级名称", field: "BJMC", align: "center"},
-                            {title: "姓名", field: "XM", align: "center"},
-                            {title: "身份证号", field: "ZJHM", align: "center"},
-                            {title: "学号/考生号", field: "ZH", align: "center"},
-                            {title: "状态", field: "ORDER_STATE", align: "center", templet: '#titleTpl', width: "7%"},
-                            {title: "操作", align: "center", templet: "#barDemo1", width: "14%", fixed: "right"}
-                        ]
-                    ]
-                    , url: wpt_serverName + 'lsjfgl/tjcx/xsddcx' //数据接口地址
+                    , cols: [cols2]
+                    , url: wpt_serverName + 'lsjfgl/tjcx/ijfxx' //数据接口地址
                     , title: '用户表'
                     , height: window.screen.height - 450
                     , page: true //开启分页
+                    , limit: 10
                     , loading: true
                     , even: true  //隔行换色 默认false,
                     , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
@@ -244,35 +241,12 @@
                     id: 'userTableReload'
                 });
             },
-            closeOrderInfo: function (xn, orderNo, type, zh) {
-                layer.open({
-                    type: 2,
-                    area: [parseInt(parent.$("#iframe_00").width()) * 0.7 + 'px', parseInt(parent.$("#iframe_00").height()) * 0.9 + 'px'],
-                    title: "交费订单",
-                    fixed: false, //不固定
-                    maxmin: true,
-                    content: wpt_serverName + 'lsjfgl/tjcx/xsddcx/ddxq_info.jsp?type=' + type + '&order_no=' + orderNo + '&xn=' + xn + '&zh=' + zh
-                });
-
-            },
             listenTool: function () {
                 $("#refresh").bind("click", function () {
                     window.location.reload();
                 })
-                //监听行工具事件
-                table.on('tool(jfFilter)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-                    var data = obj.data //获得当前行数据
-                            , layEvent = obj.event; //获得 lay-event 对应的值
-                    var orderNo = data.ORDER_NO;
-                    var xn = data.SFXN
-                    var zh = data.ZH
-                    if (layEvent === 'ddxz-qx') {
-                        wpt_grjfxx.closeOrderInfo(xn, orderNo, "qx", zh);
-                    } else if (layEvent === 'ddxz-cg') {
-                        wpt_grjfxx.closeOrderInfo(xn, orderNo, "cg", zh);
-                    }
-                });
             },
+
             initDate: function () {
                 //初始化开始日期控件
                 var start = laydate.render({
@@ -305,23 +279,19 @@
                     $("#my-header input").val("");
                     $("#my-header select").val("");
                 })
-//                导出
-                $("#my-export").bind("click", function () {
-                    window.location.href = wpt_serverName + 'lsjfgl/tjcx/xsddcx/export' //数据接口地址
-                })
 
 
                 $("#my-search").bind("click", function () {
-                    //获取用户名
-                    var ddbh = $('#search-ddbh').val();
-                    var xn = $('#search-xn').val();
-                    var xm = $('#search-xm').val();
-                    var ddzt = $('#search-ddzt').val();
-                    var xh = $('#search-xh').val();
-                    var sfzh = $('#search-sfzh').val();
-                    var dateStart = $('#dateStart').val();
-                    var dateEnd = $('#dateEnd').val();
-
+                    var sfxn = $('#search-sfxn').val(); //缴费学年
+                    var xh = $('#search-xh').val(); //学号
+                    var xm = $('#search-xm').val(); //姓名
+                    var xymc = $('#search-xymc').val();  //学院名称
+                    var zymc = $('#search-zymc').val();  //专业名称
+                    var bjmc = $('#search-bjmc').val();  //班级名称
+                    var dateStart = $('#dateStart').val();  //开始时间
+                    var dateEnd = $('#dateEnd').val();  //结束时间
+                    var pay_type = $('#search-pay_type').val();  //缴费类型
+                    var nj = $('#search-nj').val();  //入学年级
                     //执行重载
                     table.reload('userTableReload', {
                         page: {
@@ -329,24 +299,25 @@
                         }
                         //根据条件查询
                         , where: {
-                            ddbh: ddbh,
-                            xn: xn,
-                            xm: xm,
-                            ddzt: ddzt,
+                            sfxn: sfxn,
                             xh: xh,
-                            sfzh: sfzh,
+                            xm: xm,
+                            xymc: xymc,
+                            zymc: zymc,
+                            bjmc: bjmc,
                             dateStart: dateStart,
-                            dateEnd: dateEnd
+                            dateEnd: dateEnd,
+                            pay_type: pay_type,
+                            nj: nj
                         }
                     });
                 })
             }
         }
-        wpt_grjfxx.initTab();
+        wpt_grjfxx.init();
         wpt_grjfxx.listenTool();
         wpt_grjfxx.initDate();
         wpt_grjfxx.bindCli();
-
     });
 
 </script>

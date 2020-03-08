@@ -10,7 +10,8 @@
     else {
         window.stop();
     }
-    window.location.href = wpt_serverName+"login/xslogin.jsp";
+    parent.location.reload();
+//    window.location.href = wpt_serverName+"login/xslogin.jsp";
 </script>
 <%
     }
