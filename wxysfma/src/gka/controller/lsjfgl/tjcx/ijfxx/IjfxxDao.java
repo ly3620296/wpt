@@ -12,7 +12,7 @@ public class IjfxxDao {
 
     public Page<Record> getOrderInfo(int page, int limit, IjfxxSearch search) {
 
-        String selectSql = "SELECT decode(o.pay_type,'CASH','现金','CARD','刷卡','JSAPI','APP微信','NATIVE','微信扫码') PAY_TYPE,o.xh,o.sfxn,o.ids,o.ORDER_NO,y.xm,y.xb,y.xymc,y.zymc,y.bjmc,o.TOTAL_FEE,to_char(to_date(o.TIME_START,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_START";
+        String selectSql = "SELECT decode(o.pay_type,'CASH','现金','CARD','刷卡','JSAPI','APP微信','NATIVE','微信扫码','GXZZ','高校转账') PAY_TYPE,o.xh,o.sfxn,o.ids,o.ORDER_NO,y.xm,y.xb,y.xymc,y.zymc,y.bjmc,o.TOTAL_FEE,to_char(to_date(o.TIME_START,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_START";
         String fromSql = " from wpt_wxzf_special_order o left join yhsjb y on y.xh=o.xh and y.xn=o.sfxn where o.return_code='success' ";
         if (!StringUtils.isEmpty(search.getSfxn())) {
             fromSql += " AND o.sfxn='" + search.getSfxn() + "'";

@@ -18,7 +18,7 @@
     </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>
-    <title>学生缴费管理</title>
+    <title>教师交费管理</title>
 </head>
 <body class="layui-layout-body">
 <%
@@ -38,7 +38,7 @@
 <div class="layui-layout layui-layout-admin">
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <div class="layui-header">
-        <div class="layui-logo">学生交费管理</div>
+        <div class="layui-logo">教师交费管理</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -59,7 +59,8 @@
                         <cite>票据管理</cite></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/grjfxx.jsp" data-id="00" data-title="电脑开票"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/dnkp/dnkp.jsp" data-id="00"
+                               data-title="电脑开票"
                                data-type="tabAdd">电脑开票</a>
                         </dd>
                         <dd>
@@ -74,31 +75,32 @@
                         <cite>统计查询</cite></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/xsddcx/ddxq.jsp" data-id="00"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/xsddcx/ddxq.jsp" data-id="10"
                                data-title="学生订单查询"
                                data-type="tabAdd">学生订单查询</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/dzqk/dzqk.jsp" data-id="01" data-title="对账情况"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/dzqk/dzqk.jsp" data-id="11"
+                               data-title="对账情况"
                                data-type="tabAdd">对账情况</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/yjfxx/yjfxx.jsp" data-id="02"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/yjfxx/yjfxx.jsp" data-id="12"
                                data-title="应交费信息"
                                data-type="tabAdd">应交费信息</a>
                         </dd>
                         <dd>
                             <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/ijfxx/ijfxx.jsp" data-title="已交费信息"
-                               data-id="03"
+                               data-id="13"
                                data-type="tabAdd">已交费信息</a>
                         </dd>
                         <dd>
                             <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/wjfxx/wjfxx.jsp" data-title="未交费信息"
-                               data-id="04"
+                               data-id="14"
                                data-type="tabAdd">未交费信息</a>
                         </dd>
                         <dd>
-                            <a data-url="" data-title="票据信息" data-id="05"
+                            <a data-url="" data-title="票据信息" data-id="15"
                                data-type="tabAdd">票据信息</a>
                         </dd>
                     </dl>
@@ -112,15 +114,15 @@
                             <a data-url="" data-id="ly_home" data-title="table-demo" data-type="tabAdd">辅助信息维护</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/grjfxx.jsp" data-id="00" data-title="开票基础数据管理"
+                            <a data-url="<%=Constant.server_name%>xsjfgl/grjfxx.jsp" data-id="20" data-title="开票基础数据管理"
                                data-type="tabAdd">开票基础数据管理</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="01" data-title="人员与角色权限"
+                            <a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="21" data-title="人员与角色权限"
                                data-type="tabAdd">人员与角色权限</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/ddxq.jsp" data-title="通知公告管理" data-id="02"
+                            <a data-url="<%=Constant.server_name%>xsjfgl/ddxq.jsp" data-title="通知公告管理" data-id="22"
                                data-type="tabAdd">通知公告管理</a>
                         </dd>
                     </dl>
