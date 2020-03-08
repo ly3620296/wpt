@@ -3,6 +3,7 @@ package gka.controller.module.wstyzf.xzf;
 import com.alibaba.druid.util.StringUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.controller.login.WptUserInfo;
 import gka.kit.IpKit;
@@ -71,8 +72,8 @@ public class XzfController extends Controller {
             if (!StringUtils.isEmpty(openId)) {
                 String order = WXPayUtil.generateOrder();
                 String cliIp = IpKit.getRealIp(getRequest());
-                String totalFee = "1";
                 String ids = getPara("arrId");
+                String totalFee = "1";
                 if (!StringUtils.isEmpty(ids)) {
                     //查询是否没缴费
                     boolean pay = xzfDao.validateIsPay(ids);
@@ -209,5 +210,26 @@ public class XzfController extends Controller {
 
         result.put("returnInfo", returnInfo);
         renderJson(result);
+    }
+
+    /**
+     * 实际支付金额
+     *
+     * @param idSql
+     * @param xh
+     * @param xn
+     * @return
+     */
+    private String cxTotalFee(String idSql, String xh, String xn) {
+        String zh = "0";
+        String sql = "SELECT " + idSql + " FROM XSSFB WHERE XH=? AND XN=?";
+        Record re = Db.findFirst(sql, xh, xn);
+        if (re != null) {
+            zh = re.getStr("ZH");
+            double zhD = Double.parseDouble(zh);
+            zh = String.valueOf((int) (zhD * 100));
+        }
+        System.out.println("实际支付金额" + zh + "（单位分）");
+        return zh;
     }
 }

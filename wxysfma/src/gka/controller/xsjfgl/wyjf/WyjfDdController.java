@@ -3,6 +3,8 @@ package gka.controller.xsjfgl.wyjf;
 import com.alibaba.druid.util.StringUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.IpKit;
 import gka.common.kit.OrderCodeFactory;
 import gka.pay.wxpay.WXPayUtil;
@@ -31,11 +33,13 @@ public class WyjfDdController extends Controller {
             String xh = userInfo.getZh();
             String order = WXPayUtil.generateOrder();
             String cliIp = IpKit.getRealIp(getRequest());
-            String totalFee = "1";
+
             String[] idArr = getRequest().getParameterValues("xmid[]");
             String sfxn = getPara("sfxn");
             if (idArr != null && !StringUtils.isEmpty(sfxn)) {
                 String ids = parseIdArr(idArr);
+                String totalFee = "1";
+//                String totalFee =  cxTotalFee(parseIdArrSql(idArr), xh, sfxn);
                 //查询是否没缴费
                 boolean pay = wyjfDao.validateIsNoPay(ids, sfxn, xh);
                 if (pay) {
@@ -215,7 +219,41 @@ public class WyjfDdController extends Controller {
                 sb.append(idArr[i]);
             }
         }
-
         return sb.toString();
+    }
+
+    private String parseIdArrSql(String[] idArr) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < idArr.length; i++) {
+            if (i < idArr.length - 1) {
+                sb.append(idArr[i]);
+                sb.append("+");
+            } else {
+                sb.append(idArr[i]);
+                sb.append(" ZH");
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 实际支付金额
+     *
+     * @param idSql
+     * @param xh
+     * @param xn
+     * @return
+     */
+    private String cxTotalFee(String idSql, String xh, String xn) {
+        String zh = "0";
+        String sql = "SELECT " + idSql + " FROM XSSFB WHERE XH=? AND XN=?";
+        Record re = Db.findFirst(sql, xh, xn);
+        if (re != null) {
+            zh = re.getStr("ZH");
+            double zhD = Double.parseDouble(zh);
+            zh = String.valueOf((int) (zhD * 100));
+        }
+        System.out.println("实际支付金额" + zh + "（单位分）");
+        return zh;
     }
 }

@@ -3,6 +3,7 @@ package gka.controller.module.wstyzf.xzf;
 import com.alibaba.druid.util.StringUtils;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.controller.login.WptUserInfo;
 import gka.kit.IpKit;
@@ -80,6 +81,7 @@ public class XzfSecondController extends Controller {
                 String ids = getPara("arrId");
                 String newIds = newIds(ids);
                 String sfxn = ids.split(",")[0].split("wow")[0];
+//                String totalFee = cxTotalFee(parseIdArrSql(ids), xh, sfxn);
                 if (!StringUtils.isEmpty(ids)) {
                     //查询是否没缴费
                     boolean pay = xzfDao.validateIsNoPay(newIds, sfxn, xh);
@@ -292,5 +294,32 @@ public class XzfSecondController extends Controller {
 
         result.put("returnInfo", returnInfo);
         renderJson(result);
+    }
+
+    private String parseIdArrSql(String ids) {
+        String sql = ids.replaceAll(",", "+");
+        sql += " ZH";
+        return sql;
+    }
+
+    /**
+     * 实际支付金额
+     *
+     * @param idSql
+     * @param xh
+     * @param xn
+     * @return
+     */
+    private String cxTotalFee(String idSql, String xh, String xn) {
+        String zh = "0";
+        String sql = "SELECT " + idSql + " FROM XSSFB WHERE XH=? AND XN=?";
+        Record re = Db.findFirst(sql, xh, xn);
+        if (re != null) {
+            zh = re.getStr("ZH");
+            double zhD = Double.parseDouble(zh);
+            zh = String.valueOf((int) (zhD * 100));
+        }
+        System.out.println("实际支付金额" + zh + "（单位分）");
+        return zh;
     }
 }
