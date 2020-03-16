@@ -37,6 +37,10 @@ public class WxPayOrder {
     //微信生成的预支付会话标识
     private String PREPAY_ID;
 
+    private String sfxn;
+
+    private String orderNo;
+
     public String getOut_trade_no() {
         return out_trade_no;
     }
@@ -157,6 +161,22 @@ public class WxPayOrder {
         this.PREPAY_ID = PREPAY_ID;
     }
 
+    public String getSfxn() {
+        return sfxn;
+    }
+
+    public void setSfxn(String sfxn) {
+        this.sfxn = sfxn;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
     @Override
     public String toString() {
         return "WxPayOrder{" +
@@ -175,6 +195,8 @@ public class WxPayOrder {
                 ", result_code='" + result_code + '\'' +
                 ", xh='" + xh + '\'' +
                 ", PREPAY_ID='" + PREPAY_ID + '\'' +
+                ", sfxn='" + sfxn + '\'' +
+                ", orderNo='" + orderNo + '\'' +
                 '}';
     }
 }

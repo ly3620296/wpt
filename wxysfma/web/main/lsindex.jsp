@@ -100,7 +100,7 @@
                                data-type="tabAdd">未交费信息</a>
                         </dd>
                         <dd>
-                            <a data-url="" data-title="票据信息" data-id="15"
+                            <a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-title="票据信息" data-id="15"
                                data-type="tabAdd">票据信息</a>
                         </dd>
                     </dl>

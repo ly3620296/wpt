@@ -109,7 +109,7 @@
                 })
             },
             initTtk: function (ttkXx) {
-                var xx = '<p style="text-indent: 2em;" >' + ttkXx.CONTENT + '</p>' +
+                var xx = '<p style="text-indent: 2em;" >' + (ttkXx.CONTENT==null?"暂无":ttkXx.CONTENT) + '</p>' +
                         '<p class="timeT">' + ttkXx.TIME + '</p>';
                 $("#ttk").html(xx);
             }

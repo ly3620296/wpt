@@ -16,6 +16,6 @@ public class InitThread {
         new TsghUpdate();
         new TsghThread();
         //关闭过期订单
-//        new OrderCheck();
+        new OrderCheck();
     }
 }

@@ -59,7 +59,7 @@
                 if (data.RETURN_STATE == "SUCCESS") {
                     var headList = data.OUT_DATA.headList;
                     var bodyList = data.OUT_DATA.bodyList;
-                    var html = '<tr><td>用户名</td><td>姓名</td>';
+                    var html = '<tr><td>工号</td><td>姓名</td>';
                     if (headList != null) {
                         for (var i = 0; i < headList.length; i++) {
                             html += '<td>' + headList[i].ZDMS + '</td>'

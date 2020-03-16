@@ -7,8 +7,6 @@ import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Record;
 import gka.interceptor.LoginInterceptor;
 import gka.system.ReturnInfo;
-import gka.xsjfgl.login.XSLoginDao;
-import gka.xsjfgl.login.XSLoginValidator;
 
 /**
  * @Auther ly

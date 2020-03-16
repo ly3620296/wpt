@@ -8,11 +8,12 @@ layui.use(['form', 'element', 'layer'], function () {
         noPayOrderInfo: {
             noPayOrder: "no",
             orderInfo: "",
-            prepay_id: ""
+            prepay_id: "",
+            payType: ""
         },
-        init: function (xzfList, xzfXnxqList) {
-            for (var xnxq in xzfXnxqList) {
-                var currXnxq = xzfXnxqList[xnxq].XNXQ;
+        init: function (xzfNormal, xzfList, titles) {
+            for (var xzf in xzfList) {
+                var currXnxq = xzfList[xzf].XN;
                 var sfxm = '<div class="tablediv">' +
                     '<p class="tablename">' + currXnxq + '年度</p>' +
                     '<table border="" cellspacing="" cellpadding="">' +
@@ -25,44 +26,45 @@ layui.use(['form', 'element', 'layer'], function () {
                     '</tr>';
                 var totalMoney = 0;
                 var isAllPay = true;
-                for (var xzf in xzfList) {
-                    var xzfInfo = xzfList[xzf]
-                    if (xzfInfo.XNXQ != currXnxq) {
-                        continue;
-                    }
+                var xzfInfo = xzfList[xzf];
+
+
+                for (var title in titles) {
                     var myClass = 'WJF';
-                    var myId = '_' + xzfInfo.ID;
-                    if (xzfInfo.SFJF == 1) {
+                    var myId = '_' + currXnxq + "wow" + titles[title].JFXMID;
+                    //已缴金额
+                    var yj = xzfList[xzf][titles[title].JFXMID];
+                    //应缴金额
+                    var yjje = xzfNormal[xzf][titles[title].JFXMID];
+                    if (parseInt(yj) > 0) {
                         myClass = 'JF';
                     } else {
-                        if (xzfInfo.SFBX == 0) {
+                        if (titles[title].SFBX == 0) {
                             myClass = 'check bixuan active'
-                            myId = 'checkJF_' + currXnxq + '_' + xzfInfo.ID;
-                        }
-                    }
-                    sfxm += '<tr id="checkId_' + currXnxq + '_' + xzfInfo.ID + '">' +
-                    '<td>' +
-                    '<div style="cursor:pointer" id="' + myId + '" class="' + myClass + '" value="' + xzfInfo.XMJE + '">' +
-                    '</div>' +
-                    '</td>' +
-                    '<td>' + xzfInfo.XMMC + '</td>' +
-                    '<td>' + xzfInfo.XMJE + '</td>' +
-                    '<td>' + (xzfInfo.SFJF == 1 ? xzfInfo.XMJE : 0) + '</td>' +
-                    '<td>' + (xzfInfo.SFJF == 0 ? xzfInfo.XMJE : 0) + '</td>' +
-                    '</tr>';
-                    if (xzfInfo.SFJF == 0) {
-                        totalMoney += parseInt(xzfInfo.XMJE)
-                        if (isAllPay) {
-                            isAllPay = false;
+                            myId = 'checkJF_' + currXnxq + '_' + (currXnxq + "wow" + titles[title].JFXMID);
                         }
                     }
 
+                    sfxm += '<tr id="checkId_' + currXnxq + '_' + (currXnxq + "wow" + titles[title].JFXMID) + '">' +
+                    '<td>' +
+                    '<div style="cursor:pointer" id="' + myId + '" class="' + myClass + '" value="' + yjje + '">' +
+                    '</div>' +
+                    '</td>' +
+                    '<td>' + titles[title].JFXMMC + '</td>' +
+                    '<td>' + yjje + '</td>' +
+                    '<td>' + yj + '</td>' +
+                    '<td>' + (yjje - yj) + '</td>' +
+                    '</tr>';
+                    totalMoney += parseInt(yjje - yj)
+
+                }
+                if (totalMoney > 0) {
+                    isAllPay = false;
                 }
                 var ljjf = '<a href="javascript:void(0)" class="btnjf" id="jfClick_' + currXnxq + '">立即缴费</a>'
                 if (isAllPay) {
                     ljjf = '<a href="javascript:void(0)" class="btnjf" ></a>'
                 }
-
                 sfxm += '</table>' +
                 '<div class="bottom">' +
                 '<p id="checkJF_' + currXnxq + '_total" value="' + totalMoney + '">合计：' + totalMoney + '元</p>' +
@@ -73,7 +75,7 @@ layui.use(['form', 'element', 'layer'], function () {
         },
         xzfIndex: function () {
             $.ajax({
-                url: wpt_serverName + "wstyzf/xzf",
+                url: wpt_serverName + "wstyzf/xzfSecond",
                 type: 'post',
                 dataType: 'json',
                 timeout: 10000,
@@ -87,7 +89,7 @@ layui.use(['form', 'element', 'layer'], function () {
                         var code = data.returnInfo.return_code;
                         var msg = data.returnInfo.return_msg;
                         if (code == "0") {
-                            wpt_xzf.init(data.xzfList, data.xzfXnxqList);
+                            wpt_xzf.init(data.dataNormal, data.data, data.titles);
                             wpt_xzf.noPayOrder(data);
 
                         } else {
@@ -102,10 +104,9 @@ layui.use(['form', 'element', 'layer'], function () {
         },
         bindCheckLy: function () {
             $(document).on('click', 'div[id^="checkJF_"]', function () {
-
                 var myId = this.id;
                 var ele = $("#" + myId);
-                var myTotalId = myId.slice(0, myId.lastIndexOf("_")) + "_total";
+                var myTotalId = myId.slice(0, myId.lastIndexOf("_")).split("wow")[0] + "_total";
                 var totalEle = $("#" + myTotalId);
                 var myTotalVal = parseInt(totalEle.attr("value"));
                 var currVal = parseInt(ele.attr("value"));
@@ -171,7 +172,7 @@ layui.use(['form', 'element', 'layer'], function () {
                 newArrid = arrId[0];
             }
             $.ajax({
-                url: wpt_serverName + "wstyzf/xzf/zfXzf",
+                url: wpt_serverName + "wstyzf/xzfSecond/zfXzf",
                 type: 'post',
                 dataType: 'json',
                 timeout: 10000,
@@ -220,9 +221,10 @@ layui.use(['form', 'element', 'layer'], function () {
 
         },
         bindShowOrder: function () {
-            var orderInfos = wpt_xzf.noPayOrderInfo.orderInfo;
-            var nd = orderInfos[0].XNXQ;
+            var payType = wpt_xzf.noPayOrderInfo.payType;
 
+            var orderInfos = wpt_xzf.noPayOrderInfo.orderInfo;
+            var nd = orderInfos[0].xnxq;
             $(document).on('click', 'a[id^="jfClick_"]', function () {
                 var noPayOrderHtml = '<p class="tablename">' + nd + '年度</p>' +
                     '<table border = ""cellspacing = "" cellpadding = "" > ' +
@@ -235,13 +237,15 @@ layui.use(['form', 'element', 'layer'], function () {
                     '</tr>';
                 var totalMoney = 0;
                 for (var i = 0; i < orderInfos.length; i++) {
+                    var yj = orderInfos[i].yj;
+                    var jfje = orderInfos[i].jfje;
                     noPayOrderHtml += '<tr>' +
-                    '<td>' + orderInfos[i].XMMC + '</td>' +
-                    '<td>' + orderInfos[i].XMJE + '</td>' +
+                    '<td>' + orderInfos[i].xmmc + '</td>' +
+                    '<td>' + orderInfos[i].jfje + '</td>' +
                     '<td>0</td>' +
-                    '<td>' + orderInfos[i].XMJE + '</td>' +
+                    '<td>' + orderInfos[i].jfje + '</td>' +
                     '</tr>';
-                    totalMoney += parseInt(orderInfos[i].XMJE);
+                    totalMoney += parseInt(orderInfos[i].jfje);
                 }
                 noPayOrderHtml += '</tbody>' +
                 '</table>';
@@ -252,13 +256,14 @@ layui.use(['form', 'element', 'layer'], function () {
                 $("#noPayOrderTable").html(noPayOrderHtml);
                 $("#tanchuddId").show();
             })
+
             $("#closeOrder").bind("click", function () {
                 $.ajax({
-                    url: wpt_serverName + "wstyzf/xzf/closeOrder",
+                    url: wpt_serverName + "wstyzf/xzfSecond/closeOrder",
                     type: 'post',
                     dataType: 'json',
                     timeout: 10000,
-                    data: {prepay_id: wpt_xzf.prepay_id},
+                    data: {prepay_id: wpt_xzf.noPayOrderInfo.prepay_id},
                     beforeSend: function () {
                         layer.ready(function () {
                             loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
@@ -280,63 +285,69 @@ layui.use(['form', 'element', 'layer'], function () {
                     }
                 })
             })
+            if (payType == "JSAPI") {
+                $("#finishOrder").bind("click", function () {
+                    $.ajax({
+                        url: wpt_serverName + "wstyzf/xzfSecond/rezfXzf",
+                        type: 'post',
+                        dataType: 'json',
+                        timeout: 10000,
+                        data: {prepay_id: wpt_xzf.noPayOrderInfo.prepay_id},
+                        beforeSend: function () {
+                            layer.ready(function () {
+                                loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                            })
+                        },
+                        success: function (data) {
+                            if (data) {
+                                var code = data.returnInfo.return_code;
+                                var msg = data.returnInfo.return_msg;
+                                if (code == "0") {
+                                    var obj = {
+                                        appId: data.appId,
+                                        timeStamp: data.timeStamp,
+                                        nonceStr: data.nonceStr,
+                                        package: data.package,
+                                        signType: data.signType,
+                                        paySign: data.paySign
+                                    }
 
-            $("#finishOrder").bind("click", function () {
-                $.ajax({
-                    url: wpt_serverName + "wstyzf/xzf/rezfXzf",
-                    type: 'post',
-                    dataType: 'json',
-                    timeout: 10000,
-                    data: {prepay_id: wpt_xzf.prepay_id},
-                    beforeSend: function () {
-                        layer.ready(function () {
-                            loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
-                        })
-                    },
-                    success: function (data) {
-                        if (data) {
-                            var code = data.returnInfo.return_code;
-                            var msg = data.returnInfo.return_msg;
-                            if (code == "0") {
-                                var obj = {
-                                    appId: data.appId,
-                                    timeStamp: data.timeStamp,
-                                    nonceStr: data.nonceStr,
-                                    package: data.package,
-                                    signType: data.signType,
-                                    paySign: data.paySign
-                                }
-
-                                if (typeof WeixinJSBridge == "undefined") {
-                                    if (document.addEventListener) {
-                                        document.addEventListener('WeixinJSBridgeReady',
-                                            wpt_xzf.onBridgeReady(obj), false);
-                                    } else if (document.attachEvent) {
-                                        document.attachEvent('WeixinJSBridgeReady',
-                                            wpt_xzf.onBridgeReady(obj));
-                                        document.attachEvent('onWeixinJSBridgeReady',
-                                            wpt_xzf.onBridgeReady(obj));
+                                    if (typeof WeixinJSBridge == "undefined") {
+                                        if (document.addEventListener) {
+                                            document.addEventListener('WeixinJSBridgeReady',
+                                                wpt_xzf.onBridgeReady(obj), false);
+                                        } else if (document.attachEvent) {
+                                            document.attachEvent('WeixinJSBridgeReady',
+                                                wpt_xzf.onBridgeReady(obj));
+                                            document.attachEvent('onWeixinJSBridgeReady',
+                                                wpt_xzf.onBridgeReady(obj));
+                                        }
+                                    } else {
+                                        wpt_xzf.onBridgeReady(obj);
                                     }
                                 } else {
-                                    wpt_xzf.onBridgeReady(obj);
+                                    layer.msg(msg, {anim: 6, time: 2000});
                                 }
-                            } else {
-                                layer.msg(msg, {anim: 6, time: 2000});
                             }
+                        },
+                        complete: function () {
+                            layer.close(loadIndex);
                         }
-                    },
-                    complete: function () {
-                        layer.close(loadIndex);
-                    }
+                    })
                 })
-            })
+            } else {
+                $("#closeOrder").css("width","100%");
+                $("#finishOrder").hide();
 
+            }
         },
+
         noPayOrder: function (data) {
             wpt_xzf.noPayOrderInfo.noPayOrder = data.noPayOrder;
             if (data.noPayOrder == "yes") {
                 wpt_xzf.noPayOrderInfo.orderInfo = data.orderInfo;
-                wpt_xzf.prepay_id = data.prepay_id;
+                wpt_xzf.noPayOrderInfo.prepay_id = data.prepay_id;
+                wpt_xzf.noPayOrderInfo.payType = data.payType;
                 wpt_xzf.bindShowOrder();
             } else {
                 wpt_xzf.bindZf();

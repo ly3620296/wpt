@@ -1,15 +1,16 @@
-package gka.pay.wxpay.thread;
+package gka.thread;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.pay.wxpay.controller.MyWxpayConstant;
 import gka.pay.wxpay.controller.WxPayDao;
-import gka.pay.wxpay.controller.WxPayOrder;
 import gka.pay.wxpay.controller.WxPayTool;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**

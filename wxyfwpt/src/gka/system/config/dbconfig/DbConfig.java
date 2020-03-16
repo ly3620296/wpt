@@ -53,7 +53,7 @@ public class DbConfig {
             druidPlugin.setTestWhileIdle(testWhileIdle);
             wallFilter = new WallFilter();  // 添加防御sql注入的filter，加强数据库安全
             wallFilter.setDbType(dbType);
-            druidPlugin.addFilter(wallFilter);
+//            druidPlugin.addFilter(wallFilter);
             druidPlugin.addFilter(new StatFilter()); // 添加监控统计StatFilter 才会有统计数据
             plugins.add(druidPlugin);
             ActiveRecordPlugin activeRecordPlugin;

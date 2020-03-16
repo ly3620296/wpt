@@ -41,39 +41,39 @@
     </div>
     <div class="head">
         <div class="people">
-            <ul class="">
-                <li>
-                    <p class="p1">周课程</p>
+            <%--<ul class="">--%>
+                <%--<li>--%>
+                    <%--<p class="p1">周课程</p>--%>
 
-                    <p>15节</p>
-                </li>
-                <li>
-                    <p class="p1">周活动</p>
+                    <%--<p>15节</p>--%>
+                <%--</li>--%>
+                <%--<li>--%>
+                    <%--<p class="p1">周活动</p>--%>
 
-                    <p>5次</p>
-                </li>
-                <li>
-                    <p class="p1">我的考试</p>
+                    <%--<p>5次</p>--%>
+                <%--</li>--%>
+                <%--<li>--%>
+                    <%--<p class="p1">我的考试</p>--%>
 
-                    <p>55分</p>
-                </li>
+                    <%--<p>55分</p>--%>
+                <%--</li>--%>
 
-                <li>
-                    <p class="p1"></p>
+                <%--<li>--%>
+                    <%--<p class="p1"></p>--%>
 
-                    <p></p>
-                </li>
-                <li>
-                    <p class="p1"></p>
+                    <%--<p></p>--%>
+                <%--</li>--%>
+                <%--<li>--%>
+                    <%--<p class="p1"></p>--%>
 
-                    <p></p>
-                </li>
-                <li>
-                    <p class="p1"></p>
+                    <%--<p></p>--%>
+                <%--</li>--%>
+                <%--<li>--%>
+                    <%--<p class="p1"></p>--%>
 
-                    <p></p>
-                </li>
-            </ul>
+                    <%--<p></p>--%>
+                <%--</li>--%>
+            <%--</ul>--%>
         </div>
         <ul class="tableTabul" style="margin-top: 0;" id="grxx">
             <li>

@@ -4,6 +4,7 @@ import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import gka.controller.module.wstyzf.xzf.XzfDao;
+import gka.controller.module.wstyzf.xzf.XzfSecondDao;
 import gka.kit.IpKit;
 import gka.pay.wxpay.WXPay;
 import gka.pay.wxpay.WXPayConstants;
@@ -20,7 +21,7 @@ public class WxPayCallBackController extends Controller {
             "<return_code><![CDATA[SUCCESS]]></return_code>" +
             "<return_msg><![CDATA[OK]]></return_msg>" +
             "</xml>";
-
+    private XzfSecondDao xzfSecondDao =new XzfSecondDao();
     public void index() {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(getRequest().getInputStream(), "UTF-8"));
@@ -47,7 +48,9 @@ public class WxPayCallBackController extends Controller {
                 //通知微信
                 renderText(callBackString);
                 //修改订单为非法订单
-                XzfDao.updateIllegalMoneyOrder(repData);
+//                XzfDao.updateIllegalMoneyOrder(repData);
+                xzfSecondDao.updateIllegalMoneyOrder(repData);
+
                 return;
             }
 
@@ -59,7 +62,8 @@ public class WxPayCallBackController extends Controller {
              * 1. 修改订单表
              * 2. 修改缴费表
              */
-            XzfDao.updateNormalOrder(repData);
+//            XzfDao.updateNormalOrder(repData);
+            xzfSecondDao.updateNormalOrder(repData);
 
         } catch (Exception e) {
             e.printStackTrace();

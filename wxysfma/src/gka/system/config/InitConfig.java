@@ -4,11 +4,11 @@ package gka.system.config;
 import com.jfinal.config.*;
 import com.jfinal.ext.route.ControllerRoute;
 import com.jfinal.template.Engine;
-import gka.interceptor.LoginInterceptor;
 import gka.pay.wxpay.controller.WxPayTool;
 import gka.resource.properties.ProKit;
 import gka.resource.xml.InitXml;
 import gka.system.config.dbconfig.DbConfig;
+import gka.thread.OrderCheck;
 import gka.thread.ThreadStart;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -70,6 +70,7 @@ public class InitConfig extends JFinalConfig {
      */
     public void afterJFinalStart() {
         WxPayTool.getInstance();
+        new OrderCheck();
     }
 
     /**
