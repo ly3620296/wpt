@@ -7,6 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-v2.5.4/css/layui.css">
+    <style>
+        html {
+            background-color: #fbfbfb !important;
+            color: #333;
+        }
+    </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-v2.5.4/layui.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
@@ -30,14 +36,6 @@
         <div class="layui-input-inline">
             <input type="text" name="JFXMMC" required lay-verify="required" placeholder="请输入缴费项目名称" autocomplete="off"
                    class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item" style="margin-top: 5%;">
-        <label style="width: 130px;" class="layui-form-label">是否必缴</label>
-
-        <div class="layui-input-block">
-            <input type="radio" name="SFBX" value="1" title="是" checked>
-            <input type="radio" name="SFBX" value="0" title="否">
         </div>
     </div>
     <div class="layui-form-item">
@@ -77,8 +75,7 @@
                     form.val('example', {
                         "ID": data.OUT_DATA.ID,
                         "JFXMID": data.OUT_DATA.JFXMID,
-                        "JFXMMC": data.OUT_DATA.JFXMMC,
-                        "SFBX": data.OUT_DATA.SFBX
+                        "JFXMMC": data.OUT_DATA.JFXMMC
                     })
                     form.render()
                 } else {

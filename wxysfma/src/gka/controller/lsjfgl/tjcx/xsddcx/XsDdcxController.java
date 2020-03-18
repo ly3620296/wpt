@@ -36,6 +36,8 @@ public class XsDdcxController extends Controller {
             int page = Integer.parseInt(getPara("page"));
             int limit = Integer.parseInt(getPara("limit"));
             Page<Record> paginate = ddcxDao.getOrderInfo(page, limit, search);
+            List<Record> xnList = ddcxDao.queryXn();
+            map.put("xnList", xnList);
             map.put("code", "0");
             map.put("msg", "success");
             map.put("data", paginate.getList());

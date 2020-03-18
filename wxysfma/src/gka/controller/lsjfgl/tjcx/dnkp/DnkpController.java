@@ -7,6 +7,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.IpKit;
 import gka.common.kit.OrderCodeFactory;
+import gka.controller.lsjfgl.tjcx.xsddcx.XsDdcxDao;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
 import gka.pay.wxpay.WXPayUtil;
 import gka.pay.wxpay.controller.WxPayDao;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class DnkpController extends Controller {
     WyjfDao wyjfDao = new WyjfDao();
     private WxPayDao wxPayDao = new WxPayDao();
+    private XsDdcxDao ddcxDao = new XsDdcxDao();
 
     public void index() {
         Map map = new HashMap();
@@ -75,7 +77,7 @@ public class DnkpController extends Controller {
                 DnkpDao.insertOrder(xh, order, ids, jffs, ze, ip, xn, orderNO);
                 String sql = "INSERT INTO YHSJB  SELECT * FROM XSSFB WHERE XH=? AND XN=?";
                 Db.update(sql, xh, xn);
-                String upSql = "update YHSJB SET yshj='"+ze+"'," + getSql(titles, jsonObject) + " WHERE XH=? AND XN=?";
+                String upSql = "update YHSJB SET yshj='" + ze + "'," + getSql(titles, jsonObject) + " WHERE XH=? AND XN=?";
                 Db.update(upSql, xh, xn);
                 map.put("code", "0");
                 map.put("msg", "success");
@@ -131,6 +133,8 @@ public class DnkpController extends Controller {
         Map map = new HashMap();
         try {
             List<Record> titles = wyjfDao.queryTitle();
+            List<Record> xnList = ddcxDao.queryXn();
+            map.put("xnList", xnList);
             map.put("titles", titles);
             map.put("code", "0");
             map.put("msg", "success");

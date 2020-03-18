@@ -196,6 +196,7 @@
                             , layEvent = obj.event; //获得 lay-event 对应的值
                     var orderNo = data.ORDER_NO;
                     var xn = data.SFXN
+                    console.log(data.SFXN)
                     if (layEvent === 'ddxz-qx') {
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "qx");
                     } else if (layEvent === 'ddxz-cg') {

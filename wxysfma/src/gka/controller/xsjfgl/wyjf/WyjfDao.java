@@ -17,8 +17,8 @@ import java.util.Map;
 public class WyjfDao {
 
     public List<Record> queryTitle() {
-        String sql = "SELECT JFXMID,JFXMMC,SFBX FROM JFXMDM ORDER BY JFXMID";
-        List<Record> list = Db.find(sql);
+        String sql = "SELECT JFXMID,JFXMMC,SFBX FROM JFXMDM WHERE SFQY=? ORDER BY JFXMID";
+        List<Record> list = Db.find(sql, "1");
         return list;
     }
 
@@ -37,16 +37,18 @@ public class WyjfDao {
     }
 
     public List<Record> queryTotalWjf(List<Record> title, String xh) {
-        String sql = "SELECT T1.XN," + getSqlWjf(title) +
-                " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? ORDER BY T1.XN";
-        List<Record> list = Db.find(sql, xh);
+        String sql = "SELECT * FROM (SELECT T1.XN," + getSqlWjf(title) +
+                " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSql(title) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =?)" +
+                " WHERE YSHJ!='0' ORDER BY XN DESC";
+        List<Record> list = Db.find(sql, xh, xh);
         return list;
     }
 
+
     public Record jf(String xh, String xn, List<Record> title) {
         String sql = "SELECT " + getSqlForJf(title) +
-                " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=?";
-        Record re = Db.findFirst(sql, xh, xn);
+                " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSql(title) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=?";
+        Record re = Db.findFirst(sql, xh, xh,xn);
         return re;
 
     }
@@ -61,12 +63,12 @@ public class WyjfDao {
         return preMoney;
     }
 
-    public  void updateIllegalMoneyOrder(final Map<String, String> repData) {
+    public void updateIllegalMoneyOrder(final Map<String, String> repData) {
         Db.tx(new IAtom() {
             @Override
             public boolean run() throws SQLException {
                 String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=? WHERE OUT_TRADE_NO=?";
-                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), repData.get("total_fee"), repData.get("openid"),  repData.get("out_trade_no"));
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), repData.get("total_fee"), repData.get("openid"), repData.get("out_trade_no"));
                 int upYsf = updateOrder(repData.get("out_trade_no"));
                 return upOrder * upYsf >= 1;
             }
@@ -169,7 +171,6 @@ public class WyjfDao {
 
     private String getSqlWjf(List<Record> title) {
         StringBuffer sb = new StringBuffer();
-        StringBuffer hj = new StringBuffer("(T1.YSHJ");
         for (int i = 0; i < title.size(); i++) {
             Record re = title.get(i);
 
@@ -177,14 +178,12 @@ public class WyjfDao {
             if (i < title.size() - 1) {
                 sb.append("(NVL(T1." + jfxmId + ",0)-");
                 sb.append("NVL(T2." + jfxmId + ",0)) " + jfxmId + ",");
-                hj.append("-" + "NVL(T2." + jfxmId + ",0)");
             } else {
                 sb.append("(NVL(T1." + jfxmId + ",0)-");
                 sb.append("NVL(T2." + jfxmId + ",0)) " + jfxmId + ",");
-                hj.append("-" + "NVL(T2." + jfxmId + ",0)) YSHJ");
+                sb.append("(NVL(T1.YSHJ,0)-NVL(T2.SSHJ,0)) YSHJ");
             }
         }
-        sb.append(hj);
         return sb.toString();
     }
 
@@ -230,10 +229,10 @@ public class WyjfDao {
         return isNoPay;
     }
 
-    public String queryOrderState(String out_trade_no){
-        String sql="SELECT ORDER_STATE FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
-        Record re = Db.findFirst(sql,out_trade_no);
-        return re==null?"":re.getStr("ORDER_STATE");
+    public String queryOrderState(String out_trade_no) {
+        String sql = "SELECT ORDER_STATE FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
+        Record re = Db.findFirst(sql, out_trade_no);
+        return re == null ? "" : re.getStr("ORDER_STATE");
     }
 
     //查询是否存在未支付订单
@@ -287,4 +286,68 @@ public class WyjfDao {
         Record re = Db.findFirst("SELECT IDS,TOTAL_FEE,CODE_URL,ORDER_STATE FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=? AND ORDER_STATE=?", order_no, MyWxpayConstant.ORDER_STATE_NOPAY);
         return re;
     }
+
+
+    /**
+     * 生成已缴每个学年总记录查询sql
+     */
+    private String generateYjfSql(List<Record> titles) {
+        StringBuffer sb = new StringBuffer("SELECT XH,XN,");
+        for (int i = 0; i < titles.size(); i++) {
+            Record re = titles.get(i);
+            String jfxmId = re.getStr("JFXMID");
+
+            if (i < titles.size() - 1) {
+                sb.append("SUM(" + jfxmId + ") ");
+                sb.append(jfxmId);
+                sb.append(",");
+            } else {
+                sb.append("SUM(" + jfxmId + ") ");
+                sb.append(jfxmId);
+                sb.append(",");
+                sb.append("SUM(SSHJ) SSHJ ");
+            }
+        }
+        sb.append("FROM YHSJB WHERE XH=? GROUP BY XH,XN");
+        return sb.toString();
+    }
+
+    /**
+     * 该学年应交费用信息
+     *
+     * @param titles
+     * @param xh
+     * @return
+     */
+    public Record queryXnYjFyxx(List<Record> titles, String xh, String xn) {
+        String sql = "SELECT T1.XN," + getSqlWjf(titles) +
+                " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSql(titles) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN =?";
+        Record re = Db.findFirst(sql, xh, xh, xn);
+        return re;
+    }
+
+    /**
+     * 已缴费用信息
+     */
+    public List<Record> queryYjFyxx(List<Record> titles, String xh) {
+        String titleSql = parseTitleSql(titles);
+        String sql = "SELECT XN,SSHJ," + titleSql + " FROM YHSJB WHERE XH=? ORDER BY XN DESC";
+        List<Record> records = Db.find(sql, xh);
+        return records;
+    }
+
+    private String parseTitleSql(List<Record> titles) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < titles.size(); i++) {
+            Record re = titles.get(i);
+            if (i < titles.size() - 1) {
+                sb.append(re.getStr("JFXMID"));
+                sb.append(",");
+            } else {
+                sb.append(re.getStr("JFXMID"));
+            }
+        }
+        return sb.toString();
+    }
+
 }

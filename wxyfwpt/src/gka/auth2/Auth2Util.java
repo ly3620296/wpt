@@ -53,4 +53,8 @@ public class Auth2Util {
         }
         return stringBuffer.toString();
     }
+
+    public static void main(String[] args) {
+        System.out.println(createAuth2Url());
+    }
 }

@@ -26,7 +26,10 @@
 <div class="layui-layout layui-layout-admin">
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <div class="layui-header">
-        <div class="layui-logo">微平台后台管理</div>
+        <div class="layui-logo">
+            <img src="/wptma/img/titlename.png" style="  width: 170px;margin-left: 18px;">
+            <img src="/wptma/img/white2.png" style="  width: 460px;margin-left: 33px;">
+        </div>
         <ul class="layui-nav layui-layout-left">
             <%--<li class="layui-nav-item"><a lay-href="">控制台</a></li>--%>
             <%--<li class="layui-nav-item"><a lay-href="">商品管理</a></li>--%>

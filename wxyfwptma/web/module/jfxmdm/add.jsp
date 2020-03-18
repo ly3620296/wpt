@@ -7,36 +7,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
+    <style>
+        html {
+            background-color: #fbfbfb !important;
+            color: #333;
+        }
+
+    </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>
 <jsp:include page="/login/auth.jsp"></jsp:include>
+
 <form class="layui-form" action="">
-    <div class="layui-form-item layui-form-text" style="margin-top: 5%;">
-        <label style="width: 130px;" class="layui-form-label">缴费项目代码</label>
+    <div class="layui-form-item " style="margin-top:  5%">
+        <div class="layui-inline">
+            <label class="layui-form-label" style="width: 120px;">缴费项目代码</label>
 
-        <div class="layui-input-inline">
-            <input type="text" name="JFXMID" required lay-verify="required" placeholder="请输入缴费项目代码" autocomplete="off"
-                   class="layui-input">
+            <div class="layui-input-inline">
+                <input type="text" name="JFXMID" required lay-verify="required" placeholder="请输入缴费项目代码"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item layui-form-text" style="margin-top: 5%;">
-        <label style="width: 130px;" class="layui-form-label">缴费项目名称</label>
+        <div class="layui-inline" style="margin-top:  5%">
+            <label class="layui-form-label" style="width: 120px;">缴费项目名称</label>
 
-        <div class="layui-input-inline">
-            <input type="text" name="JFXMMC" required lay-verify="required" placeholder="请输入缴费项目名称" autocomplete="off"
-                   class="layui-input">
+            <div class="layui-input-inline">
+                <input type="text" name="JFXMMC" required lay-verify="required" placeholder="请输入缴费项目名称"
+                       autocomplete="off"
+                       class="layui-input">
+            </div>
         </div>
     </div>
-    <div class="layui-form-item" style="margin-top: 5%;">
-        <label style="width: 130px;" class="layui-form-label">是否必缴</label>
-        <div class="layui-input-block">
-            <input type="radio" name="SFBX" value="1" title="是" checked>
-            <input type="radio" name="SFBX" value="0" title="否">
-        </div>
-    </div>
+
+
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>

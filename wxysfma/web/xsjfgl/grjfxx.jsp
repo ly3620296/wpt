@@ -12,6 +12,10 @@
             object-fit: cover;
             max-width: 180px !important;
         }
+
+        #ly_tab tbody tr:hover {
+            background-color: #fbfbfb;
+        }
     </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
@@ -48,7 +52,7 @@
         <div class="layui-card">
             <div class="layui-card-body">
                 <div class="layui-form">
-                    <table class="layui-table">
+                    <table class="layui-table" id="ly_tab">
                         <colgroup>
                             <col width="15%">
                             <col width="25%">
@@ -163,7 +167,7 @@
                 var col = titles.length + 2;
                 var cols2 = [{title: "学年", field: "XN", align: "center"}, {
                     title: "交费合计",
-                    field: "YSHJ",
+                    field: "SSHJ",
                     align: "center"
                 }];
                 for (var i = 0; i < titles.length; i++) {
@@ -177,7 +181,12 @@
                 table.render({
                     elem: '#jfjl-table'  //容器id
                     , cols: [[   //表头
-                        {title: "已缴费用信息", colspan: col, align: "center", style: 'background-color: blue;'}
+                        {
+                            title: "已缴费用信息（<font color='red'>单位元</font>）",
+                            colspan: col,
+                            align: "center",
+                            style: 'background-color: blue;'
+                        }
                     ], cols2]
                     , url: wpt_serverName + 'xsjfgl/grjfxx?' //数据接口地址
                     , title: '用户表'

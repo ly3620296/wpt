@@ -7,41 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
-    <style>
-        .layui-table-tool-temp {
-            padding-right: 30px !important;
-        }
-
-        .myDef {
-            float: right;
-            top: 3px;
-            position: relative;
-            width: 26px;
-            height: 26px;
-            padding: 5px;
-            line-height: 16px;
-            margin-right: 10px;
-            text-align: center;
-            color: #333;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            -webkit-transition: .5s all;
-            transition: .5s all;
-        }
-
-        .layui-form-item .layui-inline {
-            margin-bottom: 15px;
-            margin-right: 150px;
-        }
-
-        .layui-form-item .layui-input-inline {
-            width: 320px;
-        }
-    </style>
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/commonLs.css">
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>
 <input type="hidden" id="my_status" value="0">
+<input type="hidden" id="select_status" value="0">
 <jsp:include page="/login/lsauth.jsp"></jsp:include>
 
 <%
@@ -69,13 +40,23 @@
                         <input type="text" id="search-ddbh" placeholder="订单编号" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-inline ">
+
+
+                <div class="layui-inline">
                     <label class="layui-form-label">学年：</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" id="search-xn" placeholder="学年" autocomplete="off" class="layui-input">
+                        <select lay-verify="required" id="search-xn">
+                        </select>
                     </div>
                 </div>
+                <%--<div class="layui-inline ">--%>
+                <%--<label class="layui-form-label">学年：</label>--%>
+
+                <%--<div class="layui-input-inline">--%>
+                <%--<input type="text" id="search-xn" placeholder="学年" autocomplete="off" class="layui-input">--%>
+                <%--</div>--%>
+                <%--</div>--%>
                 <div class="layui-inline">
                     <label class="layui-form-label">姓名：</label>
 
@@ -114,14 +95,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">支付时间：</label>
 
-                    <div class="layui-input-inline" style="width: 133px;">
+                    <div class="layui-input-inline my-with">
                         <input type="text" name="title" placeholder="开始时间" autocomplete="off" class="layui-input"
                                id="dateStart">
                     </div>
                     <div class="layui-input-inline" style="width: 15px">
                         至
                     </div>
-                    <div class="layui-input-inline" style="width: 133px;">
+                    <div class="layui-input-inline my-with">
                         <input type="text" name="title" placeholder="结束时间" autocomplete="off" class="layui-input"
                                id="dateEnd">
                     </div>
@@ -240,6 +221,18 @@
                     }]
                     , done: function (res, curr, count) { //加载完回调
                         $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5', 'font-weight': 'bold'})
+                        if ($("#select_status").val() == 0) {
+                            var xnList = res.xnList;
+                            var options = "<option value='' selected> 请选择</option>";
+                            for (var index in xnList) {
+                                var xnmc = xnList[index].XNMC;
+                                //下拉选定位当前周
+                                options += "<option value='" + xnmc + "'>" + xnmc + "</option>";
+                            }
+                            $("#search-xn").html(options);
+                            form.render('select');
+                            $("#select_status").val("1")
+                        }
                     },
                     id: 'userTableReload'
                 });
@@ -247,7 +240,7 @@
             closeOrderInfo: function (xn, orderNo, type, zh) {
                 layer.open({
                     type: 2,
-                    area: [parseInt(parent.$("#iframe_00").width()) * 0.7 + 'px', parseInt(parent.$("#iframe_00").height()) * 0.9 + 'px'],
+                    area: [parseInt(parent.$("#iframe_10").width()) * 0.7 + 'px', parseInt(parent.$("#iframe_10").height()) * 0.9 + 'px'],
                     title: "交费订单",
                     fixed: false, //不固定
                     maxmin: true,
@@ -300,6 +293,7 @@
                 });
             },
             bindCli: function () {
+
                 //重置
                 $("#my-reset").bind("click", function () {
                     $("#my-header input").val("");
@@ -307,7 +301,17 @@
                 })
 //                导出
                 $("#my-export").bind("click", function () {
+//                    var ddbh = $('#search-ddbh').val();
+//                    var xn = $('#search-xn').val();
+//                    var xm = $('#search-xm').val();
+//                    var ddzt = $('#search-ddzt').val();
+//                    var xh = $('#search-xh').val();
+//                    var sfzh = $('#search-sfzh').val();
+//                    var dateStart = $('#dateStart').val();
+//                    var dateEnd = $('#dateEnd').val();
                     window.location.href = wpt_serverName + 'lsjfgl/tjcx/xsddcx/export' //数据接口地址
+
+
                 })
 
 
@@ -340,6 +344,15 @@
                         }
                     });
                 })
+
+                $('body').keyup(function (e) {
+                    if (e.keyCode === 13) {
+                        $('#my-search').click()
+                    } else if (e.keyCode === 27) {
+                        $('#my-reset').click()
+                    }
+                })
+
             }
         }
         wpt_grjfxx.initTab();
@@ -348,7 +361,6 @@
         wpt_grjfxx.bindCli();
 
     });
-
 </script>
 </body>
 </html>

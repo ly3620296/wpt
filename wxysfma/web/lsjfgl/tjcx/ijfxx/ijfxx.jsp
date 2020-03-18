@@ -7,41 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
-    <style>
-        .layui-table-tool-temp {
-            padding-right: 30px !important;
-        }
-
-        .myDef {
-            float: right;
-            top: 3px;
-            position: relative;
-            width: 26px;
-            height: 26px;
-            padding: 5px;
-            line-height: 16px;
-            margin-right: 10px;
-            text-align: center;
-            color: #333;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            -webkit-transition: .5s all;
-            transition: .5s all;
-        }
-
-        .layui-form-item .layui-inline {
-            margin-bottom: 15px;
-            margin-right: 150px;
-        }
-
-        .layui-form-item .layui-input-inline {
-            width: 320px;
-        }
-    </style>
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/commonLs.css">
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>
 <input type="hidden" id="my_status" value="0">
+<input type="hidden" id="select_status" value="0">
 <jsp:include page="/login/lsauth.jsp"></jsp:include>
 
 <%
@@ -61,11 +32,12 @@
     <div class="layui-card">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item" id="my-header">
-                <div class="layui-inline ">
+                <div class="layui-inline">
                     <label class="layui-form-label">缴费学年：</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" id="search-sfxn" placeholder="缴费学年" autocomplete="off" class="layui-input">
+                        <select lay-verify="required" id="search-xn">
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -107,14 +79,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">支付时间：</label>
 
-                    <div class="layui-input-inline" style="width: 133px;">
+                    <div class="layui-input-inline my-with">
                         <input type="text" name="title" placeholder="开始时间" autocomplete="off" class="layui-input"
                                id="dateStart">
                     </div>
                     <div class="layui-input-inline" style="width: 15px">
                         至
                     </div>
-                    <div class="layui-input-inline" style="width: 133px;">
+                    <div class="layui-input-inline my-with">
                         <input type="text" name="title" placeholder="结束时间" autocomplete="off" class="layui-input"
                                id="dateEnd">
                     </div>
@@ -129,7 +101,7 @@
                             <option value="CARD">刷卡</option>
                             <option value="JSAPI">APP微信</option>
                             <option value="NATIVE">微信扫码</option>
-                            <option value="GXZZ">微信扫码</option>
+                            <option value="GXZZ">高校转账</option>
                         </select>
                     </div>
                 </div>
@@ -137,10 +109,11 @@
                     <label class="layui-form-label">入学年级：</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" id="search-nj" placeholder="入学年级" autocomplete="off" class="layui-input">
+                        <select lay-verify="required" id="search-nj">
+                        </select>
                     </div>
                 </div>
-                <div class="layui-inline" style="margin-left: 50px;">
+                <div class="layui-inline my-cx">
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-search">
                         查询
                     </button>
@@ -160,7 +133,7 @@
     <%--</div>--%>
 </div>
 <script type="text/html" id="toolbarDemo">
-    <div class="layui-inline myDef" title="刷新" id="refresh">
+    <div class="layui-inline myDef" title="刷新" id="refresh1">
         <i class="layui-icon layui-icon-refresh" style="font-size: 16px; color: #1E9FFF;"></i>
     </div>
 </script>
@@ -200,15 +173,15 @@
             initTabTitles: function (titles) {
                 var col = titles.length + 3;
                 var cols2 = [
-                    {title: "缴费学年", field: "SFXN", align: "center", width: "7%", fixed: "left"},
+                    {title: "缴费学年", field: "XN", align: "center", width: "7%", fixed: "left"},
                     {title: "学号", field: "XH", align: "center"},
-                    {title: "订单号", field: "ORDER_NO", align: "center"},
+                    {title: "订单号", field: "DDH", align: "center"},
                     {title: "姓名", field: "XM", align: "center"},
                     {title: "性别", field: "XB", align: "center"},
                     {title: "学院名称", field: "XYMC", align: "center"},
                     {title: "专业名称", field: "ZYMC", align: "center"},
                     {title: "班级名称", field: "BJMC", align: "center"},
-                    {title: "交费合计", field: "TOTAL_FEE", align: "center"}
+                    {title: "交费合计", field: "SSHJ", align: "center"}
                 ];
                 for (var i = 0; i < titles.length; i++) {
                     if (titles[i].SFBX == "1") {
@@ -218,7 +191,7 @@
                     }
                 }
                 cols2[titles.length + 9] = {title: "缴费类型", field: "PAY_TYPE", align: "center"}
-                cols2[titles.length + 10] = {title: "下单时间", field: "TIME_START", align: "center"}
+                cols2[titles.length + 10] = {title: "下单时间", field: "XDSJF", align: "center"}
                 table.render({
                     elem: '#jfjl-table'  //容器id
                     , cols: [cols2]
@@ -236,15 +209,38 @@
                         , icon: 'layui-icon-tips'
                     }]
                     , done: function (res, curr, count) { //加载完回调
-                        $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5', 'font-weight': 'bold'})
+                        $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5', 'font-weight': 'bold'});
+                        if ($("#select_status").val() == 0) {
+                            var xnList = res.xnList;
+                            var optionsXn = "<option value='' selected> 请选择</option>";
+                            for (var index in xnList) {
+                                var xnmc = xnList[index].XNMC;
+                                //下拉选定位当前周
+                                optionsXn += "<option value='" + xnmc + "'>" + xnmc + "</option>";
+                            }
+                            $("#search-xn").html(optionsXn);
+                            var rxnjList = res.rxnjList;
+                            var optionsRxnj = "<option value='' selected> 请选择</option>";
+                            for (var index in rxnjList) {
+                                var rxnj = rxnjList[index].RXNJ;
+                                //下拉选定位当前周
+                                optionsRxnj += "<option value='" + rxnj + "'>" + rxnj + "</option>";
+                            }
+                            $("#search-nj").html(optionsRxnj);
+                            form.render('select');
+                            $("#select_status").val("1")
+                        }
+                        $("#refresh1").bind("click", function () {
+                            window.location.reload();
+                        })
                     },
                     id: 'userTableReload'
                 });
             },
             listenTool: function () {
-                $("#refresh").bind("click", function () {
-                    window.location.reload();
-                })
+//                $("#refresh1").bind("click", function () {
+//                    window.location.reload();
+//                })
             },
 
             initDate: function () {
@@ -282,7 +278,7 @@
 
 
                 $("#my-search").bind("click", function () {
-                    var sfxn = $('#search-sfxn').val(); //缴费学年
+                    var sfxn = $('#search-xn').val(); //缴费学年
                     var xh = $('#search-xh').val(); //学号
                     var xm = $('#search-xm').val(); //姓名
                     var xymc = $('#search-xymc').val();  //学院名称
@@ -312,10 +308,18 @@
                         }
                     });
                 })
+
+                $('body').keyup(function (e) {
+                    if (e.keyCode === 13) {
+                        $('#my-search').click()
+                    } else if (e.keyCode === 27) {
+                        $('#my-reset').click()
+                    }
+                })
             }
+
         }
         wpt_grjfxx.init();
-        wpt_grjfxx.listenTool();
         wpt_grjfxx.initDate();
         wpt_grjfxx.bindCli();
     });

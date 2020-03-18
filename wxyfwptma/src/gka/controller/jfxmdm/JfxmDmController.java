@@ -18,14 +18,13 @@ public class JfxmDmController extends LController {
 
     public void list() {
         try {
-            WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
             int page = Integer.parseInt(getPara("page"));
             int limit = Integer.parseInt(getPara("limit"));
             String jfxmmc = getPara("JFXMMC");
             int count = JfxmDmDao.searchCount(jfxmmc);    // 查找数据条数
             int start = limit * page - limit + 1;
             int end = limit * page;
-            List<Record> list = jfxmDmDao.list(start, end,jfxmmc);
+            List<Record> list = jfxmDmDao.list(start, end, jfxmmc);
             Map map = ReKit.toMap(count, list);
             renderJson(map);
         } catch (Exception e) {
@@ -35,11 +34,9 @@ public class JfxmDmController extends LController {
 
     public void add() {
         try {
-            WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
             String jfxmid = getPara("JFXMID");
             String jfxmmc = getPara("JFXMMC");
-            String sfbx = getPara("SFBX");
-            int result = jfxmDmDao.add(jfxmid, jfxmmc, sfbx);
+            int result = jfxmDmDao.add(jfxmid, jfxmmc);
             if (result > 0) {
                 renderJson(ReturnKit.retOk());
             } else {
@@ -52,12 +49,10 @@ public class JfxmDmController extends LController {
 
     public void edit() {
         try {
-            WptMaUserInfo userInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
             String id = getPara("ID");
             String xmlxid = getPara("JFXMID");
             String xmlxmc = getPara("JFXMMC");
-            String sfbx = getPara("SFBX");
-            int result = jfxmDmDao.edit(id,xmlxid, xmlxmc,sfbx);
+            int result = jfxmDmDao.edit(id, xmlxid, xmlxmc);
             if (result > 0) {
                 renderJson(ReturnKit.retOk());
             } else {
@@ -78,6 +73,23 @@ public class JfxmDmController extends LController {
                 renderJson(ReturnKit.retOk());
             } else {
                 renderJson(ReturnKit.retFail("请选择需要删除的数据!"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void updateStatus() {
+        try {
+            String my_id = getPara("my_id");
+            String my_type = getPara("my_type");
+            String my_status = getPara("my_status");
+            int result = jfxmDmDao.updateStatus(my_id, my_type, my_status);
+            if (result > 0) {
+                renderJson(ReturnKit.retOk());
+            } else {
+                renderJson(ReturnKit.retFail("修改失败，请稍后再试!"));
             }
         } catch (Exception e) {
             e.printStackTrace();

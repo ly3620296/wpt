@@ -6,7 +6,8 @@ import com.jfinal.plugin.activerecord.Record;
 
 public class DdcxDao {
     public Page<Record> getOrderInfo(int page, int limit, String xh) {
-        String selectSql = "SELECT T1.ORDER_NO,T1.SFXN, to_char(to_date(T1.TIME_START,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_START,T1.TOTAL_FEE,NVL(T1.TOTAL_FEE_CALLBACK,0) TOTAL_FEE_CALLBACK,T1.ORDER_STATE,T2.ZYMC,T2.JGMC,T2.BJMC,T2.XM,T2.ZH,T2.ZJHM ";
+        String selectSql = "SELECT T1.ORDER_NO,T1.SFXN, to_char(to_date(T1.TIME_START,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_START,T1.TOTAL_FEE," +
+                "NVL(T1.TOTAL_FEE_CALLBACK,0) TOTAL_FEE_CALLBACK,T1.ORDER_STATE,T2.ZYMC,T2.JGMC,T2.BJMC,T2.XM,T2.ZH,T2.ZJHM ";
         String fromSql = " FROM WPT_WXZF_SPECIAL_ORDER T1 LEFT JOIN  WPT_YH T2 ON T1.XH=T2.ZH WHERE T2.ZH=? ORDER BY T1.TIME_START DESC";
         Page<Record> paginate = Db.paginate(page, limit, selectSql, fromSql, xh);
         return paginate;
@@ -30,9 +31,10 @@ public class DdcxDao {
         return re.getStr("IDS");
     }
 
-    public Record successOrderInfo(String order_no){
-        String sql = "SELECT IDS,TOTAL_FEE_CALLBACK, to_char(to_date(TIME_END,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_END FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
+    public Record successOrderInfo(String order_no) {
+        String sql = "SELECT IDS,TOTAL_FEE_CALLBACK, to_char(to_date(TIME_END,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_END " +
+                "FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
         Record re = Db.findFirst(sql, order_no);
-        return  re;
+        return re;
     }
 }

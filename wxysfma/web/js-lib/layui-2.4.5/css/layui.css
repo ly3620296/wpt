@@ -797,7 +797,7 @@ a cite {
 
 .layui-header {
     z-index: 1000;
-    height: 60px
+    height: 80px
 }
 
 .layui-header a:hover {
@@ -840,11 +840,11 @@ a cite {
 }
 
 .layui-layout-admin .layui-header {
-    background-color: #23262E
+    background-color: #102862
 }
 
 .layui-layout-admin .layui-side {
-    top: 60px;
+    top: 81px;
     width: 220px;
     overflow-x: hidden
 }
@@ -874,9 +874,9 @@ a cite {
     position: absolute;
     left: 0;
     top: 0;
-    width: 200px;
+    /*width: 200px;*/
     height: 100%;
-    line-height: 60px;
+    line-height: 80px;
     text-align: center;
     color: #009688;
     font-size: 16px
@@ -1727,7 +1727,7 @@ a cite {
 }
 
 .layui-bg-black {
-    background-color: #20222A !important
+    background-color: #102862 !important
 }
 
 .layui-bg-gray {
@@ -3514,7 +3514,7 @@ body .layui-table-tips .layui-layer-content {
     *display: inline;
     *zoom: 1;
     vertical-align: middle;
-    line-height: 60px
+    line-height: 80px
 }
 
 .layui-nav  {

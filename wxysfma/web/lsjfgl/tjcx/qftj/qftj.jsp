@@ -7,41 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
-    <style>
-        .layui-table-tool-temp {
-            padding-right: 30px !important;
-        }
-
-        .myDef {
-            float: right;
-            top: 3px;
-            position: relative;
-            width: 26px;
-            height: 26px;
-            padding: 5px;
-            line-height: 16px;
-            margin-right: 10px;
-            text-align: center;
-            color: #333;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            -webkit-transition: .5s all;
-            transition: .5s all;
-        }
-
-        .layui-form-item .layui-inline {
-            margin-bottom: 15px;
-            margin-right: 150px;
-        }
-
-        .layui-form-item .layui-input-inline {
-            width: 320px;
-        }
-    </style>
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/commonLs.css">
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>
 <input type="hidden" id="my_status" value="0">
+<input type="hidden" id="select_status" value="0">
 <jsp:include page="/login/lsauth.jsp"></jsp:include>
 
 <%
@@ -69,11 +40,12 @@
                 <%--<input type="text" id="search-ddbh" placeholder="订单编号" autocomplete="off" class="layui-input">--%>
                 <%--</div>--%>
                 <%--</div>--%>
-                <div class="layui-inline ">
+                <div class="layui-inline">
                     <label class="layui-form-label">学年：</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" id="search-xn" placeholder="学年" autocomplete="off" class="layui-input">
+                        <select lay-verify="required" id="search-xn">
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -111,19 +83,24 @@
                         <input type="text" id="search-bjmc" placeholder="班级名称" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">入学年级：</label>
 
-                        <div class="layui-input-inline">
-                            <input type="text" id="search-nj" placeholder="入学年级" autocomplete="off" class="layui-input">
-                        </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">入学年级：</label>
+
+                    <div class="layui-input-inline">
+                        <select lay-verify="required" id="search-nj">
+                        </select>
                     </div>
-                <div class="layui-inline" style="margin-left: 50px;">
+                </div>
+                <div class="layui-inline my-cx">
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-search">
                         查询
                     </button>
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="reset" id="my-reset">
                         重置
+                    </button>
+                    <button class="layui-btn layuiadmin-btn-list" lay-filter="export" id="my-export">
+                        导出
                     </button>
                 </div>
             </div>
@@ -156,7 +133,7 @@
         var wpt_grjfxx = {
             init: function () {
                 $.ajax({
-                    url: wpt_serverName + "lsjfgl/tjcx/yjfxx/title",
+                    url: wpt_serverName + "lsjfgl/tjcx/qftj/title",
                     type: 'post',
                     dataType: 'json',
                     timeout: 10000,
@@ -178,14 +155,14 @@
             initTabTitles: function (titles) {
                 var col = titles.length + 3;
                 var cols2 = [
-                    {title: "学年", field: "XN", align: "center", width: "7%", fixed: "left"},
+                    {title: "学年", field: "XN", align: "center", sort: true, width: "7%", fixed: "left"},
                     {title: "学号", field: "XH", align: "center"},
-                    {title: "姓名", field: "XM", align: "center"},
+                    {title: "姓名", field: "XM", sort: true, align: "center"},
                     {title: "身份证号", field: "SFZH", align: "center"},
                     {title: "学院名称", field: "XYMC", align: "center"},
                     {title: "专业名称", field: "ZYMC", align: "center"},
                     {title: "班级名称", field: "BJMC", align: "center"},
-                    {title: "应交费合计", field: "YSHJ", align: "center"}
+                    {title: "欠费金额", field: "PC_TOTAL", align: "center"}
                 ];
                 for (var i = 0; i < titles.length; i++) {
                     if (titles[i].SFBX == "1") {
@@ -198,7 +175,7 @@
                 table.render({
                     elem: '#jfjl-table'  //容器id
                     , cols: [cols2]
-                    , url: wpt_serverName + 'lsjfgl/tjcx/wjfxx' //数据接口地址
+                    , url: wpt_serverName + 'lsjfgl/tjcx/qftj' //数据接口地址
                     , title: '用户表'
                     , height: window.screen.height - 450
                     , page: true //开启分页
@@ -213,14 +190,35 @@
                     }]
                     , done: function (res, curr, count) { //加载完回调
                         $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5', 'font-weight': 'bold'})
+                        if ($("#select_status").val() == 0) {
+                            var xnList = res.xnList;
+                            var optionsXn = "<option value='' selected> 请选择</option>";
+                            for (var index in xnList) {
+                                var xnmc = xnList[index].XNMC;
+                                optionsXn += "<option value='" + xnmc + "'>" + xnmc + "</option>";
+                            }
+                            $("#search-xn").html(optionsXn);
+                            var rxnjList = res.rxnjList;
+                            var optionsRxnj = "<option value='' selected> 请选择</option>";
+                            for (var index in rxnjList) {
+                                var rxnj = rxnjList[index].RXNJ;
+                                optionsRxnj += "<option value='" + rxnj + "'>" + rxnj + "</option>";
+                            }
+                            $("#search-nj").html(optionsRxnj);
+                            form.render('select');
+                            $("#select_status").val("1")
+                        }
+                        $("#refresh").bind("click", function () {
+                            window.location.reload();
+                        })
                     },
                     id: 'userTableReload'
                 });
             },
             listenTool: function () {
-                $("#refresh").bind("click", function () {
-                    window.location.reload();
-                })
+//                $("#refresh").bind("click", function () {
+//                    window.location.reload();
+//                })
             },
             bindCli: function () {
                 //重置
@@ -228,7 +226,18 @@
                     $("#my-header input").val("");
                     $("#my-header select").val("");
                 })
+                $("#my-export").bind("click", function () {
+//                    var ddbh = $('#search-ddbh').val();
+//                    var xn = $('#search-xn').val();
+//                    var xm = $('#search-xm').val();
+//                    var ddzt = $('#search-ddzt').val();
+//                    var xh = $('#search-xh').val();
+//                    var sfzh = $('#search-sfzh').val();
+//                    var dateStart = $('#dateStart').val();
+//                    var dateEnd = $('#dateEnd').val();
+                    window.location.href = wpt_serverName + 'lsjfgl/tjcx/qftj/export' //数据接口地址
 
+                })
 
                 $("#my-search").bind("click", function () {
                     var xn = $('#search-xn').val(); //学年
@@ -246,7 +255,7 @@
                         }
                         //根据条件查询
                         , where: {
-                            xn:xn,
+                            xn: xn,
                             nj: nj,
                             xh: xh,
                             xm: xm,
@@ -256,10 +265,17 @@
                         }
                     });
                 })
+
+                $('body').keyup(function (e) {
+                    if (e.keyCode === 13) {
+                        $('#my-search').click()
+                    } else if (e.keyCode === 27) {
+                        $('#my-reset').click()
+                    }
+                })
             }
         }
         wpt_grjfxx.init();
-        wpt_grjfxx.listenTool();
         wpt_grjfxx.bindCli();
     });
 

@@ -58,14 +58,40 @@
             , cols: [[   //表头
                 {type: 'checkbox', fixed: 'left'}
                 , {field: 'ID', title: 'ID', hide: true}
-                , {field: 'JFXMID', title: '缴费项目代码', sort: true}
-                , {field: 'JFXMMC', title: '缴费项目名称'}
+                , {field: 'JFXMID', align: "center", title: '缴费项目代码', sort: true}
+                , {field: 'JFXMMC', align: "center", title: '缴费项目名称'}
+
                 , {
-                    field: 'SFBX', title: '是否必缴', templet: function (data) {
-                        return (data.SFBX == "1" ? "是" : "否");
+                    field: 'JFXMMC', align: "center", title: '是否启用欠费统计', templet: function (data) {
+                        var my_type = "JFTJ_" + data.ID;
+                        if (data.JFTJ == "1") {
+                            return '<input type="checkbox" lay-text="开启|关闭" name="switch" lay-skin="switch" value="' + my_type + '" checked>';
+                        } else {
+                            return '<input type="checkbox" lay-text="开启|关闭" name="switch" lay-skin="switch" value="' + my_type + '">';
+                        }
                     }
                 }
-                , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
+                , {
+                    field: 'SFBX', align: "center", title: '是否必缴', templet: function (data) {
+                        var my_type = "SFBX_" + data.ID;
+                        if (data.SFBX == "1") {
+                            return '<input type="checkbox" lay-text="是|否" name="switch" lay-skin="switch" value="' + my_type + '" checked>';
+                        } else {
+                            return '<input type="checkbox" lay-text="是|否" name="switch" lay-skin="switch" value="' + my_type + '">';
+                        }
+                    }
+                }, {
+                    field: 'JFXMMC', align: "center", title: '是否启用', templet: function (data) {
+                        var my_type = "SFQY_" + data.ID;
+                        if (data.SFQY == "1") {
+                            return '<input type="checkbox" lay-text="是|否" name="switch" lay-skin="switch" value="' + my_type + '" checked>';
+                        } else {
+                            return '<input type="checkbox" lay-text="是|否" name="switch" lay-skin="switch" value="' + my_type + '">';
+                        }
+
+                    }
+                }
+                , {fixed: 'right', align: "center", title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
             , url: wpt_serverName + 'jfxmdm/list' //数据接口地址
             , title: '用户表'
@@ -76,10 +102,19 @@
             , loading: true
             , even: true  //隔行换色 默认false
             , done: function (res, curr, count) { //加载完回调
+                $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5', 'font-weight': 'bold'})
             },
             id: 'userTableReload'
         });
 
+        form.on('switch()', function (data) {
+            var my_val = data.value;
+            var my_type = my_val.split("_")[0];
+            var my_id = my_val.split("_")[1];
+            var my_status = data.elem.checked ? "1" : "0";
+            update_status(my_type, my_id, my_status);
+
+        });
         //根据条件查询表格数据重新加载
         var active = {
             reload: function () {
@@ -179,9 +214,9 @@
     function add() {
         layer.open({
             type: 2,
-            skin: 'layui-layer-rim', //加上边框
+            skin: 'layui-layer-lan', //加上边框
             title: '添加缴费项目代码',
-            area: ['70%', '68%'], //宽高
+            area: ['40%', '45%'], //宽高
             content: '/wptma/module/jfxmdm/add.jsp',  //调到新增页面
             success: function (layero, index) {
                 // 新iframe窗口的对象
@@ -220,15 +255,34 @@
     function edit(id) {
         layer.open({
             type: 2,
-            skin: 'layui-layer-rim', //加上边框
+            skin: 'layui-layer-lan', //加上边框
             title: '编辑缴费项目代码',
-            area: ['70%', '68%'], //宽高
+            area: ['40%', '45%'], //宽高
             content: '/wptma/module/jfxmdm/edit.jsp?id=' + id,  //调到新增页面
             success: function (layero, index) {
                 // 新iframe窗口的对象
                 var iframeWin = layero.find('iframe')[0].contentWindow;
                 // 重新渲染checkbox,select同理
                 iframeWin.layui.form.render('checkbox');
+            }
+        })
+    }
+
+    function update_status(my_type, my_id, my_status) {
+        $.ajax({
+            url: wpt_serverName + "jfxmdm/updateStatus",
+            type: 'post',
+            dataType: 'json',
+            data: {my_id: my_id, my_type: my_type, my_status: my_status},
+            timeout: 10000,
+            beforeSend: function () {
+                loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+            },
+            success: function (data) {
+
+            },
+            complete: function () {
+                layer.close(loadIndex);
             }
         })
     }

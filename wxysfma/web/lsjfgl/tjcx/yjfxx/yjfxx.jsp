@@ -7,41 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
-    <style>
-        .layui-table-tool-temp {
-            padding-right: 30px !important;
-        }
-
-        .myDef {
-            float: right;
-            top: 3px;
-            position: relative;
-            width: 26px;
-            height: 26px;
-            padding: 5px;
-            line-height: 16px;
-            margin-right: 10px;
-            text-align: center;
-            color: #333;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            -webkit-transition: .5s all;
-            transition: .5s all;
-        }
-
-        .layui-form-item .layui-inline {
-            margin-bottom: 15px;
-            margin-right: 150px;
-        }
-
-        .layui-form-item .layui-input-inline {
-            width: 320px;
-        }
-    </style>
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/commonLs.css">
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>
 <input type="hidden" id="my_status" value="0">
+<input type="hidden" id="select_status" value="0">
 <jsp:include page="/login/lsauth.jsp"></jsp:include>
 
 <%
@@ -58,22 +29,15 @@
 </div>
 
 <div class="layui-fluid">
-    <%--<div class="layui-row">--%>
     <div class="layui-card">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item" id="my-header">
-                <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">订单编号：</label>--%>
-
-                <%--<div class="layui-input-inline">--%>
-                <%--<input type="text" id="search-ddbh" placeholder="订单编号" autocomplete="off" class="layui-input">--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <div class="layui-inline ">
+                <div class="layui-inline">
                     <label class="layui-form-label">入学年级：</label>
 
                     <div class="layui-input-inline">
-                        <input type="text" id="search-nj" placeholder="入学年级" autocomplete="off" class="layui-input">
+                        <select lay-verify="required" id="search-nj">
+                        </select>
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -111,7 +75,7 @@
                         <input type="text" id="search-bjmc" placeholder="班级名称" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-inline" style="margin-left: 50px;">
+                <div class="layui-inline my-cx">
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-search">
                         查询
                     </button>
@@ -171,11 +135,11 @@
             initTabTitles: function (titles) {
                 var col = titles.length + 3;
                 var cols2 = [
-                    {title: "缴费学年", field: "XN", align: "center", width: "7%", fixed: "left"},
+                    {title: "缴费学年", field: "XN", align: "center", width: "7%", sort: true, fixed: "left"},
                     {title: "学号", field: "XH", align: "center"},
-                    {title: "姓名", field: "XM", align: "center"},
+                    {title: "姓名", field: "XM", align: "center", sort: true},
                     {title: "性别", field: "XB", align: "center"},
-                    {title: "入学年级", field: "NJ", align: "center"},
+                    {title: "入学年级", field: "NJ", sort: true, align: "center"},
                     {title: "学院名称", field: "XYMC", align: "center"},
                     {title: "专业名称", field: "ZYMC", align: "center"},
                     {title: "班级名称", field: "BJMC", align: "center"},
@@ -207,14 +171,29 @@
                     }]
                     , done: function (res, curr, count) { //加载完回调
                         $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5', 'font-weight': 'bold'})
+                        if ($("#select_status").val() == 0) {
+                            var rxnjList = res.rxnjList;
+                            var optionsRxnj = "<option value='' selected> 请选择</option>";
+                            for (var index in rxnjList) {
+                                var rxnj = rxnjList[index].RXNJ;
+                                //下拉选定位当前周
+                                optionsRxnj += "<option value='" + rxnj + "'>" + rxnj + "</option>";
+                            }
+                            $("#search-nj").html(optionsRxnj);
+                            form.render('select');
+                            $("#select_status").val("1")
+                        }
+                        $("#refresh").bind("click", function () {
+                            window.location.reload();
+                        })
                     },
                     id: 'userTableReload'
                 });
             },
             listenTool: function () {
-                $("#refresh").bind("click", function () {
-                    window.location.reload();
-                })
+//                $("#refresh").bind("click", function () {
+//                    window.location.reload();
+//                })
             },
             bindCli: function () {
                 //重置
@@ -248,10 +227,17 @@
                         }
                     });
                 })
+
+                $('body').keyup(function (e) {
+                    if (e.keyCode === 13) {
+                        $('#my-search').click()
+                    } else if (e.keyCode === 27) {
+                        $('#my-reset').click()
+                    }
+                })
             }
         }
         wpt_grjfxx.init();
-        wpt_grjfxx.listenTool();
         wpt_grjfxx.bindCli();
     });
 

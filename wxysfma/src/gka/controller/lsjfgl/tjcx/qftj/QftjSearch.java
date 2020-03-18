@@ -1,9 +1,6 @@
-package gka.controller.lsjfgl.tjcx.wjfxx;
+package gka.controller.lsjfgl.tjcx.qftj;
 
-/**
- * Created by Administrator on 2019/11/11 0011.
- */
-public class WjfxxSearch {
+public class QftjSearch {
     String xn;
     String nj;
     String xh;
@@ -12,10 +9,10 @@ public class WjfxxSearch {
     String zymc;
     String bjmc;
 
-    public WjfxxSearch() {
+    public QftjSearch() {
     }
 
-    public WjfxxSearch(String xn, String nj, String xh, String xm, String xymc, String zymc, String bjmc) {
+    public QftjSearch(String xn, String nj, String xh, String xm, String xymc, String zymc, String bjmc) {
         this.xn = xn;
         this.nj = nj;
         this.xh = xh;

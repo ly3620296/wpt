@@ -7,37 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
-    <style>
-        .layui-table-tool-temp {
-            padding-right: 30px !important;
-        }
-
-        .myDef {
-            float: right;
-            top: 3px;
-            position: relative;
-            width: 26px;
-            height: 26px;
-            padding: 5px;
-            line-height: 16px;
-            margin-right: 10px;
-            text-align: center;
-            color: #333;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            -webkit-transition: .5s all;
-            transition: .5s all;
-        }
-
-        .layui-form-item .layui-inline {
-            margin-bottom: 15px;
-            margin-right: 150px;
-        }
-
-        .layui-form-item .layui-input-inline {
-            width: 320px;
-        }
-    </style>
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>

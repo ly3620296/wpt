@@ -1,0 +1,37 @@
+.layui-table-tool-temp {
+    padding-right: 30px !important;
+}
+
+.myDef {
+    float: right;
+    top: 3px;
+    position: relative;
+    width: 26px;
+    height: 26px;
+    padding: 5px;
+    line-height: 16px;
+    margin-right: 10px;
+    text-align: center;
+    color: #333;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    -webkit-transition: .5s all;
+    transition: .5s all;
+}
+
+.layui-form-item .layui-inline {
+    margin-bottom: 15px;
+    margin-right: 60px;
+}
+
+.layui-form-item .layui-input-inline {
+    width: 280px;
+}
+
+.my-cx {
+    margin-left: 25px;
+}
+
+.my-with {
+    width: 113px !important;
+}

@@ -1,62 +1,93 @@
 <%@ page import="gka.resource.Constant" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/login.css"/>
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
-    <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/login.css" media="all">
-    <title>教师缴费管理系统</title>
 </head>
 <body>
+<div class="divcont">
 
-<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
 
-    <div class="layadmin-user-login-main">
-        <div class="layadmin-user-login-box layadmin-user-login-header">
-            <h2>教师缴费管理系统</h2>
-        </div>
-        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
-            <div class="layui-form-item">
-                <input type="text" name="account" id="account" lay-verify="required" placeholder="用户名"
-                       value="2002010122" class="layui-input">
+    <div class="headtitle">
+        <img src="<%=Constant.server_name%>img/headtitle.jpg"/>
+        <a class="textout2" href="http://mh.jlsfjy.cn/portal.do">吉林司法门户网站</a>
+        <a class="textout1" href="javascript:void(0)">院办电话：0431－83311051</a>
+    </div>
+
+
+    <div class="login_box">
+        <div class="login_l_img"><img src="<%=Constant.server_name%>img/login-img.png"></div>
+        <div class="login">
+            <div class="login_logo"><img src="<%=Constant.server_name%>img/login_logo.png"></div>
+            <div class="login_name">
+                <p>缴费管理系统</p>
             </div>
-            <div class="layui-form-item">
-                <input type="password" name="password" id="password" lay-verify="required"
-                       value="045413" placeholder="密码" class="layui-input">
-            </div>
-            <div class="layui-form-item">
-                <div class="layui-row">
-                    <div class="layui-col-xs7">
-                        <label class="layadmin-user-login-icon layui-icon layui-icon-vercode"
-                               for="LAY-user-login-vercode"></label>
-                        <input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required"
-                               placeholder="图形验证码" class="layui-input">
-                    </div>
-                    <div class="layui-col-xs5">
-                        <div style="margin-left: 10px;">
-                            <img class="image" id="mobileImage" src="" onclick="updateCaptcha();"/>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item" style="margin-bottom: 20px;">
-            </div>
-            <div class="layui-form-item">
-                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit" id="login">登 录
-                </button>
-            </div>
+            <form method="post">
+                <ul>
+                    <li>
+                        <input type="text" name="account" id="account" placeholder="用户名" value="2002010122">
+                    </li>
+                    <li>
+                        <input type="text" name="password" id="password" placeholder="密码" value="123123.">
+                    </li>
+                    <li>
+                        <input style="width: 45%;" type="text" placeholder="图片验证码"  id="LAY-user-login-vercode"/>
+                        <img  id="mobileImage" src="" onclick="updateCaptcha();" style="width: 40%;margin-left: 10px"/>
+                        <%--<img style="width: 30%;vertical-align: middle;" class="imgPassword" src="<%=Constant.server_name%>img/imgpassword.png"/>--%>
+                    </li>
+                    <li>
+                        <input value="登录" style="width:100%;" type="button" id="login">
+                    </li>
+                </ul>
+            </form>
         </div>
     </div>
-    <div class="layui-trans layadmin-user-login-footer">
+
+
+    <div class="login-about-bottom">
+        <div class="media">
+            <img src="<%=Constant.server_name%>img/login-about-1.png"/>
+
+            <div class="media-body">
+                <h4 class="media-heading">吉林司法警官职业学院</h4>
+
+                <p>诚、智、律、毅 ; 进取、勤奋、严谨、文明</p>
+            </div>
+        </div>
+
+
+        <div class="media">
+            <img src="<%=Constant.server_name%>img/login-about-2.png"/>
+
+            <div class="media-body">
+                <h4 class="media-heading">统一身份</h4>
+
+                <p>学号/教工号、手机号、邮箱 一键登录一次登录，畅通IMUST</p>
+            </div>
+        </div>
+
+        <div class="media">
+            <img src="<%=Constant.server_name%>img/login-about-3.png"/>
+
+            <div class="media-body">
+                <h4 class="media-heading">应用 &amp; 服务</h4>
+
+                <p>办公、邮件、教务、科研全方位应用选课、查询、通知、下载个性化服务</p>
+            </div>
+        </div>
+
     </div>
 </div>
+</body>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/wptma/lslogin.js"></script>
-</body>
 </html>

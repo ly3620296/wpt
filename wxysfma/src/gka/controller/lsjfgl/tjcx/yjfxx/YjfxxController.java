@@ -4,6 +4,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+import gka.controller.lsjfgl.tjcx.xsddcx.XsDdcxDao;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
 
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import java.util.Map;
 public class YjfxxController extends Controller {
     private YjfxxDao yjfxxDao = new YjfxxDao();
     private WyjfDao wyjfDao = new WyjfDao();
+    private XsDdcxDao ddcxDao = new XsDdcxDao();
 
     public void index() {
         Map map = new HashMap();
@@ -29,6 +31,9 @@ public class YjfxxController extends Controller {
             int limit = Integer.parseInt(getPara("limit"));
             List<Record> titles = wyjfDao.queryTitle();
             Page<Record> paginate = yjfxxDao.getOrderInfo(titles, page, limit, search);
+
+            List<Record> rxnjList = ddcxDao.queryRxnj();
+            map.put("rxnjList", rxnjList);
             map.put("code", "0");
             map.put("msg", "success");
             map.put("data", paginate.getList());

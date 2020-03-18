@@ -4,6 +4,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+import gka.controller.lsjfgl.tjcx.xsddcx.XsDdcxDao;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
 
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.Map;
 @ControllerBind(controllerKey = "/lsjfgl/tjcx/ijfxx")
 public class IjfxxController extends Controller {
     private IjfxxDao ijfxxDao = new IjfxxDao();
+    private XsDdcxDao ddcxDao = new XsDdcxDao();
     private WyjfDao wyjfDao = new WyjfDao();
 
     public void index() {
@@ -32,12 +34,15 @@ public class IjfxxController extends Controller {
             int page = Integer.parseInt(getPara("page"));
             int limit = Integer.parseInt(getPara("limit"));
             List<Record> titles = wyjfDao.queryTitle();
-            Page<Record> paginate = ijfxxDao.getOrderInfo(page, limit, search);
-            List<Record> out_list = ijfxxDao.getList(paginate.getList(), titles);
+            Page<Record> yjfxx = ijfxxDao.yjfxx(page, limit, search, titles);
+            List<Record> xnList = ddcxDao.queryXn();
+            List<Record> rxnjList = ddcxDao.queryRxnj();
+            map.put("xnList", xnList);
+            map.put("rxnjList", rxnjList);
             map.put("code", "0");
             map.put("msg", "success");
-            map.put("data", out_list);
-            map.put("count", paginate.getTotalRow());
+            map.put("data", yjfxx.getList());
+            map.put("count", yjfxx.getTotalRow());
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", "-1");

@@ -13,11 +13,22 @@ import gka.interceptor.LoginInterceptor;
 @Clear({LoginInterceptor.class})
 public class WptMaController extends Controller {
     public void index() {
+        System.out.println("aaaaaaaaa");
         WptMaUserInfo wptUserInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
         if (wptUserInfo == null) {
-            renderJsp("/login/login.jsp");
+            renderJsp("/login/xslogin.jsp");
         } else {
-            renderJsp("/main/index.jsp");
+            renderJsp("/main/xsindex.jsp");
+        }
+    }
+
+    public void ls() {
+        System.out.println("aaaaaaaaa");
+        WptMaUserInfo wptUserInfo = (WptMaUserInfo) getSession().getAttribute("wptMaUserInfo");
+        if (wptUserInfo == null) {
+            renderJsp("/login/lslogin.jsp");
+        } else {
+            renderJsp("/main/lsindex.jsp");
         }
     }
 }

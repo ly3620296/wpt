@@ -66,8 +66,13 @@ var loginObj = {
                     }
                 }
                 ,
-                complete: function () {
+                complete: function (XMLHttpRequest, status) {
                     layer.close(loadIndex);
+                    if (status == 'timeout') {
+                        layer.msg('请求超时', {anim: 6, time: 2000});
+                        updateCaptcha();
+                    }
+
                 }
             })
         }
@@ -83,5 +88,10 @@ $(document).ready(function () {
 $(function () {
     $("#login").on("click", function () {
         loginObj.login();
+    })
+    $('body').keyup(function (e) {
+        if (e.keyCode === 13) {
+            $('#login').click()
+        }
     })
 })

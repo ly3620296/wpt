@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/commonLs.css">
+    <style>
+        .layui-table tbody tr:hover {
+            background-color: #fbfbfb;
+        }
+    </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>
@@ -18,83 +24,104 @@
             <legend>电脑开票</legend>
         </fieldset>
     </div>
+
+
 </div>
 <div class="layui-fluid">
-    <div class="layui-row">
-        <div class="layui-card">
-            <div class="layui-card-body">
-                <div class="layui-form-item" id="my-header">
-                    <div class="layui-inline ">
-                        <label class="layui-form-label">缴费学年：</label>
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item" id="my-header">
+                <div class="layui-inline">
+                    <label class="layui-form-label">缴费学年：</label>
 
-                        <div class="layui-input-inline">
-                            <input type="text" id="search-sfxn" placeholder="缴费学年" autocomplete="off" value="2015-2016"
-                                   class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">学号：</label>
-
-                        <div class="layui-input-inline">
-                            <input type="text" id="search-xh" placeholder="学号" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline ">
-                        <label class="layui-form-label">姓名：</label>
-
-                        <div class="layui-input-inline">
-                            <input type="text" id="search-xm" placeholder="姓名" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-inline ">
-                        <label class="layui-form-label">身份证：</label>
-
-                        <div class="layui-input-inline">
-                            <input type="text" id="search-sfzh" placeholder="身份证" autocomplete="off"
-                                   class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-inline" style="margin-left: 50px;">
-                        <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-search">
-                            查询
-                        </button>
-                        <button class="layui-btn layuiadmin-btn-list" lay-filter="reset" id="my-reset">
-                            重置
-                        </button>
+                    <div class="layui-input-inline">
+                        <select lay-verify="required" id="search-sfxn">
+                        </select>
                     </div>
                 </div>
-                <div class="layui-form">
-                    <table class="layui-table">
-                        <thead>
-                        <tr>
-                            <th colspan="14" style="background-color: #eef9fb">
-                                <div align="center">
-                                    学生信息核实
-                                </div>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody align="center">
-                        <tr>
-                            <td width="7%" style="background-color: #eef9fb">学号</td>
-                            <td width="7%"><span id="XH"></span><span id="XN" style="display: none"></span></td>
-                            <td width="7%" style="background-color: #eef9fb">姓名</td>
-                            <td width="7%"><span id="XM"></span></td>
-                            <td width="7%" style="background-color: #eef9fb">身份证号</td>
-                            <td width="7%"><span id="SFZH"></span></td>
-                            <td width="7%" style="background-color: #eef9fb">学院</td>
-                            <td width="7%"><span id="XYMC"></span></td>
-                            <td width="7%" style="background-color: #eef9fb">专业</td>
-                            <td width="7%"><span id="ZYMC"></span></td>
-                            <td width="7%" style="background-color: #eef9fb">班级</td>
-                            <td width="7%"><span id="BJMC"></span></td>
-                            <td width="7%" style="background-color: #eef9fb">年级</td>
-                            <td width="7%"><span id="NJ"></span></td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+                <%--<div class="layui-inline">--%>
+                <%--<label class="layui-form-label">缴费学年：</label>--%>
+
+                <%--<div class="layui-input-inline">--%>
+                <%--<select lay-verify="required" id="search-sfxn">--%>
+                <%--</select>--%>
+                <%--</div>--%>
+                <%--</div>--%>
+                <div class="layui-inline">
+                    <label class="layui-form-label">学号：</label>
+
+                    <div class="layui-input-inline">
+                        <input type="text" id="search-xh" placeholder="学号" autocomplete="off"
+                               class="layui-input">
+                    </div>
                 </div>
+                <div class="layui-inline ">
+                    <label class="layui-form-label">姓名：</label>
+
+                    <div class="layui-input-inline">
+                        <input type="text" id="search-xm" placeholder="姓名" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline ">
+                    <label class="layui-form-label">身份证：</label>
+
+                    <div class="layui-input-inline">
+                        <input type="text" id="search-sfzh" placeholder="身份证" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline ">
+                    <label class="layui-form-label" style="line-height: 32px;">缴费方式：</label>
+
+                    <div class="layui-input-inline">
+                        <input type="radio" name="jffs" value="CASH" title="现金" checked>
+                        <input type="radio" name="jffs" value="CARD" title="刷卡">
+                        <input type="radio" name="jffs" value="GXZZ" title="高校转账">
+                    </div>
+                </div>
+                <div class="layui-inline my-cx" style="margin-left: 50px;">
+                    <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-search">
+                        查询
+                    </button>
+                    <button class="layui-btn layuiadmin-btn-list" lay-filter="reset" id="my-reset">
+                        重置
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-form">
+                <table class="layui-table">
+                    <thead>
+                    <tr>
+                        <th colspan="14" style="background-color: #eef9fb">
+                            <div align="center" style="color:#4aa4a5;font-weight:bold">
+                                学生信息核实
+                            </div>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody align="center">
+                    <tr>
+                        <td width="7%" style="background-color: #eef9fb">学号</td>
+                        <td width="7%"><span id="XH"></span><span id="XN" style="display: none"></span></td>
+                        <td width="7%" style="background-color: #eef9fb">姓名</td>
+                        <td width="7%"><span id="XM"></span></td>
+                        <td width="7%" style="background-color: #eef9fb">身份证号</td>
+                        <td width="7%"><span id="SFZH"></span></td>
+                        <td width="7%" style="background-color: #eef9fb">学院</td>
+                        <td width="7%"><span id="XYMC"></span></td>
+                        <td width="7%" style="background-color: #eef9fb">专业</td>
+                        <td width="7%"><span id="ZYMC"></span></td>
+                        <td width="7%" style="background-color: #eef9fb">班级</td>
+                        <td width="7%"><span id="BJMC"></span></td>
+                        <td width="7%" style="background-color: #eef9fb">年级</td>
+                        <td width="7%"><span id="NJ"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -108,7 +135,7 @@
                     <table class="layui-table" id="jfxxhs">
                         <tr>
                             <th style="background-color: #eef9fb" id="this_th">
-                                <div align="center">
+                                <div align="center" style="color:#4aa4a5;font-weight:bold">
                                     缴费信息核实
                                 </div>
                             </th>
@@ -122,18 +149,8 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <div class="layui-card">
-            <div class="layui-card-body">
                 <div class="layui-form-item">
-                    <div class="layui-inline ">
-                        <label class="layui-form-label">缴费方式:</label>
-
-                        <div class="layui-input-block" style="line-height: 36px;">
-                            <input type="radio" name="jffs"  style="vertical-align: middle" value="CASH" title="现金" checked=""><span style="vertical-align: middle">现金</span>
-                            <input type="radio" name="jffs"  style="vertical-align: middle" value="CARD" title="刷卡 "><span style="vertical-align: middle">刷卡</span>
-                            <input type="radio" name="jffs"  style="vertical-align: middle" value="GXZZ" title="高校转账"><span style="vertical-align: middle">高校转账</span>
-                        </div>
-                    </div>
-                    <div class="layui-inline" style="margin-left: 30%;">
+                    <div class="layui-inline" style="margin-left: 1%;">
                         <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-save">
                             保存
                         </button>
@@ -161,9 +178,8 @@
                 , layer = layui.layer
                 , table = layui.table
                 , $ = layui.jquery
-        form.render(); //刷新select选择框渲染
-        var loadIndex;
 
+        var loadIndex;
         var wpt_grjfxx = {
             init: function () {
                 $.ajax({
@@ -176,20 +192,30 @@
                     },
                     success: function (data) {
                         if (data.code == "0") {
-//                            wpt_grjfxx.initTab(data.titles);
+                            var xnList = data.xnList;
+                            console.log(xnList)
+                            var optionsXn = "<option value='' selected> 请选择</option>";
+                            for (var index in xnList) {
+                                var xnmc = xnList[index].XNMC;
+                                //下拉选定位当前周
+                                optionsXn += "<option value='" + xnmc + "'>" + xnmc + "</option>";
+                            }
+                            $("#search-sfxn").html(optionsXn);
+                            form.render('select');
+
                             var title = data.titles
                             var length = title.length + 2;
                             $("#this_th").attr("colspan", length)
                             var html = '';
                             html += '<tbody align="center">';
-                            html += '<tr> ' +
-                            '<td  style="background-color: #eef9fb" width="60px"></td> ' +
-                            '<td style="background-color: #eef9fb">总额</td> ';
+                            html += '<tr style="background-color: #eef9fb"> ' +
+                            '<td   width="60px"></td> ' +
+                            '<td style="color:#4aa4a5;font-weight:bold" >总额</td> ';
                             for (var i = 0; i < title.length; i++) {
                                 if (title[i].SFBX == "1") {
-                                    html += '<td style="background-color: #eef9fb">' + title[i].JFXMMC + '<span style="color: red">【必缴】</span></td> '
+                                    html += '<td style="color:#4aa4a5;font-weight:bold">' + title[i].JFXMMC + '</td> '
                                 } else {
-                                    html += '<td style="background-color: #eef9fb">' + title[i].JFXMMC + '</td> '
+                                    html += '<td style="color:#4aa4a5;font-weight:bold">' + title[i].JFXMMC + '<span style="color: #bd9b4a">（选交）</span></td> '
                                 }
                             }
                             html += '</tr> ';
@@ -214,8 +240,7 @@
                             html += '</tr> ';
                             html += '</tbody>';
                             $("#jfxxhs").append(html)
-                        }
-                        else {
+                        } else {
                             layer.msg(data.msg, {anim: 6, time: 2000});
                         }
                     },
@@ -261,6 +286,14 @@
             },
 
             bindCli: function () {
+                $('body').keyup(function (e) {
+                    if (e.keyCode === 13) {
+                        $('#my-search').click()
+                    } else if (e.keyCode === 27) {
+                        $('#my-reset').click()
+                    }
+                })
+
                 //重置
                 $("#my-reset").bind("click", function () {
                     $("#my-header input").val("");
@@ -300,39 +333,39 @@
                     var object = {};
                     var xh = $("#XH").html()
                     var xn = $("#XN").html()
-                    var ze= 0
+                    var ze = 0
                     if (xh != null && xh != "" && xn != null && xn != "") {
-                        object['jffs']=jffs;
+                        object['jffs'] = jffs;
                         object['xh'] = xh;
                         object['xn'] = xn;
                         for (var i = 0; i < title.length; i++) {
                             object[title[i].JFXMID] = $("#" + title[i].JFXMID + "_this").val();
                             ze += Number($("#" + title[i].JFXMID + "_this").val());
                         }
-                        object['ze']=ze;
+                        object['ze'] = ze;
                         var json = JSON.stringify(object);
                         console.log(json);
-                    $.ajax({
-                        url: wpt_serverName + "lsjfgl/dnkp/save",
-                        type: 'post',
-                        dataType: 'json',
-                        data: {json:json},
-                        timeout: 10000,
-                        beforeSend: function () {
-                            loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
-                        },
-                        success: function (data) {
-                            if (data.code == "0") {
-                                layer.alert("记录缴费成功!");
+                        $.ajax({
+                            url: wpt_serverName + "lsjfgl/dnkp/save",
+                            type: 'post',
+                            dataType: 'json',
+                            data: {json: json},
+                            timeout: 10000,
+                            beforeSend: function () {
+                                loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+                            },
+                            success: function (data) {
+                                if (data.code == "0") {
+                                    layer.alert("记录缴费成功!");
+                                }
+                                else {
+                                    layer.msg(data.msg, {anim: 6, time: 2000});
+                                }
+                            },
+                            complete: function () {
+                                layer.close(loadIndex);
                             }
-                            else {
-                                layer.msg(data.msg, {anim: 6, time: 2000});
-                            }
-                        },
-                        complete: function () {
-                            layer.close(loadIndex);
-                        }
-                    })
+                        })
                     } else {
                         layer.msg("请选择需要缴费学生!", {anim: 6, time: 2000});
                     }

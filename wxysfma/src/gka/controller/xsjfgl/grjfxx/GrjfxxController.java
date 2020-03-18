@@ -23,7 +23,7 @@ public class GrjfxxController extends Controller {
             WptMaXSUserInfo userInfo = (WptMaXSUserInfo) getSession().getAttribute("wptMaXSUserInfo");
             String xh = userInfo.getZh();
             List<Record> titles = wyjfDao.queryTitle();
-            List<Record> jfjl = getJfjl(titles, xh);
+            List<Record> jfjl = wyjfDao.queryYjFyxx(titles, xh);
             map.put("titles", titles);
             map.put("code", "0");
             map.put("msg", "success");
@@ -49,6 +49,28 @@ public class GrjfxxController extends Controller {
         }
         renderJson(map);
     }
+
+//    //缴费记录
+//    private List<Record> getJfjl(List<Record> titles, String xh) {
+//        //应收项目合计 已交和未交
+//        List<Record> totals = wyjfDao.queryTotal(titles, xh);
+//        List<Record> yj = new ArrayList<Record>();
+//        for (Record total : totals) {
+//            boolean flag = true;
+//            for (Record title : titles) {
+//                String val = total.getStr(title.getStr("JFXMID"));
+//                if (!val.equals("0")) {
+//                    flag = false;
+//                    break;
+//                }
+//            }
+//            if (!flag) {
+//                yj.add(total);
+//            }
+//        }
+//        return yj;
+//    }
+
 
     //缴费记录
     private List<Record> getJfjl(List<Record> titles, String xh) {

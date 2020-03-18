@@ -38,7 +38,10 @@
 <div class="layui-layout layui-layout-admin">
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <div class="layui-header">
-        <div class="layui-logo">教师交费管理</div>
+        <div class="layui-logo">
+            <img src="/sfma/img/titlename.png" style="  width: 170px;margin-left: 18px;">
+            <img src="/sfma/img/white2.png" style="  width: 460px;margin-left: 33px;">
+        </div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -55,7 +58,7 @@
             <ul class="layui-nav layui-nav-tree" lay-shrink="all" lay-filter="left-side" id="menu">
                 <li class="layui-nav-item layui-nav-itemed">
                     <a class="" href="javascript:;">
-                        <i class="layui-icon layui-icon-template-1"></i>
+                        <i class="layui-icon layui-icon-print"></i>
                         <cite>票据管理</cite></a>
                     <dl class="layui-nav-child">
                         <dd>
@@ -63,15 +66,15 @@
                                data-title="电脑开票"
                                data-type="tabAdd">电脑开票</a>
                         </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="01" data-title="票据打印"
-                               data-type="tabAdd">票据打印</a>
-                        </dd>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="01" data-title="票据打印"--%>
+                               <%--data-type="tabAdd">票据打印</a>--%>
+                        <%--</dd>--%>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a class="" href="javascript:;">
-                        <i class="layui-icon layui-icon-user"></i>
+                        <i class="layui-icon layui-icon-log"></i>
                         <cite>统计查询</cite></a>
                     <dl class="layui-nav-child">
                         <dd>
@@ -95,14 +98,14 @@
                                data-type="tabAdd">已交费信息</a>
                         </dd>
                         <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/wjfxx/wjfxx.jsp" data-title="未交费信息"
+                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/qftj/qftj.jsp" data-title="欠费统计"
                                data-id="14"
-                               data-type="tabAdd">未交费信息</a>
+                               data-type="tabAdd">欠费统计</a>
                         </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-title="票据信息" data-id="15"
-                               data-type="tabAdd">票据信息</a>
-                        </dd>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-title="票据信息" data-id="15"--%>
+                               <%--data-type="tabAdd">票据信息</a>--%>
+                        <%--</dd>--%>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

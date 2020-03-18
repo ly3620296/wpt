@@ -24,13 +24,12 @@ public class DdcxController extends Controller {
     private DdcxDao ddcxDao = new DdcxDao();
     private WyjfDao wyjfDao = new WyjfDao();
 
-    private static final Logger logger = LogManager.getLogger(DdcxController.class);
+    /**
+     * 订单查询
+     */
     public void index() {
         Map map = new HashMap();
         try {
-            logger.info("dd");
-            logger.warn("aa");
-            logger.error("dss");
             WptMaXSUserInfo userInfo = (WptMaXSUserInfo) getSession().getAttribute("wptMaXSUserInfo");
             String xh = userInfo.getZh();
             int page = Integer.parseInt(getPara("page"));
@@ -48,6 +47,10 @@ public class DdcxController extends Controller {
         renderJson(map);
     }
 
+
+    /**
+     * 订单详情
+     */
     public void qxInfo() {
         Map map = new HashMap();
         try {

@@ -17,13 +17,14 @@ import java.util.Map;
 public class WyjfController extends Controller {
     WyjfDao wyjfDao = new WyjfDao();
 
+    //我要缴费 应交费用信息
     public void index() {
         Map map = new HashMap();
         try {
             WptMaXSUserInfo userInfo = (WptMaXSUserInfo) getSession().getAttribute("wptMaXSUserInfo");
             String xh = userInfo.getZh();
             List<Record> titles = wyjfDao.queryTitle();
-            List<Record> jfjl = getWjfjl(titles, xh);
+            List<Record> jfjl = wyjfDao.queryTotalWjf(titles, xh);
             NoPayOrderInfo noPayOrderInfo = wyjfDao.getNoPayOrderInfo(xh);
             map.put("noPayOrderInfo", noPayOrderInfo);
             map.put("code", "0");
@@ -37,6 +38,7 @@ public class WyjfController extends Controller {
         renderJson(map);
     }
 
+    //缴费标题
     public void title() {
         Map map = new HashMap();
         try {
@@ -66,14 +68,13 @@ public class WyjfController extends Controller {
                 String xh = userInfo.getZh();
                 List<Record> titles = wyjfDao.queryTitle();
                 //是否有未支付订单
-                boolean noPay = noPay();
+                boolean noPay = wyjfDao.noPayOrder(xh);
                 if (!noPay) {
                     //是否未缴费
-                    boolean isPay = validate(titles, xh, xn);
-                    if (!isPay) {
-                        Record re = wyjfDao.jf(xh, xn, titles);
-                        List<JfInfo> jfInfoList = getJfinfo(titles, re);
-                        map = ReKit.toMap(jfInfoList.size(), jfInfoList);
+                    Record wjfInfo = wyjfDao.queryXnYjFyxx(titles, xh, xn);
+                    if (wjfInfo != null) {
+                        List<JfInfo> wjInfoList = getJfinfo(titles, wjfInfo);
+                        map = ReKit.toMap(wjInfoList.size(), wjInfoList);
                     } else {
                         map.put("code", "-4");
                         map.put("msg", "已经支付过，请误重新支付！");
@@ -108,8 +109,8 @@ public class WyjfController extends Controller {
                 String xh = userInfo.getZh();
                 List<Record> titles = wyjfDao.queryTitle();
                 //是否未缴费
-                boolean isPay = validate(titles, xh, xn);
-                if (!isPay) {
+                Record wjfInfo = wyjfDao.queryXnYjFyxx(titles, xh, xn);
+                if (wjfInfo != null) {
                     Record re1 = wyjfDao.queryJxzf(order_no);
                     if (re1 != null) {
                         Record re = wyjfDao.jf(xh, xn, titles);
@@ -204,55 +205,5 @@ public class WyjfController extends Controller {
         return jfInfos;
     }
 
-    //未缴费记录
-    private List<Record> getWjfjl(List<Record> titles, String xh) {
-        //应收项目合计 已交和未交
-        List<Record> totals = wyjfDao.queryTotalWjf(titles, xh);
-        List<Record> wj = new ArrayList<Record>();
-        for (Record total : totals) {
-            boolean flag = true;
-            for (Record title : titles) {
-                String val = total.getStr(title.getStr("JFXMID"));
-                if (!val.equals("0")) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (!flag) {
-                wj.add(total);
-            }
-        }
-        return wj;
-    }
 
-    //验证缴费学年是否未缴费 true缴费了 false未缴费
-    private boolean validate(List<Record> titles, String xh, String xn) {
-        //应收项目合计 已交和未交
-        List<Record> totals = wyjfDao.queryTotal(titles, xh);
-        List<Record> wj = new ArrayList<Record>();
-        boolean isPay = true;
-        for (Record total : totals) {
-            boolean flag = true;
-            for (Record title : titles) {
-                String val = total.getStr(title.getStr("JFXMID"));
-                if (val.equals("0")) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (!flag) {
-                if (total.getStr("XN").equals(xn)) {
-                    isPay = false;
-                    break;
-                }
-            }
-        }
-        return isPay;
-    }
-
-    //是否有未支付订单， true有 false 没有
-    private boolean noPay() {
-
-        return false;
-    }
 }

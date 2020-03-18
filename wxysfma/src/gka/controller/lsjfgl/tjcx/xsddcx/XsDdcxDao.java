@@ -5,6 +5,8 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
+import java.util.List;
+
 public class XsDdcxDao {
     public Page<Record> getOrderInfo(int page, int limit, XxddcxSearch search) {
         String selectSql = "SELECT T1.ORDER_NO,T1.SFXN, to_char(to_date(T1.TIME_START,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_START,to_char(to_date(T1.TIME_END,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_END,T1.TOTAL_FEE,NVL(T1.TOTAL_FEE_CALLBACK,0) TOTAL_FEE_CALLBACK,T1.ORDER_STATE,T2.ZYMC,T2.JGMC,T2.BJMC,T2.XM,T2.ZH,T2.ZJHM ";
@@ -65,5 +67,17 @@ public class XsDdcxDao {
         String sql = " SELECT XM,ZJHM,BJMC,ZYMC,JGMC,NJMC FROM WPT_YH WHERE ZH=?";
         Record re = Db.findFirst(sql, zh);
         return re;
+    }
+
+    public List<Record> queryXn() {
+        String sql = "SELECT XNID,XNMC FROM XN T ORDER BY TO_NUMBER(SUBSTR(XNMC,0,4)) DESC";
+        List<Record> records = Db.find(sql);
+        return records;
+    }
+
+    public List<Record> queryRxnj() {
+        String sql = "SELECT SUBSTR(XNMC,0,4) RXNJ FROM XN T ORDER BY TO_NUMBER(SUBSTR(XNMC,0,4)) DESC";
+        List<Record> records = Db.find(sql);
+        return records;
     }
 }
