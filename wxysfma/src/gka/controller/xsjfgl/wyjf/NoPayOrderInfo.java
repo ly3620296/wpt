@@ -15,6 +15,7 @@ public class NoPayOrderInfo {
     private String xh;
     private String zt;
     private String zymc;
+    private String payType;
 
     public String getZymc() {
         return zymc;
@@ -102,6 +103,14 @@ public class NoPayOrderInfo {
 
     public void setZt(String zt) {
         this.zt = zt;
+    }
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
     }
 }
 

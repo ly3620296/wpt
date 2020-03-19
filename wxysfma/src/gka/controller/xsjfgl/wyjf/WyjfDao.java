@@ -261,7 +261,7 @@ public class WyjfDao {
     }
 
     public NoPayOrderInfo getNoPayOrderInfo(String zh) {
-        String sql = "SELECT T1.ORDER_NO,T1.SFXN,T1.TIME_START,T1.TOTAL_FEE,T1.ORDER_STATE,T2.ZYMC,T2.JGMC,T2.BJMC,T2.XM,T2.ZH,T2.ZJHM FROM WPT_WXZF_SPECIAL_ORDER T1 LEFT JOIN  WPT_YH T2 ON T1.XH=T2.ZH WHERE T1.ORDER_STATE=? AND T2.ZH=?";
+        String sql = "SELECT T1.PAY_TYPE,T1.ORDER_NO,T1.SFXN,T1.TIME_START,T1.TOTAL_FEE,T1.ORDER_STATE,T2.ZYMC,T2.JGMC,T2.BJMC,T2.XM,T2.ZH,T2.ZJHM FROM WPT_WXZF_SPECIAL_ORDER T1 LEFT JOIN  WPT_YH T2 ON T1.XH=T2.ZH WHERE T1.ORDER_STATE=? AND T2.ZH=?";
         Record re = Db.findFirst(sql, MyWxpayConstant.ORDER_STATE_NOPAY, zh);
         NoPayOrderInfo noPayOrderInfo = null;
         if (re != null) {
@@ -277,6 +277,7 @@ public class WyjfDao {
             noPayOrderInfo.setXymc(re.getStr("JGMC"));
             noPayOrderInfo.setZt(re.getStr("ORDER_STATE").equals(String.valueOf(MyWxpayConstant.ORDER_STATE_NOPAY)) ? "待支付" : "");
             noPayOrderInfo.setZymc(re.getStr("ZYMC"));
+            noPayOrderInfo.setPayType(re.getStr("PAY_TYPE"));
         }
         return noPayOrderInfo;
     }

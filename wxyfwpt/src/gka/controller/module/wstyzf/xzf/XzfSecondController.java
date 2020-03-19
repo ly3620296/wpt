@@ -7,6 +7,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.controller.login.WptUserInfo;
 import gka.kit.IpKit;
+import gka.kit.OrderCodeFactory;
 import gka.kit.ReKit;
 import gka.pay.wxpay.WXPayUtil;
 import gka.pay.wxpay.controller.*;
@@ -36,7 +37,7 @@ public class XzfSecondController extends Controller {
             Record re1 = xzfDao.queryJxzf(xh);
             if (re1 != null) {
                 Record re = xzfDao.jf(xh, re1.getStr("SFXN"), titles);
-                Record reNormal = xzfDao.queryTotalNormalState(xh, re1.getStr("SFXN"));
+                Record reNormal = xzfDao.queryTotalNormalState(xh, re1.getStr("SFXN"), titles);
                 List<JfInfo> jfInfoList = getJfinfo(reNormal, titles, re, re1.getStr("IDS"), re1.getStr("SFXN"));
                 result.put("orderInfo", jfInfoList);
                 result.put("payType", re1.getStr("PAY_TYPE"));
@@ -48,7 +49,7 @@ public class XzfSecondController extends Controller {
 
             //缴费记录
             List<Record> jfjl = getJfjl(titles, xh);
-            List<Record> dataNormal = xzfDao.queryTotalNormal(xh);
+            List<Record> dataNormal = xzfDao.queryTotalNormal(xh, titles);
             result.put("titles", titles);
             result.put("data", jfjl);
             result.put("dataNormal", dataNormal);
@@ -100,6 +101,7 @@ public class XzfSecondController extends Controller {
                                     if (unifResultCode.equals("SUCCESS")) {
                                         //订单入库
                                         WxPayOrder wxPayOrder = wxPayTool.fillOrder(arrs[1], newIds, IpKit.getRealIp(getRequest()), xh, unifiedOrder.get("prepay_id"), sfxn);
+                                        wxPayOrder.setOrderNo(OrderCodeFactory.getD(order));
                                         wxPayDao.insertOrderSpecial(wxPayOrder);
                                         //解析h5所需参数
                                         Map<String, String> reqData = wxPayTool.reqData(unifiedOrder);

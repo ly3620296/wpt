@@ -34,6 +34,7 @@ layui.use(['form', 'element', 'layer'], function () {
                     var myId = '_' + currXnxq + "wow" + titles[title].JFXMID;
                     //已缴金额
                     var yj = xzfList[xzf][titles[title].JFXMID];
+
                     //应缴金额
                     var yjje = xzfNormal[xzf][titles[title].JFXMID];
                     if (parseInt(yj) > 0) {
@@ -336,8 +337,9 @@ layui.use(['form', 'element', 'layer'], function () {
                     })
                 })
             } else {
-                $("#closeOrder").css("width","100%");
+                //$("#closeOrder").css("width","100%");
                 $("#finishOrder").hide();
+                $("#cancleOrder").show();
 
             }
         },
@@ -355,6 +357,10 @@ layui.use(['form', 'element', 'layer'], function () {
 
         }
     }
+
+    $("#cancleOrder").bind("click",function(){
+        $("#tanchuddId").hide();
+    });
     wpt_xzf.xzfIndex();
     wpt_xzf.bindCheckLy();
 

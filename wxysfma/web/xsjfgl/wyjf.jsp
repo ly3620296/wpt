@@ -80,6 +80,10 @@
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="zf">支付</a>
     <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="qx">取消</a>
 </script>
+
+<script type="text/html" id="barDemo2">
+    <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="qx">取消</a>
+</script>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script>
     layui.use(['form', 'layer', 'table'], function () {
@@ -89,7 +93,6 @@
                 , table = layui.table
                 , $ = layui.jquery
         var loadIndex;
-        console.log(document.body.clientWidth)
         var wpt_grjfxx = {
             init: function () {
                 $.ajax({
@@ -154,9 +157,15 @@
             },
             initOrderTab: function (noPayOrderInfo) {
                 var dataArr = new Array();
+
+                var barType="#barDemo1";
                 if (noPayOrderInfo) {
+                    if(noPayOrderInfo.payType=="JSAPI"){
+                        barType="#barDemo2";
+                    }
                     dataArr.push(noPayOrderInfo);
                 }
+
                 table.render({
                     elem: '#jfjl-order-table'  //容器id
                     , cols: [[
@@ -177,7 +186,7 @@
                         {title: "身份证号", field: "sfzh", align: "center", width: "11%"},
                         {title: "学号/考生号", field: "xh", align: "center", width: "8%"},
                         {title: "状态", field: "zt", align: "center", width: "6%"},
-                        {title: "操作", align: "center", toolbar: '#barDemo1', fixed: "right", width: "15%"},
+                        {title: "操作", align: "center", toolbar: barType, fixed: "right", width: "15%"},
                     ]],
                     data: dataArr, //数据接口地址
                     title: '用户表',

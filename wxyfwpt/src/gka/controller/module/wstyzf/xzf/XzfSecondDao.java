@@ -17,34 +17,91 @@ import java.util.Map;
 public class XzfSecondDao {
 
     public List<Record> queryTitle() {
-        String sql = "SELECT JFXMID,JFXMMC,SFBX FROM JFXMDM ORDER BY JFXMID";
-        List<Record> list = Db.find(sql);
+        String sql = "SELECT JFXMID,JFXMMC,SFBX FROM JFXMDM WHERE SFQY=? ORDER BY JFXMID";
+        List<Record> list = Db.find(sql, "1");
         return list;
     }
 
 
-    public List<Record> queryTotalNormal(String xh) {
-        String sql = "SELECT XN,YSHJ,NVL(SFXM01,0) SFXM01,NVL(SFXM02,0) SFXM02,NVL(SFXM03,0) SFXM03,NVL(SFXM04,0) SFXM04," +
-                "NVL(SFXM05,0) SFXM05,NVL(SFXM06,0) SFXM06,NVL(SFXM07,0) SFXM07 " +
-                "FROM XSSFB WHERE XH =? ORDER BY XN DESC";
-        List<Record> list = Db.find(sql, xh);
+    public List<Record> queryTotalNormal(String xh, List<Record> titles) {
+        StringBuffer sql = new StringBuffer("SELECT XN,YSHJ,");
+        for (int i = 0; i < titles.size(); i++) {
+            if (i < titles.size() - 1) {
+                sql.append("NVL(" + titles.get(i).getStr("JFXMID") + ",0) ");
+                sql.append(titles.get(i).getStr("JFXMID"));
+                sql.append(",");
+            } else {
+                sql.append("NVL(" + titles.get(i).getStr("JFXMID") + ",0) ");
+                sql.append(titles.get(i).getStr("JFXMID"));
+            }
+        }
+        sql.append(" FROM XSSFB WHERE XH =? ORDER BY XN DESC");
+        List<Record> list = Db.find(sql.toString(), xh);
         return list;
     }
 
 
-    public Record queryTotalNormalState(String xh, String xn) {
-        String sql = "SELECT XN,YSHJ,NVL(SFXM01,0) SFXM01,NVL(SFXM02,0) SFXM02,NVL(SFXM03,0) SFXM03,NVL(SFXM04,0) SFXM04," +
-                "NVL(SFXM05,0) SFXM05,NVL(SFXM06,0) SFXM06,NVL(SFXM07,0) SFXM07 " +
-                "FROM XSSFB WHERE XH =? AND XN=?";
-        Record re = Db.findFirst(sql, xh, xn);
+    public Record queryTotalNormalState(String xh, String xn, List<Record> titles) {
+        StringBuffer sql = new StringBuffer("SELECT XN,YSHJ,");
+        for (int i = 0; i < titles.size(); i++) {
+            if (i < titles.size() - 1) {
+                sql.append("NVL(" + titles.get(i).getStr("JFXMID") + ",0) ");
+                sql.append(titles.get(i).getStr("JFXMID"));
+                sql.append(",");
+            } else {
+                sql.append("NVL(" + titles.get(i).getStr("JFXMID") + ",0) ");
+                sql.append(titles.get(i).getStr("JFXMID"));
+            }
+        }
+        sql.append(" FROM XSSFB WHERE XH =? AND XN=?");
+        Record re = Db.findFirst(sql.toString(), xh, xn);
         return re;
     }
 
     public List<Record> queryTotal(List<Record> title, String xh) {
-        String sql = "SELECT T1.XN,T1.YSHJ," + getSql(title) +
-                " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? ORDER BY T1.XN DESC";
-        List<Record> list = Db.find(sql, xh);
+//        String sql = "SELECT T1.XN,T1.YSHJ," + getSql(title) +
+//                " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? ORDER BY T1.XN DESC";
+        String sql = generateYjfSql(title);
+        List<Record> list = Db.find(sql, xh, xh);
         return list;
+    }
+
+    private String generateYjfSql(List<Record> titles) {
+
+//        SELECT T2.XN, T2.XH, T1. * FROM(
+//                SELECT XH, XN, SUM(SFXM01)SFXM01, SUM(SFXM02)SFXM02, SUM(SFXM03)SFXM03, SUM(SFXM04)SFXM04,
+//                SUM(SFXM05)SFXM05, SUM(SFXM06)SFXM06, SUM(SFXM07)SFXM07, SUM(SSHJ)SSHJ FROM YHSJB WHERE XH = '20183519' GROUP BY XH, XN
+
+        StringBuffer sb = new StringBuffer(" SELECT T2.XN,T2.XH,");
+        StringBuffer sb1 = new StringBuffer();
+        for (int i = 0; i < titles.size(); i++) {
+            Record re = titles.get(i);
+            String jfxmId = re.getStr("JFXMID");
+
+            if (i < titles.size() - 1) {
+                sb.append("NVL(T1."+jfxmId+",0) ");
+                sb.append(jfxmId);
+                sb.append(",");
+
+                sb1.append("SUM(" + jfxmId + ") ");
+                sb1.append(jfxmId);
+                sb1.append(",");
+            } else {
+                sb.append("NVL(T1."+jfxmId+",0) ");
+                sb.append(jfxmId);
+
+                sb1.append("SUM(" + jfxmId + ") ");
+                sb1.append(jfxmId);
+                sb1.append(",");
+                sb1.append("SUM(SSHJ) SSHJ ");
+            }
+        }
+        sb.append(" FROM (SELECT XH,XN,");
+        sb.append(sb1);
+        sb.append(" FROM YHSJB WHERE XH=? GROUP BY XH,XN");
+        sb.append(") T1 RIGHT JOIN XSSFB T2 ON T1.XH = T2.XH AND T1.XN = T2.XN WHERE T2.XH = ? ");
+        sb.append("ORDER BY T2.XN DESC");
+        return sb.toString();
     }
 
     private String getSql(List<Record> title) {
@@ -148,12 +205,12 @@ public class XzfSecondDao {
         return re == null ? "" : re.getStr("ORDER_STATE");
     }
 
-    public  void updateIllegalMoneyOrder(final Map<String, String> repData) {
+    public void updateIllegalMoneyOrder(final Map<String, String> repData) {
         Db.tx(new IAtom() {
             @Override
             public boolean run() throws SQLException {
                 String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=? WHERE OUT_TRADE_NO=?";
-                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), repData.get("total_fee"), repData.get("openid"),  repData.get("out_trade_no"));
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), repData.get("total_fee"), repData.get("openid"), repData.get("out_trade_no"));
                 int upYsf = updateOrder(repData.get("out_trade_no"));
                 return upOrder * upYsf >= 1;
             }
@@ -172,6 +229,7 @@ public class XzfSecondDao {
             }
         });
     }
+
     public int updateOrder(String out_trade_no) {
         String sql = "SELECT IDS,SFXN,XH FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
         Record re = Db.findFirst(sql, out_trade_no);

@@ -37,6 +37,7 @@
         <div class="foot">
             <a class="btnno" href="javascript:void(0)" id="closeOrder">关闭订单</a>
             <a class="btnyes" href="javascript:void(0)" id="finishOrder">继续支付</a>
+            <a class="btnyes" href="javascript:void(0)" id="cancleOrder" style="display: none">取消</a>
         </div>
     </div>
 </div>
