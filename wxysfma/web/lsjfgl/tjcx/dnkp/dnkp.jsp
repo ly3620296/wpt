@@ -13,7 +13,7 @@
         }
 
 
-        @media screen  and (max-width: 2000px) {
+        /*@media screen  and (max-width: 1599px) {*/
             .layui-form-radio > i {
                 font-size: 18px !important;
                 margin-right: 4px;
@@ -27,7 +27,7 @@
             }
 
 
-        }
+        /*}*/
     </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
