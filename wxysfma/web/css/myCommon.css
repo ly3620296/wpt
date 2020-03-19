@@ -1,16 +1,27 @@
-@media screen  and (max-width: 1500px) {
+@media screen  and (max-width: 2000px) {
     .layui-table th, .layui-table td {
         font-size: 12px !important;
+    }
 
+    .layui-icon {
+        font-size: 14px;
+    }
+
+    .layui-nav * {
+        font-size: 13px;
+    !important;
     }
 
     .layui-btn-sm {
         font-size: 12px !important;
     }
 
+    .layui-tab-title li {
+        font-size: 12px;
+    }
 }
 
-@media screen  and (max-width: 1700px) {
+@media screen   and (min-width: 2000px) and (max-width: 3000px) {
     .layui-tab-title li {
         font-size: 15px !important;
     }
