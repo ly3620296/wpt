@@ -32,18 +32,18 @@
             <div class="layui-form-item" id="my-header">
                 <div class="layui-inline">
                     <label class="layui-form-label">账务日期：</label>
-
-                    <div class="layui-input-inline" style="width: 133px;">
+                    <div class="layui-input-inline" style="width: 90px !important;margin-right: 10px!important;">
                         <input type="text" name="title" placeholder="开始时间" autocomplete="off" class="layui-input"
                                id="dateStart">
                     </div>
-                    <div class="layui-input-inline" style="width: 15px">
+                    <div class="layui-input-inline" style="width: 10px!important; margin-right: 10px;">
                         至
                     </div>
-                    <div class="layui-input-inline" style="width: 133px;">
+                    <div class="layui-input-inline" style="width: 90px !important;">
                         <input type="text" name="title" placeholder="结束时间" autocomplete="off" class="layui-input"
                                id="dateEnd">
                     </div>
+
                 </div>
                 <div class="layui-inline" style="margin-left: 50px;">
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-search">
