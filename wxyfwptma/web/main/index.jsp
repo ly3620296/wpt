@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/admin.css">
+    <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>

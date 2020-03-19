@@ -11,6 +11,23 @@
         .layui-table tbody tr:hover {
             background-color: #fbfbfb;
         }
+
+
+        @media screen  and (max-width: 2000px) {
+            .layui-form-radio > i {
+                font-size: 18px !important;
+                margin-right: 4px;
+            }
+            .layui-form-radio {
+                margin: 6px 0 0 0!important;
+                padding-right: 7px;
+            }
+            .layui-form-radio * {
+                font-size: 13px !important;
+            }
+
+
+        }
     </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
@@ -149,16 +166,16 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <div class="layui-card">
-                <div class="layui-form-item">
-                    <div class="layui-inline" style="margin-left: 1%;">
-                        <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-save">
-                            保存
-                        </button>
-                    </div>
+            <div class="layui-form-item">
+                <div class="layui-inline" style="margin-left: 1%;">
+                    <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-save">
+                        保存
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
