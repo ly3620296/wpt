@@ -63,7 +63,7 @@ html {
     position: absolute;
     bottom: 0%;
     left: 0%;
-    padding: 40px 0;
+    padding: 20px 0;
     background: #fafafa;
     border-top: 3px solid #27A9E3;
     overflow: hidden;
@@ -95,7 +95,7 @@ html {
 
 .login-about-bottom .media .media-body h4 {
     color: #27A9E3;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     line-height: 40px;
 }
@@ -133,10 +133,9 @@ img {
 }
 
 .login_box {
-    width: 1500px;
+    width: 1200px;
     margin: 10% auto 0;
 }
-
 .login_box .login_l_img {
     float: left;
     width: 432px;
@@ -145,33 +144,32 @@ img {
 }
 
 .login_box .login_l_img img {
-    width: 550px;
+    width: 450px;
 }
 
 .login {
-
-    width: 400px;
-    padding: 35px;
+    width: 300px;
+    padding: 20px;
     background-color: #ffffff;
     border-radius: 6px;
     box-sizing: border-box;
     float: right;
     margin-right: 50px;
     position: relative;
-    margin-top: 67px;
+    margin-top: 50px;
 }
 
 .login_logo {
-    width: 120px;
-    height: 120px;
+    width: 80px;
+    height: 80px;
     border: 5px solid #93defe;
     border-radius: 100px;
     background: #fff;
     text-align: center;
     line-height: 110px;
     position: absolute;
-    top: -60px;
-    right: 140px;
+    top: -46px;
+    right: 113px;
 }
 
 .login_name {
@@ -190,10 +188,11 @@ img {
 }
 
 .login_logo img {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     display: inline-block;
     vertical-align: middle;
+    margin-bottom: 10px;
 }
 
 .login_box li {
@@ -220,14 +219,14 @@ select {
     border: 1px solid #DCDEE0;
     vertical-align: middle;
     border-radius: 3px;
-    height: 50px;
+    height: 36px;
     padding: 0px 16px;
     font-size: 14px;
     color: #555555;
     outline: none;
     width: 100%;
     /*margin-bottom: 15px;*/
-    line-height: 50px;
+    line-height: 36px;
     color: #888;
     vertical-align: middle;
 }
@@ -244,7 +243,7 @@ input[type=submit],
 input[type=button] {
     display: inline-block;
     vertical-align: middle;
-    padding: 12px 24px;
+    padding: 5px 24px;
     margin: 0px;
     font-size: 16px;
     line-height: 24px;
@@ -284,4 +283,8 @@ input[type=button] {
     margin-bottom: 15px;
     display: block;
     line-height: 50px;
+}
+
+.login_box li{
+    margin-bottom: 10px;
 }

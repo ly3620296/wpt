@@ -38,7 +38,7 @@
                         <input type="text" name="password"   value="111111" id="password" placeholder="密码">
                     </li>
                     <li>
-                        <input style="width: 45%;" type="text" placeholder="图片验证码"  id="LAY-user-login-vercode"/>
+                        <input style="width: 54%;" type="text" placeholder="图片验证码"  id="LAY-user-login-vercode"/>
                         <img  class="image" id="mobileImage" src="" onclick="updateCaptcha();" style="width: 40%;margin-left: 10px"/>
                         <%--<img style="width: 30%;vertical-align: middle;" class="imgPassword" src="<%=Constant.server_name%>img/imgpassword.png"/>--%>
                     </li>
