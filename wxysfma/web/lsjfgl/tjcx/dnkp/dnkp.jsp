@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>css/commonLs.css">
     <style>
+        .layui-form-item .layui-inline {
+            margin-right: 14px !important;
+        }
+
         .layui-table tbody tr:hover {
             background-color: #fbfbfb;
         }
@@ -26,7 +30,13 @@
         .layui-form-radio * {
             font-size: 13px !important;
         }
+        .layuiadmin-card-header-auto {
+            padding-top: 13px;
+        }
+        .layui-field-title {
+            margin: 5px 0 10px;
 
+        }
         /*}*/
     </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
@@ -37,7 +47,7 @@
 <div class="layui-fluid">
     <div>
         <fieldset class="layui-elem-field layui-field-title"
-                  style="margin-top: 20px;border-color: #009688 !important;">
+                  style="margin-top: 10px;border-color: #009688 !important;">
             <legend>电脑开票</legend>
         </fieldset>
     </div>
@@ -47,7 +57,7 @@
 <div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-            <div class="layui-form-item" id="my-header">
+            <div class="layui-form-item" id="my-header" style="margin-bottom: -5px;">
                 <div class="layui-inline">
                     <label class="layui-form-label">缴费学年：</label>
 
@@ -98,7 +108,7 @@
                         <td width="6%"><span id="XH"></span><span id="XN" style="display: none"></span></td>
                         <td width="5%" style="background-color: #eef9fb">姓名</td>
                         <td width="6%"><span id="XM"></span></td>
-                        <td width="5%" style="background-color: #eef9fb">身份证号</td>
+                        <td width="7%" style="background-color: #eef9fb">身份证号</td>
                         <td width="10%"><span id="SFZH"></span></td>
                         <td width="5%" style="background-color: #eef9fb">学院</td>
                         <td width="12%"><span id="XYMC"></span></td>
@@ -140,15 +150,15 @@
         <div class="layui-card">
             <div class="layui-form-item">
                 <div class="layui-inline" style="margin-left: 1%;">
-                    <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-save">
-                        保存
-                    </button>
+                    <%--<button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-save">--%>
+                        <%--保存--%>
+                    <%--</button>--%>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
+
 <div class="layui-fluid">
     <div class="layui-row">
         <div class="layui-card">
@@ -212,13 +222,25 @@
                             var html = '';
                             html += '<tbody align="center">';
                             html += '<tr style="background-color: #eef9fb"> ' +
-                            '<td   width="60px"></td> ' +
-                            '<td style="color:#4aa4a5;font-weight:bold" >总额</td> ';
+                            '<td  width="7%"></td> ' +
+                            '<td style="color:#4aa4a5;font-weight:bold;width:6%" >总额</td> ';
                             for (var i = 0; i < title.length; i++) {
+                                console.log(title[i].JFXMMC + "---" + title[i].JFXMMC.length)
                                 if (title[i].SFBX == "1") {
-                                    html += '<td style="color:#4aa4a5;font-weight:bold">' + title[i].JFXMMC + '</td> '
+                                    if (title[i].JFXMMC.length >= 8) {
+                                        html += '<td style="color:#4aa4a5;font-weight:bold;width:13%">' + title[i].JFXMMC + '</td> '
+                                    } else {
+                                        html += '<td style="color:#4aa4a5;font-weight:bold;width:8%">' + title[i].JFXMMC + '</td> '
+                                    }
+
                                 } else {
-                                    html += '<td style="color:#4aa4a5;font-weight:bold">' + title[i].JFXMMC + '<span style="color: #bd9b4a">（选交）</span></td> '
+                                    if (title[i].JFXMMC.length >= 4) {
+                                        html += '<td style="color:#4aa4a5;font-weight:bold;width:13%">' + title[i].JFXMMC + '<span style="color: #bd9b4a">（选交）</span></td> '
+                                    } else {
+                                        html += '<td style="color:#4aa4a5;font-weight:bold;width:8%">' + title[i].JFXMMC + '<span style="color: #bd9b4a">（选交）</span></td> '
+                                    }
+
+
                                 }
                             }
                             html += '</tr> ';
@@ -316,7 +338,7 @@
                         $("#" + titles[i].JFXMID + "_show").html(wjfjl[str])
 //                        $1("#" + titles[i].JFXMID + "_this").val(wjfjl[str])
                     }
-                }else{
+                } else {
                     $("#ze_show").html("");
                     for (var i = 0; i < titles.length; i++) {
                         var str = titles[i].JFXMID
