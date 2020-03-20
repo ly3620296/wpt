@@ -22,6 +22,7 @@ public class DnkpController extends Controller {
     WyjfDao wyjfDao = new WyjfDao();
     private WxPayDao wxPayDao = new WxPayDao();
     private XsDdcxDao ddcxDao = new XsDdcxDao();
+    private DnkpDao dnkpDao = new DnkpDao();
 
     public void index() {
         Map map = new HashMap();
@@ -34,6 +35,29 @@ public class DnkpController extends Controller {
             map.put("code", "0");
             map.put("msg", "success");
             map.put("list", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("code", "-1");
+            map.put("msg", "系统繁忙，请稍后重试！");
+        }
+        renderJson(map);
+    }
+
+    public void queryByXh() {
+        Map map = new HashMap();
+        try {
+            String xn = getPara("xn"); //缴费学年
+            String xh = getPara("xh"); //学号
+            Record userInfo = dnkpDao.getUserInfo(xh, xn);
+            List<Record> titles = wyjfDao.queryTitle();
+            List<Record> yjfList = wyjfDao.queryYjFyxx(titles, xh, xn);
+            Record wjfjl = wyjfDao.queryTotalWjf(titles, xh, xn);
+            map.put("titles", titles);
+            map.put("wjfjl", wjfjl);
+            map.put("userInfo", userInfo);
+            map.put("yjfList", yjfList);
+            map.put("code", "0");
+            map.put("msg", "success");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", "-1");

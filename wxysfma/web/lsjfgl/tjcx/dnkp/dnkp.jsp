@@ -8,25 +8,35 @@
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>css/commonLs.css">
     <style>
+        .layui-form-item .layui-inline {
+            margin-right: 14px !important;
+        }
+
         .layui-table tbody tr:hover {
             background-color: #fbfbfb;
         }
 
-
         /*@media screen  and (max-width: 1599px) {*/
-            .layui-form-radio > i {
-                font-size: 18px !important;
-                margin-right: 4px;
-            }
-            .layui-form-radio {
-                margin: 6px 0 0 0!important;
-                padding-right: 7px;
-            }
-            .layui-form-radio * {
-                font-size: 13px !important;
-            }
+        .layui-form-radio > i {
+            font-size: 18px !important;
+            margin-right: 4px;
+        }
 
+        .layui-form-radio {
+            margin: 6px 0 0 0 !important;
+            padding-right: 7px;
+        }
 
+        .layui-form-radio * {
+            font-size: 13px !important;
+        }
+        .layuiadmin-card-header-auto {
+            padding-top: 13px;
+        }
+        .layui-field-title {
+            margin: 5px 0 10px;
+
+        }
         /*}*/
     </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
@@ -37,7 +47,7 @@
 <div class="layui-fluid">
     <div>
         <fieldset class="layui-elem-field layui-field-title"
-                  style="margin-top: 20px;border-color: #009688 !important;">
+                  style="margin-top: 10px;border-color: #009688 !important;">
             <legend>电脑开票</legend>
         </fieldset>
     </div>
@@ -47,7 +57,7 @@
 <div class="layui-fluid">
     <div class="layui-card">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-            <div class="layui-form-item" id="my-header">
+            <div class="layui-form-item" id="my-header" style="margin-bottom: -5px;">
                 <div class="layui-inline">
                     <label class="layui-form-label">缴费学年：</label>
 
@@ -56,36 +66,11 @@
                         </select>
                     </div>
                 </div>
-
-                <%--<div class="layui-inline">--%>
-                <%--<label class="layui-form-label">缴费学年：</label>--%>
-
-                <%--<div class="layui-input-inline">--%>
-                <%--<select lay-verify="required" id="search-sfxn">--%>
-                <%--</select>--%>
-                <%--</div>--%>
-                <%--</div>--%>
                 <div class="layui-inline">
                     <label class="layui-form-label">学号：</label>
 
                     <div class="layui-input-inline">
                         <input type="text" id="search-xh" placeholder="学号" autocomplete="off"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline ">
-                    <label class="layui-form-label">姓名：</label>
-
-                    <div class="layui-input-inline">
-                        <input type="text" id="search-xm" placeholder="姓名" autocomplete="off"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline ">
-                    <label class="layui-form-label">身份证：</label>
-
-                    <div class="layui-input-inline">
-                        <input type="text" id="search-sfzh" placeholder="身份证" autocomplete="off"
                                class="layui-input">
                     </div>
                 </div>
@@ -101,9 +86,6 @@
                 <div class="layui-inline my-cx" style="margin-left: 50px;">
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-search">
                         查询
-                    </button>
-                    <button class="layui-btn layuiadmin-btn-list" lay-filter="reset" id="my-reset">
-                        重置
                     </button>
                 </div>
             </div>
@@ -122,20 +104,20 @@
                     </thead>
                     <tbody align="center">
                     <tr>
-                        <td width="7%" style="background-color: #eef9fb">学号</td>
-                        <td width="7%"><span id="XH"></span><span id="XN" style="display: none"></span></td>
-                        <td width="7%" style="background-color: #eef9fb">姓名</td>
-                        <td width="7%"><span id="XM"></span></td>
+                        <td width="5%" style="background-color: #eef9fb">学号</td>
+                        <td width="6%"><span id="XH"></span><span id="XN" style="display: none"></span></td>
+                        <td width="5%" style="background-color: #eef9fb">姓名</td>
+                        <td width="6%"><span id="XM"></span></td>
                         <td width="7%" style="background-color: #eef9fb">身份证号</td>
-                        <td width="7%"><span id="SFZH"></span></td>
-                        <td width="7%" style="background-color: #eef9fb">学院</td>
-                        <td width="7%"><span id="XYMC"></span></td>
-                        <td width="7%" style="background-color: #eef9fb">专业</td>
-                        <td width="7%"><span id="ZYMC"></span></td>
+                        <td width="10%"><span id="SFZH"></span></td>
+                        <td width="5%" style="background-color: #eef9fb">学院</td>
+                        <td width="12%"><span id="XYMC"></span></td>
+                        <td width="5%" style="background-color: #eef9fb">专业</td>
+                        <td width="10%"><span id="ZYMC"></span></td>
                         <td width="7%" style="background-color: #eef9fb">班级</td>
-                        <td width="7%"><span id="BJMC"></span></td>
-                        <td width="7%" style="background-color: #eef9fb">年级</td>
-                        <td width="7%"><span id="NJ"></span></td>
+                        <td width="5%"><span id="BJMC"></span></td>
+                        <td width="5%" style="background-color: #eef9fb">年级</td>
+                        <td width="5%"><span id="NJ"></span></td>
                     </tr>
                     </tbody>
                 </table>
@@ -153,7 +135,7 @@
                         <tr>
                             <th style="background-color: #eef9fb" id="this_th">
                                 <div align="center" style="color:#4aa4a5;font-weight:bold">
-                                    缴费信息核实
+                                    缴费信息核实<font color='red'>（单位元）</font>
                                 </div>
                             </th>
                         </tr>
@@ -168,16 +150,27 @@
         <div class="layui-card">
             <div class="layui-form-item">
                 <div class="layui-inline" style="margin-left: 1%;">
-                    <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-save">
-                        保存
-                    </button>
+                    <%--<button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-save">--%>
+                        <%--保存--%>
+                    <%--</button>--%>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-card">
+            <div class="layui-card-body">
+                <div class="layui-form">
+                    <table class="layui-table" id="yjf-order-table">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div id="search_data" style="padding: 5px 20px; line-height: 22px; font-weight: 300;display: none">
     <ul id="biuuu_city_list"></ul>
@@ -209,12 +202,16 @@
                     success: function (data) {
                         if (data.code == "0") {
                             var xnList = data.xnList;
-                            console.log(xnList)
-                            var optionsXn = "<option value='' selected> 请选择</option>";
+                            var optionsXn = "";
                             for (var index in xnList) {
                                 var xnmc = xnList[index].XNMC;
                                 //下拉选定位当前周
-                                optionsXn += "<option value='" + xnmc + "'>" + xnmc + "</option>";
+                                if (index == 0) {
+                                    optionsXn += "<option value='" + xnmc + "' checked>" + xnmc + "</option>";
+                                } else {
+                                    optionsXn += "<option value='" + xnmc + "'>" + xnmc + "</option>";
+                                }
+
                             }
                             $("#search-sfxn").html(optionsXn);
                             form.render('select');
@@ -225,13 +222,25 @@
                             var html = '';
                             html += '<tbody align="center">';
                             html += '<tr style="background-color: #eef9fb"> ' +
-                            '<td   width="60px"></td> ' +
-                            '<td style="color:#4aa4a5;font-weight:bold" >总额</td> ';
+                            '<td  width="7%"></td> ' +
+                            '<td style="color:#4aa4a5;font-weight:bold;width:6%" >总额</td> ';
                             for (var i = 0; i < title.length; i++) {
+                                console.log(title[i].JFXMMC + "---" + title[i].JFXMMC.length)
                                 if (title[i].SFBX == "1") {
-                                    html += '<td style="color:#4aa4a5;font-weight:bold">' + title[i].JFXMMC + '</td> '
+                                    if (title[i].JFXMMC.length >= 8) {
+                                        html += '<td style="color:#4aa4a5;font-weight:bold;width:13%">' + title[i].JFXMMC + '</td> '
+                                    } else {
+                                        html += '<td style="color:#4aa4a5;font-weight:bold;width:8%">' + title[i].JFXMMC + '</td> '
+                                    }
+
                                 } else {
-                                    html += '<td style="color:#4aa4a5;font-weight:bold">' + title[i].JFXMMC + '<span style="color: #bd9b4a">（选交）</span></td> '
+                                    if (title[i].JFXMMC.length >= 4) {
+                                        html += '<td style="color:#4aa4a5;font-weight:bold;width:13%">' + title[i].JFXMMC + '<span style="color: #bd9b4a">（选交）</span></td> '
+                                    } else {
+                                        html += '<td style="color:#4aa4a5;font-weight:bold;width:8%">' + title[i].JFXMMC + '<span style="color: #bd9b4a">（选交）</span></td> '
+                                    }
+
+
                                 }
                             }
                             html += '</tr> ';
@@ -265,6 +274,123 @@
                     }
                 })
             },
+
+            //回车查询
+            queryByXh: function () {
+                var xh = $("#search-xh").val();
+                var xn = $("#search-sfxn").val();
+                if (xh != null && xh.length > 0) {
+                    $.ajax({
+                        url: wpt_serverName + "lsjfgl/dnkp/queryByXh",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {xh: xh, xn: xn},
+                        timeout: 10000,
+                        beforeSend: function () {
+                            loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+                        },
+                        success: function (data) {
+                            if (data && data.code == "0") {
+                                //补全用户信息
+                                wpt_grjfxx.initUserInfo(data.userInfo);
+                                //补全缴费信息
+                                wpt_grjfxx.initWjf(data.wjfjl, data.titles);
+
+                                //补全已交费信息
+                                wpt_grjfxx.initYjfXx(data.yjfList, data.titles);
+                            } else {
+                                if (data) {
+                                    layer.msg(data.msg, {anim: 6, time: 2000});
+                                } else {
+                                    layer.msg("系统繁忙请稍后重试！", {anim: 6, time: 2000});
+                                }
+                            }
+                        },
+                        complete: function () {
+                            layer.close(loadIndex);
+                        }
+                    })
+                } else {
+                    layer.msg("请输入要查询的学号！", {anim: 6, time: 3000});
+                    $("#search-xh").focus();
+                }
+
+            },
+            //用户信息
+            initUserInfo: function (userInfo) {
+                if (userInfo) {
+                    $("#XN").html(userInfo.XN)
+                    $("#XH").html(userInfo.XH)
+                    $("#XM").html(userInfo.XM)
+                    $("#SFZH").html(userInfo.SFZH)
+                    $("#XYMC").html(userInfo.XYMC)
+                    $("#ZYMC").html(userInfo.ZYMC)
+                    $("#BJMC").html(userInfo.BJMC)
+                    $("#NJ").html(userInfo.NJ)
+                }
+            },
+            //应缴费信息
+            initWjf: function (wjfjl, titles) {
+                if (wjfjl) {
+                    $("#ze_show").html(wjfjl.YSHJ);
+                    for (var i = 0; i < titles.length; i++) {
+                        var str = titles[i].JFXMID
+                        $("#" + titles[i].JFXMID + "_show").html(wjfjl[str])
+//                        $1("#" + titles[i].JFXMID + "_this").val(wjfjl[str])
+                    }
+                } else {
+                    $("#ze_show").html("");
+                    for (var i = 0; i < titles.length; i++) {
+                        var str = titles[i].JFXMID
+                        $("#" + titles[i].JFXMID + "_show").html("")
+//                        $1("#" + titles[i].JFXMID + "_this").val(wjfjl[str])
+                    }
+                }
+            },
+            //已交费订单
+            initYjfXx: function (yjfList, titles) {
+                if (yjfList) {
+                    var cols = [
+                        {title: "订单号", field: "DDH", align: "center", width: "14%"},
+                        {title: "交费类型", field: "JFLX", align: "center"},
+                        {title: "交费合计", field: "SSHJ", align: "center"},
+                        {title: "下单时间", field: "XDSJ", align: "center"}];
+                    var colsLen = cols.length;
+                    for (var i = 0; i < titles.length; i++) {
+                        if (titles[i].SFBX == "1") {
+                            cols[i + colsLen] = {title: titles[i].JFXMMC, field: titles[i].JFXMID, align: "center"};
+                        } else {
+                            cols[i + colsLen] = {
+                                title: titles[i].JFXMMC + "（选交）",
+                                field: titles[i].JFXMID,
+                                align: "center"
+                            };
+                        }
+
+                    }
+                    var colSapnLen = colsLen + titles.length;
+                    table.render({
+                        elem: '#yjf-order-table'  //容器id
+                        , cols: [[
+                            {
+                                title: "已缴费用信息<font color='red'>（单位元）</font>",
+                                colspan: colSapnLen,
+                                align: "center"
+                            }
+                        ], cols],
+                        data: yjfList,
+                        title: '用户表',
+                        page: false, //开启分页
+                        loading: true,
+
+                        done: function (res, curr, count) { //加载完回调
+                            $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5', 'font-weight': 'bold'})
+                        },
+                        id: 'yjfTable'
+                    });
+                }
+            },
+
             searchData: function (para) {
                 if (para.length > 0) {
                     var data = [];
@@ -272,7 +398,6 @@
                     for (var i = 0; i < para.length; i++) {
                         data.push(para[i].XM + "_" + para[i].XH + "|" + para[i].XN)
                     }
-                    console.log(data)
                     laypage.render({
                         elem: 'demo20'
                         , count: data.length
@@ -304,17 +429,10 @@
             bindCli: function () {
                 $('body').keyup(function (e) {
                     if (e.keyCode === 13) {
-                        $('#my-search').click()
-                    } else if (e.keyCode === 27) {
-                        $('#my-reset').click()
+                        wpt_grjfxx.queryByXh();
                     }
                 })
 
-                //重置
-                $("#my-reset").bind("click", function () {
-                    $("#my-header input").val("");
-                    $("#my-header select").val("");
-                })
                 $("#my-search").bind("click", function () {
                     var sfxn = $('#search-sfxn').val(); //缴费学年
                     var xm = $('#search-xm').val(); //姓名
@@ -344,7 +462,9 @@
                     })
 
                 })
+
                 $("#my-save").bind("click", function () {
+                    alert(1);
                     var jffs = $("input[name='jffs']:checked").val();
                     var object = {};
                     var xh = $("#XH").html()
@@ -360,7 +480,6 @@
                         }
                         object['ze'] = ze;
                         var json = JSON.stringify(object);
-                        console.log(json);
                         $.ajax({
                             url: wpt_serverName + "lsjfgl/dnkp/save",
                             type: 'post',
