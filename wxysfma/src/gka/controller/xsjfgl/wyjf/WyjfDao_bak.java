@@ -5,16 +5,13 @@ import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import gka.controller.xsjfgl.MyUtil;
-import gka.controller.xsjfgl.grjfxx.MyConstant;
-import gka.pay.wxpay.WXPayConstants;
 import gka.pay.wxpay.controller.MyWxpayConstant;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
-public class WyjfDao {
+public class WyjfDao_bak {
 
     public List<Record> queryTitle() {
         String sql = "SELECT JFXMID,JFXMMC,SFBX FROM JFXMDM WHERE SFQY=? ORDER BY JFXMID";
@@ -64,15 +61,15 @@ public class WyjfDao {
     }
 
     public void updateIllegalMoneyOrder(final Map<String, String> repData) {
-//        Db.tx(new IAtom() {
-//            @Override
-//            public boolean run() throws SQLException {
-        String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=? WHERE OUT_TRADE_NO=?";
-        int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), repData.get("total_fee"), repData.get("openid"), repData.get("out_trade_no"));
-//                int upYsf = updateOrder(repData.get("out_trade_no"), repData.get("trade_type"), repData.get("total_fee"));
-//                return upOrder * upYsf >= 1;
-//            }
-//        });
+        Db.tx(new IAtom() {
+            @Override
+            public boolean run() throws SQLException {
+                String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=? WHERE OUT_TRADE_NO=?";
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), repData.get("total_fee"), repData.get("openid"), repData.get("out_trade_no"));
+                int upYsf = updateOrder(repData.get("out_trade_no"));
+                return upOrder * upYsf >= 1;
+            }
+        });
     }
 
 
@@ -82,7 +79,7 @@ public class WyjfDao {
             public boolean run() throws SQLException {
                 String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=? WHERE OUT_TRADE_NO=?";
                 int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_PAY, MyWxpayConstant.RETURN_CODE_SUCCESS, repData.get("result_code"), repData.get("transaction_id"), repData.get("total_fee"), repData.get("openid"), repData.get("out_trade_no"));
-                int upYsf = updateOrder(repData.get("out_trade_no"), repData.get("trade_type"), repData.get("total_fee"));
+                int upYsf = updateOrder(repData.get("out_trade_no"));
                 return upOrder * upYsf >= 1;
             }
         });
@@ -94,38 +91,30 @@ public class WyjfDao {
      * @param out_trade_no
      * @return
      */
-    public int updateOrder(String out_trade_no, String pay_type, String fee) {
-        String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+    public int updateOrder(String out_trade_no) {
+        String sql = "SELECT IDS,SFXN,XH FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
         Record re = Db.findFirst(sql, out_trade_no);
         int updateStat = 0;
         String ids = "";
         String sfxn = "";
         String xh = "";
-        String ORDER_NO = "";
-        String TIME_START = "";
         if (re != null) {
             ids = re.getStr("IDS");
             sfxn = re.getStr("SFXN");
             xh = re.getStr("XH");
-            ORDER_NO = re.getStr("ORDER_NO");
-            TIME_START = re.getStr("TIME_START");
-            sql = "SELECT XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH FROM XSSFB WHERE XH=? AND XN=?";
-            Record userInfo = Db.findFirst(sql, xh, sfxn);
-            sql = "SELECT " + ids + "  FROM XSSFB WHERE XH=? AND XN=?";
-            Record payInfo = Db.findFirst(sql, xh, sfxn);
-            String[] xmids = ids.split(",");
-            StringBuffer insVal = new StringBuffer();
-            for (int i = 0; i < xmids.length; i++) {
-                if (i < xmids.length - 1) {
-                    insVal.append(payInfo.getStr(xmids[i]));
-                    insVal.append(",");
-                } else {
-                    insVal.append(payInfo.getStr(xmids[i]));
-                }
+            sql = "SELECT XN FROM YHSJB WHERE XN=? AND XH=?";
+            re = Db.findFirst(sql, sfxn, xh);
+            if (re != null) {
+                sql = "UPDATE YHSJB " + getSql(ids, sfxn, xh) + " WHERE XH=? AND XN=?";
+                updateStat = Db.update(sql, xh, sfxn);
+            } else {
+                sql = "INSERT INTO YHSJB  SELECT * FROM XSSFB WHERE XH=? AND XN=?";
+                Db.update(sql, xh, sfxn);
+                sql = "UPDATE YHSJB " + getSqlIns() + " WHERE XH=? AND XN=?";
+                Db.update(sql, xh, sfxn);
+                sql = "UPDATE YHSJB " + getSql(ids, sfxn, xh) + " WHERE XH=? AND XN=?";
+                updateStat = Db.update(sql, xh, sfxn);
             }
-            sql = "INSERT INTO YHSJB (XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH,SSHJ,XDSJ,DDH,JFLX," + ids + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?," + insVal.toString() + ")";
-            updateStat = Db.update(sql, userInfo.getStr("XN"), userInfo.getStr("XH"), userInfo.getStr("XM"), userInfo.getStr("XB"), userInfo.getStr("BJMC"),
-                    userInfo.getStr("ZYMC"), userInfo.getStr("NJ"), userInfo.getStr("XYMC"), userInfo.getStr("SFZH"), fee, TIME_START, ORDER_NO, pay_type);
         }
 
         return updateStat;
@@ -364,6 +353,5 @@ public class WyjfDao {
         }
         return sb.toString();
     }
-
 
 }

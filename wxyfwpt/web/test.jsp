@@ -20,12 +20,12 @@
 //    out.print(rep);
 
 
-    Map<String, String> req = new HashMap<String, String>();
-    req.put("out_trade_no", "1568526879055tulzyyk");
-
-    Map<String, String> rep =    wxPayTool.closeOrder(req);
-    System.out.println("$$$$$$$$$$$$$$" + rep);
-    out.print(rep);
+//    Map<String, String> req = new HashMap<String, String>();
+//    req.put("out_trade_no", "1568526879055tulzyyk");
+//
+//    Map<String, String> rep =    wxPayTool.closeOrder(req);
+//    System.out.println("$$$$$$$$$$$$$$" + rep);
+//    out.print(rep);
 
 
 //    Map<Thread, StackTraceElement[]> map = Thread.getAllStackTraces();
