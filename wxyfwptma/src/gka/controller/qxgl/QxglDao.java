@@ -38,7 +38,7 @@ public class QxglDao {
 
     public static String createMenuTree() throws Exception {
         StringBuffer str = new StringBuffer();
-        List<Record> allMenu = Db.find("select m_id,m_name from wptma_menu where m_level='1' and m_state='1'");
+        List<Record> allMenu = Db.find("select m_id,m_name from wptma_menu where m_level='1' and m_state='1' and m_id in(select distinct(m_father) from wptma_menu where m_level='2' and m_state='1')");
         if (allMenu.size() > 0) {
             str.append("[{");
             for (int i = 0; i < allMenu.size(); i++) {
