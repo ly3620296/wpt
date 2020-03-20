@@ -39,7 +39,7 @@ public class DnkpDao {
     public static void insertOrder(String xh, String OUT_TRADE_NO, String ids, String PAY_TYPE, String TOTAL_FEE, String ip, String xn, String orderNo) {
         String sql = "INSERT INTO WPT_WXZF_SPECIAL_ORDER (XH,OUT_TRADE_NO,IDS,PAY_TYPE,TOTAL_FEE,APPID,MCH_ID,OPENID,PAYIP,TIME_START,ORDER_STATE," +
                 "PREPAY_ID,SFXN,ORDER_NO,CODE_URL,RETURN_CODE,result_code) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        Db.update(sql, xh, OUT_TRADE_NO, ids, PAY_TYPE, TOTAL_FEE, "", "", "", ip, getTime(), "2", "", xn, orderNo, "","success","SUCCESS");
+        Db.update(sql, xh, OUT_TRADE_NO, ids, PAY_TYPE, TOTAL_FEE, "", "", "", ip, getTime(), "2", "", xn, orderNo, "", "success", "SUCCESS");
     }
 
     public static String getTime() {
@@ -50,7 +50,14 @@ public class DnkpDao {
         return sdf.format(date);
     }
 
-    public static void main(String[] args) {
-        String aa = getTime();
+    public Record getUserInfo(String xh, String xn) {
+        String sql = "SELECT XH,XM,SFZH,XYMC,ZYMC,BJMC,NJ FROM XSSFB WHERE XH=? AND XN=?";
+        Record userInfo = Db.findFirst(sql, xh, xn);
+        return userInfo;
+    }
+
+    public List<Record> queryYjfList(String xh,String xn) {
+        List<Record> list = Db.find("");
+        return list;
     }
 }

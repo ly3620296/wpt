@@ -44,6 +44,14 @@ public class WyjfDao {
         return list;
     }
 
+    public Record queryTotalWjf(List<Record> title, String xh, String xn) {
+        String sql = "SELECT * FROM (SELECT T1.XN," + getSqlWjf(title) +
+                " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSqlDnkp(title) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=? )" +
+                " WHERE YSHJ!='0'";
+        Record re = Db.findFirst(sql, xh, xn, xh, xn);
+        return re;
+    }
+
 
     public Record jf(String xh, String xn, List<Record> title) {
         String sql = "SELECT " + getSqlForJf(title) +
@@ -328,6 +336,30 @@ public class WyjfDao {
     }
 
     /**
+     * 生成已缴每个学年总记录查询sql
+     */
+    private String generateYjfSqlDnkp(List<Record> titles) {
+        StringBuffer sb = new StringBuffer("SELECT XH,XN,");
+        for (int i = 0; i < titles.size(); i++) {
+            Record re = titles.get(i);
+            String jfxmId = re.getStr("JFXMID");
+
+            if (i < titles.size() - 1) {
+                sb.append("SUM(" + jfxmId + ") ");
+                sb.append(jfxmId);
+                sb.append(",");
+            } else {
+                sb.append("SUM(" + jfxmId + ") ");
+                sb.append(jfxmId);
+                sb.append(",");
+                sb.append("SUM(SSHJ) SSHJ ");
+            }
+        }
+        sb.append("FROM YHSJB WHERE XH=? AND XN=? GROUP BY XH,XN");
+        return sb.toString();
+    }
+
+    /**
      * 该学年应交费用信息
      *
      * @param titles
@@ -348,6 +380,16 @@ public class WyjfDao {
         String titleSql = parseTitleSql(titles);
         String sql = "SELECT XN,SSHJ," + titleSql + " FROM YHSJB WHERE XH=? ORDER BY XN DESC";
         List<Record> records = Db.find(sql, xh);
+        return records;
+    }
+
+    /**
+     * 已缴费用信息
+     */
+    public List<Record> queryYjFyxx(List<Record> titles, String xh, String xn) {
+        String titleSql = parseTitleSql(titles);
+        String sql = "SELECT XDSJ,DDH,DECODE(JFLX,'CASH','现金','CARD','刷卡','JSAPI','APP微信','NATIVE','微信扫码','GXZZ','高校转账') JFLX,XN,SSHJ," + titleSql + " FROM YHSJB WHERE XH=? AND XN=? ORDER BY XDSJ DESC";
+        List<Record> records = Db.find(sql, xh, xn);
         return records;
     }
 
