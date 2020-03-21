@@ -30,19 +30,22 @@
         .layui-form-radio * {
             font-size: 13px !important;
         }
+
         .layuiadmin-card-header-auto {
             padding-top: 13px;
         }
+
         .layui-field-title {
             margin: 5px 0 10px;
 
         }
+
         /*}*/
     </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>
-<input type="hidden" id="my_status" value="0">
+<input type="hidden" id="my_xh" value="0">
 <jsp:include page="/login/lsauth.jsp"></jsp:include>
 <div class="layui-fluid">
     <div>
@@ -74,15 +77,6 @@
                                class="layui-input">
                     </div>
                 </div>
-                <div class="layui-inline ">
-                    <label class="layui-form-label" style="line-height: 32px;">缴费方式：</label>
-
-                    <div class="layui-input-inline">
-                        <input type="radio" name="jffs" value="CASH" title="现金" checked>
-                        <input type="radio" name="jffs" value="CARD" title="刷卡">
-                        <input type="radio" name="jffs" value="GXZZ" title="高校转账">
-                    </div>
-                </div>
                 <div class="layui-inline my-cx" style="margin-left: 50px;">
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-search">
                         查询
@@ -90,48 +84,43 @@
                 </div>
             </div>
         </div>
-        <div class="layui-card-body">
-            <div class="layui-form">
-                <table class="layui-table">
-                    <thead>
-                    <tr>
-                        <th colspan="14" style="background-color: #eef9fb">
-                            <div align="center" style="color:#4aa4a5;font-weight:bold">
-                                学生信息核实
-                            </div>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody align="center">
-                    <tr>
-                        <td width="5%" style="background-color: #eef9fb">学号</td>
-                        <td width="6%"><span id="XH"></span><span id="XN" style="display: none"></span></td>
-                        <td width="5%" style="background-color: #eef9fb">姓名</td>
-                        <td width="6%"><span id="XM"></span></td>
-                        <td width="7%" style="background-color: #eef9fb">身份证号</td>
-                        <td width="10%"><span id="SFZH"></span></td>
-                        <td width="5%" style="background-color: #eef9fb">学院</td>
-                        <td width="12%"><span id="XYMC"></span></td>
-                        <td width="5%" style="background-color: #eef9fb">专业</td>
-                        <td width="10%"><span id="ZYMC"></span></td>
-                        <td width="7%" style="background-color: #eef9fb">班级</td>
-                        <td width="5%"><span id="BJMC"></span></td>
-                        <td width="5%" style="background-color: #eef9fb">年级</td>
-                        <td width="5%"><span id="NJ"></span></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 </div>
-
 <div class="layui-fluid">
     <div class="layui-row">
         <div class="layui-card">
-            <div class="layui-card-body">
+            <div class="layui-card-body" style="padding: 10px 15px 28px 15px;">
                 <div class="layui-form">
-                    <table class="layui-table" id="jfxxhs">
+                    <table class="layui-table">
+                        <thead>
+                        <tr>
+                            <th colspan="14" style="background-color: #eef9fb">
+                                <div align="center" style="color:#4aa4a5;font-weight:bold">
+                                    学生信息核实
+                                </div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody align="center">
+                        <tr>
+                            <td width="5%" style="background-color: #eef9fb">学号</td>
+                            <td width="6%"><span id="XH"></span><span id="XN" style="display: none"></span></td>
+                            <td width="5%" style="background-color: #eef9fb">姓名</td>
+                            <td width="6%"><span id="XM"></span></td>
+                            <td width="7%" style="background-color: #eef9fb">身份证号</td>
+                            <td width="10%"><span id="SFZH"></span></td>
+                            <td width="5%" style="background-color: #eef9fb">学院</td>
+                            <td width="12%"><span id="XYMC"></span></td>
+                            <td width="5%" style="background-color: #eef9fb">专业</td>
+                            <td width="10%"><span id="ZYMC"></span></td>
+                            <td width="7%" style="background-color: #eef9fb">班级</td>
+                            <td width="5%"><span id="BJMC"></span></td>
+                            <td width="5%" style="background-color: #eef9fb">年级</td>
+                            <td width="5%"><span id="NJ"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="layui-table" id="jfxxhs" style="margin-top: 30px;">
                         <tr>
                             <th style="background-color: #eef9fb" id="this_th">
                                 <div align="center" style="color:#4aa4a5;font-weight:bold">
@@ -145,24 +134,36 @@
         </div>
     </div>
 </div>
+
 <div class="layui-fluid">
-    <div class="layui-row">
-        <div class="layui-card">
-            <div class="layui-form-item">
-                <div class="layui-inline" style="margin-left: 1%;">
-                    <%--<button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-save">--%>
-                        <%--保存--%>
-                    <%--</button>--%>
+    <div class="layui-card" style="border-top: 1px solid #f6f6f6;">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item" id="my-heade1r" style="margin-bottom: -5px;">
+                <div class="layui-inline ">
+                    <label class="layui-form-label" style="line-height: 32px;padding-left: 0">缴费方式：</label>
+
+                    <div class="layui-input-inline">
+                        <input type="radio" name="jffs" value="CASH" title="现金" checked>
+                        <input type="radio" name="jffs" value="CARD" title="刷卡">
+                        <input type="radio" name="jffs" value="GXZZ" title="高校转账">
+                    </div>
+                </div>
+                <div class="layui-inline my-cx" style="margin-left: 0px;">
+                    <button class="layui-btn layuiadmin-btn-list" lay-filter="search" id="my-save">
+                        保存
+                    </button>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
 
 <div class="layui-fluid">
     <div class="layui-row">
         <div class="layui-card">
-            <div class="layui-card-body">
+            <div class="layui-form-item">
                 <div class="layui-form">
                     <table class="layui-table" id="yjf-order-table">
                     </table>
@@ -180,6 +181,8 @@
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script>
     var title;
+    var lastCach = {};
+    var allCach = [];
     layui.use(['form', 'layer', 'table', 'laypage'], function () {
         var laypage = layui.laypage
         var jQuery = layui.jquery
@@ -225,7 +228,6 @@
                             '<td  width="7%"></td> ' +
                             '<td style="color:#4aa4a5;font-weight:bold;width:6%" >总额</td> ';
                             for (var i = 0; i < title.length; i++) {
-                                console.log(title[i].JFXMMC + "---" + title[i].JFXMMC.length)
                                 if (title[i].SFBX == "1") {
                                     if (title[i].JFXMMC.length >= 8) {
                                         html += '<td style="color:#4aa4a5;font-weight:bold;width:13%">' + title[i].JFXMMC + '</td> '
@@ -253,14 +255,9 @@
                             html += '</tr> ';
                             html += '<tr> ' +
                             '<td  style="background-color: #eef9fb" width="60px">本次缴费</td> ' +
-                            '<td><input disabled="disabled" id="ze_this" type="text" class="layui-input" style="text-align: center;height: 32px;margin-left: -8px;"></td> ';
+                            '<td><input id="ze_this" type="text" onkeyup="value=totalContro(this)"   class="layui-input" style="text-align: center;height: 32px;margin-left: -8px;"></td> ';
                             for (var i = 0; i < title.length; i++) {
-                                if (title[i].SFBX == "1") {
-                                    html += '<td><input  disabled="disabled" id="' + title[i].JFXMID + '_this" type="text" class="layui-input" style="text-align: center;height: 32px;margin-left: -8px;"></td>'
-                                } else {
-                                    html += '<td><input onchange="changeMoney(this)" id="' + title[i].JFXMID + '_this" type="text" class="layui-input" style="text-align: center;height: 32px;margin-left: -8px;"></td>'
-                                }
-
+                                html += '<td><input  onkeyup="value=zhzs(this)"    id="' + title[i].JFXMID + '_this" class="layui-input" style="text-align: center;height: 32px;margin-left: -8px;"></td>'
                             }
                             html += '</tr> ';
                             html += '</tbody>';
@@ -274,7 +271,6 @@
                     }
                 })
             },
-
             //回车查询
             queryByXh: function () {
                 var xh = $("#search-xh").val();
@@ -316,6 +312,47 @@
                 }
 
             },
+
+            queryByXhOpen: function (xh) {
+                var xn = $("#search-sfxn").val();
+                if (xh != null && xh.length > 0) {
+                    $.ajax({
+                        url: wpt_serverName + "lsjfgl/dnkp/queryByXh",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {xh: xh, xn: xn},
+                        timeout: 10000,
+                        beforeSend: function () {
+                            loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+                        },
+                        success: function (data) {
+                            if (data && data.code == "0") {
+                                //补全用户信息
+                                wpt_grjfxx.initUserInfo(data.userInfo);
+                                //补全缴费信息
+                                wpt_grjfxx.initWjf(data.wjfjl, data.titles);
+
+                                //补全已交费信息
+                                wpt_grjfxx.initYjfXx(data.yjfList, data.titles);
+                            } else {
+                                if (data) {
+                                    layer.msg(data.msg, {anim: 6, time: 2000});
+                                } else {
+                                    layer.msg("系统繁忙请稍后重试！", {anim: 6, time: 2000});
+                                }
+                            }
+                        },
+                        complete: function () {
+                            layer.close(loadIndex);
+                            $("#my_xh").val("0");
+                        }
+                    })
+                } else {
+                    layer.msg("请输入要查询的学号！", {anim: 6, time: 3000});
+                    $("#search-xh").focus();
+                }
+
+            },
             //用户信息
             initUserInfo: function (userInfo) {
                 if (userInfo) {
@@ -333,17 +370,22 @@
             initWjf: function (wjfjl, titles) {
                 if (wjfjl) {
                     $("#ze_show").html(wjfjl.YSHJ);
+                    $("#ze_this").val(wjfjl.YSHJ);
+                    allCach.length = 0;
                     for (var i = 0; i < titles.length; i++) {
                         var str = titles[i].JFXMID
+                        lastCach[titles[i].JFXMID + "_this"] = wjfjl[str];
+                        allCach.push(titles[i].JFXMID + "_" + wjfjl[str]);
                         $("#" + titles[i].JFXMID + "_show").html(wjfjl[str])
-//                        $1("#" + titles[i].JFXMID + "_this").val(wjfjl[str])
+                        $("#" + titles[i].JFXMID + "_this").val(wjfjl[str])
                     }
                 } else {
                     $("#ze_show").html("");
+                    $("#ze_this").val("");
                     for (var i = 0; i < titles.length; i++) {
                         var str = titles[i].JFXMID
                         $("#" + titles[i].JFXMID + "_show").html("")
-//                        $1("#" + titles[i].JFXMID + "_this").val(wjfjl[str])
+                        $("#" + titles[i].JFXMID + "_this").val("")
                     }
                 }
             },
@@ -382,7 +424,6 @@
                         title: '用户表',
                         page: false, //开启分页
                         loading: true,
-
                         done: function (res, curr, count) { //加载完回调
                             $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5', 'font-weight': 'bold'})
                         },
@@ -417,9 +458,12 @@
                     });
                     layer.open({
                         type: 1,
-                        area: ['50%', '80%'],
+                        area: ['45%', '70%'],
                         title: "请选择学生进行缴费验证",
-                        content: $('#search_data') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+                        content: $('#search_data'),
+                        end: function () {
+                            wpt_grjfxx.isFlush();
+                        }
                     });
                 } else {
                     layer.msg("当前查询条件内暂无学生信息!", {anim: 6, time: 2000});
@@ -434,37 +478,24 @@
                 })
 
                 $("#my-search").bind("click", function () {
-                    var sfxn = $('#search-sfxn').val(); //缴费学年
-                    var xm = $('#search-xm').val(); //姓名
-                    var xh = $('#search-xh').val(); //学号
-                    var sfzh = $('#search-sfzh').val(); //身份证
-
-                    $.ajax({
-                        url: wpt_serverName + "lsjfgl/dnkp/index",
-                        type: 'post',
-                        dataType: 'json',
-                        data: {sfxn: sfxn, xm: xm, xh: xh, sfzh: sfzh},
-                        timeout: 10000,
-                        beforeSend: function () {
-                            loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
-                        },
-                        success: function (data) {
-                            if (data.code == "0") {
-                                wpt_grjfxx.searchData(data.list);
+                    layer.open({
+                        type: 2,
+                        area: [parseInt(parent.$("#iframe_00").width()) * 0.8 + 'px', parseInt(parent.$("#iframe_00").height()) * 0.89 + 'px'],
+                        title: "学生信息",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        content: wpt_serverName + 'lsjfgl/tjcx/dnkp/userInfo.jsp?xn=' + $("#search-sfxn").val(),
+                        end: function () {
+                            var xh = $("#my_xh").val();
+                            if (xh != "0") {
+                                $("#search-xh").val("");
+                                wpt_grjfxx.queryByXhOpen(xh);
                             }
-                            else {
-                                layer.msg(data.msg, {anim: 6, time: 2000});
-                            }
-                        },
-                        complete: function () {
-                            layer.close(loadIndex);
                         }
-                    })
-
+                    });
                 })
 
                 $("#my-save").bind("click", function () {
-                    alert(1);
                     var jffs = $("input[name='jffs']:checked").val();
                     var object = {};
                     var xh = $("#XH").html()
@@ -556,6 +587,76 @@
         })
     }
 
+    //金额控制
+    function zhzs(th) {
+        var $1 = layui.jquery;
+        var th_id = th.id;
+        var value = th.value;
+        var show_id = th_id.replace("this", "show");
+        var show_val = $1("#" + show_id).html();
+        value = value.replace(/[^\d]/g, '');
+        if ('' != value) {
+            value = parseInt(value);
+        }
+        if (show_val != "" && value > show_val) {
+            value = show_val;
+        }
+        if ('' == value) {
+            value = 0;
+        }
+        if (show_val != "" && th_id != "ze_this") {
+            var lastVal = lastCach[th_id];
+            if (lastVal >= value) {
+                $1("#ze_this").val(parseInt($1("#ze_this").val()) - parseInt(lastVal - value));
+            } else {
+                $1("#ze_this").val(parseInt($1("#ze_this").val()) + parseInt(value - lastVal));
+            }
+            lastCach[th_id] = value;
+        }
+        return value;
+    }
+    function totalContro(th) {
+        var $1 = layui.jquery;
+        var th_id = th.id;
+        var value = th.value;
+        var show_id = th_id.replace("this", "show");
+        var show_val = $1("#" + show_id).html();
+        value = value.replace(/[^\d]/g, '');
+        if ('' != value) {
+            value = parseInt(value);
+        }
+        if (show_val != "" && value > show_val) {
+            value = show_val;
+        }
+        if ('' == value) {
+            value = 0;
+        }
+        var changeVal = value;
+        if (show_val != "") {
+            var offCon = true;
+            for (var i = 0; i < allCach.length; i++) {
+                var id = allCach[i].split("_")[0];
+                var orVal = allCach[i].split("_")[1];
+                if (offCon) {
+                    if (changeVal >= orVal) {
+                        $1("#" + id + "_this").val(orVal);
+                        lastCach[id + "_this"] = orVal;
+                        changeVal = changeVal - orVal;
+                    } else {
+                        $1("#" + id + "_this").val(changeVal);
+                        lastCach[id + "_this"] = changeVal;
+                        offCon = false;
+                    }
+                } else {
+                    $1("#" + id + "_this").val(0);
+                    lastCach[id + "_this"] = 0;
+                }
+            }
+        }
+        return value;
+    }
+
+
     function changeMoney(th) {
         var lenth = title.length;
         var $1 = layui.jquery;
@@ -572,8 +673,6 @@
             sum_money += Number($1("#" + title[i].JFXMID + "_this").val())
         }
         $1("#ze_this").val(sum_money)
-
-
     }
 </script>
 </body>

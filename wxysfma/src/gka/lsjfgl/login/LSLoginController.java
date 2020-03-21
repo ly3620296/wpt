@@ -13,7 +13,6 @@ import gka.system.ReturnInfo;
  * @Date 2019/4/19
  * @Describe
  */
-@Clear({LoginInterceptor.class})
 @ControllerBind(controllerKey = "/LSlogin")
 public class LSLoginController extends Controller {
     private LSLoginDao LxloginDao = new LSLoginDao();

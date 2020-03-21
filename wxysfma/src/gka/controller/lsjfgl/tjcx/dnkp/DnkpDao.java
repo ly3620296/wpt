@@ -35,7 +35,6 @@ public class DnkpDao {
         return list;
     }
 
-    //APPID  MCH_ID OPENID PREPAY_ID
     public static void insertOrder(String xh, String OUT_TRADE_NO, String ids, String PAY_TYPE, String TOTAL_FEE, String ip, String xn, String orderNo) {
         String sql = "INSERT INTO WPT_WXZF_SPECIAL_ORDER (XH,OUT_TRADE_NO,IDS,PAY_TYPE,TOTAL_FEE,APPID,MCH_ID,OPENID,PAYIP,TIME_START,ORDER_STATE," +
                 "PREPAY_ID,SFXN,ORDER_NO,CODE_URL,RETURN_CODE,result_code) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -56,8 +55,32 @@ public class DnkpDao {
         return userInfo;
     }
 
-    public List<Record> queryYjfList(String xh,String xn) {
+    public List<Record> queryYjfList(String xh, String xn) {
         List<Record> list = Db.find("");
         return list;
+    }
+
+    public Page<Record> userInfo(int page, int limit, String xn, String xm, String sfzh, String xymc, String zymc, String bjmc) {
+        String selectSql = "SELECT XH,XM,XB,SFZH,BJMC,ZYMC,XYMC,NJ ";
+        String fromSql = " FROM XSSFB WHERE XN=? ";
+        if (!StringUtils.isEmpty(xm)) {
+            fromSql += " AND XM like '%" + xm + "%'";
+        }
+        if (!StringUtils.isEmpty(sfzh)) {
+            fromSql += " AND SFZH like '%" + sfzh + "%'";
+        }
+        if (!StringUtils.isEmpty(xymc)) {
+            fromSql += " AND XYMC like '%" + xymc + "%'";
+        }
+        if (!StringUtils.isEmpty(zymc)) {
+            fromSql += " AND ZYMC like '%" + zymc + "%'";
+        }
+        if (!StringUtils.isEmpty(bjmc)) {
+            fromSql += " AND BJMC like '%" + bjmc + "%'";
+        }
+        Page<Record> paginate = Db.paginate(page, limit, selectSql, fromSql, xn);
+
+
+        return paginate;
     }
 }

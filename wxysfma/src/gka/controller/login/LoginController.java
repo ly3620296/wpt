@@ -57,6 +57,7 @@ public class LoginController extends Controller {
         }
         renderJson(returnInfo);
     }
+
     private void setSession(Record record) {
         WptMaUserInfo userInfo = new WptMaUserInfo();
         userInfo.setM_id(record.getStr("m_id") == null ? "" : record.getStr("m_id"));

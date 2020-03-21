@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.IpKit;
 import gka.common.kit.OrderCodeFactory;
@@ -35,6 +36,31 @@ public class DnkpController extends Controller {
             map.put("code", "0");
             map.put("msg", "success");
             map.put("list", list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("code", "-1");
+            map.put("msg", "系统繁忙，请稍后重试！");
+        }
+        renderJson(map);
+    }
+
+
+    public void userInfo() {
+        Map map = new HashMap();
+        try {
+            String xm = getPara("xm"); //姓名
+            String xn = getPara("xn"); //姓名
+            String sfzh = getPara("sfzh");  //身份证
+            String xymc = getPara("xymc");  //学院名称
+            String zymc = getPara("zymc");  //专业名称
+            String bjmc = getPara("bjmc");  //班级名称
+            int page = Integer.parseInt(getPara("page"));
+            int limit = Integer.parseInt(getPara("limit"));
+            Page<Record> pageUserInfo = dnkpDao.userInfo(page, limit, xn, xm, sfzh, xymc, zymc, bjmc);
+            map.put("data", pageUserInfo.getList());
+            map.put("count", pageUserInfo.getTotalRow());
+            map.put("code", "0");
+            map.put("msg", "success");
         } catch (Exception e) {
             e.printStackTrace();
             map.put("code", "-1");
