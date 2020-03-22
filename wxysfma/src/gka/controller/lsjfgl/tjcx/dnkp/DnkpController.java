@@ -116,7 +116,7 @@ public class DnkpController extends Controller {
             ids = ids.endsWith(",") ? ids.substring(0, ids.length() - 1) : ids;
             values = values.endsWith(",") ? values.substring(0, values.length() - 1) : values;
             //查询是否没缴费
-            boolean pay = wyjfDao.validateIsNoPay(ids, xn, xh);
+            boolean pay = wyjfDao.validateIsNoPay(titles,ids,values, xn, xh);
             if (pay) {
                 String order = WXPayUtil.generateOrder();//订单号
                 String orderNO = OrderCodeFactory.getD(order);

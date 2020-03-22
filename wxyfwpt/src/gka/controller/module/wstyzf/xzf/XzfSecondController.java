@@ -86,7 +86,11 @@ public class XzfSecondController extends Controller {
 //                String totalFee = cxTotalFee(parseIdArrSql(ids), xh, sfxn);
                 if (!StringUtils.isEmpty(ids)) {
                     //查询是否没缴费
-                    boolean pay = xzfDao.validateIsNoPay(newIds, sfxn, xh);
+
+                    Record reVal = xzfDao.queryTotalWjfByPay(xh, sfxn);
+                    String val = genVal(ids, reVal);
+
+                    boolean pay = xzfDao.validateIsNoPay(xzfDao.queryTitle(),newIds,val, sfxn, xh);
                     if (pay) {
                         //查询是否存在未缴费订单
                         boolean noPayOrder = xzfDao.noPayOrder(xh);
@@ -103,9 +107,6 @@ public class XzfSecondController extends Controller {
                                         //订单入库
                                         WxPayOrder wxPayOrder = wxPayTool.fillOrder(arrs[1], newIds, IpKit.getRealIp(getRequest()), xh, unifiedOrder.get("prepay_id"), sfxn);
                                         wxPayOrder.setOrderNo(OrderCodeFactory.getD(order));
-
-                                        Record reVal = xzfDao.queryTotalWjfByPay(xh, sfxn);
-                                        String val = genVal(ids, reVal);
 
                                         wxPayDao.insertOrderSpecial(wxPayOrder, val);
                                         //解析h5所需参数

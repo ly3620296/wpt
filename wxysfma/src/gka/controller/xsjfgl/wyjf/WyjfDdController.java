@@ -13,6 +13,7 @@ import gka.system.ReturnInfo;
 import gka.xsjfgl.login.WptMaXSUserInfo;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -41,7 +42,9 @@ public class WyjfDdController extends Controller {
                 String totalFee = "1";
 //                String totalFee =  cxTotalFee(parseIdArrSql(idArr), xh, sfxn);
                 //查询是否没缴费
-                boolean pay = wyjfDao.validateIsNoPay(ids, sfxn, xh);
+                Record reVal = wyjfDao.queryTotalWjfByPay(xh, sfxn);
+                String val = genVal(idArr, reVal);
+                boolean pay = wyjfDao.validateIsNoPay( wyjfDao.queryTitle(),ids,val, sfxn, xh);
                 if (pay) {
                     //查询是否存在未缴费订单
                     boolean noPayOrder = wyjfDao.noPayOrder(xh);
@@ -60,8 +63,7 @@ public class WyjfDdController extends Controller {
                                     wxPayOrder.setSfxn(sfxn);
                                     wxPayOrder.setOrderNo(OrderCodeFactory.getD(order));
                                     wxPayOrder.setCode_url(unifiedOrder.get("code_url"));
-                                    Record reVal = wyjfDao.queryTotalWjfByPay(xh, sfxn);
-                                    String val = genVal(idArr, reVal);
+
                                     wxPayDao.insertOrder(wxPayOrder, val);
                                     result.put("code_url", unifiedOrder.get("code_url"));
                                     result.put("oreder_no", wxPayOrder.getOrderNo());

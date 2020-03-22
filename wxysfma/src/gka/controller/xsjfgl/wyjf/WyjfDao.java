@@ -49,7 +49,7 @@ public class WyjfDao {
         String sql = "SELECT * FROM (SELECT T1.XN,T1.XH," + getSqlWjf(title) +
                 " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSql(title) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=?)" +
                 " WHERE YSHJ!='0' AND XH=? AND XN=?";
-        Record re = Db.findFirst(sql, xh, xh, xn, xh,xn);
+        Record re = Db.findFirst(sql, xh, xh, xn, xh, xn);
         return re;
     }
 
@@ -249,20 +249,22 @@ public class WyjfDao {
     }
 
     //查询是否未缴费
-    public boolean validateIsNoPay(String ids, String xn, String zh) {
-//        String sql = "SELECT " + ids + " FROM YHSJB WHERE XN=? AND XH=?";
-//        Record re = Db.findFirst(sql, xn, zh);
-//        boolean isNoPay = true;
-//        if (re != null) {
-//            String[] idArr = ids.split(",");
-//            for (int i = 0; i < idArr.length; i++) {
-//                if (!re.getStr(idArr[i]).equals("0"))
-//                    isNoPay = false;
-//                break;
-//            }
-//        }
-//        return isNoPay;
-        return true;
+    public boolean validateIsNoPay(List<Record> titles, String ids, String values, String xn, String xh) {
+        Record record = queryTotalWjf(titles, xh, xn);
+        boolean flag = true;
+        if (record != null) {
+            String[] idsArr = ids.split(",");
+            String[] valuesArr = values.split(",");
+            for (int i = 0; i < idsArr.length; i++) {
+                if (Double.parseDouble(record.getStr(idsArr[i])) <Double.parseDouble((valuesArr[i]))) {
+                    flag = false;
+                    break;
+                }
+            }
+        } else {
+            flag = false;
+        }
+        return flag;
     }
 
     public String queryOrderState(String out_trade_no) {
