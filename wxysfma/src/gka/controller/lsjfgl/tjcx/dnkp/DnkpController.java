@@ -10,6 +10,7 @@ import gka.common.kit.IpKit;
 import gka.common.kit.OrderCodeFactory;
 import gka.controller.lsjfgl.tjcx.xsddcx.XsDdcxDao;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
+import gka.lsjfgl.login.WptMaLSUserInfo;
 import gka.pay.wxpay.WXPayUtil;
 import gka.pay.wxpay.controller.WxPayDao;
 import gka.pay.wxpay.controller.WxPayOrder;
@@ -116,12 +117,13 @@ public class DnkpController extends Controller {
             ids = ids.endsWith(",") ? ids.substring(0, ids.length() - 1) : ids;
             values = values.endsWith(",") ? values.substring(0, values.length() - 1) : values;
             //查询是否没缴费
-            boolean pay = wyjfDao.validateIsNoPay(titles,ids,values, xn, xh);
+            boolean pay = wyjfDao.validateIsNoPay(titles, ids, values, xn, xh);
             if (pay) {
                 String order = WXPayUtil.generateOrder();//订单号
                 String orderNO = OrderCodeFactory.getD(order);
                 String ip = IpKit.getRealIp(getRequest());
-                dnkpDao.insertOrder(xh, order, ids, pay_type, ze, ip, xn, orderNO,values);
+                WptMaLSUserInfo userInfo = (WptMaLSUserInfo) getSession().getAttribute("wptMaLSUserInfo");
+                dnkpDao.insertOrder(xh, order, ids, pay_type, ze, ip, xn, orderNO, values,userInfo.getM_zh());
                 map.put("code", "0");
                 map.put("msg", "success");
             } else {

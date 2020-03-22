@@ -103,6 +103,7 @@
                             <option value="JSAPI">APP微信</option>
                             <option value="NATIVE">微信扫码</option>
                             <option value="GXZZ">高校转账</option>
+                            <option value="PK">批扣</option>
                         </select>
                     </div>
                 </div>

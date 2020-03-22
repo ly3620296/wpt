@@ -5,14 +5,10 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.IAtom;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
-import gka.controller.lsjfgl.tjcx.ijfxx.IjfxxSearch;
-import gka.pay.wxpay.WXPayUtil;
 import gka.pay.wxpay.controller.MyWxpayConstant;
-import gka.pay.wxpay.controller.WxPayOrder;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +33,7 @@ public class DnkpDao {
         return list;
     }
 
-    public void insertOrder(final String xh, final String OUT_TRADE_NO, final String ids, final String pay_type, final String total_fee, final String ip, final String xn, final String orderNo, final String values) {
+    public void insertOrder(final String xh, final String OUT_TRADE_NO, final String ids, final String pay_type, final String total_fee, final String ip, final String xn, final String orderNo, final String values, final String yh) {
         Db.tx(new IAtom() {
             @Override
             public boolean run() throws SQLException {
@@ -45,7 +41,7 @@ public class DnkpDao {
                         "RETURN_CODE,RESULT_CODE,TRANSACTION_ID,XH,PREPAY_ID,SFXN,ORDER_NO,CODE_URL,TOTAL_FEE_CALLBACK) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 int upOrder = Db.update(sql, OUT_TRADE_NO, ids, pay_type, total_fee, "", "", "", ip, getTime(), getTime(), MyWxpayConstant.ORDER_STATE_PAY,
                         "success", "SUCCESS", "", xh, "", xn, orderNo, "", total_fee);
-                int upYsf = updateOrder(OUT_TRADE_NO, pay_type, total_fee, values);
+                int upYsf = updateOrder(OUT_TRADE_NO, pay_type, total_fee, values,yh);
                 return upOrder * upYsf >= 1;
             }
         });
@@ -58,7 +54,7 @@ public class DnkpDao {
      * @param out_trade_no
      * @return
      */
-    public int updateOrder(String out_trade_no, String pay_type, String fee, String values) {
+    public int updateOrder(String out_trade_no, String pay_type, String fee, String values,String yh) {
         String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
         Record re = Db.findFirst(sql, out_trade_no);
         int updateStat = 0;
@@ -79,7 +75,7 @@ public class DnkpDao {
                     "?,?,?,?,?,?,?,?,?,?,?,?,?," + values + ",?,?,TO_CHAR(SYSDATE,'YYYY-MM-DD hh24:mi:ss'),TO_CHAR(SYSDATE,'YYYY-MM-DD'),?,?)";
             updateStat = Db.update(sql, userInfo.getStr("XN"), userInfo.getStr("XH"), userInfo.getStr("XM"), userInfo.getStr("XB"), userInfo.getStr("BJMC"),
                     userInfo.getStr("ZYMC"), userInfo.getStr("NJ"), userInfo.getStr("XYMC"), userInfo.getStr("SFZH"), fee, TIME_START, ORDER_NO, pay_type,
-                    out_trade_no, MyWxpayConstant.XSSFB_CZLX_LSHTJF, "", pay_type);
+                    out_trade_no, MyWxpayConstant.XSSFB_CZLX_LSHTJF, yh, pay_type);
         }
 
         return updateStat;
