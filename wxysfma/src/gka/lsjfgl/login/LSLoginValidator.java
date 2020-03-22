@@ -3,14 +3,6 @@ package gka.lsjfgl.login;
 import com.jfinal.core.Controller;
 import com.jfinal.validate.Validator;
 
-/**
- * Created with IntelliJ IDEA.
- * User: 杨亮
- * Date: 2017/8/11
- * Time: 4:46
- * DESCRIPTION:
- * To change this template use File | Settings | File Templates.;
- */
 public class LSLoginValidator extends Validator {
     @Override
     protected void validate(Controller c) {

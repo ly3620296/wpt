@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.IpKit;
 import gka.common.kit.OrderCodeFactory;
@@ -43,6 +44,31 @@ public class DnkpController extends Controller {
         renderJson(map);
     }
 
+
+    public void userInfo() {
+        Map map = new HashMap();
+        try {
+            String xm = getPara("xm"); //姓名
+            String xn = getPara("xn"); //姓名
+            String sfzh = getPara("sfzh");  //身份证
+            String xymc = getPara("xymc");  //学院名称
+            String zymc = getPara("zymc");  //专业名称
+            String bjmc = getPara("bjmc");  //班级名称
+            int page = Integer.parseInt(getPara("page"));
+            int limit = Integer.parseInt(getPara("limit"));
+            Page<Record> pageUserInfo = dnkpDao.userInfo(page, limit, xn, xm, sfzh, xymc, zymc, bjmc);
+            map.put("data", pageUserInfo.getList());
+            map.put("count", pageUserInfo.getTotalRow());
+            map.put("code", "0");
+            map.put("msg", "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("code", "-1");
+            map.put("msg", "系统繁忙，请稍后重试！");
+        }
+        renderJson(map);
+    }
+
     public void queryByXh() {
         Map map = new HashMap();
         try {
@@ -71,38 +97,31 @@ public class DnkpController extends Controller {
         try {
             String json = getPara("json");
             JSONObject jsonObject = JSONObject.parseObject(json);
-            System.out.println(jsonObject.get("jffs"));
-            System.out.println(jsonObject.get("xh"));
-            System.out.println(jsonObject.get("xn"));
-            String jffs = jsonObject.getString("jffs");
+            String pay_type = jsonObject.getString("pay_type");
             String xh = jsonObject.getString("xh");
-            String ze = jsonObject.getString("ze");
             String xn = jsonObject.getString("xn");
-
+            String ze = jsonObject.getString("ze");
             List<Record> titles = wyjfDao.queryTitle();
             String ids = "";
+            String values = "";
             for (int i = 0; i < titles.size(); i++) {
                 String JFXMID = titles.get(i).getStr("JFXMID");
                 if (!jsonObject.getString(JFXMID).equals("0")) {
                     ids += JFXMID;
                     ids += ",";
+                    values += jsonObject.getString(JFXMID);
+                    values += ",";
                 }
             }
             ids = ids.endsWith(",") ? ids.substring(0, ids.length() - 1) : ids;
-            System.out.println(ids);
+            values = values.endsWith(",") ? values.substring(0, values.length() - 1) : values;
             //查询是否没缴费
             boolean pay = wyjfDao.validateIsNoPay(ids, xn, xh);
             if (pay) {
                 String order = WXPayUtil.generateOrder();//订单号
                 String orderNO = OrderCodeFactory.getD(order);
-                System.out.println(ids);
                 String ip = IpKit.getRealIp(getRequest());
-
-                DnkpDao.insertOrder(xh, order, ids, jffs, ze, ip, xn, orderNO);
-                String sql = "INSERT INTO YHSJB  SELECT * FROM XSSFB WHERE XH=? AND XN=?";
-                Db.update(sql, xh, xn);
-                String upSql = "update YHSJB SET yshj='" + ze + "'," + getSql(titles, jsonObject) + " WHERE XH=? AND XN=?";
-                Db.update(upSql, xh, xn);
+                dnkpDao.insertOrder(xh, order, ids, pay_type, ze, ip, xn, orderNO,values);
                 map.put("code", "0");
                 map.put("msg", "success");
             } else {

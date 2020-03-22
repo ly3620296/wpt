@@ -205,7 +205,6 @@
 </body>
 <script type="application/javascript">
     $(function () {
-        console.log(document.body.clientWidth)
         $("#loginOut").on("click", function () {
             var loadIndex;
             $.ajax({

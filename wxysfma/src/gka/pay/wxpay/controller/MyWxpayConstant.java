@@ -19,11 +19,12 @@ public class MyWxpayConstant {
     public static final String ORDER_STATE_ILLEGALMONEY = "3";
     //老师关闭
     public static final String ORDER_STATE_CLOSE_TEACHER = "4";
-    public static Map<String,String> ORDER_STATE_DESC = new HashMap<String, String>();
+    public static Map<String, String> ORDER_STATE_DESC = new HashMap<String, String>();
+
     static {
-        ORDER_STATE_DESC.put(ORDER_STATE_NOPAY,"待支付");
-        ORDER_STATE_DESC.put(ORDER_STATE_CLOSE,"待支付1");
-        ORDER_STATE_DESC.put(ORDER_STATE_PAY,"待支付2");
+        ORDER_STATE_DESC.put(ORDER_STATE_NOPAY, "待支付");
+        ORDER_STATE_DESC.put(ORDER_STATE_CLOSE, "待支付1");
+        ORDER_STATE_DESC.put(ORDER_STATE_PAY, "待支付2");
 
     }
 
@@ -42,4 +43,12 @@ public class MyWxpayConstant {
 
     //学杂费对应的项目类型id
     public static final String XMLXID_XZF = "20001";
+
+
+    //
+    public static final String XSSFB_CZLX_LSHTJF = "老师后台缴费";
+    public static final String XSSFB_CZLX_XSHTJF = "学生后台缴费";
+    public static final String XSSFB_CZLX_WPT = "学生微平台缴费";
+    public static final String XSSFB_CZLX_PK = "批扣";
+
 }
