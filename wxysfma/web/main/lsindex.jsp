@@ -22,11 +22,14 @@
 </head>
 <body class="layui-layout-body">
 <%
+
     WptMaLSUserInfo userInfo = (WptMaLSUserInfo) session.getAttribute("wptMaLSUserInfo");
     String userName = "";
+    String menu = "";
     if (userInfo != null) {
-        userName = userInfo.getXm();
+        userName = userInfo.getM_name();
         System.out.println("userName" + userName);
+        menu = userInfo.getMenu();
     } else {
 %>
 <script>
@@ -56,80 +59,107 @@
     <div class="layui-side layui-bg-black" id="layui-left-side">
         <div class="layui-side-scroll">
             <ul class="layui-nav layui-nav-tree" lay-shrink="all" lay-filter="left-side" id="menu">
-                <li class="layui-nav-item layui-nav-itemed">
-                    <a class="" href="javascript:;">
-                        <i class="layui-icon layui-icon-print"></i>
-                        <cite>票据管理</cite></a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/dnkp/dnkp.jsp" data-id="00"
-                               data-title="电脑开票"
-                               data-type="tabAdd">电脑开票</a>
-                        </dd>
+                <%=menu%>
+                <%--<li class="layui-nav-item layui-nav-itemed">--%>
+                    <%--<a class="" href="javascript:;">--%>
+                        <%--<i class="layui-icon layui-icon-cols"></i>--%>
+                        <%--<cite>权限管理</cite></a>--%>
+                    <%--<dl class="layui-nav-child">--%>
                         <%--<dd>--%>
-                            <%--<a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="01" data-title="票据打印"--%>
-                               <%--data-type="tabAdd">票据打印</a>--%>
+                            <%--<a data-url="<%=Constant.server_name%>lsjfgl/qxgl/list.jsp" data-id="00"--%>
+                               <%--data-title="权限管理"--%>
+                               <%--data-type="tabAdd">权限管理</a>--%>
                         <%--</dd>--%>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;">
-                        <i class="layui-icon layui-icon-log"></i>
-                        <cite>统计查询</cite></a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/xsddcx/ddxq.jsp" data-id="10"
-                               data-title="学生订单查询"
-                               data-type="tabAdd">学生订单查询</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/dzqk/dzqk.jsp" data-id="11"
-                               data-title="对账情况"
-                               data-type="tabAdd">对账情况</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/yjfxx/yjfxx.jsp" data-id="12"
-                               data-title="应交费信息"
-                               data-type="tabAdd">应交费信息</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/ijfxx/ijfxx.jsp" data-title="已交费信息"
-                               data-id="13"
-                               data-type="tabAdd">已交费信息</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>lsjfgl/tjcx/qftj/qftj.jsp" data-title="欠费统计"
-                               data-id="14"
-                               data-type="tabAdd">欠费统计</a>
-                        </dd>
                         <%--<dd>--%>
-                            <%--<a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-title="票据信息" data-id="15"--%>
-                               <%--data-type="tabAdd">票据信息</a>--%>
+                            <%--<a data-url="<%=Constant.server_name%>lsjfgl/user/list.jsp" data-id="01"--%>
+                               <%--data-title="用户管理"--%>
+                               <%--data-type="tabAdd">用户管理</a>--%>
                         <%--</dd>--%>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a class="" href="javascript:;">
-                        <i class="layui-icon layui-icon-component"></i>
-                        <cite>综合系统管理</cite></a>
-                    <dl class="layui-nav-child">
-                        <dd>
-                            <a data-url="" data-id="ly_home" data-title="table-demo" data-type="tabAdd">辅助信息维护</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/grjfxx.jsp" data-id="20" data-title="开票基础数据管理"
-                               data-type="tabAdd">开票基础数据管理</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="21" data-title="人员与角色权限"
-                               data-type="tabAdd">人员与角色权限</a>
-                        </dd>
-                        <dd>
-                            <a data-url="<%=Constant.server_name%>xsjfgl/ddxq.jsp" data-title="通知公告管理" data-id="22"
-                               data-type="tabAdd">通知公告管理</a>
-                        </dd>
-                    </dl>
-                </li>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>lsjfgl/menu/list.jsp" data-id="02"--%>
+                               <%--data-title="菜单管理"--%>
+                               <%--data-type="tabAdd">菜单管理</a>--%>
+                        <%--</dd>--%>
+                        <%--&lt;%&ndash;<dd>&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;<a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="01" data-title="票据打印"&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;data-type="tabAdd">票据打印</a>&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;</dd>&ndash;%&gt;--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a class="" href="javascript:;">--%>
+                        <%--<i class="layui-icon layui-icon-print"></i>--%>
+                        <%--<cite>票据管理</cite></a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>lsjfgl/tjcx/dnkp/dnkp.jsp" data-id="00"--%>
+                               <%--data-title="电脑开票"--%>
+                               <%--data-type="tabAdd">电脑开票</a>--%>
+                        <%--</dd>--%>
+                        <%--&lt;%&ndash;<dd>&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;<a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="01" data-title="票据打印"&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;data-type="tabAdd">票据打印</a>&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;</dd>&ndash;%&gt;--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a class="" href="javascript:;">--%>
+                        <%--<i class="layui-icon layui-icon-log"></i>--%>
+                        <%--<cite>统计查询</cite></a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>lsjfgl/tjcx/xsddcx/ddxq.jsp" data-id="10"--%>
+                               <%--data-title="学生订单查询"--%>
+                               <%--data-type="tabAdd">学生订单查询</a>--%>
+                        <%--</dd>--%>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>lsjfgl/tjcx/dzqk/dzqk.jsp" data-id="11"--%>
+                               <%--data-title="对账情况"--%>
+                               <%--data-type="tabAdd">对账情况</a>--%>
+                        <%--</dd>--%>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>lsjfgl/tjcx/yjfxx/yjfxx.jsp" data-id="12"--%>
+                               <%--data-title="应交费信息"--%>
+                               <%--data-type="tabAdd">应交费信息</a>--%>
+                        <%--</dd>--%>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>lsjfgl/tjcx/ijfxx/ijfxx.jsp" data-title="已交费信息"--%>
+                               <%--data-id="13"--%>
+                               <%--data-type="tabAdd">已交费信息</a>--%>
+                        <%--</dd>--%>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>lsjfgl/tjcx/qftj/qftj.jsp" data-title="欠费统计"--%>
+                               <%--data-id="14"--%>
+                               <%--data-type="tabAdd">欠费统计</a>--%>
+                        <%--</dd>--%>
+                        <%--&lt;%&ndash;<dd>&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;<a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-title="票据信息" data-id="15"&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;data-type="tabAdd">票据信息</a>&ndash;%&gt;--%>
+                        <%--&lt;%&ndash;</dd>&ndash;%&gt;--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
+                <%--<li class="layui-nav-item">--%>
+                    <%--<a class="" href="javascript:;">--%>
+                        <%--<i class="layui-icon layui-icon-component"></i>--%>
+                        <%--<cite>综合系统管理</cite></a>--%>
+                    <%--<dl class="layui-nav-child">--%>
+                        <%--<dd>--%>
+                            <%--<a data-url="" data-id="ly_home" data-title="table-demo" data-type="tabAdd">辅助信息维护</a>--%>
+                        <%--</dd>--%>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>xsjfgl/grjfxx.jsp" data-id="20" data-title="开票基础数据管理"--%>
+                               <%--data-type="tabAdd">开票基础数据管理</a>--%>
+                        <%--</dd>--%>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>xsjfgl/wyjf.jsp" data-id="21" data-title="人员与角色权限"--%>
+                               <%--data-type="tabAdd">人员与角色权限</a>--%>
+                        <%--</dd>--%>
+                        <%--<dd>--%>
+                            <%--<a data-url="<%=Constant.server_name%>xsjfgl/ddxq.jsp" data-title="通知公告管理" data-id="22"--%>
+                               <%--data-type="tabAdd">通知公告管理</a>--%>
+                        <%--</dd>--%>
+                    <%--</dl>--%>
+                <%--</li>--%>
             </ul>
         </div>
     </div>
