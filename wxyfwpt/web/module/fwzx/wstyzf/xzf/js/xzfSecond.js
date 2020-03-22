@@ -37,7 +37,8 @@ layui.use(['form', 'element', 'layer'], function () {
 
                     //应缴金额
                     var yjje = xzfNormal[xzf][titles[title].JFXMID];
-                    if (parseInt(yj) > 0) {
+
+                    if (parseInt(yj) ==parseInt(yjje)) {
                         myClass = 'JF';
                     } else {
                         if (titles[title].SFBX == 0) {

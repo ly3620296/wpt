@@ -80,6 +80,7 @@ public class XzfSecondController extends Controller {
                 String cliIp = IpKit.getRealIp(getRequest());
                 String totalFee = "1";
                 String ids = getPara("arrId");
+                System.out.println("ids=========="+ids);
                 String newIds = newIds(ids);
                 String sfxn = ids.split(",")[0].split("wow")[0];
 //                String totalFee = cxTotalFee(parseIdArrSql(ids), xh, sfxn);
@@ -159,6 +160,7 @@ public class XzfSecondController extends Controller {
     }
 
     private String newIds(String ids) {
+        System.out.println("=================="+ids);
         String[] temp = ids.split(",");
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < temp.length; i++) {

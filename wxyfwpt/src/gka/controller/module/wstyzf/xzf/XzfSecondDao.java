@@ -149,18 +149,19 @@ public class XzfSecondDao {
 
     //查询是否未缴费
     public boolean validateIsNoPay(String ids, String xn, String zh) {
-        String sql = "SELECT " + ids + " FROM YHSJB WHERE XN=? AND XH=?";
-        Record re = Db.findFirst(sql, xn, zh);
-        boolean isNoPay = true;
-        if (re != null) {
-            String[] idArr = ids.split(",");
-            for (int i = 0; i < idArr.length; i++) {
-                if (!re.getStr(idArr[i]).equals("0"))
-                    isNoPay = false;
-                break;
-            }
-        }
-        return isNoPay;
+//        String sql = "SELECT " + ids + " FROM YHSJB WHERE XN=? AND XH=?";
+//        Record re = Db.findFirst(sql, xn, zh);
+//        boolean isNoPay = true;
+//        if (re != null) {
+//            String[] idArr = ids.split(",");
+//            for (int i = 0; i < idArr.length; i++) {
+//                if (!re.getStr(idArr[i]).equals("0"))
+//                    isNoPay = false;
+//                break;
+//            }
+//        }
+//        return isNoPay;
+        return true;
     }
 
     //查询未支付订单
@@ -298,7 +299,7 @@ public class XzfSecondDao {
      * @return
      */
     public int updateOrder(String out_trade_no, String pay_type, String fee) {
-        String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START FROM WPT_WXZF_SPECIAL_ORDER,PAY_VAL WHERE OUT_TRADE_NO=?";
+        String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START,PAY_VAL FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
         Record re = Db.findFirst(sql, out_trade_no);
         int updateStat = 0;
         String ids = "";
@@ -328,7 +329,8 @@ public class XzfSecondDao {
 //                    insVal.append(payInfo.getStr(xmids[i]));
 //                }
 //            }
-            sql = "INSERT INTO YHSJB (XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH,SSHJ,XDSJ,DDH,JFLX," + ids + ",LSH,CZLX,CZRQ,SFRQ,YH,SFLX) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?," + pay_val + ")";
+            sql = "INSERT INTO YHSJB (XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH,SSHJ,XDSJ,DDH,JFLX," + ids + ",LSH,CZLX,CZRQ,SFRQ,YH,SFLX) " +
+                    "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?," + pay_val + ",?,?,TO_CHAR(SYSDATE,'YYYY-MM-DD hh24:mi:ss'),TO_CHAR(SYSDATE,'YYYY-MM-DD'),?,?)";
             updateStat = Db.update(sql, userInfo.getStr("XN"), userInfo.getStr("XH"), userInfo.getStr("XM"), userInfo.getStr("XB"), userInfo.getStr("BJMC"),
                     userInfo.getStr("ZYMC"), userInfo.getStr("NJ"), userInfo.getStr("XYMC"), userInfo.getStr("SFZH"), fee, TIME_START, ORDER_NO, pay_type,
                     out_trade_no, MyWxpayConstant.XSSFB_CZLX_WPT, "", pay_type);
