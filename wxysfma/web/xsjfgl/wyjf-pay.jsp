@@ -229,7 +229,6 @@
                 , layer = layui.layer
                 , table = layui.table
                 , $ = layui.jquery
-        console.log(window.screen.availWidth);
         var loadIndex;
         var cacheBj = 0;
         var qrcode = new QRCode(document.getElementById("qrcode"), {

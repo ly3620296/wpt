@@ -102,7 +102,11 @@ public class XzfSecondController extends Controller {
                                         //订单入库
                                         WxPayOrder wxPayOrder = wxPayTool.fillOrder(arrs[1], newIds, IpKit.getRealIp(getRequest()), xh, unifiedOrder.get("prepay_id"), sfxn);
                                         wxPayOrder.setOrderNo(OrderCodeFactory.getD(order));
-                                        wxPayDao.insertOrderSpecial(wxPayOrder);
+
+                                        Record reVal = xzfDao.queryTotalWjfByPay(xh, sfxn);
+                                        String val = genVal(ids, reVal);
+
+                                        wxPayDao.insertOrderSpecial(wxPayOrder, val);
                                         //解析h5所需参数
                                         Map<String, String> reqData = wxPayTool.reqData(unifiedOrder);
                                         result.putAll(reqData);
@@ -323,5 +327,19 @@ public class XzfSecondController extends Controller {
         }
         System.out.println("实际支付金额" + zh + "（单位分）");
         return zh;
+    }
+
+    private String genVal(String ids, Record re) {
+        String[] id = ids.split(",");
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < id.length; i++) {
+            if (i < id.length - 1) {
+                sb.append(re.getStr(id[i].split("wow")[1]));
+                sb.append(",");
+            } else {
+                sb.append(re.getStr(id[i].split("wow")[1]));
+            }
+        }
+        return sb.toString();
     }
 }

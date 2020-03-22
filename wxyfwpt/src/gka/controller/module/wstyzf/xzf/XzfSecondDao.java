@@ -104,6 +104,27 @@ public class XzfSecondDao {
         return sb.toString();
     }
 
+    private String generateYjfSqlSpe(List<Record> titles) {
+        StringBuffer sb = new StringBuffer("SELECT XH,XN,");
+        for (int i = 0; i < titles.size(); i++) {
+            Record re = titles.get(i);
+            String jfxmId = re.getStr("JFXMID");
+
+            if (i < titles.size() - 1) {
+                sb.append("SUM(" + jfxmId + ") ");
+                sb.append(jfxmId);
+                sb.append(",");
+            } else {
+                sb.append("SUM(" + jfxmId + ") ");
+                sb.append(jfxmId);
+                sb.append(",");
+                sb.append("SUM(SSHJ) SSHJ ");
+            }
+        }
+        sb.append("FROM YHSJB WHERE XH=? GROUP BY XH,XN");
+        return sb.toString();
+    }
+
     private String getSql(List<Record> title) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < title.size(); i++) {
@@ -314,6 +335,32 @@ public class XzfSecondDao {
 
     }
 
+    public Record queryTotalWjfByPay(String xh, String xn) {
+        List<Record> title = queryTitle();
+        String sql = "SELECT * FROM (SELECT T1.XN,T1.XH," + getSqlWjf(title) +
+                " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSqlSpe(title) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=?)" +
+                " WHERE YSHJ!='0' AND XH=? AND XN=?";
+        System.out.println("==="+sql);
+        Record re = Db.findFirst(sql, xh, xh, xn, xh,xn);
+        return re;
+    }
+    private String getSqlWjf(List<Record> title) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < title.size(); i++) {
+            Record re = title.get(i);
+
+            String jfxmId = re.getStr("JFXMID");
+            if (i < title.size() - 1) {
+                sb.append("(NVL(T1." + jfxmId + ",0)-");
+                sb.append("NVL(T2." + jfxmId + ",0)) " + jfxmId + ",");
+            } else {
+                sb.append("(NVL(T1." + jfxmId + ",0)-");
+                sb.append("NVL(T2." + jfxmId + ",0)) " + jfxmId + ",");
+                sb.append("(NVL(T1.YSHJ,0)-NVL(T2.SSHJ,0)) YSHJ");
+            }
+        }
+        return sb.toString();
+    }
 
     private String getSql(String ids, String xn, String xh) {
         StringBuffer sb = null;

@@ -60,7 +60,9 @@ public class WyjfDdController extends Controller {
                                     wxPayOrder.setSfxn(sfxn);
                                     wxPayOrder.setOrderNo(OrderCodeFactory.getD(order));
                                     wxPayOrder.setCode_url(unifiedOrder.get("code_url"));
-                                    wxPayDao.insertOrder(wxPayOrder);
+                                    Record reVal = wyjfDao.queryTotalWjfByPay(xh, sfxn);
+                                    String val = genVal(idArr, reVal);
+                                    wxPayDao.insertOrder(wxPayOrder,val);
                                     result.put("code_url", unifiedOrder.get("code_url"));
                                     result.put("oreder_no", wxPayOrder.getOrderNo());
                                     result.put("money", wyjfDao.getMoney(ids, sfxn, xh));
@@ -255,5 +257,18 @@ public class WyjfDdController extends Controller {
         }
         System.out.println("实际支付金额" + zh + "（单位分）");
         return zh;
+    }
+
+    private String genVal(String[] id, Record re) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < id.length; i++) {
+            if (i < id.length - 1) {
+                sb.append(re.getStr(id[i]));
+                sb.append(",");
+            } else {
+                sb.append(re.getStr(id[i]));
+            }
+        }
+        return sb.toString();
     }
 }

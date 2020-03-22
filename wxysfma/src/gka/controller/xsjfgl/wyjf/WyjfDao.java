@@ -44,6 +44,15 @@ public class WyjfDao {
         return list;
     }
 
+    public Record queryTotalWjfByPay(String xh, String xn) {
+        List<Record> title = queryTitle();
+        String sql = "SELECT * FROM (SELECT T1.XN,T1.XH," + getSqlWjf(title) +
+                " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSql(title) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=?)" +
+                " WHERE YSHJ!='0' AND XH=? AND XN=?";
+        Record re = Db.findFirst(sql, xh, xh, xn, xh,xn);
+        return re;
+    }
+
     public Record queryTotalWjf(List<Record> title, String xh, String xn) {
         String sql = "SELECT * FROM (SELECT T1.XN," + getSqlWjf(title) +
                 " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSqlDnkp(title) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=? )" +
@@ -103,7 +112,7 @@ public class WyjfDao {
      * @return
      */
     public int updateOrder(String out_trade_no, String pay_type, String fee) {
-        String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+        String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START,PAY_VAL FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
         Record re = Db.findFirst(sql, out_trade_no);
         int updateStat = 0;
         String ids = "";
@@ -111,29 +120,33 @@ public class WyjfDao {
         String xh = "";
         String ORDER_NO = "";
         String TIME_START = "";
+        String pay_val = "";
         if (re != null) {
             ids = re.getStr("IDS");
+            pay_val = re.getStr("PAY_VAL");
             sfxn = re.getStr("SFXN");
             xh = re.getStr("XH");
             ORDER_NO = re.getStr("ORDER_NO");
             TIME_START = re.getStr("TIME_START");
             sql = "SELECT XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH FROM XSSFB WHERE XH=? AND XN=?";
             Record userInfo = Db.findFirst(sql, xh, sfxn);
-            sql = "SELECT " + ids + "  FROM XSSFB WHERE XH=? AND XN=?";
-            Record payInfo = Db.findFirst(sql, xh, sfxn);
-            String[] xmids = ids.split(",");
-            StringBuffer insVal = new StringBuffer();
-            for (int i = 0; i < xmids.length; i++) {
-                if (i < xmids.length - 1) {
-                    insVal.append(payInfo.getStr(xmids[i]));
-                    insVal.append(",");
-                } else {
-                    insVal.append(payInfo.getStr(xmids[i]));
-                }
-            }
-            sql = "INSERT INTO YHSJB (XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH,SSHJ,XDSJ,DDH,JFLX," + ids + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?," + insVal.toString() + ")";
+//            sql = "SELECT " + ids + "  FROM XSSFB WHERE XH=? AND XN=?";
+//            Record payInfo = Db.findFirst(sql, xh, sfxn);
+//            String[] xmids = ids.split(",");
+//            StringBuffer insVal = new StringBuffer();
+//            for (int i = 0; i < xmids.length; i++) {
+//                if (i < xmids.length - 1) {
+//                    insVal.append(payInfo.getStr(xmids[i]));
+//                    insVal.append(",");
+//                } else {
+//                    insVal.append(payInfo.getStr(xmids[i]));
+//                }
+//            }
+            sql = "INSERT INTO YHSJB (XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH,SSHJ,XDSJ,DDH,JFLX," + ids + ",LSH,CZLX,CZRQ,SFRQ,YH,SFLX) VALUES " +
+                    "(?,?,?,?,?,?,?,?,?,?,?,?,?," + pay_val + ",?,?,TO_CHAR(SYSDATE,'YYYY-MM-DD hh24:mi:ss'),TO_CHAR(SYSDATE,'YYYY-MM-DD'),?,?)";
             updateStat = Db.update(sql, userInfo.getStr("XN"), userInfo.getStr("XH"), userInfo.getStr("XM"), userInfo.getStr("XB"), userInfo.getStr("BJMC"),
-                    userInfo.getStr("ZYMC"), userInfo.getStr("NJ"), userInfo.getStr("XYMC"), userInfo.getStr("SFZH"), fee, TIME_START, ORDER_NO, pay_type);
+                    userInfo.getStr("ZYMC"), userInfo.getStr("NJ"), userInfo.getStr("XYMC"), userInfo.getStr("SFZH"), fee, TIME_START, ORDER_NO, pay_type,
+                    out_trade_no, MyWxpayConstant.XSSFB_CZLX_XSHTJF, "", pay_type);
         }
 
         return updateStat;
