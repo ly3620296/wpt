@@ -237,18 +237,19 @@ public class WyjfDao {
 
     //查询是否未缴费
     public boolean validateIsNoPay(String ids, String xn, String zh) {
-        String sql = "SELECT " + ids + " FROM YHSJB WHERE XN=? AND XH=?";
-        Record re = Db.findFirst(sql, xn, zh);
-        boolean isNoPay = true;
-        if (re != null) {
-            String[] idArr = ids.split(",");
-            for (int i = 0; i < idArr.length; i++) {
-                if (!re.getStr(idArr[i]).equals("0"))
-                    isNoPay = false;
-                break;
-            }
-        }
-        return isNoPay;
+//        String sql = "SELECT " + ids + " FROM YHSJB WHERE XN=? AND XH=?";
+//        Record re = Db.findFirst(sql, xn, zh);
+//        boolean isNoPay = true;
+//        if (re != null) {
+//            String[] idArr = ids.split(",");
+//            for (int i = 0; i < idArr.length; i++) {
+//                if (!re.getStr(idArr[i]).equals("0"))
+//                    isNoPay = false;
+//                break;
+//            }
+//        }
+//        return isNoPay;
+        return true;
     }
 
     public String queryOrderState(String out_trade_no) {

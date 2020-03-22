@@ -180,7 +180,7 @@
 
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script>
-    var title;
+    var titleCash;
     var lastCach = {};
     var allCach = [];
     layui.use(['form', 'layer', 'table', 'laypage'], function () {
@@ -205,6 +205,7 @@
                     success: function (data) {
                         if (data.code == "0") {
                             var xnList = data.xnList;
+                            titleCash = data.titles;
                             var optionsXn = "";
                             for (var index in xnList) {
                                 var xnmc = xnList[index].XNMC;
@@ -218,7 +219,6 @@
                             }
                             $("#search-sfxn").html(optionsXn);
                             form.render('select');
-
                             var title = data.titles
                             var length = title.length + 2;
                             $("#this_th").attr("colspan", length)
@@ -234,15 +234,12 @@
                                     } else {
                                         html += '<td style="color:#4aa4a5;font-weight:bold;width:8%">' + title[i].JFXMMC + '</td> '
                                     }
-
                                 } else {
                                     if (title[i].JFXMMC.length >= 4) {
                                         html += '<td style="color:#4aa4a5;font-weight:bold;width:13%">' + title[i].JFXMMC + '<span style="color: #bd9b4a">（选交）</span></td> '
                                     } else {
                                         html += '<td style="color:#4aa4a5;font-weight:bold;width:8%">' + title[i].JFXMMC + '<span style="color: #bd9b4a">（选交）</span></td> '
                                     }
-
-
                                 }
                             }
                             html += '</tr> ';
@@ -312,7 +309,7 @@
                 }
 
             },
-
+            //弹窗查询
             queryByXhOpen: function (xh) {
                 var xn = $("#search-sfxn").val();
                 if (xh != null && xh.length > 0) {
@@ -331,7 +328,6 @@
                                 wpt_grjfxx.initUserInfo(data.userInfo);
                                 //补全缴费信息
                                 wpt_grjfxx.initWjf(data.wjfjl, data.titles);
-
                                 //补全已交费信息
                                 wpt_grjfxx.initYjfXx(data.yjfList, data.titles);
                             } else {
@@ -432,51 +428,14 @@
                 }
             },
 
-            searchData: function (para) {
-                if (para.length > 0) {
-                    var data = [];
-                    var para = para;
-                    for (var i = 0; i < para.length; i++) {
-                        data.push(para[i].XM + "_" + para[i].XH + "|" + para[i].XN)
-                    }
-                    laypage.render({
-                        elem: 'demo20'
-                        , count: data.length
-                        , jump: function (obj) {
-                            //模拟渲染
-                            document.getElementById('biuuu_city_list').innerHTML = function () {
-                                var arr = []
-                                        , thisData = data.concat().splice(obj.curr * obj.limit - obj.limit, obj.limit);
-                                layui.each(thisData, function (index, item) {
-                                    var xm = item.split("_")[0]
-                                    var para = item.split("_")[1]
-                                    arr.push('<li style="width:100%;border-bottom:1px solid #eee;padding:5px 0;text-decoration: underline;color: #0088ff;cursor: pointer;" onclick="checkData(this)" id="' + para + '">' + xm + '</li>');
-                                });
-                                return arr.join('');
-                            }();
-                        }
-                    });
-                    layer.open({
-                        type: 1,
-                        area: ['45%', '70%'],
-                        title: "请选择学生进行缴费验证",
-                        content: $('#search_data'),
-                        end: function () {
-                            wpt_grjfxx.isFlush();
-                        }
-                    });
-                } else {
-                    layer.msg("当前查询条件内暂无学生信息!", {anim: 6, time: 2000});
-                }
-            },
-
             bindCli: function () {
+                //金额自动补全
                 $('body').keyup(function (e) {
                     if (e.keyCode === 13) {
                         wpt_grjfxx.queryByXh();
                     }
                 })
-
+                //弹窗查询
                 $("#my-search").bind("click", function () {
                     layer.open({
                         type: 2,
@@ -496,20 +455,25 @@
                 })
 
                 $("#my-save").bind("click", function () {
-                    var jffs = $("input[name='jffs']:checked").val();
-                    var object = {};
+                    //支付类型
+                    var pay_type = $("input[name='jffs']:checked").val();
+                    //学号
                     var xh = $("#XH").html()
-                    var xn = $("#XN").html()
+                    //学年
+                    var xn = $("#search-sfxn").val();
+                    var object = {};
                     var ze = 0
-                    if (xh != null && xh != "" && xn != null && xn != "") {
-                        object['jffs'] = jffs;
+                    if (xh && xn && $("ze_show").html() != "") {
+                        object['pay_type'] = pay_type;
                         object['xh'] = xh;
                         object['xn'] = xn;
-                        for (var i = 0; i < title.length; i++) {
-                            object[title[i].JFXMID] = $("#" + title[i].JFXMID + "_this").val();
-                            ze += Number($("#" + title[i].JFXMID + "_this").val());
+                        //缴费信息
+                        for (var i = 0; i < titleCash.length; i++) {
+                            object[titleCash[i].JFXMID] = $("#" + titleCash[i].JFXMID + "_this").val();
+                            ze += Number($("#" + titleCash[i].JFXMID + "_this").val());
                         }
                         object['ze'] = ze;
+
                         var json = JSON.stringify(object);
                         $.ajax({
                             url: wpt_serverName + "lsjfgl/dnkp/save",
@@ -523,6 +487,7 @@
                             success: function (data) {
                                 if (data.code == "0") {
                                     layer.alert("记录缴费成功!");
+                                    wpt_grjfxx.queryByXh();
                                 }
                                 else {
                                     layer.msg(data.msg, {anim: 6, time: 2000});
@@ -541,6 +506,7 @@
         wpt_grjfxx.init();
         wpt_grjfxx.bindCli();
     });
+
     function checkData(str) {
         var $1 = layui.jquery;
         var xh = $1(str).attr("id").split("|")[0];//学号
@@ -587,6 +553,7 @@
         })
     }
 
+
     //金额控制
     function zhzs(th) {
         var $1 = layui.jquery;
@@ -615,6 +582,7 @@
         }
         return value;
     }
+
     function totalContro(th) {
         var $1 = layui.jquery;
         var th_id = th.id;
@@ -657,23 +625,6 @@
     }
 
 
-    function changeMoney(th) {
-        var lenth = title.length;
-        var $1 = layui.jquery;
-        var money = $1(th).val();
-        var id = $1(th).attr("id")
-        var realMoneyId = id.replace("this", "show")
-        var realMoney = $1("#" + realMoneyId).html();
-        if (money != realMoney && money != "0") {
-            layer.msg("非必缴项目只能填写0或者原始金额!", {anim: 6, time: 2000});
-            $1(th).val(realMoney)
-        }
-        var sum_money = 0;
-        for (var i = 0; i < title.length; i++) {
-            sum_money += Number($1("#" + title[i].JFXMID + "_this").val())
-        }
-        $1("#ze_this").val(sum_money)
-    }
 </script>
 </body>
 </html>
