@@ -31,4 +31,10 @@ public class MyWxpayConstant {
 
     //学杂费对应的项目类型id
     public static final String XMLXID_XZF = "20001";
+
+    //
+    public static final String XSSFB_CZLX_LSHTJF = "老师后台缴费";
+    public static final String XSSFB_CZLX_XSHTJF = "学生后台缴费";
+    public static final String XSSFB_CZLX_WPT = "学生微平台缴费";
+    public static final String XSSFB_CZLX_PK = "批扣";
 }

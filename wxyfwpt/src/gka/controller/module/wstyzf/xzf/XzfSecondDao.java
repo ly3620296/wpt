@@ -298,7 +298,7 @@ public class XzfSecondDao {
      * @return
      */
     public int updateOrder(String out_trade_no, String pay_type, String fee) {
-        String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+        String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START FROM WPT_WXZF_SPECIAL_ORDER,PAY_VAL WHERE OUT_TRADE_NO=?";
         Record re = Db.findFirst(sql, out_trade_no);
         int updateStat = 0;
         String ids = "";
@@ -306,8 +306,10 @@ public class XzfSecondDao {
         String xh = "";
         String ORDER_NO = "";
         String TIME_START = "";
+        String pay_val = "";
         if (re != null) {
             ids = re.getStr("IDS");
+            pay_val = re.getStr("PAY_VAL");
             sfxn = re.getStr("SFXN");
             xh = re.getStr("XH");
             ORDER_NO = re.getStr("ORDER_NO");
@@ -318,17 +320,18 @@ public class XzfSecondDao {
             Record payInfo = Db.findFirst(sql, xh, sfxn);
             String[] xmids = ids.split(",");
             StringBuffer insVal = new StringBuffer();
-            for (int i = 0; i < xmids.length; i++) {
-                if (i < xmids.length - 1) {
-                    insVal.append(payInfo.getStr(xmids[i]));
-                    insVal.append(",");
-                } else {
-                    insVal.append(payInfo.getStr(xmids[i]));
-                }
-            }
-            sql = "INSERT INTO YHSJB (XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH,SSHJ,XDSJ,DDH,JFLX," + ids + ") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?," + insVal.toString() + ")";
+//            for (int i = 0; i < xmids.length; i++) {
+//                if (i < xmids.length - 1) {
+//                    insVal.append(payInfo.getStr(xmids[i]));
+//                    insVal.append(",");
+//                } else {
+//                    insVal.append(payInfo.getStr(xmids[i]));
+//                }
+//            }
+            sql = "INSERT INTO YHSJB (XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH,SSHJ,XDSJ,DDH,JFLX," + ids + ",LSH,CZLX,CZRQ,SFRQ,YH,SFLX) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?," + pay_val + ")";
             updateStat = Db.update(sql, userInfo.getStr("XN"), userInfo.getStr("XH"), userInfo.getStr("XM"), userInfo.getStr("XB"), userInfo.getStr("BJMC"),
-                    userInfo.getStr("ZYMC"), userInfo.getStr("NJ"), userInfo.getStr("XYMC"), userInfo.getStr("SFZH"), fee, TIME_START, ORDER_NO, pay_type);
+                    userInfo.getStr("ZYMC"), userInfo.getStr("NJ"), userInfo.getStr("XYMC"), userInfo.getStr("SFZH"), fee, TIME_START, ORDER_NO, pay_type,
+                    out_trade_no, MyWxpayConstant.XSSFB_CZLX_WPT, "", pay_type);
         }
 
         return updateStat;
