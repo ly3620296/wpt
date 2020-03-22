@@ -62,7 +62,7 @@ public class WyjfDdController extends Controller {
                                     wxPayOrder.setCode_url(unifiedOrder.get("code_url"));
                                     Record reVal = wyjfDao.queryTotalWjfByPay(xh, sfxn);
                                     String val = genVal(idArr, reVal);
-                                    wxPayDao.insertOrder(wxPayOrder,val);
+                                    wxPayDao.insertOrder(wxPayOrder, val);
                                     result.put("code_url", unifiedOrder.get("code_url"));
                                     result.put("oreder_no", wxPayOrder.getOrderNo());
                                     result.put("money", wyjfDao.getMoney(ids, sfxn, xh));
