@@ -62,7 +62,6 @@ public class LoginController extends Controller {
         userInfo.setM_id(record.getStr("m_id") == null ? "" : record.getStr("m_id"));
         userInfo.setM_name(record.getStr("m_name") == null ? "" : record.getStr("m_name"));
         userInfo.setM_zh(record.getStr("m_zh") == null ? "" : record.getStr("m_zh"));
-        userInfo.setM_mm(record.getStr("m_mm") == null ? "" : record.getStr("m_mm"));
         userInfo.setM_qx(record.getStr("m_qx") == null ? "" : record.getStr("m_qx"));
         userInfo.setMenu(LoginDao.getMenuTree(userInfo.getM_id()));
         getSession().setAttribute("wptMaUserInfo", userInfo);
