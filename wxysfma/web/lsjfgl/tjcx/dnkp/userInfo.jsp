@@ -8,10 +8,20 @@
     <link rel="stylesheet" href="<%=Constant.server_name%>js-lib/layui-2.4.5/css/layui.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <link rel="stylesheet" href="<%=Constant.server_name%>css/commonLs.css">
+    <style>
+        #my-header .layui-input-inline {
+            width: 159px !important;
+
+        }
+        .layui-form-item .layui-inline {
+            margin-right: 20px !important;
+        }
+    </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
 </head>
 <body>
 <input type="hidden" id="my_status" value="0">
+
 <input type="hidden" id="select_status" value="0">
 <jsp:include page="/login/lsauth.jsp"></jsp:include>
 
@@ -25,7 +35,7 @@
     <%--<div class="layui-row">--%>
     <div class="layui-card">
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-            <div class="layui-form-item" id="my-header">
+            <div class="layui-form-item" id="my-header" style="margin-bottom: 0px;">
                 <div class="layui-inline ">
                     <label class="layui-form-label">姓名：</label>
 
@@ -80,9 +90,9 @@
                 </div>
             </div>
         </div>
-        <div class="layui-card-body">
+        <div class="layui-card-body" style="padding-top: 0px">
             <div class="layui-form">
-                <table class="layui-table" id="jfjl-table" lay-filter="jfFilter">
+                <table class="layui-table" id="jfjl-table" lay-filter="jfFilter" style="margin-top: 0px;">
                 </table>
             </div>
         </div>
@@ -131,7 +141,7 @@
                     , url: wpt_serverName + 'lsjfgl/dnkp/userInfo' //数据接口地址
                     , where: {xn: "<%=xn%>"}
                     , title: '用户表'
-                    , height: window.screen.height - 550
+                    , height: window.screen.height - 450
                     , page: true //开启分页
                     , limit: 10
                     , loading: true
