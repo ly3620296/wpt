@@ -1,23 +1,14 @@
-package gka.lsjfgl.login;
+package gka.controller.lsjfgl.user;
 
 /**
  * 用户基本信息
  */
-public class WptMaLSUserInfo {
-    private String m_id;    //id
-    private String m_name; //用户名称
-    private String m_zh; //账号
-    private String m_mm; //密码
-    private String m_qx; //用户权限
-    private String menu; //用户权限
-
-    public String getMenu() {
-        return menu;
-    }
-
-    public void setMenu(String menu) {
-        this.menu = menu;
-    }
+public class UserInfo {
+    private String m_id;        //用户id
+    private String m_name;    //用户名称
+    private String m_zh;      //用户账号
+    private String m_mm;     //用户密码
+    private String m_qx;       //权限
 
     public String getM_id() {
         return m_id;
