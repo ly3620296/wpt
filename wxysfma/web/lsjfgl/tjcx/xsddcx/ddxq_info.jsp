@@ -212,6 +212,9 @@
                 if (myType == "qx") {
                     url = wpt_serverName + 'lsjfgl/tjcx/xsddcx/qxInfo?order_no=' + '<%=order_no%>' + '&xn=' + '<%=xn%>'+ '&zh=' + '<%=zh%>';
                     cols1 = "本次交费明细信息";
+                }else if (myType == "tf") {
+                    url = wpt_serverName + 'lsjfgl/tjcx/xsddcx/cgInfo?order_no=' + '<%=order_no%>' + '&xn=' + '<%=xn%>'+ '&zh=' + '<%=zh%>';
+                    cols1 = "本次交费明细信息";
                 } else if (myType == "cg") {
                     url = wpt_serverName + 'lsjfgl/tjcx/xsddcx/cgInfo?order_no=' + '<%=order_no%>' + '&xn=' + '<%=xn%>'+ '&zh=' + '<%=zh%>';
                     cols1 = "本次交费明细信息";
@@ -238,7 +241,7 @@
                                 $('tr[data-index=' + i + '] input[type="checkbox"]').next().addClass('layui-btn-disabled');
                             }
                             wpt_wyjfPay.my_show(res, '<%=type%>')
-                        } else if ('<%=type%>' == 'cg') {
+                        } else if ('<%=type%>' == 'cg'||'<%=type%>' == 'tf') {
                             for (var i in res.data) {
                                 $('tr[data-index=' + i + '] input[type="checkbox"]').prop('disabled', true);
                                 $('tr[data-index=' + i + '] input[type="checkbox"]').next().addClass('layui-btn-disabled');
@@ -263,6 +266,19 @@
                     $("#bjmc").html(res.userInfo.BJMC);
                     $("#bh-zt").show();
                     $("#je-sj").show();
+                }  else if (type == "tf") {
+                    $("#ly-bh").html("<%=order_no%>")
+                    $("#ly-zt").html("<font color='red'>已退费</font>");
+                    $("#xm").html(res.userInfo.XM);
+                    $("#sfzh").html(res.userInfo.ZJHM);
+                    $("#nj").html(res.userInfo.NJMC);
+                    $("#xymc").html(res.userInfo.JGMC);
+                    $("#zymc").html(res.userInfo.ZYMC);
+                    $("#bjmc").html(res.userInfo.BJMC);
+                    $("#bh-zt").show();
+                    $("#ly-je").html(res.total_fee);
+                    $("#ly-sj").html(res.time_end);
+                    $("#je-sj").show()
                 } else if (type == "cg") {
                     $("#ly-bh").html("<%=order_no%>")
                     $("#ly-zt").html("<font color='red'>支付成功</font>");

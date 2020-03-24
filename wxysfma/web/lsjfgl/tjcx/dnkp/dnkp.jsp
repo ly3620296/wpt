@@ -165,7 +165,7 @@
         <div class="layui-card">
             <div class="layui-form-item">
                 <div class="layui-form">
-                    <table class="layui-table" id="yjf-order-table">
+                    <table class="layui-table" id="yjf-order-table" lay-filter="jfFilter">
                     </table>
                 </div>
             </div>
@@ -177,7 +177,15 @@
     <ul id="biuuu_city_list"></ul>
     <div id="demo20" style="    text-align: right;"></div>
 </div>
+<script type="text/html" id="barDemo1">
+    {{#  if(d.TFBS == 0){ }}
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="dnkp-tf">退费</a>
+    {{#  } else if(d.TFBS == 1){ }}
+    <font color="red">已退费</font>
+    {{#  } }}
 
+
+</script>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script>
     var titleCash;
@@ -288,7 +296,6 @@
                                 wpt_grjfxx.initUserInfo(data.userInfo);
                                 //补全缴费信息
                                 wpt_grjfxx.initWjf(data.wjfjl, data.titles);
-
                                 //补全已交费信息
                                 wpt_grjfxx.initYjfXx(data.yjfList, data.titles);
                             } else {
@@ -406,7 +413,8 @@
                         }
 
                     }
-                    var colSapnLen = colsLen + titles.length;
+                    cols[cols.length] = {title: "操作", align: "center", templet: "#barDemo1", fixed: "right"}
+                    var colSapnLen = colsLen + titles.length + 1;
                     table.render({
                         elem: '#yjf-order-table'  //容器id
                         , cols: [[
@@ -486,7 +494,7 @@
                             },
                             success: function (data) {
                                 if (data.code == "0") {
-                                    layer.alert("记录缴费成功!");
+                                    layer.alert("缴费成功!");
                                     wpt_grjfxx.queryByXh();
                                 }
                                 else {
@@ -501,10 +509,55 @@
                         layer.msg("请选择需要缴费学生!", {anim: 6, time: 2000});
                     }
                 })
+            },
+            listenTool: function () {
+//                $("#refresh").bind("click", function () {
+//                    window.location.reload();
+//                })
+                //监听行工具事件
+                table.on('tool(jfFilter)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+                    var data = obj.data //获得当前行数据
+                            , layEvent = obj.event; //获得 lay-event 对应的值
+                    var ddh = data.DDH;
+                    var xn = data.XN;
+                    var xh = data.XH
+                    if (layEvent === 'dnkp-tf') {
+                        layer.confirm('确定要退费吗？', {
+                            btn: ['确定', '取消'] //按钮
+                        }, function () {
+                            $.ajax({
+                                url: wpt_serverName + "lsjfgl/dnkp/tf",
+                                type: 'post',
+                                dataType: 'json',
+                                data: {ddh: ddh, xn: xn, xh: xh},
+                                timeout: 10000,
+                                beforeSend: function () {
+                                    loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
+                                },
+                                success: function (data) {
+                                    if (data.code == "0") {
+                                        layer.alert("退费成功!");
+                                        wpt_grjfxx.queryByXh();
+                                    }
+                                    else {
+                                        layer.msg(data.msg, {anim: 6, time: 2000});
+                                    }
+                                },
+                                complete: function () {
+                                    layer.close(loadIndex);
+                                }
+                            })
+                        }, function () {
+
+                        });
+
+                    }
+                });
             }
         }
         wpt_grjfxx.init();
         wpt_grjfxx.bindCli();
+        wpt_grjfxx.listenTool();
     });
 
     function checkData(str) {

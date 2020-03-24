@@ -4,6 +4,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+import gka.controller.xsjfgl.grjfxx.MyConstant;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class IjfxxDao {
     public Page<Record> yjfxx(int page, int limit, IjfxxSearch search, List<Record> titles) {
         String selectSql = "SELECT XN,XH,XM,XB,XYMC,ZYMC,BJMC,SSHJ," + generateTitleSql(titles) + ",DDH,TO_CHAR(TO_DATE(XDSJ,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') XDSJF,JFLX," +
                 "DECODE(JFLX,'CASH','现金','CARD','刷卡','JSAPI','APP微信','NATIVE','微信扫码','GXZZ','高校转账') PAY_TYPE ";
-        String fromSql = " FROM YHSJB  WHERE 1=1 ";
+        String fromSql = " FROM YHSJB  WHERE SFTF=? ";
         if (!StringUtils.isEmpty(search.getSfxn())) {
             fromSql += " AND XN='" + search.getSfxn() + "'";
         }
@@ -46,7 +47,7 @@ public class IjfxxDao {
             fromSql += " AND nj='" + search.getNj() + "'";
         }
         fromSql += "ORDER BY TO_NUMBER(XDSJ) DESC";
-        Page<Record> paginate = Db.paginate(page, limit, selectSql, fromSql);
+        Page<Record> paginate = Db.paginate(page, limit, selectSql, fromSql, MyConstant.SFTF_JF);
         return paginate;
     }
 

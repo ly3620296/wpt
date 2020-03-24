@@ -256,7 +256,7 @@ public class WyjfDao {
             String[] idsArr = ids.split(",");
             String[] valuesArr = values.split(",");
             for (int i = 0; i < idsArr.length; i++) {
-                if (Double.parseDouble(record.getStr(idsArr[i])) <Double.parseDouble((valuesArr[i]))) {
+                if (Double.parseDouble(record.getStr(idsArr[i])) < Double.parseDouble((valuesArr[i]))) {
                     flag = false;
                     break;
                 }
@@ -394,8 +394,8 @@ public class WyjfDao {
      */
     public List<Record> queryYjFyxx(List<Record> titles, String xh) {
         String titleSql = parseTitleSql(titles);
-        String sql = "SELECT XN,SSHJ," + titleSql + " FROM YHSJB WHERE XH=? ORDER BY XN DESC";
-        List<Record> records = Db.find(sql, xh);
+        String sql = "SELECT XN,SSHJ," + titleSql + " FROM YHSJB WHERE XH=? AND SFTF=? ORDER BY XN DESC";
+        List<Record> records = Db.find(sql, xh, MyConstant.SFTF_JF);
         return records;
     }
 
@@ -404,8 +404,8 @@ public class WyjfDao {
      */
     public List<Record> queryYjFyxx(List<Record> titles, String xh, String xn) {
         String titleSql = parseTitleSql(titles);
-        String sql = "SELECT XDSJ,DDH,DECODE(JFLX,'CASH','现金','CARD','刷卡','JSAPI','APP微信','NATIVE','微信扫码','GXZZ','高校转账') JFLX,XN,SSHJ," + titleSql + " FROM YHSJB WHERE XH=? AND XN=? ORDER BY XDSJ DESC";
-        List<Record> records = Db.find(sql, xh, xn);
+        String sql = "SELECT TFBS,XH,XDSJ,DDH,DECODE(JFLX,'CASH','现金','CARD','刷卡','JSAPI','APP微信','NATIVE','微信扫码','GXZZ','高校转账') JFLX,XN,SSHJ," + titleSql + " FROM YHSJB WHERE XH=? AND XN=? AND SFTF=? ORDER BY XDSJ DESC";
+        List<Record> records = Db.find(sql, xh, xn, MyConstant.SFTF_JF);
         return records;
     }
 

@@ -5,4 +5,7 @@ package gka.controller.xsjfgl.grjfxx;
  */
 public class MyConstant {
     public static final String xzfid="20001";
+    public static final String SFTF_TF="1";
+    public static final String SFTF_JF="0";
+
 }

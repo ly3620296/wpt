@@ -93,6 +93,25 @@ public class DnkpController extends Controller {
         renderJson(map);
     }
 
+
+    public void tf() {
+        Map map = new HashMap();
+        try {
+            String xn = getPara("xn"); //缴费学年
+            String xh = getPara("xh"); //学号
+            String ddh = getPara("ddh"); //学号
+            WptMaLSUserInfo userInfo = (WptMaLSUserInfo) getSession().getAttribute("wptMaLSUserInfo");
+            dnkpDao.tf(ddh, xn, xh, userInfo.getM_zh());
+            map.put("code", "0");
+            map.put("msg", "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("code", "-1");
+            map.put("msg", "系统繁忙，请稍后重试！");
+        }
+        renderJson(map);
+    }
+
     public void save() {
         Map map = new HashMap();
         try {
@@ -119,13 +138,19 @@ public class DnkpController extends Controller {
             //查询是否没缴费
             boolean pay = wyjfDao.validateIsNoPay(titles, ids, values, xn, xh);
             if (pay) {
-                String order = WXPayUtil.generateOrder();//订单号
-                String orderNO = OrderCodeFactory.getD(order);
-                String ip = IpKit.getRealIp(getRequest());
-                WptMaLSUserInfo userInfo = (WptMaLSUserInfo) getSession().getAttribute("wptMaLSUserInfo");
-                dnkpDao.insertOrder(xh, order, ids, pay_type, ze, ip, xn, orderNO, values,userInfo.getM_zh());
-                map.put("code", "0");
-                map.put("msg", "success");
+                boolean noPayOrder = wyjfDao.noPayOrder(xh);
+                if (!noPayOrder) {
+                    String order = WXPayUtil.generateOrder();//订单号
+                    String orderNO = OrderCodeFactory.getD(order);
+                    String ip = IpKit.getRealIp(getRequest());
+                    WptMaLSUserInfo userInfo = (WptMaLSUserInfo) getSession().getAttribute("wptMaLSUserInfo");
+                    dnkpDao.insertOrder(xh, order, ids, pay_type, ze, ip, xn, orderNO, values, userInfo.getM_zh());
+                    map.put("code", "0");
+                    map.put("msg", "success");
+                } else {
+                    map.put("code", "-6");
+                    map.put("msg", "存在未支付订单，请完成支付或关闭订单！");
+                }
             } else {
                 map.put("code", "-5");
                 map.put("msg", "该学生已缴费");

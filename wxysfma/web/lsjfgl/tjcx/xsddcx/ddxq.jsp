@@ -74,7 +74,8 @@
                             <option value="2">支付成功</option>
                             <option value="3">问题订单</option>
                             <option value="1">已取消</option>
-                            <option value="4">教师取消</option>
+                            <%--<option value="4">教师取消</option>--%>
+                            <option value="5">已退费</option>
                         </select>
                     </div>
                 </div>
@@ -92,7 +93,7 @@
                         <input type="text" id="search-sfzh" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-                <div class="layui-inline" >
+                <div class="layui-inline">
                     <label class="layui-form-label">支付时间：</label>
 
                     <div class="layui-input-inline" style="width: 90px !important;margin-right: 10px!important;">
@@ -140,6 +141,8 @@
     <font color="red">问题订单</font>
     {{#  } else if(d.ORDER_STATE == 4){ }}
     <font color="red">教师取消</font>
+    {{#  } else if(d.ORDER_STATE == 5){ }}
+    <font color="red">已退费</font>
     {{#  } }}
 </script>
 <script type="text/html" id="toolbarDemo">
@@ -159,6 +162,8 @@
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
     {{#  } else if(d.ORDER_STATE == 4){ }}
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
+    {{#  } else if(d.ORDER_STATE == 5){ }}
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-tf">订单详情</a>
     {{#  } }}
 </script>
 <script type="text/html" id="barDemo2">
@@ -261,6 +266,8 @@
                     var zh = data.ZH
                     if (layEvent === 'ddxz-qx') {
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "qx", zh);
+                    } else if (layEvent === 'ddxz-tf') {
+                        wpt_grjfxx.closeOrderInfo(xn, orderNo, "tf", zh);
                     } else if (layEvent === 'ddxz-cg') {
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "cg", zh);
                     }

@@ -65,11 +65,17 @@
     {{#  if(d.ORDER_STATE == 0){ }}
     <font color="red">待支付</font>
     {{#  } else if(d.ORDER_STATE == 1){ }}
-    <font color="red">已取消</font>
+    <font color="red">已关闭</font>
     {{#  } else if(d.ORDER_STATE == 2){ }}
     <font color="red">支付成功</font>
+    {{#  } else if(d.ORDER_STATE == 3){ }}
+    <font color="red">异常订单</font>
+    {{#  } else if(d.ORDER_STATE == 4){ }}
+    <font color="red">已关闭（老师）</font>
+    {{#  } else if(d.ORDER_STATE == 5){ }}
+    <font color="red">已退费</font>
     {{#  } else { }}
-    <font color="red">异常</font>
+    <font color="red">未知类型</font>
     {{#  } }}
 </script>
 <script type="text/html" id="toolbarDemo">
@@ -89,6 +95,12 @@
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-qx">订单详情</a>
     {{#  } else if(d.ORDER_STATE == 2){ }}
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
+    {{#  } else if(d.ORDER_STATE == 3){ }}
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-yc">订单详情</a>
+    {{#  } else if(d.ORDER_STATE == 4){ }}
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
+    {{#  } else if(d.ORDER_STATE == 5){ }}
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-tf">订单详情</a>
     {{#  } else { }}
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-qx">订单详情</a>
     {{#  } }}
@@ -201,6 +213,10 @@
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "qx");
                     } else if (layEvent === 'ddxz-cg') {
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "cg");
+                    }  else if (layEvent === 'ddxz-tf') {
+                        wpt_grjfxx.closeOrderInfo(xn, orderNo, "tf");
+                    }  else if (layEvent === 'ddxz-yc') {
+                        wpt_grjfxx.closeOrderInfo(xn, orderNo, "yc");
                     } else if (layEvent === 'zf') {
                         wpt_grjfxx.zfOrder(xn, orderNo);
                     } else if (layEvent === 'qx') {
