@@ -72,77 +72,80 @@ public class XzfSecondController extends Controller {
         Map<String, Object> result = new HashMap<String, Object>();
         ReturnInfo returnInfo = new ReturnInfo();
         try {
-            WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
-            String openId = wptUserInfo.getOpenId();
-            String xh = wptUserInfo.getZh();
-            if (!StringUtils.isEmpty(openId)) {
-                String order = WXPayUtil.generateOrder();
-                String cliIp = IpKit.getRealIp(getRequest());
-                String totalFee = "1";
-                String ids = getPara("arrId");
-                System.out.println("ids=========="+ids);
-                String newIds = newIds(ids);
-                String sfxn = ids.split(",")[0].split("wow")[0];
+            XzfDao.checkDate(returnInfo);
+            if (returnInfo.getReturn_code().equals("666666")) {
+                WptUserInfo wptUserInfo = (WptUserInfo) getSession().getAttribute("wptUserInfo");
+                String openId = wptUserInfo.getOpenId();
+                String xh = wptUserInfo.getZh();
+                if (!StringUtils.isEmpty(openId)) {
+                    String order = WXPayUtil.generateOrder();
+                    String cliIp = IpKit.getRealIp(getRequest());
+                    String totalFee = "1";
+                    String ids = getPara("arrId");
+                    System.out.println("ids==========" + ids);
+                    String newIds = newIds(ids);
+                    String sfxn = ids.split(",")[0].split("wow")[0];
 //                String totalFee = cxTotalFee(parseIdArrSql(ids), xh, sfxn);
-                if (!StringUtils.isEmpty(ids)) {
-                    //查询是否没缴费
+                    if (!StringUtils.isEmpty(ids)) {
+                        //查询是否没缴费
 
-                    Record reVal = xzfDao.queryTotalWjfByPay(xh, sfxn);
-                    String val = genVal(ids, reVal);
+                        Record reVal = xzfDao.queryTotalWjfByPay(xh, sfxn);
+                        String val = genVal(ids, reVal);
 
-                    boolean pay = xzfDao.validateIsNoPay(xzfDao.queryTitle(),newIds,val, sfxn, xh);
-                    if (pay) {
-                        //查询是否存在未缴费订单
-                        boolean noPayOrder = xzfDao.noPayOrder(xh);
-                        if (!noPayOrder) {
-                            //调用统一下单
-                            WxPayTool wxPayTool = WxPayTool.getInstance();
-                            Map[] arrs = wxPayTool.unifiedOrderJSAPI(new WxPayBean(order, totalFee, cliIp, openId));
-                            Map<String, String> unifiedOrder = arrs[0];
-                            if (unifiedOrder != null) {
-                                String unifCode = unifiedOrder.get("return_code");
-                                if (unifCode.equals("SUCCESS")) {
-                                    String unifResultCode = unifiedOrder.get("result_code");
-                                    if (unifResultCode.equals("SUCCESS")) {
-                                        //订单入库
-                                        WxPayOrder wxPayOrder = wxPayTool.fillOrder(arrs[1], newIds, IpKit.getRealIp(getRequest()), xh, unifiedOrder.get("prepay_id"), sfxn);
-                                        wxPayOrder.setOrderNo(OrderCodeFactory.getD(order));
+                        boolean pay = xzfDao.validateIsNoPay(xzfDao.queryTitle(), newIds, val, sfxn, xh);
+                        if (pay) {
+                            //查询是否存在未缴费订单
+                            boolean noPayOrder = xzfDao.noPayOrder(xh);
+                            if (!noPayOrder) {
+                                //调用统一下单
+                                WxPayTool wxPayTool = WxPayTool.getInstance();
+                                Map[] arrs = wxPayTool.unifiedOrderJSAPI(new WxPayBean(order, totalFee, cliIp, openId));
+                                Map<String, String> unifiedOrder = arrs[0];
+                                if (unifiedOrder != null) {
+                                    String unifCode = unifiedOrder.get("return_code");
+                                    if (unifCode.equals("SUCCESS")) {
+                                        String unifResultCode = unifiedOrder.get("result_code");
+                                        if (unifResultCode.equals("SUCCESS")) {
+                                            //订单入库
+                                            WxPayOrder wxPayOrder = wxPayTool.fillOrder(arrs[1], newIds, IpKit.getRealIp(getRequest()), xh, unifiedOrder.get("prepay_id"), sfxn);
+                                            wxPayOrder.setOrderNo(OrderCodeFactory.getD(order));
 
-                                        wxPayDao.insertOrderSpecial(wxPayOrder, val);
-                                        //解析h5所需参数
-                                        Map<String, String> reqData = wxPayTool.reqData(unifiedOrder);
-                                        result.putAll(reqData);
-                                        System.out.println(reqData);
-                                        returnInfo.setReturn_code("0");
-                                        returnInfo.setReturn_msg("success");
+                                            wxPayDao.insertOrderSpecial(wxPayOrder, val);
+                                            //解析h5所需参数
+                                            Map<String, String> reqData = wxPayTool.reqData(unifiedOrder);
+                                            result.putAll(reqData);
+                                            System.out.println(reqData);
+                                            returnInfo.setReturn_code("0");
+                                            returnInfo.setReturn_msg("success");
+                                        } else {
+                                            returnInfo.setReturn_code("-4");
+                                            returnInfo.setReturn_msg(unifiedOrder.get("err_code_des") == null ? "微信支付业务繁忙，请稍后重试！" : unifiedOrder.get("err_code_des"));
+                                        }
                                     } else {
-                                        returnInfo.setReturn_code("-4");
-                                        returnInfo.setReturn_msg(unifiedOrder.get("err_code_des") == null ? "微信支付业务繁忙，请稍后重试！" : unifiedOrder.get("err_code_des"));
+                                        returnInfo.setReturn_code("-3");
+                                        returnInfo.setReturn_msg(unifiedOrder.get("return_msg"));
                                     }
-                                } else {
-                                    returnInfo.setReturn_code("-3");
-                                    returnInfo.setReturn_msg(unifiedOrder.get("return_msg"));
-                                }
 
+                                } else {
+                                    returnInfo.setReturn_code("-2");
+                                    returnInfo.setReturn_msg("微信支付接口异常");
+                                }
                             } else {
-                                returnInfo.setReturn_code("-2");
-                                returnInfo.setReturn_msg("微信支付接口异常");
+                                returnInfo.setReturn_code("-6");
+                                returnInfo.setReturn_msg("存在未支付订单！");
                             }
                         } else {
-                            returnInfo.setReturn_code("-6");
-                            returnInfo.setReturn_msg("存在未支付订单！");
+                            returnInfo.setReturn_code("-5");
+                            returnInfo.setReturn_msg("已经缴费！");
                         }
                     } else {
-                        returnInfo.setReturn_code("-5");
-                        returnInfo.setReturn_msg("已经缴费！");
+                        returnInfo.setReturn_code("-7");
+                        returnInfo.setReturn_msg("参数有误，请勿篡改订单信息！");
                     }
                 } else {
-                    returnInfo.setReturn_code("-7");
-                    returnInfo.setReturn_msg("参数有误，请勿篡改订单信息！");
+                    returnInfo.setReturn_code("-1");
+                    returnInfo.setReturn_msg("请先绑定微信");
                 }
-            } else {
-                returnInfo.setReturn_code("-1");
-                returnInfo.setReturn_msg("请先绑定微信");
             }
         } catch (Exception e) {
             returnInfo.setReturn_code("-999");
@@ -161,7 +164,7 @@ public class XzfSecondController extends Controller {
     }
 
     private String newIds(String ids) {
-        System.out.println("=================="+ids);
+        System.out.println("==================" + ids);
         String[] temp = ids.split(",");
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < temp.length; i++) {
