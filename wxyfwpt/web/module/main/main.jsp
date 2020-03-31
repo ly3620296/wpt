@@ -44,9 +44,6 @@
                 <a><img src="<%=Constant.server_name%>img/top-app2.jpg"/></a>
             </div>
             <div class="swiper-slide">
-                <a><img src="<%=Constant.server_name%>img/top-app4.jpg"/></a>
-            </div>
-            <div class="swiper-slide">
                 <a><img src="<%=Constant.server_name%>img/top-app5.jpg"/></a>
             </div>
         </div>

@@ -32,11 +32,11 @@
     <ul>
         <li>
             <label for="newpwd">新密码</label>
-            <input type="password" id="newpwd" value="aaaaaaaa1"/>
+            <input type="password" id="newpwd" value=""/>
         </li>
         <li>
             <label for="repwd">再次输入</label>
-            <input type="password" id="repwd" value="aaaaaaaa1"/>
+            <input type="password" id="repwd" value=""/>
         </li>
 
 
@@ -57,10 +57,10 @@
         },
         validate: function () {
             var newpwd = $("#newpwd").val();
-            if (newpwd.length < 8) {
-                alert("小于8")
-                return false;
-            }
+//            if (newpwd.length < 8) {
+//                alert("小于8")
+//                return false;
+//            }
             var reg2 = /([a-zA-Z0-9!@#$%^&*()_]){8,18}/;
             var reg3 = /[a-zA-Z]+/;
             var reg4 = /[0-9]+/;
