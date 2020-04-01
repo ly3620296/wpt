@@ -14,8 +14,8 @@ public class WjmmDao {
     }
 
     public int updatePasswd(String pass, String xh) {
-        String sql = "UPDATE WPT_YH SET KL=? WHERE ZH=?";
-        return Db.update(sql, pass, xh);
+       String sql = "UPDATE WPT_YH SET KL='{MD5}'||utl_raw.cast_to_varchar2(utl_encode.base64_encode(Utl_Raw.Cast_To_Raw(sys.dbms_obfuscation_toolkit.md5(input_string =>'" + pass + "'))))  WHERE ZH=?";
+        return Db.update(sql,  xh);
     }
 
     public boolean validateOld(String validateOld, String xh) {
