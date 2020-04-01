@@ -25,11 +25,11 @@
     <div class="form-group">
         <div class="form-item">
             <label></label>
-            <input type="text" id="account" placeholder="学号/工号" value="" maxlength="20"/>
+            学号/工号：<input type="text" id="account" placeholder="" value="" maxlength="20"/>
         </div>
         <div class="form-item">
             <label></label>
-            <input type="password" id="password" value="" placeholder="密码"/>
+            密码：<input type="password" id="password" value="" placeholder=""/>
         </div>
     </div>
 </div>

@@ -6,7 +6,7 @@ import gka.kit.HttpUtil;
 import gka.resource.properties.ProFactory;
 
 public class AccessToken {
-    private static final String ACCESS_TOKEN_URL = " https://api.weixin.qq.com/sns/oauth2/access_token";
+    private static final String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token";
     private final static String APP_ID = ProFactory.use("gkean.properties").getStr("appId");
     private final static String APP_SECRET = ProFactory.use("gkean.properties").getStr("appSecret");
     private static final String GRANT_TYPE = "authorization_code";

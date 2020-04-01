@@ -32,10 +32,10 @@
             <form method="post">
                 <ul>
                     <li>
-                        <input type="text" name="account" id="account"   value="admin" placeholder="用户名">
+                        <input type="text" name="account" id="account"   value="" placeholder="用户名">
                     </li>
                     <li>
-                        <input type="text" name="password"   value="111111" id="password" placeholder="密码">
+                        <input type="text" name="password"   value="" id="password" placeholder="密码">
                     </li>
                     <li>
                         <input style="width: 54%;" type="text" placeholder="图片验证码"  id="LAY-user-login-vercode"/>
