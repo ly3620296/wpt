@@ -277,10 +277,10 @@
                 })
             },
             //回车查询
-            queryByXh: function () {
+            queryByXh: function (data) {
                 var xh = $("#search-xh").val();
                 var xn = $("#search-sfxn").val();
-                if (xh != null && xh.length > 0) {
+                if ((xh != null && xh.length > 0)) {
                     $.ajax({
                         url: wpt_serverName + "lsjfgl/dnkp/queryByXh",
                         type: 'post',
@@ -367,6 +367,15 @@
                     $("#ZYMC").html(userInfo.ZYMC)
                     $("#BJMC").html(userInfo.BJMC)
                     $("#NJ").html(userInfo.NJ)
+                } else {
+                    $("#XN").html("")
+                    $("#XH").html("")
+                    $("#XM").html("")
+                    $("#SFZH").html("")
+                    $("#XYMC").html("")
+                    $("#ZYMC").html("")
+                    $("#BJMC").html("")
+                    $("#NJ").html("")
                 }
             },
             //应缴费信息
@@ -426,8 +435,9 @@
                         ], cols],
                         data: yjfList,
                         title: '用户表',
-                        page: false, //开启分页
+                        page: true, //开启分页
                         loading: true,
+//                        height: 'full-20',
                         done: function (res, curr, count) { //加载完回调
                             $('th').css({'background-color': '#eef9fb', 'color': '#4aa4a5', 'font-weight': 'bold'})
                         },
@@ -455,7 +465,7 @@
                         end: function () {
                             var xh = $("#my_xh").val();
                             if (xh != "0") {
-                                $("#search-xh").val("");
+                                $("#search-xh").val(xh);
                                 wpt_grjfxx.queryByXhOpen(xh);
                             }
                         }

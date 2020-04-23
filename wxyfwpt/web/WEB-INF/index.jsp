@@ -31,6 +31,9 @@
             <label></label>
             密码：<input type="password" id="password" value="" placeholder=""/>
         </div>
+        <div style="margin-top: 5px;">
+            <label style="color:#0027f1;font-size: 13px;">登录密码和数字化校园信息平台一致。</label>
+        </div>
     </div>
 </div>
 <div class="button-group">

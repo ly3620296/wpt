@@ -125,8 +125,26 @@
                             {title: "订单编号", field: "ORDER_NO", align: "center", width: "10%", fixed: "left"},
                             {title: "交费学年", field: "SFXN", align: "center", sort: true, width: "8%"},
                             {title: "下单时间", field: "TIME_START", align: "center", sort: true, width: "10%"},
-                            {title: "订单合计（元）", field: "TOTAL_FEE", align: "center", sort: true, width: "9%"},
-                            {title: "支付金额（元）", field: "TOTAL_FEE_CALLBACK", align: "center", sort: true, width: "9%"},
+                            {
+                                title: "订单合计（元）",
+                                field: "TOTAL_FEE",
+                                align: "center",
+                                sort: true,
+                                width: "9%",
+                                templet: function (d) {
+                                    return parseFloat(d.TOTAL_FEE) / 100;
+                                }
+                            },
+                            {
+                                title: "支付金额（元）",
+                                field: "TOTAL_FEE_CALLBACK",
+                                align: "center",
+                                sort: true,
+                                width: "9%",
+                                templet: function (d) {
+                                    return parseFloat(d.TOTAL_FEE_CALLBACK) / 100;
+                                }
+                            },
                             {title: "学院名称", field: "JGMC", align: "center"},
                             {title: "专业名称", field: "ZYMC", align: "center"},
                             {title: "班级名称", field: "BJMC", align: "center"},
@@ -213,9 +231,9 @@
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "qx");
                     } else if (layEvent === 'ddxz-cg') {
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "cg");
-                    }  else if (layEvent === 'ddxz-tf') {
+                    } else if (layEvent === 'ddxz-tf') {
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "tf");
-                    }  else if (layEvent === 'ddxz-yc') {
+                    } else if (layEvent === 'ddxz-yc') {
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "yc");
                     } else if (layEvent === 'zf') {
                         wpt_grjfxx.zfOrder(xn, orderNo);

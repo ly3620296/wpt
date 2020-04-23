@@ -38,6 +38,7 @@
                     </li>
                     <li>
                         <input type="text" name="password" id="password" placeholder="密码" value="">
+                        <span style="color:#0027f1;font-size: 13px;margin-left: 5px;">登录密码和数字化校园信息平台一致。</span>
                     </li>
                     <li>
                         <input style="width: 54%;" type="text" placeholder="图片验证码" id="LAY-user-login-vercode"/>

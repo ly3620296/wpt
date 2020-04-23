@@ -87,6 +87,8 @@ $(document).ready(function () {
     updateCaptcha();
 })
 $(function () {
+
+
     $("#login").on("click", function () {
         loginObj.login();
     })
