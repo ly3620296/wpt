@@ -186,12 +186,6 @@ public class XzfSecondDao {
     }
 
 
-    public Record jf(String xh, String xn, List<Record> title) {
-        String sql = "SELECT " + getSqlForJf(title) +
-                " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=?";
-        Record re = Db.findFirst(sql, xh, xn);
-        return re;
-    }
 
     public Record queryJxzf(String xh) {
         Record re = Db.findFirst("SELECT IDS,TOTAL_FEE,PAY_TYPE,PREPAY_ID,SFXN FROM WPT_WXZF_SPECIAL_ORDER WHERE XH=? AND ORDER_STATE=?", xh, MyWxpayConstant.ORDER_STATE_NOPAY);
@@ -433,5 +427,81 @@ public class XzfSecondDao {
         return sb.toString();
     }
 
+    public Record queryXnYjFyxx(List<Record> titles, String xh, String xn) {
+        String sql = "SELECT T1.XN," + getSqlWjfLy(titles) +
+                " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSqlLy(titles) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN =?";
+        Record re = Db.findFirst(sql, xh, xh, xn);
+        return re;
+    }
+
+//    public Record jf(String xh, String xn, List<Record> title) {
+//        String sql = "SELECT " + getSqlForJf(title) +
+//                " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=?";
+//        Record re = Db.findFirst(sql, xh, xn);
+//        return re;
+//    }
+
+    public Record jf(String xh, String xn, List<Record> title) {
+        String sql = "SELECT " + getSqlForJfLy(title) +
+                " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSqlLy(title) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=?";
+        Record re = Db.findFirst(sql, xh, xh, xn);
+        return re;
+
+    }
+
+    private String getSqlForJfLy(List<Record> title) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < title.size(); i++) {
+            Record re = title.get(i);
+
+            String jfxmId = re.getStr("JFXMID");
+            if (i < title.size() - 1) {
+                sb.append("(NVL(T1." + jfxmId + ",0)-NVL(T2." + jfxmId + ",0)) " + jfxmId + ",");
+            } else {
+                sb.append("(NVL(T1." + jfxmId + ",0)-NVL(T2." + jfxmId + ",0)) " + jfxmId);
+            }
+        }
+        return sb.toString();
+    }
+
+
+    private String getSqlWjfLy(List<Record> title) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < title.size(); i++) {
+            Record re = title.get(i);
+
+            String jfxmId = re.getStr("JFXMID");
+            if (i < title.size() - 1) {
+                sb.append("(NVL(T1." + jfxmId + ",0)-");
+                sb.append("NVL(T2." + jfxmId + ",0)) " + jfxmId + ",");
+            } else {
+                sb.append("(NVL(T1." + jfxmId + ",0)-");
+                sb.append("NVL(T2." + jfxmId + ",0)) " + jfxmId + ",");
+                sb.append("(NVL(T1.YSHJ,0)-NVL(T2.SSHJ,0)) YSHJ");
+            }
+        }
+        return sb.toString();
+    }
+
+    private String generateYjfSqlLy(List<Record> titles) {
+        StringBuffer sb = new StringBuffer("SELECT XH,XN,");
+        for (int i = 0; i < titles.size(); i++) {
+            Record re = titles.get(i);
+            String jfxmId = re.getStr("JFXMID");
+
+            if (i < titles.size() - 1) {
+                sb.append("SUM(" + jfxmId + ") ");
+                sb.append(jfxmId);
+                sb.append(",");
+            } else {
+                sb.append("SUM(" + jfxmId + ") ");
+                sb.append(jfxmId);
+                sb.append(",");
+                sb.append("SUM(SSHJ) SSHJ ");
+            }
+        }
+        sb.append("FROM YHSJB WHERE XH=? GROUP BY XH,XN");
+        return sb.toString();
+    }
 
 }

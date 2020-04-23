@@ -42,8 +42,8 @@ public class WyjfDdController extends Controller {
                 String sfxn = getPara("sfxn");
                 if (idArr != null && !StringUtils.isEmpty(sfxn)) {
                     String ids = parseIdArr(idArr);
-                    String totalFee = "1";
-//                String totalFee =  cxTotalFee(parseIdArrSql(idArr), xh, sfxn);
+//                    String totalFee = "1";
+                    String totalFee = cxTotalFee(idArr, xh, sfxn);
                     //查询是否没缴费
                     Record reVal = wyjfDao.queryTotalWjfByPay(xh, sfxn);
                     String val = genVal(idArr, reVal);
@@ -70,7 +70,7 @@ public class WyjfDdController extends Controller {
                                         wxPayDao.insertOrder(wxPayOrder, val);
                                         result.put("code_url", unifiedOrder.get("code_url"));
                                         result.put("oreder_no", wxPayOrder.getOrderNo());
-                                        result.put("money", wyjfDao.getMoney(ids, sfxn, xh));
+                                        result.put("money", Double.parseDouble(totalFee) / 100);
                                         returnInfo.setReturn_code("0");
                                         returnInfo.setReturn_msg("success");
                                     } else {
@@ -246,22 +246,20 @@ public class WyjfDdController extends Controller {
     /**
      * 实际支付金额
      *
-     * @param idSql
+     * @param idArr
      * @param xh
      * @param xn
      * @return
      */
-    private String cxTotalFee(String idSql, String xh, String xn) {
-        String zh = "0";
-        String sql = "SELECT " + idSql + " FROM XSSFB WHERE XH=? AND XN=?";
-        Record re = Db.findFirst(sql, xh, xn);
-        if (re != null) {
-            zh = re.getStr("ZH");
-            double zhD = Double.parseDouble(zh);
-            zh = String.valueOf((int) (zhD * 100));
+    private String cxTotalFee(String[] idArr, String xh, String xn) {
+        Record record = wyjfDao.queryXnYjFyxx(wyjfDao.queryTitle(), xh, xn);
+        double zh = 0;
+        for (int i = 0; i < idArr.length; i++) {
+            zh += Double.parseDouble(record.getStr(idArr[i]));
         }
-        System.out.println("实际支付金额" + zh + "（单位分）");
-        return zh;
+        int zhIn = (int) (zh * 100);
+        System.out.println("实际支付金额" + zhIn + "（单位分）");
+        return String.valueOf(zhIn);
     }
 
     private String genVal(String[] id, Record re) {

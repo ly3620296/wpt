@@ -75,7 +75,6 @@
             </Policies>
         </RollingFile>
 
-
     </Appenders>
     <Loggers>
         <root level="all">

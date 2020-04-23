@@ -128,7 +128,7 @@ public class XzfController extends Controller {
                 }
             } else {
                 returnInfo.setReturn_code("-1");
-                returnInfo.setReturn_msg("请先绑定微信");
+                returnInfo.setReturn_msg("请先前往(菜单：我的-绑定微信)进行绑定！");
             }
         } catch (Exception e) {
             returnInfo.setReturn_code("-999");

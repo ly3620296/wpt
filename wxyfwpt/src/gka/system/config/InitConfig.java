@@ -36,8 +36,12 @@ public class InitConfig extends JFinalConfig {
 
     //路由配置
     public void configRoute(Routes routes) {
-        ControllerRoute.register(routes, "gka");
-        logger.info(ProFactory.use("gkean.properties").getStr("system.title") + "路由配置完成....");
+        try {
+            ControllerRoute.register(routes, "gka");
+            logger.info(ProFactory.use("gkean.properties").getStr("system.title") + "路由配置完成....");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

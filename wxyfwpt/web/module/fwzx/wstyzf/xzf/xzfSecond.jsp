@@ -21,7 +21,7 @@
     <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png"
          onclick="javascript:window.location.replace('/wpt/module/fwzx/fwzxapp.jsp')"/>
 
-    <p class="titleName">学杂费</p>
+    <p class="titleName">学费缴纳</p>
 </div>
 
 <div class="list" id="sfxmList">

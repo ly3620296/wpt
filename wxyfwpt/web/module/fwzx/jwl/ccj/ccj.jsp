@@ -30,7 +30,7 @@
     <div class="titledddiv">
         <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png" onclick="javascript:window.location.replace(document.referrer)"/>
 
-        <p class="titleName">查成绩</p>
+        <p class="titleName">成绩查询</p>
     </div>
 
     <div class="selectDiv">

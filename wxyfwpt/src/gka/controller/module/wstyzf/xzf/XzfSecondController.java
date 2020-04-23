@@ -80,15 +80,13 @@ public class XzfSecondController extends Controller {
                 if (!StringUtils.isEmpty(openId)) {
                     String order = WXPayUtil.generateOrder();
                     String cliIp = IpKit.getRealIp(getRequest());
-                    String totalFee = "1";
                     String ids = getPara("arrId");
-                    System.out.println("ids==========" + ids);
                     String newIds = newIds(ids);
                     String sfxn = ids.split(",")[0].split("wow")[0];
-//                String totalFee = cxTotalFee(parseIdArrSql(ids), xh, sfxn);
+//                    String totalFee = "1";
+                    String totalFee = cxTotalFee(ids.split(","), xh, sfxn);
                     if (!StringUtils.isEmpty(ids)) {
                         //查询是否没缴费
-
                         Record reVal = xzfDao.queryTotalWjfByPay(xh, sfxn);
                         String val = genVal(ids, reVal);
 
@@ -144,7 +142,7 @@ public class XzfSecondController extends Controller {
                     }
                 } else {
                     returnInfo.setReturn_code("-1");
-                    returnInfo.setReturn_msg("请先绑定微信");
+                    returnInfo.setReturn_msg("请先前往(菜单：我的-绑定微信)进行绑定！");
                 }
             }
         } catch (Exception e) {
@@ -164,7 +162,6 @@ public class XzfSecondController extends Controller {
     }
 
     private String newIds(String ids) {
-        System.out.println("==================" + ids);
         String[] temp = ids.split(",");
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < temp.length; i++) {
@@ -317,22 +314,20 @@ public class XzfSecondController extends Controller {
     /**
      * 实际支付金额
      *
-     * @param idSql
+     * @param idArr
      * @param xh
      * @param xn
      * @return
      */
-    private String cxTotalFee(String idSql, String xh, String xn) {
-        String zh = "0";
-        String sql = "SELECT " + idSql + " FROM XSSFB WHERE XH=? AND XN=?";
-        Record re = Db.findFirst(sql, xh, xn);
-        if (re != null) {
-            zh = re.getStr("ZH");
-            double zhD = Double.parseDouble(zh);
-            zh = String.valueOf((int) (zhD * 100));
+    private String cxTotalFee(String [] idArr, String xh, String xn) {
+        Record record = xzfDao.queryXnYjFyxx(xzfDao.queryTitle(), xh, xn);
+        double zh = 0;
+        for (int i = 0; i < idArr.length; i++) {
+            zh += Double.parseDouble(record.getStr(idArr[i].split("wow")[1]));
         }
-        System.out.println("实际支付金额" + zh + "（单位分）");
-        return zh;
+        int zhIn = (int) (zh * 100);
+        System.out.println("实际支付金额" + zhIn + "（单位分）");
+        return String.valueOf(zhIn);
     }
 
     private String genVal(String ids, Record re) {

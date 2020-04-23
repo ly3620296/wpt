@@ -73,8 +73,8 @@ layui.use('form', function () {
                             for (var ii in ggLi) {
                                 var gg = ggLi[ii];
                                 ggHtml += ' <li id="' + gg.G_ID + '">' +
-                                '<p class="title"><i class="fa fa-bullhorn"></i>' + gg.G_TITLE + '</p>' +
-                                '<p class="cont">' + gg.G_TEXT + '</p>' +
+                                '<p class="title" style="overflow:hidden; text-overflow:ellipsis; white-space: nowrap;"><i class="fa fa-bullhorn"></i>' + gg.G_TITLE + '</p>' +
+                                '<p class="cont" style="overflow:hidden; text-overflow:ellipsis; white-space: nowrap;">' + gg.G_TEXT + '</p>' +
                                 '<p class="time">' + gg.GTIME + '</p>' +
                                 '</li>';
                             }

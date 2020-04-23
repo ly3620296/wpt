@@ -136,7 +136,7 @@ public class WxPayTool {
 
     static class PayConstant {
         //
-        static final String BODY = "科安";
+        static final String BODY =  ProFactory.use("gkean.properties").getStr("domain_name");
         //支付异步回调地址
         static final String NOTIFY_URL = ProFactory.use("gkean.properties").getStr("domain_name") + "/wpt/pay/wxpay/con/wxPayCallBackController";
         //交易类型
