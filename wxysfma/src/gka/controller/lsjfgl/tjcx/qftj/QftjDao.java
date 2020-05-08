@@ -40,7 +40,7 @@ public class QftjDao {
             fromSql.append(" AND T3.ZYMC like '%" + search.getZymc() + "%'");
         }
         if (!StringUtils.isEmpty(search.getBjmc())) {
-            fromSql.append(" AND T3.BJMC='" + search.getBjmc() + "'");
+            fromSql.append(" AND T3.BJMC like '%" + search.getBjmc() + "%'");
         }
         fromSql.append(" ORDER BY T3.XN DESC");
         Page<Record> paginate = Db.paginate(page, limit, selectSql, fromSql.toString());
@@ -69,24 +69,24 @@ public class QftjDao {
         }
         String xm = searchBean.getXm();
         if (!StringUtils.isEmpty(xm)) {
-            fromSql.append(" AND T3.XM LIKE '%" + xm + "%'fvcbgbgcv ");
+            fromSql.append(" AND T3.XM LIKE '%" + xm + "%'");
         }
         String xymc = searchBean.getXymc();
         if (!StringUtils.isEmpty(xymc)) {
-            fromSql.append(" AND T3.XYMC='" + xymc + "'");
+            fromSql.append(" AND T3.XYMC LIKE '%" + xymc + "%'");
         }
         String zymc = searchBean.getZymc();
         if (!StringUtils.isEmpty(zymc)) {
-            fromSql.append(" AND T3.ZYMC='" + zymc + "'");
+            fromSql.append(" AND T3.ZYMC LIKE '%" + zymc + "%'");
         }
         String bjmc = searchBean.getBjmc();
         if (!StringUtils.isEmpty(bjmc)) {
-            fromSql.append(" AND T3.BJMC='" + bjmc + "'");
+            fromSql.append(" AND T3.BJMC LIKE '%" + bjmc + "%'");
         }
-        if (!StringUtils.isEmpty(bjmc)) {
-            fromSql.append("AND T3.NJ = (SELECT XS.DQSZJ FROM V_WPT_XSJBXXB XS WHERE T3.XH=XS.XH AND XS.DQSZJ='" + searchBean.getNj() + "')");
+        String nj = searchBean.getNj();
+        if (!StringUtils.isEmpty(nj)) {
+            fromSql.append("AND T3.NJ = (SELECT XS.DQSZJ FROM V_WPT_XSJBXXB XS WHERE T3.XH=XS.XH AND XS.DQSZJ='" + nj + "')");
         }
-
         fromSql.append(" ORDER BY T3.XN DESC");
         List<Record> records = Db.find(selectSql + fromSql.toString());
         return records;

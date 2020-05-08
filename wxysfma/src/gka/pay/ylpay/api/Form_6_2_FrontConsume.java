@@ -15,6 +15,7 @@ import gka.pay.ylpay.DemoBase;
 import gka.pay.ylpay.sdk.AcpService;
 import gka.pay.ylpay.sdk.LogUtil;
 import gka.pay.ylpay.sdk.SDKConfig;
+import gka.resource.properties.ProKit;
 import gka.system.ReturnInfo;
 import gka.xsjfgl.login.WptMaXSUserInfo;
 
@@ -49,8 +50,13 @@ public class Form_6_2_FrontConsume extends Controller {
                 String sfxn = getPara("sfxn");
                 if (idArr != null && !StringUtils.isEmpty(sfxn)) {
                     String ids = parseIdArr(idArr);
-//                    String totalFee = cxTotalFee(idArr, xh, sfxn);
-                    String totalFee = "1";
+                    String totalFee = "";
+                    if (ProKit.use("gkean.properties").getBoolean("testPay")) {
+                        totalFee = "1";
+                    } else {
+                        totalFee = cxTotalFee(idArr, xh, sfxn);
+                    }
+//
 //                    //查询是否没缴费
                     Record reVal = wyjfDao.queryTotalWjfByPay(xh, sfxn);
                     String val = genVal(idArr, reVal);
@@ -118,9 +124,12 @@ public class Form_6_2_FrontConsume extends Controller {
                 String sfxn = getPara("sfxn");
                 if (idArr != null && !StringUtils.isEmpty(sfxn)) {
                     String ids = parseIdArr(idArr);
-
-//                    String totalFee = String.valueOf((int) (Double.parseDouble(wyjfDao.queryTotalFee(order_no)) * 100));
-                    String totalFee = "1";
+                    String totalFee = "";
+                    if (ProKit.use("gkean.properties").getBoolean("testPay")) {
+                        totalFee = "1";
+                    } else {
+                        totalFee = String.valueOf((int) (Double.parseDouble(wyjfDao.queryTotalFee(order_no)) * 100));
+                    }
 //                    //查询是否没缴费
                     Record reVal = wyjfDao.queryTotalWjfByPay(xh, sfxn);
                     String val = genVal(idArr, reVal);

@@ -10,6 +10,7 @@ import gka.common.kit.OrderCodeFactory;
 import gka.controller.xsjfgl.MyUtil;
 import gka.pay.wxpay.WXPayUtil;
 import gka.pay.wxpay.controller.*;
+import gka.resource.properties.ProKit;
 import gka.system.ReturnInfo;
 import gka.xsjfgl.login.WptMaXSUserInfo;
 
@@ -42,8 +43,12 @@ public class WyjfDdController extends Controller {
                 String sfxn = getPara("sfxn");
                 if (idArr != null && !StringUtils.isEmpty(sfxn)) {
                     String ids = parseIdArr(idArr);
-                    // String totalFee = "1";
-                    String totalFee = cxTotalFee(idArr, xh, sfxn);
+                    String totalFee = "";
+                    if (ProKit.use("gkean.properties").getBoolean("testPay")) {
+                        totalFee = "1";
+                    } else {
+                        totalFee = cxTotalFee(idArr, xh, sfxn);
+                    }
                     //查询是否没缴费
                     Record reVal = wyjfDao.queryTotalWjfByPay(xh, sfxn);
 

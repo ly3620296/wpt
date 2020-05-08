@@ -7,7 +7,6 @@ acpsdk.fileTransUrl=https://filedownload.95516.com/
 acpsdk.appTransUrl=https://gateway.95516.com/gateway/api/appTransReq.do
 acpsdk.cardTransUrl=https://gateway.95516.com/gateway/api/cardTransReq.do
 
-
 # 报文版本号，固定5.1.0，请勿改动
 acpsdk.version=5.1.0
 
@@ -15,7 +14,7 @@ acpsdk.version=5.1.0
 acpsdk.signMethod=01
 
 # 是否验证验签证书的CN，测试环境请设置false，生产环境请设置true。非false的值默认都当true处理。
-acpsdk.ifValidateCNName=false
+acpsdk.ifValidateCNName=true
 
 # 是否验证https证书，测试环境请设置false，生产环境建议优先尝试true，不行再false。非true的值默认都当false处理。
 acpsdk.ifValidateRemoteCert=false
@@ -30,9 +29,8 @@ acpsdk.frontUrl=http://wmh.jlsfjy.cn/sfma/notice/frontRcvResponse
 # 多证书的情况证书路径为代码指定，可不对此块做配置。
 # 签名证书路径，必须使用绝对路径，如果不想使用绝对路径，可以自行实现相对路径获取证书的方法；测试证书所有商户共用开发包中的测试签名证书，生产环境请从cfca下载得到。
 # windows样例：
-acpsdk.signCert.path=/u01/tomcat-8.5.37-wpt/cers.pfx
 # linux样例（注意：在linux下读取证书需要保证证书有被应用读的权限）（后续其他路径配置也同此条说明）
-#acpsdk.signCert.path=/SERVICE01/usr/ac_frnas/conf/ACPtest/acp700000000000001.pfx
+acpsdk.signCert.path=/u01/tomcat-8.5.37-wpt/cert/cers.pfx
 
 # 签名证书密码，测试环境固定000000，生产环境请修改为从cfca下载的正式证书的密码，正式环境证书密码位数需小于等于6位，否则上传到商户服务网站会失败
 acpsdk.signCert.pwd=123456
@@ -41,7 +39,6 @@ acpsdk.signCert.type=PKCS12
 
 #商户号
 acpsdk.merId=826220182200000
-
 
 ##########################加密证书配置################################
 # 敏感信息加密证书路径(商户号开通了商户对敏感信息加密的权限，需要对 卡号accNo，pin和phoneNo，cvn2，expired加密（如果这些上送的话），对敏感信息加密使用)
@@ -52,5 +49,3 @@ acpsdk.encryptCert.path=/u01/tomcat-8.5.37-wpt/cert/acp_prod_enc.cer
 acpsdk.middleCert.path=/u01/tomcat-8.5.37-wpt/cert/acp_prod_middle.cer
 # 验签根证书路径(银联提供)
 acpsdk.rootCert.path=/u01/tomcat-8.5.37-wpt/cert/acp_prod_root.cer
-
-
