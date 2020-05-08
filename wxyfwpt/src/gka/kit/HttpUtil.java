@@ -53,6 +53,7 @@ public class HttpUtil {
             int len = 0;
             in = httpUrlConnection.getInputStream();
             while ((len = in.read(buffer)) != -1) {
+                System.out.println(new String(buffer, "UTF-8"));
             }
             return null;
         } catch (IOException e) {

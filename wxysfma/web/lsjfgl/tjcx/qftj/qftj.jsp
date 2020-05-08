@@ -227,16 +227,15 @@
                     $("#my-header select").val("");
                 })
                 $("#my-export").bind("click", function () {
-//                    var ddbh = $('#search-ddbh').val();
-//                    var xn = $('#search-xn').val();
-//                    var xm = $('#search-xm').val();
-//                    var ddzt = $('#search-ddzt').val();
-//                    var xh = $('#search-xh').val();
-//                    var sfzh = $('#search-sfzh').val();
-//                    var dateStart = $('#dateStart').val();
-//                    var dateEnd = $('#dateEnd').val();
-                    window.location.href = wpt_serverName + 'lsjfgl/tjcx/qftj/export' //数据接口地址
-
+                    var xn = $('#search-xn').val(); //学年
+                    var xh = $('#search-xh').val(); //学号
+                    var xm = $('#search-xm').val(); //姓名
+                    var xymc = $('#search-xymc').val();  //学院名称
+                    var zymc = $('#search-zymc').val();  //专业名称
+                    var bjmc = $('#search-bjmc').val();  //班级名称
+                    var nj = $('#search-nj').val();  //班级名称
+                    var param = "?xn=" + xn + "&xh=" + xh + "&xm=" + xm + "&xymc=" + xymc + "&zymc=" + zymc + "&bjmc=" + bjmc + "&nj=" + nj;
+                    window.location.href = wpt_serverName + 'lsjfgl/tjcx/qftj/export' + param //数据接口地址
                 })
 
                 $("#my-search").bind("click", function () {

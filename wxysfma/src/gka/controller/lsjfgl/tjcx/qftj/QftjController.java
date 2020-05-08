@@ -47,12 +47,19 @@ public class QftjController extends Controller {
         }
         renderJson(map);
     }
+
     public void export() {
         try {
-
-
+            String xn = getPara("xn");
+            String xh = getPara("xh");
+            String xm = getPara("xm");
+            String xymc = getPara("xymc");
+            String zymc = getPara("zymc");
+            String bjmc = getPara("bjmc");
+            String nj = getPara("nj");
+            SearchBean searchBean = new SearchBean(xn, xh, xm, xymc, zymc, bjmc, nj);
             File file = new File(ExcelExportUtil.getTitle("欠费学生数据"));
-            file = ExcelExportUtil.saveFilepQftj(file);
+            file = ExcelExportUtil.saveFilepQftj(file, searchBean);
             this.renderFile(file);
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,6 +67,7 @@ public class QftjController extends Controller {
             render("/error/400.html");
         }
     }
+
     public void title() {
         Map map = new HashMap();
         try {

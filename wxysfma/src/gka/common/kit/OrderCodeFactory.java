@@ -43,6 +43,15 @@ public class OrderCodeFactory {
         return threadLocal.get().toString();
     }
 
+    public static String getDYl(String lock) {
+        StringBuilder builder = new StringBuilder(ThreadLocalRandom.current().nextInt(0, 999));// 随机数
+        builder.append(Math.abs(lock.hashCode()));// HASH-CODE
+        builder.append(System.currentTimeMillis());// 自增顺序
+        threadLocal.set(builder);
+        return threadLocal.get().toString();
+    }
+
+
     public static void main(String[] args) {
         System.out.println(getD("1572183227625nichnye"));
     }

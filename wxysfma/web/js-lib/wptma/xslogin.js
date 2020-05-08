@@ -61,6 +61,7 @@ var loginObj = {
                                 window.location.href = wpt_serverName + "main/xsindex.jsp";
                             } else {
                                 layer.msg(msg, {anim: 6, time: 2000});
+                                updateCaptcha();
                             }
                         }
                     }

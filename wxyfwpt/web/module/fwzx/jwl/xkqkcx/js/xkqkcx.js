@@ -17,10 +17,10 @@ layui.use('form', function () {
                     var encJxbmc = encodeURIComponent(xkqkcx.JXBMC);
                     xkqkcxs += '<tr onclick="wpt_xkqkcx.cjmx(\'' + xkqkcx.JXB_ID + '\',\'' + encJxbmc + '\')">' +
                     '<td class="cjj_td"></td>' +
-                    '<td><p style="width: 7em">' + xkqkcx.JXBMC + '</p></td>' +
-                    '<td>' + xkqkcx.KCMC + '</td>' +
-                    '<td>' + xkqkcx.KCXZ + '</td>' +
-                    '<td>' + xkqkcx.JXBRS + '</td>' +
+                    '<td><p style="width: 7em">' + (xkqkcx.JXBMC == null ? "" : xkqkcx.JXBMC) + '</p></td>' +
+                    '<td>' + (xkqkcx.KCMC == null ? "" : xkqkcx.KCMC) + '</td>' +
+                    '<td>' + (xkqkcx.KCXZ == null ? "" : xkqkcx.KCXZ) + '</td>' +
+                    '<td>' + (xkqkcx.JXBRS == null ? "" : xkqkcx.JXBRS) + '</td>' +
                     '<td class="cjj_td"></td>' +
                     '</tr>';
                 }

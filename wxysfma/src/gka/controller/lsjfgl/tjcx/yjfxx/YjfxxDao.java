@@ -14,22 +14,22 @@ public class YjfxxDao {
         String selectSql = "SELECT T1.XN,T1.XH,T1.XM,T1.XB,T1.NJ,T1.XYMC,T1.BJMC,T1.ZYMC,T1.YSHJ," + getSqlYjf(title);
         StringBuffer fromSql = new StringBuffer(" FROM XSSFB T1 where 1=1 ");
         if (!StringUtils.isEmpty(search.getNj())) {
-            fromSql .append( " AND T1.NJ='" + search.getNj() + "'");
+            fromSql.append("AND T1.NJ = (SELECT XS.DQSZJ FROM V_WPT_XSJBXXB XS WHERE T1.XH=XS.XH AND XS.DQSZJ='" + search.getNj() + "')");
         }
         if (!StringUtils.isEmpty(search.getXh())) {
-            fromSql .append( " AND T1.XH='" + search.getXh() + "'");
+            fromSql .append(" AND T1.XH='" + search.getXh() + "'");
         }
         if (!StringUtils.isEmpty(search.getXm())) {
-            fromSql .append( " AND T1.XM like '%" + search.getXm() + "%'");
+            fromSql .append(" AND T1.XM like '%" + search.getXm() + "%'");
         }
         if (!StringUtils.isEmpty(search.getXymc())) {
-            fromSql .append( " AND T1.XYMC like '%" + search.getXymc() + "%'");
+            fromSql .append(" AND T1.XYMC like '%" + search.getXymc() + "%'");
         }
         if (!StringUtils.isEmpty(search.getZymc())) {
-            fromSql .append( " AND T1.ZYMC like '%" + search.getZymc() + "%'");
+            fromSql .append(" AND T1.ZYMC like '%" + search.getZymc() + "%'");
         }
         if (!StringUtils.isEmpty(search.getBjmc())) {
-            fromSql .append( " AND T1.BJMC='" + search.getBjmc() + "'");
+            fromSql .append(" AND T1.BJMC='" + search.getBjmc() + "'");
         }
         fromSql.append("ORDER BY XN DESC");
         Page<Record> paginate = Db.paginate(page, limit, selectSql, fromSql.toString());

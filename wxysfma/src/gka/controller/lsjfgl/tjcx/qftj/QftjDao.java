@@ -25,7 +25,7 @@ public class QftjDao {
             fromSql.append(" AND T3.XN='" + search.getXn() + "'");
         }
         if (!StringUtils.isEmpty(search.getNj())) {
-            fromSql.append(" AND T3.NJ='" + search.getNj() + "'");
+            fromSql.append("AND T3.NJ = (SELECT XS.DQSZJ FROM V_WPT_XSJBXXB XS WHERE T3.XH=XS.XH AND XS.DQSZJ='" + search.getNj() + "')");
         }
         if (!StringUtils.isEmpty(search.getXh())) {
             fromSql.append(" AND T3.XH='" + search.getXh() + "'");
@@ -47,6 +47,51 @@ public class QftjDao {
         return paginate;
     }
 
+    public List<Record> getOrderInfo(SearchBean searchBean) {
+        List<Record> title = queryTitle();
+        String selectSql = "SELECT T3.*, (T3.YSHJ-T4.PC_TOTAL) PC_TOTAL ";
+        StringBuffer fromSql = new StringBuffer(" FROM (SELECT T1.XN,T1.XH,T1.XM,T1.XB,T1.NJ,T1.XYMC,T1.BJMC,T1.ZYMC,T1.SFZH,");
+        fromSql.append(getSqlWjf(title));
+        fromSql.append(" FROM XSSFB T1 LEFT JOIN  (");
+        fromSql.append(generateYjfSql(title));
+        fromSql.append(") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN) T3");
+        fromSql.append(" LEFT JOIN (");
+        fromSql.append(pc_sql());
+        fromSql.append(") T4 ON T3.XN=T4.XN AND T3.XH=T4.XH ");
+        fromSql.append(" WHERE (T3.YSHJ-T4.PC_TOTAL)>0 ");
+        String xn = searchBean.getXn();
+        if (!StringUtils.isEmpty(xn)) {
+            fromSql.append(" AND T3.XN='" + xn + "'");
+        }
+        String xh = searchBean.getXh();
+        if (!StringUtils.isEmpty(xh)) {
+            fromSql.append(" AND T3.XH='" + xh + "'");
+        }
+        String xm = searchBean.getXm();
+        if (!StringUtils.isEmpty(xm)) {
+            fromSql.append(" AND T3.XM LIKE '%" + xm + "%'fvcbgbgcv ");
+        }
+        String xymc = searchBean.getXymc();
+        if (!StringUtils.isEmpty(xymc)) {
+            fromSql.append(" AND T3.XYMC='" + xymc + "'");
+        }
+        String zymc = searchBean.getZymc();
+        if (!StringUtils.isEmpty(zymc)) {
+            fromSql.append(" AND T3.ZYMC='" + zymc + "'");
+        }
+        String bjmc = searchBean.getBjmc();
+        if (!StringUtils.isEmpty(bjmc)) {
+            fromSql.append(" AND T3.BJMC='" + bjmc + "'");
+        }
+        if (!StringUtils.isEmpty(bjmc)) {
+            fromSql.append("AND T3.NJ = (SELECT XS.DQSZJ FROM V_WPT_XSJBXXB XS WHERE T3.XH=XS.XH AND XS.DQSZJ='" + searchBean.getNj() + "')");
+        }
+
+        fromSql.append(" ORDER BY T3.XN DESC");
+        List<Record> records = Db.find(selectSql + fromSql.toString());
+        return records;
+    }
+
     public List<Record> getOrderInfo() {
         List<Record> title = queryTitle();
         String selectSql = "SELECT T3.*, (T3.YSHJ-T4.PC_TOTAL) PC_TOTAL ";
@@ -60,10 +105,9 @@ public class QftjDao {
         fromSql.append(") T4 ON T3.XN=T4.XN AND T3.XH=T4.XH ");
         fromSql.append(" WHERE (T3.YSHJ-T4.PC_TOTAL)>0 ");
         fromSql.append(" ORDER BY T3.XN DESC");
-        List<Record> records = Db.find(selectSql+fromSql.toString());
+        List<Record> records = Db.find(selectSql + fromSql.toString());
         return records;
     }
-
 
     private String getSqlWjf(List<Record> title) {
         StringBuffer sb = new StringBuffer();
@@ -131,11 +175,11 @@ public class QftjDao {
             if (i < pcs.size() - 1) {
                 sb.append("SUM((NVL(" + pcs.get(i).getStr("JFXMID") + ",0)))");
                 sb.append("+");
-                sb1.append("NVL(k2."+ pcs.get(i).getStr("JFXMID")+",0)");
+                sb1.append("NVL(k2." + pcs.get(i).getStr("JFXMID") + ",0)");
                 sb1.append("+");
             } else {
                 sb.append("SUM((NVL(" + pcs.get(i).getStr("JFXMID") + ",0))) PC_TOTAL");
-                sb1.append("NVL(k2."+ pcs.get(i).getStr("JFXMID")+",0))-NVL(K1.PC_TOTAL,0)) PC_TOTAL ");
+                sb1.append("NVL(k2." + pcs.get(i).getStr("JFXMID") + ",0))-NVL(K1.PC_TOTAL,0)) PC_TOTAL ");
             }
         }
         sb1.append(" FROM XSSFB K2 LEFT JOIN(SELECT XH,XN,");

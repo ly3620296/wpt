@@ -22,6 +22,16 @@ public class WyjfDao {
         return list;
     }
 
+
+    public boolean queryIsBack(String orderId) {
+        String sql = "SELECT ISBACK FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+        Record re = Db.findFirst(sql, orderId);
+        if (re == null) {
+            return false;
+        }
+        return re.getStr("ISBACK").equals("0");
+    }
+
     public Page<Record> queryTotalPage(List<Record> title, String xh, int pageNum, int pageSize) {
         String selectSql = "SELECT T1.XN,T1.YSHJ," + getSql(title);
         String fromSql = " FROM XSSFB T1 LEFT JOIN  YHSJB T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? ORDER BY T1.XN";
@@ -98,8 +108,20 @@ public class WyjfDao {
             @Override
             public boolean run() throws SQLException {
                 String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=? WHERE OUT_TRADE_NO=?";
-                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_PAY, MyWxpayConstant.RETURN_CODE_SUCCESS, repData.get("result_code"), repData.get("transaction_id"), repData.get("total_fee"), repData.get("openid"), repData.get("out_trade_no"));
-                int upYsf = updateOrder(repData.get("out_trade_no"), repData.get("trade_type"), repData.get("total_fee"));
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_PAY, MyWxpayConstant.RETURN_CODE_SUCCESS, repData.get("result_code"), repData.get("transaction_id"), String.valueOf(Double.parseDouble(repData.get("total_fee")) / 100), repData.get("openid"), repData.get("out_trade_no"));
+                int upYsf = updateOrder(repData.get("out_trade_no"), repData.get("trade_type"), Double.parseDouble(repData.get("total_fee")) / 100);
+                return upOrder * upYsf >= 1;
+            }
+        });
+    }
+
+    public void updateNormalOrderYl(final Map<String, String> repData) {
+        Db.tx(new IAtom() {
+            @Override
+            public boolean run() throws SQLException {
+                String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,PREPAY_ID=?,ISBACK=? WHERE OUT_TRADE_NO=?";
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_PAY, MyWxpayConstant.RETURN_CODE_SUCCESS, "SUCCESS", repData.get("traceNo"), String.valueOf(Double.parseDouble(repData.get("settleAmt")) / 100), repData.get("queryId"), "1", repData.get("orderId"));
+                int upYsf = updateOrder(repData.get("orderId"), "yl", Double.parseDouble(repData.get("settleAmt")) / 100);
                 return upOrder * upYsf >= 1;
             }
         });
@@ -111,46 +133,50 @@ public class WyjfDao {
      * @param out_trade_no
      * @return
      */
-    public int updateOrder(String out_trade_no, String pay_type, String fee) {
-        String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START,PAY_VAL FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
-        Record re = Db.findFirst(sql, out_trade_no);
+    public int updateOrder(String out_trade_no, String pay_type, double fee) {
         int updateStat = 0;
-        String ids = "";
-        String sfxn = "";
-        String xh = "";
-        String ORDER_NO = "";
-        String TIME_START = "";
-        String pay_val = "";
-        if (re != null) {
-            ids = re.getStr("IDS");
-            pay_val = re.getStr("PAY_VAL");
-            sfxn = re.getStr("SFXN");
-            xh = re.getStr("XH");
-            ORDER_NO = re.getStr("ORDER_NO");
-            TIME_START = re.getStr("TIME_START");
-            sql = "SELECT XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH FROM XSSFB WHERE XH=? AND XN=?";
-            Record userInfo = Db.findFirst(sql, xh, sfxn);
-//            sql = "SELECT " + ids + "  FROM XSSFB WHERE XH=? AND XN=?";
-//            Record payInfo = Db.findFirst(sql, xh, sfxn);
-//            String[] xmids = ids.split(",");
-//            StringBuffer insVal = new StringBuffer();
-//            for (int i = 0; i < xmids.length; i++) {
-//                if (i < xmids.length - 1) {
-//                    insVal.append(payInfo.getStr(xmids[i]));
-//                    insVal.append(",");
-//                } else {
-//                    insVal.append(payInfo.getStr(xmids[i]));
-//                }
-//            }
-            sql = "INSERT INTO YHSJB (XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH,SSHJ,XDSJ,DDH,JFLX," + ids + ",LSH,CZLX,CZRQ,SFRQ,YH,SFLX) VALUES " +
-                    "(?,?,?,?,?,?,?,?,?,?,?,?,?," + pay_val + ",?,?,TO_CHAR(SYSDATE,'YYYY-MM-DD hh24:mi:ss'),TO_CHAR(SYSDATE,'YYYY-MM-DD'),?,?)";
-            updateStat = Db.update(sql, userInfo.getStr("XN"), userInfo.getStr("XH"), userInfo.getStr("XM"), userInfo.getStr("XB"), userInfo.getStr("BJMC"),
-                    userInfo.getStr("ZYMC"), userInfo.getStr("NJ"), userInfo.getStr("XYMC"), userInfo.getStr("SFZH"), fee, TIME_START, ORDER_NO, pay_type,
-                    out_trade_no, MyWxpayConstant.XSSFB_CZLX_XSHTJF, "", pay_type);
+        try {
+            String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START,PAY_VAL FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+            Record re = Db.findFirst(sql, out_trade_no);
+            updateStat = 0;
+            String ids = "";
+            String sfxn = "";
+            String xh = "";
+            String ORDER_NO = "";
+            String TIME_START = "";
+            String pay_val = "";
+            if (re != null) {
+                ids = re.getStr("IDS");
+                pay_val = re.getStr("PAY_VAL");
+                sfxn = re.getStr("SFXN");
+                xh = re.getStr("XH");
+                ORDER_NO = re.getStr("ORDER_NO");
+                TIME_START = re.getStr("TIME_START");
+                sql = "SELECT XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH FROM XSSFB WHERE XH=? AND XN=?";
+                Record userInfo = Db.findFirst(sql, xh, sfxn);
+                //            sql = "SELECT " + ids + "  FROM XSSFB WHERE XH=? AND XN=?";
+                //            Record payInfo = Db.findFirst(sql, xh, sfxn);
+                //            String[] xmids = ids.split(",");
+                //            StringBuffer insVal = new StringBuffer();
+                //            for (int i = 0; i < xmids.length; i++) {
+                //                if (i < xmids.length - 1) {
+                //                    insVal.append(payInfo.getStr(xmids[i]));
+                //                    insVal.append(",");
+                //                } else {
+                //                    insVal.append(payInfo.getStr(xmids[i]));
+                //                }
+                //            }
+                sql = "INSERT INTO YHSJB (XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH,SSHJ,XDSJ,DDH,JFLX," + ids + ",LSH,CZLX,CZRQ,SFRQ,YH,SFLX) VALUES " +
+                        "(?,?,?,?,?,?,?,?,?,?,?,?,?," + pay_val + ",?,?,TO_CHAR(SYSDATE,'YYYY-MM-DD hh24:mi:ss'),TO_CHAR(SYSDATE,'YYYY-MM-DD'),?,?)";
+                updateStat = Db.update(sql, userInfo.getStr("XN"), userInfo.getStr("XH"), userInfo.getStr("XM"), userInfo.getStr("XB"), userInfo.getStr("BJMC"),
+                        userInfo.getStr("ZYMC"), userInfo.getStr("NJ"), userInfo.getStr("XYMC"), userInfo.getStr("SFZH"), fee, TIME_START, ORDER_NO, pay_type,
+                        out_trade_no, MyWxpayConstant.XSSFB_CZLX_XSHTJF, "", pay_type);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return updateStat;
-
     }
 
 
@@ -288,14 +314,11 @@ public class WyjfDao {
     }
 
     //查询关闭订单参数
-    public String queryOutTradeNo(String order_no) {
+    public Record queryOutTradeNo(String order_no) {
         String outTradeNo = "";
-        String sql = "SELECT OUT_TRADE_NO FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
+        String sql = "SELECT OUT_TRADE_NO,PAY_TYPE FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
         Record re = Db.findFirst(sql, order_no);
-        if (re != null) {
-            outTradeNo = re.getStr("OUT_TRADE_NO");
-        }
-        return outTradeNo;
+        return re;
     }
 
     public NoPayOrderInfo getNoPayOrderInfo(String zh) {
@@ -405,7 +428,7 @@ public class WyjfDao {
      */
     public List<Record> queryYjFyxx(List<Record> titles, String xh, String xn) {
         String titleSql = parseTitleSql(titles);
-        String sql = "SELECT TFBS,XH,XDSJ,DDH,DECODE(JFLX,'CASH','现金','CARD','刷卡','JSAPI','APP微信','NATIVE','微信扫码','GXZZ','高校转账') JFLX,XN,SSHJ," + titleSql + " FROM YHSJB WHERE XH=? AND XN=? AND SFTF=? ORDER BY XDSJ DESC";
+        String sql = "SELECT TFBS,XH,XDSJ,DDH,DECODE(JFLX,'CASH','现金','CARD','刷卡','JSAPI','APP微信','NATIVE','微信扫码','GXZZ','高校转账','yl','银联') JFLX,XN,SSHJ," + titleSql + " FROM YHSJB WHERE XH=? AND XN=? AND SFTF=? ORDER BY XDSJ DESC";
         List<Record> records = Db.find(sql, xh, xn, MyConstant.SFTF_JF);
         return records;
     }
@@ -425,6 +448,9 @@ public class WyjfDao {
     }
 
 
-
-
+    public String queryTotalFee(String order_no) {
+        String sql = "SELECT TOTAL_FEE FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
+        Record re = Db.findFirst(sql, order_no);
+        return re.getStr("TOTAL_FEE");
+    }
 }

@@ -43,6 +43,11 @@ public class XzfSecondController extends Controller {
                 result.put("payType", re1.getStr("PAY_TYPE"));
                 result.put("noPayOrder", "yes");
                 result.put("prepay_id", re1.getStr("PREPAY_ID"));
+                if (re1.getStr("PAY_TYPE").equals("yl")) {
+                    result.put("prepay_id", re1.getStr("ORDER_NO"));
+                } else {
+                    result.put("prepay_id", re1.getStr("PREPAY_ID"));
+                }
             } else {
                 result.put("noPayOrder", "no");
             }
@@ -267,16 +272,28 @@ public class XzfSecondController extends Controller {
         Map<String, String> reqData = null;
         try {
             String prepay_id = getPara("prepay_id");
+            String pay_type = getPara("payType");
             if (prepay_id != null || !"".equals(prepay_id)) {
                 reqData = new HashMap<String, String>();
-                String out_trade_no = xzfDao.queryOutTradeNo(prepay_id);
+                String out_trade_no = "";
+                if (pay_type.equals("yl")) {
+                    out_trade_no = xzfDao.queryOutTradeNoyL(prepay_id);
+                } else {
+                    out_trade_no = xzfDao.queryOutTradeNo(prepay_id);
+                }
                 if (!out_trade_no.equals("")) {
                     reqData.put("out_trade_no", out_trade_no);
-                    String order_state = xzfDao.queryOrderState(prepay_id);
+                    String order_state = "";
+                    if (pay_type.equals("yl")) {
+                        order_state = xzfDao.queryOrderStateYl(prepay_id);
+                    } else {
+                        order_state = xzfDao.queryOrderState(prepay_id);
+                    }
                     if (order_state.equals(MyWxpayConstant.ORDER_STATE_NOPAY)) {
-                        WxPayTool wxPayTool = WxPayTool.getInstance();
-                        Map<String, String> map = wxPayTool.closeOrder(reqData);
-                        System.out.println("result" + map);
+                        if (!pay_type.equals("yl")) {
+                            WxPayTool wxPayTool = WxPayTool.getInstance();
+                            wxPayTool.closeOrder(reqData);
+                        }
                         //更改订单状态
                         WxPayDao.closeOrderSpecialDb(out_trade_no, "user");
                         returnInfo.setReturn_code("0");
@@ -319,7 +336,7 @@ public class XzfSecondController extends Controller {
      * @param xn
      * @return
      */
-    private String cxTotalFee(String [] idArr, String xh, String xn) {
+    private String cxTotalFee(String[] idArr, String xh, String xn) {
         Record record = xzfDao.queryXnYjFyxx(xzfDao.queryTitle(), xh, xn);
         double zh = 0;
         for (int i = 0; i < idArr.length; i++) {

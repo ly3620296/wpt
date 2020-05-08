@@ -100,6 +100,7 @@
                             <option value=""></option>
                             <option value="CASH">现金</option>
                             <option value="CARD">刷卡</option>
+                            <option value="yl">银联</option>
                             <option value="JSAPI">APP微信</option>
                             <option value="NATIVE">微信扫码</option>
                             <option value="GXZZ">高校转账</option>

@@ -38,7 +38,11 @@ public class OrderCheck implements Runnable {
                     if (isInValidate(re.getStr("TIME_START"))) {
                         String out_trade_no = re.getStr("OUT_TRADE_NO");
                         //异步调用关闭订单接口
-                        new Thread(new closeOrder(out_trade_no)).start();
+                        String pay_type = re.getStr("PAY_TYPE");
+                        if (!pay_type.equals("yl")) {
+                            //异步调用关闭订单接口
+                            new Thread(new closeOrder(out_trade_no)).start();
+                        }
                         //更改订单状态
                         WxPayDao.closeOrderDb(out_trade_no, "sys");
                     }
@@ -52,7 +56,7 @@ public class OrderCheck implements Runnable {
     }
 
     private List<Record> queryNoPayOrder() {
-        String sql = "SELECT TIME_START,OUT_TRADE_NO FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_STATE=?";
+        String sql = "SELECT TIME_START,OUT_TRADE_NO,PAY_TYPE FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_STATE=?";
         List<Record> list = Db.find(sql, MyWxpayConstant.ORDER_STATE_NOPAY);
         return list;
     }

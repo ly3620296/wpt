@@ -205,20 +205,14 @@
                                 field: "TOTAL_FEE",
                                 align: "center",
                                 sort: true,
-                                width: "9%",
-                                templet: function (d) {
-                                    return parseFloat(d.TOTAL_FEE) / 100;
-                                }
+                                width: "9%"
                             },
                             {
                                 title: "支付金额（元）",
                                 field: "TOTAL_FEE_CALLBACK",
                                 align: "center",
                                 sort: true,
-                                width: "9%",
-                                templet: function (d) {
-                                    return parseFloat(d.TOTAL_FEE_CALLBACK) / 100;
-                                }
+                                width: "9%"
                             },
                             {title: "学院名称", field: "JGMC", align: "center"},
                             {title: "专业名称", field: "ZYMC", align: "center"},

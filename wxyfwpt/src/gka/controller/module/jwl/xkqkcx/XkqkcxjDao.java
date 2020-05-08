@@ -9,7 +9,7 @@ import java.util.List;
 public class XkqkcxjDao {
 
     public List<Record> xkqkcx(String jgh, String currXnxq) {
-        String sql = "SELECT JXBMC,KCMC,JXBRS,KCXZ,JXB_ID FROM V_WPT_JSKB   WHERE XNXQ=? AND JGH=?";
+        String sql = "SELECT JXBMC,KCMC,JXBRS,KCXZ,JXB_ID FROM V_WPT_JXBXXB WHERE XNXQ=? AND JGH=?";
         List<Record> xkqkcx = Db.find(sql, currXnxq, jgh);
         return xkqkcx;
     }

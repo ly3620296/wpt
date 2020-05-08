@@ -118,7 +118,7 @@ public class WyjfController extends Controller {
                         map = ReKit.toMap(jfInfoList.size(), jfInfoList);
                         map.put("code_url", re1.getStr("CODE_URL"));
                         map.put("order_no", order_no);
-                        map.put("total_fee", Double.parseDouble(re1.getStr("TOTAL_FEE")) / 100);
+                        map.put("total_fee", re1.getStr("TOTAL_FEE"));
                         map.put("order_state", MyWxpayConstant.ORDER_STATE_DESC.get(re1.getStr("ORDER_STATE")));
                     } else {
                         map.put("code", "-5");

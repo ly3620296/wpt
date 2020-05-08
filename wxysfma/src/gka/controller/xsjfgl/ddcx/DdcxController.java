@@ -11,8 +11,6 @@ import gka.controller.xsjfgl.wyjf.JfInfo;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
 import gka.pay.wxpay.controller.MyWxpayConstant;
 import gka.xsjfgl.login.WptMaXSUserInfo;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;

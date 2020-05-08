@@ -38,7 +38,7 @@ layui.use(['form', 'element', 'layer'], function () {
                     //应缴金额
                     var yjje = xzfNormal[xzf][titles[title].JFXMID];
 
-                    if (parseInt(yj) ==parseInt(yjje)) {
+                    if (parseInt(yj) == parseInt(yjje)) {
                         myClass = 'JF';
                     } else {
                         if (titles[title].SFBX == 0) {
@@ -265,7 +265,7 @@ layui.use(['form', 'element', 'layer'], function () {
                     type: 'post',
                     dataType: 'json',
                     timeout: 10000,
-                    data: {prepay_id: wpt_xzf.noPayOrderInfo.prepay_id},
+                    data: {prepay_id: wpt_xzf.noPayOrderInfo.prepay_id, payType: wpt_xzf.noPayOrderInfo.payType},
                     beforeSend: function () {
                         layer.ready(function () {
                             loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
@@ -359,7 +359,7 @@ layui.use(['form', 'element', 'layer'], function () {
         }
     }
 
-    $("#cancleOrder").bind("click",function(){
+    $("#cancleOrder").bind("click", function () {
         $("#tanchuddId").hide();
     });
     wpt_xzf.xzfIndex();

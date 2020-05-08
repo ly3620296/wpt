@@ -80,11 +80,6 @@
             text-align: center;
         }
 
-        .layui-card-body .bottoom #qrcode {
-            display: inline-block;
-            /*margin-top: 20px;*/
-        }
-
         .layui-card-body .bottoom img {
             width: 200px;
             display: inline-block;
@@ -110,6 +105,7 @@
     String xn = request.getParameter("xn");
     String type = request.getParameter("type");
     String order_no = request.getParameter("order_no");
+    String payFlag = request.getParameter("payFlag");
 %>
 <body>
 
@@ -130,12 +126,6 @@
                             </tr>
                             </thead>
                             <tbody align="center">
-                            <tr style="display: none" id="bh-zt">
-                                <td style="background-color: #eef9fb">订单编号</td>
-                                <td id="ly-bh"></td>
-                                <td style="background-color: #eef9fb">订单状态</td>
-                                <td id="ly-zt"></td>
-                            </tr>
                             <tr>
                                 <td style="background-color: #eef9fb">交费学年</td>
                                 <td><%=xn%>
@@ -168,19 +158,13 @@
                                 <td><%=userInfo.getBjmc()%>
                                 </td>
                             </tr>
-                            <tr style="display: none" id="je-sj">
-                                <td style="background-color: #eef9fb">支付金额</td>
-                                <td id="ly-je"></td>
-                                <td style="background-color: #eef9fb">支付时间</td>
-                                <td id="ly-sj"></td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="layui-col-md7">
+        <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-header" style="font-weight: bold;font-size: 15px!important;">本次交费明细信息</div>
                 <div class="layui-card-body">
@@ -190,38 +174,11 @@
                 <button type="button" class="layui-btn layui-btn-fluid" id="tjdd">提交订单</button>
             </div>
         </div>
-        <div class="layui-col-md5">
-            <div class="layui-card">
-                <div class="layui-card-header" style="font-weight: bold;font-size: 15px!important;">收银台</div>
-                <div class="layui-card-body">
-                    <div class="gray">
-                        <p><span class="left" id="ddh"></span></p>
-
-                        <%--<p><span class="left" id="yfje"></span></p>--%>
-
-                    </div>
-                    <div class="graycenter">
-
-                        <img class="img1" src="<%=Constant.server_name%>img/WePayLogo.png" alt=""/>
-                        <img class="img2" src="<%=Constant.server_name%>img/tj.png" alt=""/>
-                        <span class="num" id="yfje-zf"></span>
-                    </div>
-                    <div class="bottoom">
-                        <div>
-                            <div id="qrcode"></div>
-                        </div>
-                        <img src="<%=Constant.server_name%>img/ss.png" alt="" class="caca"/>
-                    </div>
-
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
 
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
-<script type="text/javascript" src="<%=Constant.server_name%>js-lib/qrcode.min.js"></script>
 <script>
     layui.use(['form', 'layer', 'table'], function () {
         var jQuery = layui.jquery
@@ -231,10 +188,6 @@
                 , $ = layui.jquery
         var loadIndex;
         var cacheBj = 0;
-        var qrcode = new QRCode(document.getElementById("qrcode"), {
-            width: 200,
-            height: 200
-        });
 
         var wpt_wyjfPay = {
             initTab: function () {
@@ -296,11 +249,11 @@
                                 for (var i in res.data) {
                                     $('tr[data-index=' + i + '] input[type="checkbox"]').prop('disabled', true);
                                     $('tr[data-index=' + i + '] input[type="checkbox"]').next().addClass('layui-btn-disabled');
-                                    $("#tjdd").addClass('layui-btn-disabled-my');
+//                                    $("#tjdd").addClass('layui-btn-disabled-my');
                                 }
-                                qrcode.makeCode(res.code_url);
 
                                 wpt_wyjfPay.my_show(res)
+                                wpt_wyjfPay.tj();
 
                             } else if ('<%=type%>' == 'qx') {
                                 for (var i in res.data) {
@@ -354,7 +307,6 @@
                         title: "温馨提示",
                         btn: ['确定', '返回'] //按钮
                     }, function () {
-
                         var checkData = table.checkStatus('userTableReload').data;
                         var tableCach = table.cache.userTableReload;
                         var xmidArr = new Array();
@@ -378,50 +330,17 @@
                                     xmidArr.push(tableCach[i].xmid);
                                 }
                             }
-
                         }
-
-                        $.ajax({
-                            url: wpt_serverName + "xsjfgl/wyjfDd/zfXzf",
-                            type: 'post',
-                            dataType: 'json',
-                            data: {xmid: xmidArr, sfxn: '<%=xn%>'},
-                            timeout: 10000,
-                            beforeSend: function () {
-                                loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
-                            },
-                            success: function (data) {
-                                if (data) {
-                                    var code = data.returnInfo.return_code;
-                                    var msg = data.returnInfo.return_msg;
-                                    wpt_wyjfPay.changePar();
-                                    if (code == "0") {
-                                        layer.msg('订单填写成功，订单号【' + data.oreder_no + '】。', {
-                                            icon: 1,
-                                            shade: [0.3, '#000']
-                                        });
-                                        qrcode.makeCode(data.code_url);
-                                        $("#tjdd").attr('disabled', "true");
-                                        $("#tjdd").addClass('layui-btn-disabled-my');
-                                        wpt_wyjfPay.tj_show(data);
-                                        wpt_wyjfPay.initOrderPull(data.oreder_no)
-                                    } else {
-                                        layer.msg(msg, {
-                                            anim: 6, time: 4000, end: function () {
-                                                parent.location.reload();
-                                            }
-                                        });
-                                    }
-                                }
-                            },
-                            complete: function () {
-                                layer.close(loadIndex);
-                            }
-                        })
+                        var xmidStr = xmidArr.join(",");
+                        wpt_wyjfPay.changePar();
+                        var myType = '<%=type%>';
+                        if(myType=="zf"){
+                            window.location.href = wpt_serverName + "pay/ylpay/api/zfXzf?sfxn=<%=xn%>&xmid=" + decodeURIComponent(xmidStr);
+                        }else if(myType=="jxzf"){
+                            window.location.href = wpt_serverName + "pay/ylpay/api/jxjf?order_no=<%=order_no%>&sfxn=<%=xn%>&xmid=" + decodeURIComponent(xmidStr);
+                        }
                     }, function () {
-//                        parent.location.reload();
                     });
-
                 })
             },
             initOrderPull: function (order_no) {
@@ -530,8 +449,6 @@
 
         }
         wpt_wyjfPay.initTab();
-
-
     });
 </script>
 </body>

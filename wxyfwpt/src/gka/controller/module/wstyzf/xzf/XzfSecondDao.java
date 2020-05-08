@@ -155,7 +155,7 @@ public class XzfSecondDao {
             String[] idsArr = ids.split(",");
             String[] valuesArr = values.split(",");
             for (int i = 0; i < idsArr.length; i++) {
-                if (Double.parseDouble(record.getStr(idsArr[i])) <Double.parseDouble((valuesArr[i]))) {
+                if (Double.parseDouble(record.getStr(idsArr[i])) < Double.parseDouble((valuesArr[i]))) {
                     flag = false;
                     break;
                 }
@@ -186,9 +186,8 @@ public class XzfSecondDao {
     }
 
 
-
     public Record queryJxzf(String xh) {
-        Record re = Db.findFirst("SELECT IDS,TOTAL_FEE,PAY_TYPE,PREPAY_ID,SFXN FROM WPT_WXZF_SPECIAL_ORDER WHERE XH=? AND ORDER_STATE=?", xh, MyWxpayConstant.ORDER_STATE_NOPAY);
+        Record re = Db.findFirst("SELECT IDS,ORDER_NO,TOTAL_FEE,PAY_TYPE,PREPAY_ID,SFXN FROM WPT_WXZF_SPECIAL_ORDER WHERE XH=? AND ORDER_STATE=?", xh, MyWxpayConstant.ORDER_STATE_NOPAY);
         return re;
     }
 
@@ -217,8 +216,25 @@ public class XzfSecondDao {
         return outTradeNo;
     }
 
+    public String queryOutTradeNoyL(String prepay_id) {
+        String outTradeNo = "";
+        String sql = "SELECT OUT_TRADE_NO FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
+        Record re = Db.findFirst(sql, prepay_id);
+        if (re != null) {
+            outTradeNo = re.getStr("OUT_TRADE_NO");
+        }
+        return outTradeNo;
+    }
+
+
     public String queryOrderState(String prepay_id) {
         String sql = "SELECT ORDER_STATE FROM WPT_WXZF_SPECIAL_ORDER WHERE PREPAY_ID=?";
+        Record re = Db.findFirst(sql, prepay_id);
+        return re == null ? "" : re.getStr("ORDER_STATE");
+    }
+
+    public String queryOrderStateYl(String prepay_id) {
+        String sql = "SELECT ORDER_STATE FROM WPT_WXZF_SPECIAL_ORDER WHERE ORDER_NO=?";
         Record re = Db.findFirst(sql, prepay_id);
         return re == null ? "" : re.getStr("ORDER_STATE");
     }
@@ -341,10 +357,11 @@ public class XzfSecondDao {
         String sql = "SELECT * FROM (SELECT T1.XN,T1.XH," + getSqlWjf(title) +
                 " FROM XSSFB T1 LEFT JOIN  (" + generateYjfSqlSpe(title) + ") T2 ON T1.XH =T2.XH AND T1.XN=T2.XN  WHERE T1.XH =? AND T1.XN=?)" +
                 " WHERE YSHJ!='0' AND XH=? AND XN=?";
-        System.out.println("==="+sql);
-        Record re = Db.findFirst(sql, xh, xh, xn, xh,xn);
+        System.out.println("===" + sql);
+        Record re = Db.findFirst(sql, xh, xh, xn, xh, xn);
         return re;
     }
+
     private String getSqlWjf(List<Record> title) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < title.size(); i++) {
@@ -406,6 +423,7 @@ public class XzfSecondDao {
         Record re = Db.findFirst(sql, xh, xn, xh, xn);
         return re;
     }
+
     private String generateYjfSqlDnkp(List<Record> titles) {
         StringBuffer sb = new StringBuffer("SELECT XH,XN,");
         for (int i = 0; i < titles.size(); i++) {

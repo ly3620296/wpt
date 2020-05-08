@@ -19,7 +19,7 @@ public class MyWxpayConstant {
     public static final String ORDER_STATE_ILLEGALMONEY = "3";
     //老师关闭
     public static final String ORDER_STATE_CLOSE_TEACHER = "4";
-    //
+    //退费
     public static final String ORDER_STATE_TF = "5";
     public static Map<String, String> ORDER_STATE_DESC = new HashMap<String, String>();
 

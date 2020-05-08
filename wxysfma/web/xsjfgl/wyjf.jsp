@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="<%=Constant.server_name%>css/myCommon.css">
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
     <%--<script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>--%>
+    <style>
+        .img-zf {
+            width: 55px;
+            height: 43px;
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 <body>
 <input type="hidden" id="my_status" value="0">
@@ -74,7 +82,10 @@
     </div>
 </div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn  layui-btn-normal layui-btn-sm" lay-event="jf">交费</a>
+    <img class="img-zf" src="<%=Constant.server_name%>img/wx.png" title="微信支付" lay-event="jf">
+    <img style="margin-left: 10px;" class="img-zf" src="<%=Constant.server_name%>img/yl.png" title="银联支付"
+         lay-event="yljf">
+    <%--<a class="layui-btn  layui-btn-normal layui-btn-sm" lay-event="jf">交费</a>--%>
 </script>
 <script type="text/html" id="barDemo1">
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="zf">支付</a>
@@ -158,10 +169,10 @@
             initOrderTab: function (noPayOrderInfo) {
                 var dataArr = new Array();
 
-                var barType="#barDemo1";
+                var barType = "#barDemo1";
                 if (noPayOrderInfo) {
-                    if(noPayOrderInfo.payType=="JSAPI"){
-                        barType="#barDemo2";
+                    if (noPayOrderInfo.payType == "JSAPI") {
+                        barType = "#barDemo2";
                     }
                     dataArr.push(noPayOrderInfo);
                 }
@@ -186,7 +197,7 @@
                         {title: "身份证号", field: "sfzh", align: "center", width: "11%"},
                         {title: "学号/考生号", field: "xh", align: "center", width: "8%"},
                         {title: "状态", field: "zt", align: "center", width: "6%"},
-                        {title: "操作", align: "center", toolbar: barType, fixed: "right", width: "15%"},
+                        {title: "操作", align: "center", toolbar: barType, fixed: "right", width: "20%"},
                     ]],
                     data: dataArr, //数据接口地址
                     title: '用户表',
@@ -209,7 +220,7 @@
                     var data = obj.data //获得当前行数据
                             , layEvent = obj.event; //获得 lay-event 对应的值
                     var xn = data.XN;
-                    if (layEvent === 'jf') {
+                    if (layEvent === 'jf' || layEvent === 'yljf') {
                         $.ajax({
                             url: wpt_serverName + "xsjfgl/wyjfDd/noPayOrder",
                             type: 'post',
@@ -221,17 +232,32 @@
                             success: function (data) {
                                 if (data.returnInfo.return_code == "0") {
                                     if (data.noPayOrder == "-1") {
-                                        layer.open({
-                                            type: 2,
-                                            area: [parseInt(parent.$("#iframe_01").width()) * 0.9 + 'px', parseInt(parent.$("#iframe_01").height()) * 0.95 + 'px'],
-                                            title: "交费订单",
-                                            fixed: false, //不固定
-                                            maxmin: true,
-                                            content: wpt_serverName + 'xsjfgl/wyjf-pay.jsp?type=zf&xn=' + xn,
-                                            end: function () {
-                                                wpt_grjfxx.isFlush();
-                                            }
-                                        });
+                                        if (layEvent === 'jf') {
+                                            layer.open({
+                                                type: 2,
+                                                area: [parseInt(parent.$("#iframe_01").width()) * 0.9 + 'px', parseInt(parent.$("#iframe_01").height()) * 0.95 + 'px'],
+                                                title: "交费订单（微信）",
+                                                fixed: false, //不固定
+                                                maxmin: true,
+                                                content: wpt_serverName + 'xsjfgl/wyjf-pay.jsp?type=zf&xn=' + xn,
+                                                end: function () {
+                                                    wpt_grjfxx.isFlush();
+                                                }
+                                            });
+                                        } else if (layEvent === 'yljf') {
+                                            layer.open({
+                                                type: 2,
+                                                area: [parseInt(parent.$("#iframe_01").width()) * 0.7 + 'px', parseInt(parent.$("#iframe_01").height()) * 0.9 + 'px'],
+                                                title: "交费订单（银联）",
+                                                fixed: false, //不固定
+                                                maxmin: true,
+                                                content: wpt_serverName + 'xsjfgl/wyjf-pay-yl.jsp?type=zf&xn=' + xn,
+                                                end: function () {
+                                                    wpt_grjfxx.isFlush();
+                                                }
+                                            });
+                                        }
+
                                     } else {
                                         layer.alert('您当前有未完成订单暂时不可以继续交费，请先支付或取消未完成订单,订单号【<font color="#ff5621"><strong>' + data.noPayOrder + '</strong></font>】', {
                                             icon: 7,
@@ -246,7 +272,6 @@
                                 layer.close(loadIndex);
                             }
                         })
-
                     }
                 });
 
@@ -255,44 +280,73 @@
                     var data = obj.data //获得当前行数据
                             , layEvent = obj.event; //获得 lay-event 对应的值
                     var orderNo = data.ddbh;
+                    var payType = data.payType;
                     var xn = data.jfxn
                     if (layEvent === 'zf') {
-                        wpt_grjfxx.zfOrder(xn, orderNo);
+                        wpt_grjfxx.zfOrder(xn, orderNo, payType);
                     } else if (layEvent === 'qx') {
-                        wpt_grjfxx.closeOrder(xn, orderNo);
+                        wpt_grjfxx.closeOrder(xn, orderNo, payType);
                     }
                 });
             },
-            closeOrder: function (xn, orderNo) {
-                layer.open({
-                    type: 2,
-                    area: [parseInt(parent.$("#iframe_01").width()) * 0.9 + 'px', parseInt(parent.$("#iframe_01").height()) * 0.95 + 'px'],
-                    title: "交费订单",
-                    fixed: false, //不固定
-                    maxmin: true,
-                    content: wpt_serverName + 'xsjfgl/wyjf-pay.jsp?type=qx&order_no=' + orderNo + '&xn=' + xn,
-                    end: function () {
-                        wpt_grjfxx.isFlush();
-                    }
-                });
+            closeOrder: function (xn, orderNo, payType) {
+                if (payType == "yl") {
+                    layer.open({
+                        type: 2,
+                        area: [parseInt(parent.$("#iframe_01").width()) * 0.7 + 'px', parseInt(parent.$("#iframe_01").height()) * 0.9 + 'px'],
+                        title: "交费订单（银联）",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        content: wpt_serverName + 'xsjfgl/wyjf-pay-yl.jsp?type=qx&order_no=' + orderNo + '&xn=' + xn,
+                        end: function () {
+                            wpt_grjfxx.isFlush();
+                        }
+                    });
+                } else {
+                    layer.open({
+                        type: 2,
+                        area: [parseInt(parent.$("#iframe_01").width()) * 0.9 + 'px', parseInt(parent.$("#iframe_01").height()) * 0.95 + 'px'],
+                        title: "交费订单",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        content: wpt_serverName + 'xsjfgl/wyjf-pay.jsp?type=qx&order_no=' + orderNo + '&xn=' + xn,
+                        end: function () {
+                            wpt_grjfxx.isFlush();
+                        }
+                    });
+                }
 
             },
-            zfOrder: function (xn, order_no) {
-                layer.open({
-                    type: 2,
-                    area: [parseInt(parent.$("#iframe_01").width()) * 0.9 + 'px', parseInt(parent.$("#iframe_01").height()) * 0.95 + 'px'],
-                    title: "交费订单",
-                    fixed: false, //不固定
-                    maxmin: true,
-                    content: wpt_serverName + 'xsjfgl/wyjf-pay.jsp?type=jxzf&order_no=' + order_no + '&xn=' + xn,
-                    end: function () {
-                        wpt_grjfxx.isFlush();
-                    }
-                });
+            zfOrder: function (xn, order_no, payType) {
+                if (payType == "yl") {
+                    layer.open({
+                        type: 2,
+                        area: [parseInt(parent.$("#iframe_01").width()) * 0.7 + 'px', parseInt(parent.$("#iframe_01").height()) * 0.9 + 'px'],
+                        title: "交费订单（银联）",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        content: wpt_serverName + 'xsjfgl/wyjf-pay-yl.jsp?type=jxzf&order_no=' + order_no + '&xn=' + xn,
+                        end: function () {
+                            wpt_grjfxx.isFlush();
+                        }
+                    });
+                } else {
+                    layer.open({
+                        type: 2,
+                        area: [parseInt(parent.$("#iframe_01").width()) * 0.9 + 'px', parseInt(parent.$("#iframe_01").height()) * 0.95 + 'px'],
+                        title: "交费订单",
+                        fixed: false, //不固定
+                        maxmin: true,
+                        content: wpt_serverName + 'xsjfgl/wyjf-pay.jsp?type=jxzf&order_no=' + order_no + '&xn=' + xn,
+                        end: function () {
+                            wpt_grjfxx.isFlush();
+                        }
+                    });
+                }
             }
 
         }
-        $(document).ready(function(){
+        $(document).ready(function () {
             wpt_grjfxx.init();
             wpt_grjfxx.listenTool();
         })

@@ -42,6 +42,8 @@ public class WxPayDao {
 
 
 
+
+
     public static void closeOrderSpecialDb(String out_trade_no, String who) {
         String state = orderSpecialState(out_trade_no);
         //未支付 或异常订单 将被关闭

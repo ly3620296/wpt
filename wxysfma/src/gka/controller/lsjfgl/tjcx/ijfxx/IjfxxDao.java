@@ -14,7 +14,7 @@ public class IjfxxDao {
 
     public Page<Record> yjfxx(int page, int limit, IjfxxSearch search, List<Record> titles) {
         String selectSql = "SELECT XN,XH,XM,XB,XYMC,ZYMC,BJMC,SSHJ," + generateTitleSql(titles) + ",DDH,TO_CHAR(TO_DATE(XDSJ,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') XDSJF,JFLX," +
-                "DECODE(JFLX,'CASH','现金','CARD','刷卡','JSAPI','APP微信','NATIVE','微信扫码','GXZZ','高校转账') PAY_TYPE ";
+                "DECODE(JFLX,'CASH','现金','CARD','刷卡','JSAPI','APP微信','NATIVE','微信扫码','GXZZ','高校转账','yl','银联') PAY_TYPE ";
         String fromSql = " FROM YHSJB  WHERE SFTF=? ";
         if (!StringUtils.isEmpty(search.getSfxn())) {
             fromSql += " AND XN='" + search.getSfxn() + "'";
@@ -44,7 +44,7 @@ public class IjfxxDao {
             fromSql += " AND JFLX='" + search.getPay_type() + "'";
         }
         if (!StringUtils.isEmpty(search.getNj())) {
-            fromSql += " AND nj='" + search.getNj() + "'";
+            fromSql += "AND NJ = (SELECT XS.DQSZJ FROM V_WPT_XSJBXXB XS WHERE XH=XS.XH AND XS.DQSZJ='" + search.getNj() + "')";
         }
         fromSql += "ORDER BY TO_NUMBER(XDSJ) DESC";
         Page<Record> paginate = Db.paginate(page, limit, selectSql, fromSql, MyConstant.SFTF_JF);

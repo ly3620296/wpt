@@ -4,6 +4,7 @@ import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import gka.controller.lsjfgl.tjcx.qftj.QftjDao;
+import gka.controller.lsjfgl.tjcx.qftj.SearchBean;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -93,8 +94,7 @@ public class ExcelExportUtil {
         return file;
     }
 
-    public static File saveFilepQftj(File file) {
-
+    public static File saveFilepQftj(File file,  SearchBean searchBean) {
         Map<String, String> headData = new LinkedHashMap<String, String>();//标题，后面用到
         headData.put("XN", "学年");
         headData.put("XH", "学号");
@@ -136,10 +136,8 @@ public class ExcelExportUtil {
         }
 
         // 得到所有记录 行：列
-        List<Record> list = qftjDao.getOrderInfo();
-
+        List<Record> list = qftjDao.getOrderInfo(searchBean);
         Record record = null;
-
         if (list != null) {
             // 获取所有的记录 有多少条记录就创建多少行
             for (int i = 0; i < list.size(); i++) {

@@ -42,10 +42,11 @@ public class WyjfDdController extends Controller {
                 String sfxn = getPara("sfxn");
                 if (idArr != null && !StringUtils.isEmpty(sfxn)) {
                     String ids = parseIdArr(idArr);
-//                    String totalFee = "1";
+                    // String totalFee = "1";
                     String totalFee = cxTotalFee(idArr, xh, sfxn);
                     //查询是否没缴费
                     Record reVal = wyjfDao.queryTotalWjfByPay(xh, sfxn);
+
                     String val = genVal(idArr, reVal);
                     boolean pay = wyjfDao.validateIsNoPay(wyjfDao.queryTitle(), ids, val, sfxn, xh);
                     if (pay) {
@@ -156,14 +157,17 @@ public class WyjfDdController extends Controller {
             String order_no = getPara("order_no");
             if (order_no != null || !"".equals(order_no)) {
                 reqData = new HashMap<String, String>();
-                String out_trade_no = wyjfDao.queryOutTradeNo(order_no);
+                Record re = wyjfDao.queryOutTradeNo(order_no);
+                String out_trade_no = re.getStr("OUT_TRADE_NO");
                 reqData.put("out_trade_no", out_trade_no);
                 if (!out_trade_no.equals("")) {
                     String order_state = wyjfDao.queryOrderState(order_no);
                     if (order_state.equals(MyWxpayConstant.ORDER_STATE_NOPAY)) {
-                        WxPayTool wxPayTool = WxPayTool.getInstance();
-                        Map<String, String> map = wxPayTool.closeOrder(reqData);
-                        System.out.println("result" + map);
+                        String pay_type = re.getStr("PAY_TYPE");
+                        if (!pay_type.equals("yl")) {
+                            WxPayTool wxPayTool = WxPayTool.getInstance();
+                            wxPayTool.closeOrder(reqData);
+                        }
                         //更改订单状态
                         WxPayDao.closeOrderDb(out_trade_no, "user");
                         returnInfo.setReturn_code("0");

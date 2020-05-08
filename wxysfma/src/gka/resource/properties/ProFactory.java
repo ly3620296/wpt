@@ -1,5 +1,7 @@
 package gka.resource.properties;
 
+import gka.pay.ylpay.sdk.SDKConfig;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +17,12 @@ public class ProFactory {
 
     static {
         List<String> propNames = ProKit.getSrcPropertiesName();
+        SDKConfig.getConfig().loadPropertiesFromSrc();
         for (String propName : propNames) {
-            propertiesFactory.put(propName, ProKit.initProperties(propName));
+            if (!propName.equals("acp_sdk.properties")) {
+
+                propertiesFactory.put(propName, ProKit.initProperties(propName));
+            }
         }
     }
 
