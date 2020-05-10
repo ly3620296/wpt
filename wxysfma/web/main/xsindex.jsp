@@ -41,8 +41,8 @@
     String userName = "";
     if (userInfo != null) {
         userName = userInfo.getXm();
-        System.out.println("userName" + userName);
     } else {
+        userInfo= new WptMaXSUserInfo();
 %>
 <script>
     window.location.href = wpt_serverName + "login/xslogin.jsp";
