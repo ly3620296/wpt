@@ -10,9 +10,6 @@
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/app.css"/>
     <link rel="stylesheet" type="text/css" href="<%=Constant.server_name%>css/seclect.css"/>
-    <script src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js" type="text/javascript"
-            charset="utf-8"></script>
-    <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layer/layer.js"></script>
     <script src="<%=Constant.server_name%>js-lib/base.js" type="text/javascript"
             charset="utf-8"></script>
     <title></title>
@@ -28,7 +25,8 @@
 
 
     <div class="titledddiv">
-        <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png" onclick="javascript:window.location.replace(document.referrer)"/>
+        <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png"
+             onclick="javascript:window.location.replace(document.referrer)"/>
 
         <p class="titleName">
             <%=jxb_mc%>
@@ -54,61 +52,67 @@
 </div>
 
 </body>
-
+<script src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
 <script>
-    $(function () {
-        var xkqkcx_loadIndex;
-        $.ajax({
-            url: wpt_serverName + "jwl/xkqkcx/xkxs",
-            type: 'post',
-            dataType: 'json',
-            data: {jxb_id: "<%=jxb_id%>"},
-            timeout: 10000,
-            beforeSend: function () {
-                layer.ready(function () {
-                    xkqkcx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
-                })
+    layui.use('form', function () {
+        var form = layui.form,
+                $ = layui.jquery,
+                xkqkcx_loadIndex;
+        var _xkqkcx = {
+            initXk: function () {
+                $.ajax({
+                    url: wpt_serverName + "jwl/xkqkcx/xkxs",
+                    type: 'post',
+                    dataType: 'json',
+                    data: {jxb_id: "<%=jxb_id%>"},
+                    timeout: 10000,
+                    beforeSend: function () {
+                        layer.ready(function () {
+                            xkqkcx_loadIndex = layer.load(0, {shade: [0.2, '#393D49']})
+                        })
 
-            },
-            success: function (data) {
-                if (data) {
-                    var code = data.returnInfo.return_code;
-                    var msg = data.returnInfo.return_msg;
-                    if (code == "0") {
-                        //加载成绩
-                        initXsxs(data.xkxsList);
-                    } else {
-                        layer.msg(msg, {anim: 6, time: 2000});
+                    },
+                    success: function (data) {
+                        if (data) {
+                            var code = data.returnInfo.return_code;
+                            var msg = data.returnInfo.return_msg;
+                            if (code == "0") {
+                                //加载成绩
+                                _xkqkcx.initXsxs(data.xkxsList);
+                            } else {
+                                layer.msg(msg, {anim: 6, time: 2000});
+                            }
+                        }
                     }
+                    ,
+                    complete: function () {
+                        layer.close(xkqkcx_loadIndex);
+                    }
+                })
+            },
+            initXsxs: function (xkxsList) {
+                var xkxss = "";
+                if (xkxsList) {
+                    for (var index in xkxsList) {
+                        var xkxs = xkxsList[index];
+                        var lxdh = xkxs.LXDH || '';
+                        var cxbj = xkxs.CJXZ == 1 ? "重修" : "";
+                        xkxss += '<tr>' +
+                        '<td class="cjj_td"></td>' +
+                        '<td>' + xkxs.XH + '</td>' +
+                        '<td>' + xkxs.XM + '</td>' +
+                        '<td>' + xkxs.BJMC + '</td>' +
+                        '<td>' + cxbj + '</td>' +
+                        '<td>' + lxdh + '</td>' +
+                        '<td class="cjj_td"></td>' +
+                        '</tr>';
+                    }
+                    $("#wpt_cj_table").html(xkxss);
                 }
             }
-            ,
-            complete: function () {
-                layer.close(xkqkcx_loadIndex);
-            }
-        })
-    })
-
-    function initXsxs(xkxsList) {
-        var xkxss = "";
-        if (xkxsList) {
-            for (var index in xkxsList) {
-                var xkxs = xkxsList[index];
-                var lxdh = xkxs.LXDH || '';
-                var cxbj = xkxs.CJXZ == 1 ? "重修" : "";
-                xkxss += '<tr>' +
-                '<td class="cjj_td"></td>' +
-                '<td>' + xkxs.XH + '</td>' +
-                '<td>' + xkxs.XM + '</td>' +
-                '<td>' + xkxs.BJMC + '</td>' +
-                '<td>' + cxbj + '</td>' +
-                '<td>' + lxdh + '</td>' +
-                '<td class="cjj_td"></td>' +
-                '</tr>';
-            }
-            $("#wpt_cj_table").html(xkxss);
         }
-    }
+        _xkqkcx.initXk();
+    })
 </script>
 </html>
 

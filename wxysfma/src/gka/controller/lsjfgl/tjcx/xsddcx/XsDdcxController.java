@@ -7,6 +7,7 @@ import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 import gka.common.kit.ExcelExportUtil;
+import gka.controller.lsjfgl.tjcx.qftj.SearchBean;
 import gka.controller.xsjfgl.wyjf.JfInfo;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
 
@@ -52,7 +53,7 @@ public class XsDdcxController extends Controller {
 
     public void export() {
         try {
-            String sql = "SELECT T1.ORDER_NO,T1.SFXN, to_char(to_date(T1.TIME_START,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_START,to_char(to_date(T1.TIME_END,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_END,T1.TOTAL_FEE,NVL(T1.TOTAL_FEE_CALLBACK,0) TOTAL_FEE_CALLBACK,decode(T1.ORDER_STATE,'0','待支付','1','已取消','2','支付成功','3','问题订单','4','教师取消') ORDER_STATE,T2.ZYMC,T2.JGMC,T2.BJMC,T2.XM,T2.ZH,T2.ZJHM FROM WPT_WXZF_SPECIAL_ORDER T1 LEFT JOIN  WPT_YH T2 ON T1.XH=T2.ZH ORDER BY T1.TIME_START DESC";
+
             Map<String, String> titleData = new HashMap<String, String>();//标题，后面用到
             titleData.put("ORDER_NO", "订单编号");
             titleData.put("SFXN", "交费学年");
@@ -67,13 +68,57 @@ public class XsDdcxController extends Controller {
             titleData.put("BJMC", "班级名称");
             titleData.put("ORDER_STATE", "状态");
             File file = new File(ExcelExportUtil.getTitle("学生订单数据"));
-            file = ExcelExportUtil.saveFile(titleData, sql, file);
+
+            String ddbh = getPara("ddbh");
+            String xn = getPara("xn");
+            String xm = getPara("xm");
+            String ddzt = getPara("ddzt");
+            String xh = getPara("xh");
+            String sfzh = getPara("sfzh");
+            String dateStart = getPara("dateStart");
+            String dateEnd = getPara("dateEnd");
+            SearchBeanDd searchBean = new SearchBeanDd(ddbh, xn, xh, xm, sfzh, ddzt, dateStart, dateEnd);
+            file = ExcelExportUtil.saveFile(titleData, genSql(searchBean), file);
             this.renderFile(file);
         } catch (Exception e) {
             e.printStackTrace();
             setAttr("errorMessage", "导出失败请稍后再试，错误信息：" + e.toString());
             render("/error/400.html");
         }
+    }
+
+    private String genSql(SearchBeanDd searchBean) {
+        String selectSql = "SELECT T1.ORDER_NO,T1.SFXN, to_char(to_date(T1.TIME_START,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_START,to_char(to_date(T1.TIME_END,'yyyymmddhh24miss'),'yyyy-mm-dd hh24:mi:ss') TIME_END,T1.TOTAL_FEE,NVL(T1.TOTAL_FEE_CALLBACK,0) TOTAL_FEE_CALLBACK,decode(T1.ORDER_STATE,'0','待支付','1','已取消','2','支付成功','3','问题订单','4','教师取消') ORDER_STATE,T2.ZYMC,T2.JGMC,T2.BJMC,T2.XM,T2.ZH,T2.ZJHM ";
+        String fromSql = " FROM WPT_WXZF_SPECIAL_ORDER T1 LEFT JOIN  WPT_YH T2 ON T1.XH=T2.ZH  WHERE 1=1 ";
+        if (!StringUtils.isEmpty(searchBean.getDdbh())) {
+            fromSql += " AND T1.ORDER_NO='" + searchBean.getDdbh() + "'";
+        }
+        if (!StringUtils.isEmpty(searchBean.getXn())) {
+            fromSql += " AND T1.SFXN='" + searchBean.getXn() + "'";
+        }
+        if (!StringUtils.isEmpty(searchBean.getXm())) {
+            fromSql += " AND T2.XM like '%" + searchBean.getXm() + "%'";
+        }
+        if (!StringUtils.isEmpty(searchBean.getDdzt())) {
+            fromSql += " AND T1.ORDER_STATE='" + searchBean.getDdzt() + "'";
+        }
+        if (!StringUtils.isEmpty(searchBean.getXh())) {
+            fromSql += " AND T2.ZH='" + searchBean.getXh() + "'";
+        }
+        if (!StringUtils.isEmpty(searchBean.getSfzh())) {
+            fromSql += " AND T2.ZJHM='" + searchBean.getSfzh() + "'";
+        }
+        if (!StringUtils.isEmpty(searchBean.getZfst())) {
+            fromSql += " AND  to_date(TIME_END,'yyyymmddhh24miss')>=to_date('" + searchBean.getZfst() + "','yyyy-mm-dd') ";
+        }
+        if (!StringUtils.isEmpty(searchBean.getZfed())) {
+            fromSql += " AND  to_date(TIME_END,'yyyymmddhh24miss')<=to_date('" + searchBean.getZfed() + "','yyyy-mm-dd')+1 ";
+        }
+        if (fromSql.contains("to_date")) {
+            fromSql += " AND TIME_END IS NOT NULL";
+        }
+        fromSql += "  ORDER BY T1.TIME_START DESC";
+        return selectSql + fromSql;
     }
 
     public void qxInfo() {

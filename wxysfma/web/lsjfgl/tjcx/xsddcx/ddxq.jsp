@@ -320,15 +320,17 @@
                 })
 //                导出
                 $("#my-export").bind("click", function () {
-//                    var ddbh = $('#search-ddbh').val();
-//                    var xn = $('#search-xn').val();
-//                    var xm = $('#search-xm').val();
-//                    var ddzt = $('#search-ddzt').val();
-//                    var xh = $('#search-xh').val();
-//                    var sfzh = $('#search-sfzh').val();
-//                    var dateStart = $('#dateStart').val();
-//                    var dateEnd = $('#dateEnd').val();
-                    window.location.href = wpt_serverName + 'lsjfgl/tjcx/xsddcx/export' //数据接口地址
+                    var ddbh = $('#search-ddbh').val();
+                    var xn = $('#search-xn').val();
+                    var xm = $('#search-xm').val();
+                    var ddzt = $('#search-ddzt').val();
+                    var xh = $('#search-xh').val();
+                    var sfzh = $('#search-sfzh').val();
+                    var dateStart = $('#dateStart').val();
+                    var dateEnd = $('#dateEnd').val();
+
+                    var param = "?ddbh=" + ddbh + "&xn=" + xn + "&xm=" + xm + "&ddzt=" + ddzt + "&xh=" + xh + "&sfzh=" + sfzh + "&dateStart=" + dateStart + "&dateEnd=" + dateEnd;
+                    window.location.href = wpt_serverName + 'lsjfgl/tjcx/xsddcx/export' + param //数据接口地址
 
 
                 })
