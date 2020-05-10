@@ -77,7 +77,7 @@
                             <td><%=userInfo.getZh()%>
                             </td>
                             <td rowspan="4" style="width: 500px;">
-                                <img src="<%=Constant.server_name%>img/tx.jpg" class="zoomImage"/>
+                                <img src="<%=Constant.server_name%>imgShow.jsp" class="zoomImage"/>
                             </td>
                         </tr>
                         <tr>

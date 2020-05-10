@@ -12,8 +12,23 @@
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/echarts4.40/echarts.min.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/echarts4.40/map/js/china.js"></script>
     <style>
+        .zoomImage {
+            object-fit: cover;
+            max-width: 180px !important;
+        }
+
+        #ly_tab tbody tr:hover {
+            background-color: #fbfbfb;
+        }
+
         #iframe_ly_home {
             overflow: scroll !important;
+        }
+
+        th {
+            background-color: #eef9fb !important;
+            color: #4aa4a5 !important;
+            font-weight: bold !important;
         }
     </style>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/jquery/jquery-3.3.1.min.js"></script>
@@ -79,10 +94,10 @@
                         <i class="layui-icon layui-icon-home"></i>
                         <cite>学生交费管理</cite></a>
                     <dl class="layui-nav-child">
-                        <dd class="layui-this">
-                            <a data-url="" data-id="ly_home" data-title="table-demo"
-                               data-type="tabAdd">通知公告</a>
-                        </dd>
+                        <%--<dd class="layui-this">--%>
+                        <%--<a data-url="" data-id="ly_home" data-title="table-demo"--%>
+                        <%--data-type="tabAdd">通知公告</a>--%>
+                        <%--</dd>--%>
                         <dd>
                             <a data-url="<%=Constant.server_name%>xsjfgl/grjfxx.jsp" data-id="00" data-title="个人交费信息"
                                data-type="tabAdd">个人交费信息</a>
@@ -130,43 +145,116 @@
     <div class="layui-body layui-body-ly" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show" id="iframe_ly_home">
             <div class="layui-fluid">
-                <div class="layui-row layui-col-space15">
-                    <div class="layui-col-md6">
-                        <div class="layui-card">
-                            <div class="layui-card-header">标准地图</div>
-                            <div class="layui-card-body">
-                                <div id="china" style="height: 400px;width: 100%"></div>
-                            </div>
-                        </div>
-                        <div class="layui-card">
-                            <div class="layui-card-header">标准柱状图</div>
-                            <div class="layui-card-body">
-                                <div id="zzt" style="height: 400px;width: 100%"></div>
+                <div>
+                    <fieldset class="layui-elem-field layui-field-title"
+                              style="margin-top: 20px;border-color: #009688 !important;">
+                        <legend>个人信息</legend>
+                    </fieldset>
+                </div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-col-md6">
-                        <div class="layui-card">
-                            <div class="layui-card-header">标准饼图</div>
-                            <div class="layui-card-body">
-                                <div id="bt" style="height: 400px;width: 100%"></div>
-                            </div>
-                        </div>
-                        <div class="layui-card">
-                            <div class="layui-card-header">标准折线图</div>
-                            <div class="layui-card-body">
-                                <div id="zxt" style="height: 400px;width: 100%"></div>
-
+            </div>
+            <div class="layui-fluid">
+                <div class="layui-row">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <div class="layui-form">
+                                <table class="layui-table" id="ly_tab">
+                                    <colgroup>
+                                        <col width="15%">
+                                        <col width="25%">
+                                        <col width="15%">
+                                        <col width="25%">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th colspan="5" style="background-color: #d3d8de">
+                                            <div align="center">
+                                                学生个人信息
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody align="center">
+                                    <tr>
+                                        <td style="background-color: #eef9fb">姓名</td>
+                                        <td><%=userInfo.getXm()%>
+                                        </td>
+                                        <td style="background-color: #eef9fb">学号/考生号</td>
+                                        <td><%=userInfo.getZh()%>
+                                        </td>
+                                        <td rowspan="4" style="width: 500px;">
+                                            <img src="<%=Constant.server_name%>imgShow.jsp" class="zoomImage"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: #eef9fb">年级</td>
+                                        <td><%=userInfo.getNjmc()%>
+                                        </td>
+                                        <td style="background-color: #eef9fb">身份证号</td>
+                                        <td><%=userInfo.getZjhm()%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: #eef9fb">学院名称</td>
+                                        <td><%=userInfo.getJgmc()%>
+                                        </td>
+                                        <td style="background-color: #eef9fb">专业名称</td>
+                                        <td><%=userInfo.getZymc()%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: #eef9fb">班级名称</td>
+                                        <td><%=userInfo.getBjmc()%>
+                                        </td>
+                                        <td style="background-color: #eef9fb"></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <%--<div class="layui-fluid">--%>
+            <%--<div class="layui-row layui-col-space15">--%>
+            <%--<div class="layui-col-md6">--%>
+            <%--<div class="layui-card">--%>
+            <%--<div class="layui-card-header">标准地图</div>--%>
+            <%--<div class="layui-card-body">--%>
+            <%--<div id="china" style="height: 400px;width: 100%"></div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="layui-card">--%>
+            <%--<div class="layui-card-header">标准柱状图</div>--%>
+            <%--<div class="layui-card-body">--%>
+            <%--<div id="zzt" style="height: 400px;width: 100%"></div>--%>
+
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="layui-col-md6">--%>
+            <%--<div class="layui-card">--%>
+            <%--<div class="layui-card-header">标准饼图</div>--%>
+            <%--<div class="layui-card-body">--%>
+            <%--<div id="bt" style="height: 400px;width: 100%"></div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--<div class="layui-card">--%>
+            <%--<div class="layui-card-header">标准折线图</div>--%>
+            <%--<div class="layui-card-body">--%>
+            <%--<div id="zxt" style="height: 400px;width: 100%"></div>--%>
+
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
+            <%--</div>--%>
         </div>
     </div>
 </div>
-<script type="text/javascript" src="<%=Constant.server_name%>js-lib/echarts4.40/demo.js"></script>
+<%--<script type="text/javascript" src="<%=Constant.server_name%>js-lib/echarts4.40/demo.js"></script>--%>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/index.js"></script>
 </body>

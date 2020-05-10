@@ -143,7 +143,13 @@
                     }
 
                 }
-                cols2[titles.length + 2] = {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'};
+                cols2[titles.length + 2] = {
+                    fixed: 'right',
+                    title: '支付方式选择',
+                    align: 'center',
+                    width: '15%',
+                    toolbar: '#barDemo'
+                };
                 table.render({
                     elem: '#jfjl-table'  //容器id
                     , cols: [
