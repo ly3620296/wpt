@@ -21,7 +21,7 @@ public class WxPayDao {
 
     public void insertOrderSpecial(WxPayOrder wxPayOrder,String val) {
         String sql = "INSERT INTO WPT_WXZF_SPECIAL_ORDER (XH,OUT_TRADE_NO,IDS,PAY_TYPE,TOTAL_FEE,APPID,MCH_ID,OPENID,PAYIP,TIME_START,ORDER_STATE,PREPAY_ID,SFXN,ORDER_NO,CODE_URL,PAY_VAL) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        Db.update(sql, wxPayOrder.getXh(), wxPayOrder.getOut_trade_no(), wxPayOrder.getIds(), wxPayOrder.getPay_type(), wxPayOrder.getTotal_fee(), wxPayOrder.getAppid(),
+        Db.update(sql, wxPayOrder.getXh(), wxPayOrder.getOut_trade_no(), wxPayOrder.getIds(), wxPayOrder.getPay_type(), String.valueOf(Double.parseDouble(wxPayOrder.getTotal_fee()) / 100), wxPayOrder.getAppid(),
                 wxPayOrder.getMch_id(), wxPayOrder.getOpenid(), wxPayOrder.getPayIp(), wxPayOrder.getTime_start(), MyWxpayConstant.ORDER_STATE_NOPAY, wxPayOrder.getPREPAY_ID(), wxPayOrder.getSfxn(), wxPayOrder.getOrderNo(), "",val);
     }
 

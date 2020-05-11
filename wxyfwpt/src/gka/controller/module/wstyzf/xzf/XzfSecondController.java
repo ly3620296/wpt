@@ -88,8 +88,8 @@ public class XzfSecondController extends Controller {
                     String ids = getPara("arrId");
                     String newIds = newIds(ids);
                     String sfxn = ids.split(",")[0].split("wow")[0];
-//                    String totalFee = "1";
-                    String totalFee = cxTotalFee(ids.split(","), xh, sfxn);
+                    String totalFee = "1";
+//                    String totalFee = cxTotalFee(ids.split(","), xh, sfxn);
                     if (!StringUtils.isEmpty(ids)) {
                         //查询是否没缴费
                         Record reVal = xzfDao.queryTotalWjfByPay(xh, sfxn);

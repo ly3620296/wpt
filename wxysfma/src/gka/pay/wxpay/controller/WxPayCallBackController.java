@@ -43,7 +43,8 @@ public class WxPayCallBackController extends Controller {
             }
             //判断下单时候的金额是否和回调时候的金额一致 否则视为非法订单 直接返回
             String out_trade_no = repData.get("out_trade_no");
-            if (!wyjfDao.preMoney(out_trade_no).equals(repData.get("total_fee"))) {
+
+            if (!wyjfDao.preMoney(out_trade_no).equals(String.valueOf(Double.parseDouble(repData.get("total_fee")) / 100))) {
                 //通知微信
                 renderText(callBackString);
                 //修改订单为非法订单

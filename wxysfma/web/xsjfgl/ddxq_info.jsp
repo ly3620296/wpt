@@ -227,6 +227,9 @@
                 } else if (myType == "cg") {
                     url = wpt_serverName + 'xsjfgl/ddcx/cgInfo?order_no=' + '<%=order_no%>' + '&xn=' + '<%=xn%>';
                     cols1 = "本次交费明细信息";
+                } else if (myType == "yc") {
+                    url = wpt_serverName + 'xsjfgl/ddcx/cgInfo?order_no=' + '<%=order_no%>' + '&xn=' + '<%=xn%>';
+                    cols1 = "本次交费明细信息";
                 }
                 table.render({
                     elem: '#jfjl'  //容器id
@@ -251,7 +254,7 @@
                                 $('tr[data-index=' + i + '] input[type="checkbox"]').next().addClass('layui-btn-disabled');
                             }
                             wpt_wyjfPay.my_show(res, '<%=type%>')
-                        } else if ('<%=type%>' == 'cg'||'<%=type%>' == 'tf') {
+                        } else if ('<%=type%>' == 'cg' || '<%=type%>' == 'tf' || '<%=type%>' == 'yc') {
                             for (var i in res.data) {
                                 $('tr[data-index=' + i + '] input[type="checkbox"]').prop('disabled', true);
                                 $('tr[data-index=' + i + '] input[type="checkbox"]').next().addClass('layui-btn-disabled');
@@ -278,6 +281,13 @@
                 } else if (type == "cg") {
                     $("#ly-bh").html("<%=order_no%>")
                     $("#ly-zt").html("<font color='red'>支付成功</font>");
+                    $("#bh-zt").show();
+                    $("#ly-je").html(res.total_fee);
+                    $("#ly-sj").html(res.time_end);
+                    $("#je-sj").show()
+                } else if (type == "yc") {
+                    $("#ly-bh").html("<%=order_no%>")
+                    $("#ly-zt").html("<font color='red'>异常订单</font>");
                     $("#bh-zt").show();
                     $("#ly-je").html(res.total_fee);
                     $("#ly-sj").html(res.time_end);

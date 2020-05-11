@@ -159,7 +159,7 @@
     {{#  } else if(d.ORDER_STATE == 2){ }}
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
     {{#  } else if(d.ORDER_STATE == 3){ }}
-    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
+    <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-yc">订单详情</a>
     {{#  } else if(d.ORDER_STATE == 4){ }}
     <a class="layui-btn layui-btn-normal layui-btn-sm" lay-event="ddxz-cg">订单详情</a>
     {{#  } else if(d.ORDER_STATE == 5){ }}
@@ -282,6 +282,8 @@
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "tf", zh);
                     } else if (layEvent === 'ddxz-cg') {
                         wpt_grjfxx.closeOrderInfo(xn, orderNo, "cg", zh);
+                    } else if (layEvent === 'ddxz-yc') {
+                        wpt_grjfxx.closeOrderInfo(xn, orderNo, "yc", zh);
                     }
                 });
             },
