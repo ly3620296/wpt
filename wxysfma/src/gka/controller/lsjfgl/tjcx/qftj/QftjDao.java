@@ -85,7 +85,7 @@ public class QftjDao {
         }
         String nj = searchBean.getNj();
         if (!StringUtils.isEmpty(nj)) {
-            fromSql.append("AND T3.NJ = (SELECT XS.DQSZJ FROM V_WPT_XSJBXXB XS WHERE T3.XH=XS.XH AND XS.DQSZJ='" + nj + "')");
+            fromSql.append("AND T3.NJ = (SELECT DISTINCT(XS.DQSZJ) DQSZJ FROM V_WPT_XSJBXXB XS WHERE T3.XH=XS.XH AND XS.DQSZJ='" + nj + "')");
         }
         fromSql.append(" ORDER BY T3.XN DESC");
         List<Record> records = Db.find(selectSql + fromSql.toString());
