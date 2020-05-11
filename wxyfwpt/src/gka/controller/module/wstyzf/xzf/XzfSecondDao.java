@@ -243,8 +243,8 @@ public class XzfSecondDao {
 //        Db.tx(new IAtom() {
 //            @Override
 //            public boolean run() throws SQLException {
-        String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=? WHERE OUT_TRADE_NO=?";
-        int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), String.valueOf(Double.parseDouble(repData.get("total_fee")) / 100), repData.get("openid"), repData.get("out_trade_no"));
+        String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=?,ISBACK=? WHERE OUT_TRADE_NO=?";
+        int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_ILLEGALMONEY, MyWxpayConstant.RETURN_CODE_ERROR, MyWxpayConstant.RESULT_CODE_ILLEGALMONEY, repData.get("transaction_id"), String.valueOf(Double.parseDouble(repData.get("total_fee")) / 100), repData.get("openid"), "1", repData.get("out_trade_no"));
 //                int upYsf = updateOrder(repData.get("out_trade_no"));
 //                return upOrder * upYsf >= 1;
 //            }
@@ -256,8 +256,8 @@ public class XzfSecondDao {
         Db.tx(new IAtom() {
             @Override
             public boolean run() throws SQLException {
-                String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=? WHERE OUT_TRADE_NO=?";
-                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_PAY, MyWxpayConstant.RETURN_CODE_SUCCESS, repData.get("result_code"), repData.get("transaction_id"), String.valueOf(Double.parseDouble(repData.get("total_fee")) / 100), repData.get("openid"), repData.get("out_trade_no"));
+                String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,OPENID=?,ISBACK=? WHERE OUT_TRADE_NO=?";
+                int upOrder = Db.update(sql, repData.get("time_end"), MyWxpayConstant.ORDER_STATE_PAY, MyWxpayConstant.RETURN_CODE_SUCCESS, repData.get("result_code"), repData.get("transaction_id"), String.valueOf(Double.parseDouble(repData.get("total_fee")) / 100), repData.get("openid"), "1", repData.get("out_trade_no"));
                 int upYsf = updateOrder(repData.get("out_trade_no"), repData.get("trade_type"), repData.get("total_fee"));
                 return upOrder * upYsf >= 1;
             }
@@ -522,4 +522,12 @@ public class XzfSecondDao {
         return sb.toString();
     }
 
+    public boolean queryIsBack(String out_trade_no) {
+        String sql = "SELECT ISBACK FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+        Record re = Db.findFirst(sql, out_trade_no);
+        if (re == null) {
+            return false;
+        }
+        return re.getStr("ISBACK").equals("0");
+    }
 }

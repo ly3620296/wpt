@@ -146,8 +146,8 @@
                 cols2[titles.length + 2] = {
                     fixed: 'right',
                     title: '支付方式选择',
-                    align: 'center',
-                    width: '15%',
+//                    align: 'center',
+                    width: '20%',
                     toolbar: '#barDemo'
                 };
                 table.render({

@@ -50,7 +50,9 @@ public class WxPayCallBackController extends Controller {
                 renderText(callBackString);
                 //修改订单为非法订单
 //                XzfDao.updateIllegalMoneyOrder(repData);
-                xzfSecondDao.updateIllegalMoneyOrder(repData);
+                if (xzfSecondDao.queryIsBack(out_trade_no)) {
+                    xzfSecondDao.updateIllegalMoneyOrder(repData);
+                }
 
                 return;
             }
@@ -64,7 +66,9 @@ public class WxPayCallBackController extends Controller {
              * 2. 修改缴费表
              */
 //            XzfDao.updateNormalOrder(repData);
-            xzfSecondDao.updateNormalOrder(repData);
+            if (xzfSecondDao.queryIsBack(out_trade_no)) {
+                xzfSecondDao.updateNormalOrder(repData);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

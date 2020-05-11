@@ -48,7 +48,10 @@ public class WxPayCallBackController extends Controller {
                 //通知微信
                 renderText(callBackString);
                 //修改订单为非法订单
-                wyjfDao.updateIllegalMoneyOrder(repData);
+                //验证重复收到通知
+                if (wyjfDao.queryIsBack(out_trade_no)) {
+                    wyjfDao.updateIllegalMoneyOrder(repData);
+                }
                 return;
             }
 
@@ -60,7 +63,9 @@ public class WxPayCallBackController extends Controller {
              * 1. 修改订单表
              * 2. 修改缴费表
              */
-            wyjfDao.updateNormalOrder(repData);
+            if (wyjfDao.queryIsBack(out_trade_no)) {
+                wyjfDao.updateNormalOrder(repData);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
