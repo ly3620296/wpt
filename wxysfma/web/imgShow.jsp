@@ -32,7 +32,6 @@
                     os.write(bytes, 0, bytes.length);
                     os.close();
                 }
-
             } else {
                 OutputStream os = response.getOutputStream();
                 String realPath = request.getServletContext().getRealPath("");
@@ -40,13 +39,13 @@
                 os.write(bytes, 0, bytes.length);
                 os.close();
             }
-
         }
     } catch (Exception e) {
         e.printStackTrace();
     }
+    out.clear();
+    out = pageContext.pushBody();
 %>
-
 <%!
     public byte[] defaultImg(String path) {
         File f = new File(path + "img/defaultStu.jpg");
@@ -61,6 +60,5 @@
             e.printStackTrace();
             return null;
         }
-
     }
 %>
