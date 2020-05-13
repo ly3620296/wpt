@@ -2,6 +2,7 @@ package gka.dzfp;
 
 
 import com.alibaba.druid.util.StringUtils;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import gka.dzfp.anno.ElType;
 import gka.dzfp.bean.InvoiceEBillByCollegeBean;
@@ -16,14 +17,37 @@ import java.util.UUID;
 
 public class EleUtil {
 
-    private String appId = "app1";
-    private String version = "1.0";
-    private String key = "192006250b4c09247ec02f6a2d";
+    public final static String appId = "JLSFJGZYJSXY9198289";
+    public final static String version = "1.0";
+    public final static String key = "77a958ed9dfebb64d37c2f0933";
+
+
+    /**
+     * 生成请求报文
+     */
+    public JSONObject genRequestBody(Object object) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("appid", appId);
+        JSONObject encData = encData(object);
+        System.out.println(encData);
+        jsonObject.put("data", base64(encData));
+        jsonObject.put("noise", genNoise());
+        jsonObject.put("version", version);
+        //签名
+        sign(jsonObject);
+        System.out.println(jsonObject);
+        return jsonObject;
+    }
+
+    public static String genBusNo() {
+        String busNo=UUID.randomUUID().toString().replaceAll("-","");
+        return busNo;
+    }
 
     /**
      * 报文签名
      */
-    public JSONObject sign(JSONObject jsonObject) {
+    private JSONObject sign(JSONObject jsonObject) {
         StringBuffer sb = new StringBuffer();
         sb.append("appid=");
         sb.append(appId);
@@ -39,6 +63,7 @@ public class EleUtil {
         sb.append("&");
         sb.append("version=");
         sb.append(version);
+        System.out.println(sb.toString());
         String sign = md5(sb.toString()).toUpperCase();
         jsonObject.put("sign", sign);
         return jsonObject;
@@ -48,15 +73,16 @@ public class EleUtil {
     /**
      * 数据编码
      */
-    public JSONObject encData(Object object) {
+    private JSONObject encData(Object object) {
         JSONObject jsonObject = new JSONObject();
         try {
             Class<?> clz = object.getClass();
             Field[] fields = clz.getDeclaredFields();
             for (Field field : fields) {
-                String type = field.getGenericType().toString();
+                String type = field.getType().getSimpleName();
+//                System.out.println(type + "------------" + field.getType().getSimpleName());
                 // 如果类型是String
-                if (type.equals("class java.lang.String")) { // 如果type是类类型，则前面包含"class "，后面跟类名
+                if (type.equals("String")) { // 如果type是类类型，则前面包含"class "，后面跟类名
                     Method m = (Method) object.getClass().getMethod("get" + getMethodName(field.getName()));
                     String key = field.getName();
                     String val = (String) m.invoke(object);
@@ -67,15 +93,15 @@ public class EleUtil {
                         if (elType != null) {
                             boolean require = elType.require();
                             if (require) {
-                                jsonObject.put(key, val);
+                                jsonObject.put(key, "");
                             }
                         }
 
                     }
-                } else if (type.equals("double") || type.equals("class java.lang.Double")) {
+                } else if (type.equals("double")) {
                     Method m = (Method) object.getClass().getMethod("get" + getMethodName(field.getName()));
                     String key = field.getName();
-                    double val = (Double) m.invoke(object);
+                    Double val = (Double) m.invoke(object);
                     if (val == 0.0) {
                         jsonObject.put(key, val);
                     } else {
@@ -87,7 +113,9 @@ public class EleUtil {
                             }
                         }
                     }
-                } else if (type.equals("int") || type.equals("class java.lang.Integer")) {
+                } else if (type.equals("Double")) {
+
+                } else if (type.equals("int")) {
                     Method m = (Method) object.getClass().getMethod("get" + getMethodName(field.getName()));
                     String key = field.getName();
                     int val = (Integer) m.invoke(object);
@@ -99,6 +127,30 @@ public class EleUtil {
                             boolean require = elType.require();
                             if (require) {
                                 jsonObject.put(key, val);
+                            }
+                        }
+                    }
+                } else if (type.equals("Integer")) {
+
+                } else if (type.contains("[]")) {
+                    JSONArray jsonArray = new JSONArray();
+                    Method m = (Method) object.getClass().getMethod("get" + getMethodName(field.getName()));
+                    String key = field.getName();
+                    Object[] obArr = (Object[]) m.invoke(object);
+                    if (obArr != null) {
+                        for (int i = 0; i < obArr.length; i++) {
+                            if (obArr[i] != null) {
+                                JSONObject filedJson = encData(obArr[i]);
+                                jsonArray.add(filedJson);
+                            }
+                        }
+                        jsonObject.put(key, jsonArray);
+                    } else {
+                        ElType elType = field.getDeclaredAnnotation(ElType.class);
+                        if (elType != null) {
+                            boolean require = elType.require();
+                            if (require) {
+                                jsonObject.put(key, jsonArray);
                             }
                         }
                     }
@@ -152,18 +204,6 @@ public class EleUtil {
         return base64Sign;
     }
 
-    /**
-     * 生成请求报文
-     */
-    public JSONObject genRequestBody(Object object) {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("appid", appId);
-        jsonObject.put("data", base64(encData(object)));
-        jsonObject.put("noise", genNoise());
-        jsonObject.put("version", version);
-        sign(jsonObject);
-        return jsonObject;
-    }
 
     /**
      * md5加密
@@ -171,7 +211,7 @@ public class EleUtil {
      * @param s
      * @return
      */
-    public String md5(String s) {
+    private String md5(String s) {
         char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
                 'A', 'B', 'C', 'D', 'E', 'F'};
         try {
@@ -193,12 +233,4 @@ public class EleUtil {
         }
     }
 
-    public static void main(String[] args) {
-        EleUtil eleUtil = new EleUtil();
-        InvoiceEBillByCollegeBean i = new InvoiceEBillByCollegeBean();
-        i.setItemDetail(new ItemDetail());
-        JSONObject jsonObject = eleUtil.genRequestBody(i);
-        System.out.println(jsonObject);
-
-    }
 }

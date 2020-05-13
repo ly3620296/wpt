@@ -30,8 +30,8 @@ import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 public class HttpUtil {
-    private final static int readTimeoutMs = 10 * 1000;
-    private final static int connectTimeoutMs = 10 * 1000;
+    private final static int readTimeoutMs = 30 * 1000;
+    private final static int connectTimeoutMs = 30 * 1000;
 
     /**
      * get请求
@@ -135,6 +135,7 @@ public class HttpUtil {
             response = httpclient.execute(httpPost);
             StatusLine status = response.getStatusLine();
             int state = status.getStatusCode();
+            System.out.println(state);
             if (state == HttpStatus.SC_OK) {
                 HttpEntity responseEntity = response.getEntity();
                 String jsonString = EntityUtils.toString(responseEntity);

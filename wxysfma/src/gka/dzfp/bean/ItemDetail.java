@@ -3,22 +3,22 @@ package gka.dzfp.bean;
 import gka.dzfp.anno.ElType;
 
 public class ItemDetail {
-    //收费项目编码	String	32	是	需要业务系统和平台约定对照关系
+    //收费项目编码 需要业务系统和平台约定对照关系
     @ElType(require = true)
     private String itemCode = "";
-    //收费项目名称	String	200	是
+    //收费项目名称
     @ElType(require = true)
     private String itemName = "";
     //收费标准编码	String	20	否	需要业务系统和平台约定对照关系
     private String itemStdCode = "";
     //数量	Number	18,6	是
     @ElType(require = true)
-    private int count;
+    private String count = "1";
     //收费标准	Number	18,6	是	如有传入收费标准编码，收费标准必须在规定的范围内
     @ElType(require = true)
-    private int standard;
+    private String standard = "";
     //金额	Number	18,6	是
-    private int amt;
+    private String amt = "";
     //计量单位	String	10	否
     private String units = "";
     //备注1	String	200	否
@@ -50,27 +50,27 @@ public class ItemDetail {
         this.itemStdCode = itemStdCode;
     }
 
-    public int getCount() {
+    public String getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(String count) {
         this.count = count;
     }
 
-    public int getStandard() {
+    public String getStandard() {
         return standard;
     }
 
-    public void setStandard(int standard) {
+    public void setStandard(String standard) {
         this.standard = standard;
     }
 
-    public int getAmt() {
+    public String getAmt() {
         return amt;
     }
 
-    public void setAmt(int amt) {
+    public void setAmt(String amt) {
         this.amt = amt;
     }
 
