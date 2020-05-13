@@ -12,9 +12,9 @@ public class InvoiceEBillByCollegeBean {
     //业务单号,全局唯一，也叫业务流水号
     @ElType(require = true)
     private String busNo = "";
-    //开票点编码	String	50	是	需要业务系统和平台约定对照关系
+    //开票点编码	String	001
     @ElType(require = true)
-    private String placeCode = "";
+    private String placeCode = "001";
     //票据种类编码	String	32	是	需要业务系统和平台约定对照关系
     @ElType(require = true)
     private String billCode = "";

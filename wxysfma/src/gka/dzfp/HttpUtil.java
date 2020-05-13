@@ -34,6 +34,57 @@ public class HttpUtil {
     private final static int connectTimeoutMs = 30 * 1000;
 
     /**
+     * post请求（用于请求json格式的参数）
+     *
+     * @param url
+     * @param params
+     * @return
+     */
+    public static String doPost(String url, String params) {
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(url);// 创建httpPost
+        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(readTimeoutMs).setConnectTimeout(connectTimeoutMs).build();
+        httpPost.setConfig(requestConfig);
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-Type", "application/json");
+        String charSet = "UTF-8";
+        StringEntity entity = new StringEntity(params, charSet);
+        httpPost.setEntity(entity);
+        CloseableHttpResponse response = null;
+        try {
+            response = httpclient.execute(httpPost);
+            StatusLine status = response.getStatusLine();
+            int state = status.getStatusCode();
+            System.out.println(state);
+            if (state == HttpStatus.SC_OK) {
+                HttpEntity responseEntity = response.getEntity();
+                String jsonString = EntityUtils.toString(responseEntity);
+                return jsonString;
+            } else {
+
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (response != null) {
+                try {
+                    response.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
      * get请求
      *
      * @return
@@ -113,55 +164,5 @@ public class HttpUtil {
         }
     }
 
-    /**
-     * post请求（用于请求json格式的参数）
-     *
-     * @param url
-     * @param params
-     * @return
-     */
-    public static String doPost(String url, String params) {
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost(url);// 创建httpPost
-        RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(readTimeoutMs).setConnectTimeout(connectTimeoutMs).build();
-        httpPost.setConfig(requestConfig);
-        httpPost.setHeader("Accept", "application/json");
-        httpPost.setHeader("Content-Type", "application/json");
-        String charSet = "UTF-8";
-        StringEntity entity = new StringEntity(params, charSet);
-        httpPost.setEntity(entity);
-        CloseableHttpResponse response = null;
-        try {
-            response = httpclient.execute(httpPost);
-            StatusLine status = response.getStatusLine();
-            int state = status.getStatusCode();
-            System.out.println(state);
-            if (state == HttpStatus.SC_OK) {
-                HttpEntity responseEntity = response.getEntity();
-                String jsonString = EntityUtils.toString(responseEntity);
-                return jsonString;
-            } else {
-
-            }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (response != null) {
-                try {
-                    response.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            try {
-                httpclient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
 
 }

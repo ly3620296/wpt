@@ -28,9 +28,9 @@ public class Test {
         ie.setPayerType("1");
         ie.setCreditCode("");
         ie.setRecer("校长");
+        ie.setOperator("校长");
         ie.setIvcDate(new SimpleDateFormat("yyyy-MM-dd").format(date));
         ie.setStuName("李岩");
-        ie.setOperator("校长");
         ie.setTotalAmt("100");
         ie.setStuNo("20183519");
         ie.setCollegeCode("xybm");
@@ -48,9 +48,9 @@ public class Test {
 
 //        ItemDetail[] itemDetails = new ItemDetail[2];
 //        ItemDetail id = new ItemDetail();
-//        id.setItemCode("04275702");
-//        id.setItemName("研究生学费");
-//        id.setItemStdCode("00206");
+//        id.setItemCode("04275703");
+//        id.setItemName("公办高职高专学费");
+//        id.setItemStdCode("02130");
 //        id.setCount("1");
 //        id.setStandard("100");
 //        id.setAmt("100");

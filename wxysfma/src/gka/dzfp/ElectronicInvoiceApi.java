@@ -10,8 +10,11 @@ import java.io.UnsupportedEncodingException;
  * 电子发票API
  */
 public class ElectronicInvoiceApi {
-    //单张票据开具接口地址
-    private final static String invoiceEBillByCollege_url = "http://112.49.34.4:18001/colleges-proxy/api/college/invoiceEBillByCollege";
+    //服务地址
+    private final static String dzfp_domian = "http://112.49.34.4:18001/colleges-proxy/api/college/";
+    //单张票据开具接口名
+    private final static String invoiceEBillByCollege_url = "invoiceEBillByCollege";
+
     private static EleUtil eleUtil = new EleUtil();
 
     /**
@@ -20,7 +23,7 @@ public class ElectronicInvoiceApi {
      */
     public static void invoiceEBillByCollege(InvoiceEBillByCollegeBean invoiceEBillByCollegeBean) {
         JSONObject requestBody = eleUtil.genRequestBody(invoiceEBillByCollegeBean);
-        String s = HttpUtil.doPost(invoiceEBillByCollege_url, requestBody.toJSONString());
+        String s = HttpUtil.doPost(dzfp_domian + invoiceEBillByCollege_url, requestBody.toJSONString());
         JSONObject jsonObject = JSONObject.parseObject(s);
         Base64 base64 = new Base64();
         byte[] datas = base64.decode(jsonObject.getString("data"));
