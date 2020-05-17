@@ -47,6 +47,7 @@ public class QftjDao {
         return paginate;
     }
 
+
     public List<Record> getOrderInfo(SearchBean searchBean) {
         List<Record> title = queryTitle();
         String selectSql = "SELECT T3.*, (T3.YSHJ-T4.PC_TOTAL) PC_TOTAL ";
@@ -153,8 +154,9 @@ public class QftjDao {
     }
 
     public List<Record> queryTitle() {
-        String sql = "SELECT JFXMID,JFXMMC,SFBX FROM JFXMDM WHERE SFQY=? AND JFTJ=? ORDER BY JFXMID";
-        List<Record> list = Db.find(sql, "1", "1");
+//        String sql = "SELECT JFXMID,JFXMMC,SFBX FROM JFXMDM WHERE SFQY=? AND JFTJ=? ORDER BY JFXMID";
+        String sql = "SELECT JFXMID,JFXMMC,SFBX FROM JFXMDM WHERE JFTJ=? ORDER BY JFXMID";
+        List<Record> list = Db.find(sql, "1");
         return list;
     }
 
@@ -169,8 +171,8 @@ public class QftjDao {
         StringBuffer sb = new StringBuffer("");
 
 
-        String sql = "SELECT JFXMID FROM JFXMDM WHERE SFQY=? AND JFTJ=?";
-        List<Record> pcs = Db.find(sql, "1", "0");
+        String sql = "SELECT JFXMID FROM JFXMDM WHERE JFTJ=?";
+        List<Record> pcs = Db.find(sql, "0");
         for (int i = 0; i < pcs.size(); i++) {
             if (i < pcs.size() - 1) {
                 sb.append("SUM((NVL(" + pcs.get(i).getStr("JFXMID") + ",0)))");
@@ -181,6 +183,10 @@ public class QftjDao {
                 sb.append("SUM((NVL(" + pcs.get(i).getStr("JFXMID") + ",0))) PC_TOTAL");
                 sb1.append("NVL(k2." + pcs.get(i).getStr("JFXMID") + ",0))-NVL(K1.PC_TOTAL,0)) PC_TOTAL ");
             }
+        }
+        if (pcs.size() == 0) {
+            sb1.append("0)) PC_TOTAL");
+            sb.append("0");
         }
         sb1.append(" FROM XSSFB K2 LEFT JOIN(SELECT XH,XN,");
         sb1.append(sb);

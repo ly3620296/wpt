@@ -33,7 +33,7 @@ public class IjfxxController extends Controller {
             IjfxxSearch search = new IjfxxSearch(sfxn, xh, xm, xymc, zymc, bjmc, dateStart, dateEnd, pay_type, nj);
             int page = Integer.parseInt(getPara("page"));
             int limit = Integer.parseInt(getPara("limit"));
-            List<Record> titles = wyjfDao.queryTitle();
+            List<Record> titles = ijfxxDao.titles();
             Page<Record> yjfxx = ijfxxDao.yjfxx(page, limit, search, titles);
             List<Record> xnList = ddcxDao.queryXn();
             List<Record> rxnjList = ddcxDao.queryRxnj();
@@ -51,4 +51,17 @@ public class IjfxxController extends Controller {
         renderJson(map);
     }
 
+
+    public void title() {
+        Map map = new HashMap();
+        try {
+            map.put("code", "0");
+            map.put("titles", ijfxxDao.titles());
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("code", "-1");
+            map.put("msg", "系统繁忙，请稍后重试！");
+        }
+        renderJson(map);
+    }
 }

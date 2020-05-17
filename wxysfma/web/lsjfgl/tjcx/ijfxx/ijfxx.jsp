@@ -154,7 +154,7 @@
         var wpt_grjfxx = {
             init: function () {
                 $.ajax({
-                    url: wpt_serverName + "xsjfgl/grjfxx/title",
+                    url: wpt_serverName + "lsjfgl/tjcx/ijfxx/title",
                     type: 'post',
                     dataType: 'json',
                     timeout: 10000,

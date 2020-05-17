@@ -51,6 +51,12 @@ public class IjfxxDao {
         return paginate;
     }
 
+    public List<Record> titles() {
+        String sql = "SELECT JFXMID,JFXMMC,SFBX FROM JFXMDM";
+        return Db.find(sql);
+
+    }
+
     private String generateTitleSql(List<Record> titles) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < titles.size(); i++) {
@@ -65,4 +71,6 @@ public class IjfxxDao {
 
         return sb.toString();
     }
+
+
 }
