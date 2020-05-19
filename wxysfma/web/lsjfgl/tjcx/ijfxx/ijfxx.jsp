@@ -123,6 +123,9 @@
                     <button class="layui-btn layuiadmin-btn-list" lay-filter="reset" id="my-reset">
                         重置
                     </button>
+                    <button class="layui-btn layuiadmin-btn-list" lay-filter="export" id="my-export">
+                        导出
+                    </button>
                 </div>
             </div>
         </div>
@@ -277,6 +280,25 @@
                 $("#my-reset").bind("click", function () {
                     $("#my-header input").val("");
                     $("#my-header select").val("");
+                })
+
+                //导出
+                $("#my-export").bind("click", function () {
+                    var sfxn = $('#search-xn').val(); //缴费学年
+                    var xh = $('#search-xh').val(); //学号
+                    var xm = $('#search-xm').val(); //姓名
+                    var xymc = $('#search-xymc').val();  //学院名称
+                    var zymc = $('#search-zymc').val();  //专业名称
+                    var bjmc = $('#search-bjmc').val();  //班级名称
+                    var dateStart = $('#dateStart').val();
+                    var dateEnd = $('#dateEnd').val();
+                    var pay_type = $('#search-pay_type').val();  //缴费类型
+                    var nj = $('#search-nj').val();  //入学年级
+
+                    var param = "?sfxn=" + sfxn + "&xh=" + xh + "&xm=" + xm + "&xymc=" + xymc + "&zymc=" + zymc + "&bjmc=" +
+                            bjmc + "&dateStart=" + dateStart + "&dateEnd=" + dateEnd + "&pay_type=" + pay_type + "&nj=" + nj;
+
+                    window.location.href = wpt_serverName + 'lsjfgl/tjcx/ijfxx/export' + param //数据接口地址
                 })
 
 

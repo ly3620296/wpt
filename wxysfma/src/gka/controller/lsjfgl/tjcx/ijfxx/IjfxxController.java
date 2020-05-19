@@ -4,9 +4,11 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
+import gka.common.kit.ExcelExportUtil;
 import gka.controller.lsjfgl.tjcx.xsddcx.XsDdcxDao;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,5 +65,24 @@ public class IjfxxController extends Controller {
             map.put("msg", "系统繁忙，请稍后重试！");
         }
         renderJson(map);
+    }
+
+    public void export() {
+        String sfxn = getPara("sfxn"); //缴费学年
+        String xh = getPara("xh"); //学号
+        String xm = getPara("xm"); //姓名
+        String xymc = getPara("xymc");  //学院名称
+        String zymc = getPara("zymc");  //专业名称
+        String bjmc = getPara("bjmc");  //班级名称
+        String dateStart = getPara("dateStart");  //开始时间
+        String dateEnd = getPara("dateEnd");  //结束时间
+        String pay_type = getPara("pay_type");  //缴费类型
+        String nj = getPara("nj");  //入学年级
+        IjfxxSearch search = new IjfxxSearch(sfxn, xh, xm, xymc, zymc, bjmc, dateStart, dateEnd, pay_type, nj);
+
+        File file = new File(ExcelExportUtil.getTitle("已交费信息"));
+        file = ExcelExportUtil.saveFileIjfxx(file, search);
+        this.renderFile(file);
+        System.out.println("==================");
     }
 }
