@@ -62,6 +62,7 @@ public class WptController extends Controller {
             try {
                 Record re = wptDao.loginByOpenId(openId);
                 CommonUtil.setSession(re, getSession());
+                getSession().setAttribute("currXnxq", CommonDao.currXnxq());
                 getSession().setAttribute("channel", "wx");
                 renderJsp("/module/main/main.jsp");
             } catch (Exception e) {
