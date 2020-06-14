@@ -11,7 +11,7 @@ public class QftjDao {
 
     public Page<Record> getOrderInfo(int page, int limit, QftjSearch search) {
         List<Record> title = queryTitle();
-        String selectSql = "SELECT T3.*, (T3.YSHJ-T4.PC_TOTAL) PC_TOTAL ";
+        String selectSql = "SELECT T3.*,(T3.YSHJ-T4.PC_TOTAL) PC_TOTAL ";
         StringBuffer fromSql = new StringBuffer(" FROM (SELECT T1.XN,T1.XH,T1.XM,T1.XB,T1.NJ,T1.XYMC,T1.BJMC,T1.ZYMC,T1.SFZH,");
         fromSql.append(getSqlWjf(title));
         fromSql.append(" FROM XSSFB T1 LEFT JOIN  (");
@@ -20,12 +20,13 @@ public class QftjDao {
         fromSql.append(" LEFT JOIN (");
         fromSql.append(pc_sql());
         fromSql.append(") T4 ON T3.XN=T4.XN AND T3.XH=T4.XH ");
+        fromSql.append(" LEFT JOIN V_WPT_XSJBXXB T5 ON T3.XH=T5.XH");
         fromSql.append(" WHERE (T3.YSHJ-T4.PC_TOTAL)>0 ");
         if (!StringUtils.isEmpty(search.getXn())) {
             fromSql.append(" AND T3.XN='" + search.getXn() + "'");
         }
         if (!StringUtils.isEmpty(search.getNj())) {
-            fromSql.append("AND T3.NJ = (SELECT XS.DQSZJ FROM V_WPT_XSJBXXB XS WHERE T3.XH=XS.XH AND XS.DQSZJ='" + search.getNj() + "')");
+            fromSql.append("AND T5.DQSZJ ='" + search.getNj() + "'");
         }
         if (!StringUtils.isEmpty(search.getXh())) {
             fromSql.append(" AND T3.XH='" + search.getXh() + "'");
@@ -59,6 +60,7 @@ public class QftjDao {
         fromSql.append(" LEFT JOIN (");
         fromSql.append(pc_sql());
         fromSql.append(") T4 ON T3.XN=T4.XN AND T3.XH=T4.XH ");
+        fromSql.append(" LEFT JOIN V_WPT_XSJBXXB T5 ON T3.XH=T5.XH");
         fromSql.append(" WHERE (T3.YSHJ-T4.PC_TOTAL)>0 ");
         String xn = searchBean.getXn();
         if (!StringUtils.isEmpty(xn)) {
@@ -86,7 +88,7 @@ public class QftjDao {
         }
         String nj = searchBean.getNj();
         if (!StringUtils.isEmpty(nj)) {
-            fromSql.append("AND T3.NJ = (SELECT DISTINCT(XS.DQSZJ) DQSZJ FROM V_WPT_XSJBXXB XS WHERE T3.XH=XS.XH AND XS.DQSZJ='" + nj + "')");
+            fromSql.append("AND T5.DQSZJ ='" + nj + "'");
         }
         fromSql.append(" ORDER BY T3.XN DESC");
         List<Record> records = Db.find(selectSql + fromSql.toString());

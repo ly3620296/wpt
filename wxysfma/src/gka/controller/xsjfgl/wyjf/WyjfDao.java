@@ -115,8 +115,8 @@ public class WyjfDao {
         });
     }
 
-    public void updateNormalOrderYl(final Map<String, String> repData) {
-        Db.tx(new IAtom() {
+    public boolean updateNormalOrderYl(final Map<String, String> repData) {
+        boolean tx = Db.tx(new IAtom() {
             @Override
             public boolean run() throws SQLException {
                 String sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET TIME_END=?,ORDER_STATE=?,RETURN_CODE=?,RESULT_CODE=?,TRANSACTION_ID=?,TOTAL_FEE_CALLBACK=?,PREPAY_ID=?,ISBACK=? WHERE OUT_TRADE_NO=?";
@@ -125,6 +125,7 @@ public class WyjfDao {
                 return upOrder * upYsf >= 1;
             }
         });
+        return tx;
     }
 
     /**
@@ -175,10 +176,66 @@ public class WyjfDao {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return updateStat;
     }
 
+    public Record xhInfo(String oderId) {
+        String sql = "SELECT XH,PAY_TYPE FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+        Record xhRe = Db.findFirst(sql, oderId);
+        Record xsInfo = null;
+
+        if (xhRe != null) {
+            sql = "SELECT XM,ZH,JGDM,JGMC,ZYDM,ZYMC,BJDM,BJMC,ZJHM,LXDH,YX FROM  WPT_YH WHERE JSDM=? WHERE ZH=?";
+            xsInfo = Db.findFirst(sql, "02", xhRe.getStr("XH"));
+            xsInfo.set("PAY_TYPE", xhRe.getStr("PAY_TYPE"));
+        }
+        return xsInfo;
+    }
+
+    public Record sfInfo(String oderId) {
+        String sql = "SELECT IDS,PAY_VAL FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+        Record sfRe = Db.findFirst(sql, oderId);
+        return sfRe;
+    }
+
+    public void fillDzfp(String out_trade_no) {
+        try {
+            String sql = "SELECT IDS,SFXN,XH,ORDER_NO,TIME_START,PAY_VAL FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
+            Record re = Db.findFirst(sql, out_trade_no);
+            String ids = "";
+            String sfxn = "";
+            String xh = "";
+            String ORDER_NO = "";
+            String TIME_START = "";
+            String pay_val = "";
+            if (re != null) {
+                ids = re.getStr("IDS");
+                pay_val = re.getStr("PAY_VAL");
+                sfxn = re.getStr("SFXN");
+                xh = re.getStr("XH");
+                ORDER_NO = re.getStr("ORDER_NO");
+                TIME_START = re.getStr("TIME_START");
+                sql = "SELECT XN,XH,XM,XB,BJMC,ZYMC,NJ,XYMC,SFZH FROM XSSFB WHERE XH=? AND XN=?";
+                Record userInfo = Db.findFirst(sql, xh, sfxn);
+
+                //            sql = "SELECT " + ids + "  FROM XSSFB WHERE XH=? AND XN=?";
+                //            Record payInfo = Db.findFirst(sql, xh, sfxn);
+                //            String[] xmids = ids.split(",");
+                //            StringBuffer insVal = new StringBuffer();
+                //            for (int i = 0; i < xmids.length; i++) {
+                //                if (i < xmids.length - 1) {
+                //                    insVal.append(payInfo.getStr(xmids[i]));
+                //                    insVal.append(",");
+                //                } else {
+                //                    insVal.append(payInfo.getStr(xmids[i]));
+                //                }
+                //            }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private String getSql(String ids, String xn, String xh) {
         StringBuffer sb = null;
