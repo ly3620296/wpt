@@ -4,7 +4,6 @@ package gka.dzfp.bean;
 import gka.dzfp.anno.ElType;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class InvoiceEBillByCollegeBean {
     //业务种类	即分配的appid

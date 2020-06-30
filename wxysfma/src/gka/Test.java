@@ -13,25 +13,21 @@ import java.util.Date;
 
 public class Test {
     public static void main(String[] args) {
+
         InvoiceEBillByCollegeBean ie = new InvoiceEBillByCollegeBean();
         Date date = new Date();
-        ie.setBusType(EleUtil.appId);
+
         String orNo = EleUtil.genBusNo();
         System.out.println("=============" + orNo);
         ie.setBusNo(orNo);
-        ie.setPlaceCode("001");
 //        ie.setBillCode("0101");
         ie.setBillCode("0401");
-        ie.setChannel("11");
+        ie.setTotalAmt("100");
+
         ie.setChargePeriod(new SimpleDateFormat("yyyy").format(date));
         ie.setChargeDate(new SimpleDateFormat("yyyy-MM-dd").format(date));
-        ie.setPayerType("1");
-        ie.setCreditCode("");
-        ie.setRecer("校长");
-        ie.setOperator("校长");
         ie.setIvcDate(new SimpleDateFormat("yyyy-MM-dd").format(date));
         ie.setStuName("李岩");
-        ie.setTotalAmt("100");
         ie.setStuNo("20183519");
         ie.setCollegeCode("xybm");
         ie.setCollegeName("学院名称");
@@ -77,6 +73,5 @@ public class Test {
         itemDetails[0] = id1;
         ie.setItemDetail(itemDetails);
 
-        ElectronicInvoiceApi.invoiceEBillByCollege(ie);
     }
 }

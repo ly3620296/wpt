@@ -42,7 +42,7 @@
     if (userInfo != null) {
         userName = userInfo.getXm();
     } else {
-        userInfo= new WptMaXSUserInfo();
+        userInfo = new WptMaXSUserInfo();
 %>
 <script>
     window.location.href = wpt_serverName + "login/xslogin.jsp";
@@ -109,6 +109,10 @@
                         <dd>
                             <a data-url="<%=Constant.server_name%>xsjfgl/ddxq.jsp" data-title="订单查询" data-id="02"
                                data-type="tabAdd">订单查询</a>
+                        </dd>
+                        <dd>
+                            <a data-url="<%=Constant.server_name%>xsjfgl/fpxx.jsp" data-title="发票信息" data-id="03"
+                               data-type="tabAdd">发票信息</a>
                         </dd>
                     </dl>
                 </li>

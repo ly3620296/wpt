@@ -10,6 +10,8 @@ import gka.common.kit.IpKit;
 import gka.common.kit.OrderCodeFactory;
 import gka.controller.lsjfgl.tjcx.xsddcx.XsDdcxDao;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
+import gka.dzfp.SendDzfp;
+import gka.dzfp.ThreadPoolUtil;
 import gka.lsjfgl.login.WptMaLSUserInfo;
 import gka.pay.wxpay.WXPayUtil;
 import gka.pay.wxpay.controller.WxPayDao;
@@ -145,6 +147,9 @@ public class DnkpController extends Controller {
                     String ip = IpKit.getRealIp(getRequest());
                     WptMaLSUserInfo userInfo = (WptMaLSUserInfo) getSession().getAttribute("wptMaLSUserInfo");
                     dnkpDao.insertOrder(xh, order, ids, pay_type, ze, ip, xn, orderNO, values, userInfo.getM_zh());
+                    //开票
+                    ThreadPoolUtil.execute(new SendDzfp(order));
+
                     map.put("code", "0");
                     map.put("msg", "success");
                 } else {

@@ -2,9 +2,6 @@ package gka.dzfp.bean;
 
 import gka.dzfp.anno.ElType;
 
-/**
- * amt=standard*count
- */
 public class ItemDetail {
     //收费项目编码 需要业务系统和平台约定对照关系
     @ElType(require = true)

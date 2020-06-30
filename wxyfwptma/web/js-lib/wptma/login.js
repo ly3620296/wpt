@@ -60,6 +60,7 @@ var loginObj = {
                             if (code == "0") {
                                 window.location.href = wpt_serverName + "main/index.jsp";
                             } else {
+                                updateCaptcha();
                                 layer.msg(msg, {anim: 6, time: 2000});
                             }
                         }

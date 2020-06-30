@@ -4,11 +4,10 @@ package gka.dzfp;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.Record;
-import gka.controller.xsjfgl.wyjf.WyjfDao;
 import gka.dzfp.anno.ElType;
 import gka.dzfp.bean.InvoiceEBillByCollegeBean;
-import gka.resource.properties.ProKit;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.UnsupportedEncodingException;
@@ -20,15 +19,15 @@ import java.util.Date;
 import java.util.UUID;
 
 public class EleUtil {
-    public final static String version = ProKit.use("electronicInvoice.properties").getStr("version");
-    public static String appId = ProKit.use("electronicInvoice.properties").getStr("appId");
-    public static String key = ProKit.use("electronicInvoice.properties").getStr("key");
+    public final static String version = PropKit.use("electronicInvoice.properties").get("version");
+    public static String appId = PropKit.use("electronicInvoice.properties").get("appId");
+    public static String key = PropKit.use("electronicInvoice.properties").get("key");
 
-    private static WyjfDao wyjfDao = new WyjfDao();
+    private static FpglDao fpglDao = new FpglDao();
 
     public static InvoiceEBillByCollegeBean genIBCBean(String out_trade_no) {
         InvoiceEBillByCollegeBean ie = new InvoiceEBillByCollegeBean();
-        Record record = wyjfDao.xhInfo(out_trade_no);
+        Record record = fpglDao.xhInfo(out_trade_no);
         ie.setBusType(appId);
         ie.setBusNo(genBusNo());
         ie.setIvcDate(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));

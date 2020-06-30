@@ -75,7 +75,7 @@
                 success: function (data) {
                     if (data.RETURN_STATE == "SUCCESS") {
                         layer.alert('添加成功!', function (index) {
-                            parent.closeAll()
+                            window.parent.location.reload();
                         });
                     } else {
                         layer.msg(data.RETURN_MSG, {anim: 6, time: 2000});

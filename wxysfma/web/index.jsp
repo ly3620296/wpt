@@ -7,22 +7,31 @@
 <%@ page import="java.io.ByteArrayOutputStream" %>
 <%@ page import="com.jfinal.plugin.activerecord.Record" %>
 <%@ page import="java.io.OutputStream" %>
+<%@ page import="gka.dzfp.ThreadPoolUtil" %>
+<%@ page import="gka.dzfp.SendDzfp" %>
+<%@ page import="gka.Test" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%
+    //    System.out.println("============");
+//    String orderId = "1590909008009nrtargb";
+//    ThreadPoolUtil.execute(new SendDzfp(orderId));
+    Test.main(null);
+%>
 <%--<%--%>
 
 
-    <%--File f = new File("D://QC.png");--%>
-    <%--BufferedImage bi;--%>
-    <%--try {--%>
-        <%--bi = ImageIO.read(f);--%>
-        <%--ByteArrayOutputStream baos = new ByteArrayOutputStream();--%>
-        <%--ImageIO.write(bi, "jpg", baos);--%>
-        <%--byte[] bytes = baos.toByteArray();--%>
-        <%--Db.update("UPDATE XSZPB SET ZP=? WHERE XH='20183519'", bytes);--%>
-    <%--} catch (Exception e) {--%>
-        <%--e.printStackTrace();--%>
-    <%--}--%>
+<%--File f = new File("D://QC.png");--%>
+<%--BufferedImage bi;--%>
+<%--try {--%>
+<%--bi = ImageIO.read(f);--%>
+<%--ByteArrayOutputStream baos = new ByteArrayOutputStream();--%>
+<%--ImageIO.write(bi, "jpg", baos);--%>
+<%--byte[] bytes = baos.toByteArray();--%>
+<%--Db.update("UPDATE XSZPB SET ZP=? WHERE XH='20183519'", bytes);--%>
+<%--} catch (Exception e) {--%>
+<%--e.printStackTrace();--%>
+<%--}--%>
 <%--%>--%>
 <%--<html>--%>
 <%--<head>--%>

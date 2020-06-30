@@ -12,7 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Record;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
+import gka.dzfp.ElectronicInvoiceApi;
+import gka.dzfp.SendDzfp;
+import gka.dzfp.ThreadPoolUtil;
 import gka.pay.ylpay.DemoBase;
 import gka.pay.ylpay.sdk.AcpService;
 import gka.pay.ylpay.sdk.LogUtil;
@@ -72,7 +77,11 @@ public class BackRcvResponse extends Controller {
                 String orderId = reqParam.get("orderId");
                 //验证重复收到通知
                 if (wyjfDao.queryIsBack(orderId)) {
-                    wyjfDao.updateNormalOrderYl(reqParam);
+                    boolean su = wyjfDao.updateNormalOrderYl(reqParam);
+                    //开发票
+                    if (su) {
+                        ThreadPoolUtil.execute(new SendDzfp(orderId));
+                    }
                 }
             }
         }

@@ -4,6 +4,8 @@ import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import gka.controller.xsjfgl.wyjf.WyjfDao;
+import gka.dzfp.SendDzfp;
+import gka.dzfp.ThreadPoolUtil;
 import gka.pay.wxpay.WXPay;
 import gka.pay.wxpay.WXPayUtil;
 
@@ -65,6 +67,8 @@ public class WxPayCallBackController extends Controller {
              */
             if (wyjfDao.queryIsBack(out_trade_no)) {
                 wyjfDao.updateNormalOrder(repData);
+                //开票
+                ThreadPoolUtil.execute(new SendDzfp(out_trade_no));
             }
 
         } catch (Exception e) {

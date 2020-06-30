@@ -1,0 +1,6 @@
+2020-06-28 20:27:17 [main] [gka.pay.ylpay.sdk.LogUtil.writeLog] 从classpath: /F:/sh/wpt/wxyfwpt/out/production/wxysfma/ 获取属性文件acp_sdk.properties
+2020-06-28 20:27:17 [main] [gka.pay.ylpay.sdk.LogUtil.writeLog] 开始从属性文件中加载配置项
+2020-06-28 20:27:17 [main] [gka.pay.ylpay.sdk.LogUtil.writeLog] 配置项：私钥签名证书路径==>acpsdk.signCert.path==>F:/study/yl/cert/700000000000001_acp.pfx 已加载
+2020-06-28 20:27:17 [main] [gka.pay.ylpay.sdk.LogUtil.writeLog] 配置项：私钥签名证书密码==>acpsdk.signCert.pwd 已加载
+2020-06-28 20:27:17 [main] [gka.pay.ylpay.sdk.LogUtil.writeLog] 配置项：私钥签名证书类型==>acpsdk.signCert.type==>PKCS12 已加载
+2020-06-28 20:27:17 [main] [gka.pay.ylpay.sdk.LogUtil.writeLog] 配置项：敏感信息加密证书==>acpsdk.encryptCert.path==>F:/study/yl/cert/acp_test_enc.cer 已加载

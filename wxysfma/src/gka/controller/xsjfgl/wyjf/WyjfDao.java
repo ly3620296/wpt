@@ -182,10 +182,11 @@ public class WyjfDao {
     public Record xhInfo(String oderId) {
         String sql = "SELECT XH,PAY_TYPE FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
         Record xhRe = Db.findFirst(sql, oderId);
+        System.out.println("xhRe====" + xhRe);
         Record xsInfo = null;
 
         if (xhRe != null) {
-            sql = "SELECT XM,ZH,JGDM,JGMC,ZYDM,ZYMC,BJDM,BJMC,ZJHM,LXDH,YX FROM  WPT_YH WHERE JSDM=? WHERE ZH=?";
+            sql = "SELECT XM,ZH,JGDM,JGMC,ZYDM,ZYMC,BJDM,BJMC,ZJHM,LXDH,YX FROM WPT_YH WHERE JSDM=? AND ZH=?";
             xsInfo = Db.findFirst(sql, "02", xhRe.getStr("XH"));
             xsInfo.set("PAY_TYPE", xhRe.getStr("PAY_TYPE"));
         }
@@ -193,8 +194,8 @@ public class WyjfDao {
     }
 
     public Record sfInfo(String oderId) {
-        String sql = "SELECT IDS,PAY_VAL FROM WPT_WXZF_SPECIAL_ORDER WHERE OUT_TRADE_NO=?";
-        Record sfRe = Db.findFirst(sql, oderId);
+        String sql = "SELECT IDS,PAY_VAL,XH,SFXN,T2.ZYDM FROM WPT_WXZF_SPECIAL_ORDER T1 LEFT JOIN WPT_YH T2 ON T1.XH=T2.ZH WHERE OUT_TRADE_NO=? AND ORDER_STATE=?";
+        Record sfRe = Db.findFirst(sql, oderId, "2");
         return sfRe;
     }
 

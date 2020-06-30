@@ -1,8 +1,6 @@
 package gka.dzfp;
 
 import com.alibaba.fastjson.JSONObject;
-import gka.controller.xsjfgl.fpgl.FpglBean;
-import gka.controller.xsjfgl.fpgl.FpglDao;
 import gka.dzfp.bean.InvoiceEBillByCollegeBean;
 import org.apache.commons.codec.binary.Base64;
 
@@ -39,7 +37,6 @@ public class ElectronicInvoiceApi {
             }
             fpglBean.setRCBW(rc);
 
-            System.out.println(rc);
             String s = HttpUtil.doPost(dzfp_domian + invoiceEBillByCollege_url, requestBody.toJSONString());
             JSONObject jsonObject = JSONObject.parseObject(s);
 
@@ -86,5 +83,6 @@ public class ElectronicInvoiceApi {
         fpglBean.setMSG(rMsg);
         fpglDao.insertSendDzfp(fpglBean);
     }
+
 
 }

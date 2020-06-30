@@ -36,6 +36,7 @@ public class DnkpDao {
 
     public void tf(final String ddh, final String xn, final String xh, final String yh) {
         Db.tx(new IAtom() {
+            // todo  退费限制
             @Override
             public boolean run() throws SQLException {
                 String sql = "select * from WPT_WXZF_SPECIAL_ORDER WHERE XH=? AND SFXN=? AND ORDER_NO=?";
@@ -46,6 +47,7 @@ public class DnkpDao {
                 String ORDER_NO = re.getStr("ORDER_NO");
                 String out_trade_no = re.getStr("OUT_TRADE_NO");
                 String fee = "-" + re.getStr("TOTAL_FEE");
+
                 String TIME_START = re.getStr("TIME_START");
 
                 sql = "UPDATE WPT_WXZF_SPECIAL_ORDER SET ORDER_STATE=? WHERE XH=? AND SFXN=? AND ORDER_NO=?";
