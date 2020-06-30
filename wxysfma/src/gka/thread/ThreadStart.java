@@ -7,6 +7,6 @@ import gka.thread.dzxc.DzxcThread;
  */
 public class ThreadStart {
     public static void start() {
-//        new DzxcThread();
+        new DzxcThread();
     }
 }
