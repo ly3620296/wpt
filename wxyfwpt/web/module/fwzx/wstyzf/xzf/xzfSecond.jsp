@@ -29,7 +29,7 @@
 </div>
 
 <div class="tanchudd" style="display: none;" id="tanchuddId">
-    <div class="cont list" style="top: 10%;" >
+    <div class="cont list" style="top: 10%;width: 90%;left: 5%;">
         <div class="tablediv" id="noPayOrderTable">
 
         </div>
@@ -42,7 +42,8 @@
     </div>
 </div>
 <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui/layui.js" charset="utf-8"></script>
-<script type="text/javascript" src="<%=Constant.server_name%>module/fwzx/wstyzf/xzf/js/xzfSecond.js" charset="utf-8"></script>
+<script type="text/javascript" src="<%=Constant.server_name%>module/fwzx/wstyzf/xzf/js/xzfSecond.js"
+        charset="utf-8"></script>
 
 </body>
 </html>
