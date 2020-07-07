@@ -5,6 +5,8 @@ import com.jfinal.core.Controller;
 import com.jfinal.ext.route.ControllerBind;
 import gka.controller.module.wstyzf.xzf.XzfDao;
 import gka.controller.module.wstyzf.xzf.XzfSecondDao;
+import gka.dzfp.SendDzfp;
+import gka.dzfp.ThreadPoolUtil;
 import gka.kit.IpKit;
 import gka.pay.wxpay.WXPay;
 import gka.pay.wxpay.WXPayConstants;
@@ -68,6 +70,8 @@ public class WxPayCallBackController extends Controller {
 //            XzfDao.updateNormalOrder(repData);
             if (xzfSecondDao.queryIsBack(out_trade_no)) {
                 xzfSecondDao.updateNormalOrder(repData);
+                //开票
+                ThreadPoolUtil.execute(new SendDzfp(out_trade_no));
             }
 
         } catch (Exception e) {

@@ -28,8 +28,8 @@
 
 </div>
 
-<div class="tanchudd" style="display: none" id="tanchuddId">
-    <div class="cont list">
+<div class="tanchudd" style="display: none;" id="tanchuddId">
+    <div class="cont list" style="top: 10%;" >
         <div class="tablediv" id="noPayOrderTable">
 
         </div>
