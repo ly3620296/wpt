@@ -1,0 +1,100 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
+package gka.controller;
+
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Record;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+public class CommonDao {
+    public CommonDao() {
+    }
+
+    public static String currXnxq() {
+        String currXnxq = "";
+        String sql = "SELECT V_ZDZ FROM V_WPT_DQXNXQ";
+        List re = Db.find(sql);
+        if(re != null) {
+            if(re.size() == 1) {
+                currXnxq = ((Record)re.get(0)).getStr("V_ZDZ");
+            } else if(re.size() == 2) {
+                Record re1 = (Record)re.get(0);
+                String val1 = re1.getStr("V_ZDZ");
+                Record re2 = (Record)re.get(1);
+                String val2 = re2.getStr("V_ZDZ");
+                if(val1.length() == 4) {
+                    currXnxq = val1 + "-" + (Integer.parseInt(val1) + 1) + "-" + getXq(val2);
+                } else {
+                    currXnxq = val2 + "-" + (Integer.parseInt(val2) + 1) + "-" + getXq(val1);
+                }
+            }
+        }
+
+        return currXnxq;
+    }
+
+    public static String[] currXnxqZcs(String currXnxq) {
+        String sql = "SELECT DISTINCT(ZC) ZC FROM V_WPT_XL  WHERE XNXQ=? ORDER BY ZC ASC";
+        List re = Db.find(sql, new Object[]{currXnxq});
+        String[] zcs = null;
+        if(re != null) {
+            zcs = new String[re.size()];
+
+            for(int i = 0; i < re.size(); ++i) {
+                zcs[i] = ((Record)re.get(i)).getStr("ZC");
+            }
+        }
+
+        return zcs;
+    }
+
+    public static String currXnxqZc(String currDate, String currXnxq) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String currZc = "";
+        String sql = "SELECT ZC FROM V_WPT_XL WHERE RQ=? AND XNXQ=?";
+        Record re = Db.findFirst(sql, new Object[]{currDate, currXnxq});
+        if(re != null) {
+            currZc = re.getStr("ZC");
+        } else {
+            sql = "SELECT  MAX(RQ) MAXRQ,MIN(RQ),MAX(ZC) MAXZC,MIN(ZC) MINZC  FROM  V_WPT_XL WHERE XNXQ=?";
+            re = Db.findFirst(sql, new Object[]{currXnxq});
+            String maxRq = re.getStr("MAXRQ");
+            String minRq = re.getStr("MINRQ");
+
+            try {
+                if(simpleDateFormat.parse(currDate).getTime() > simpleDateFormat.parse(maxRq).getTime()) {
+                    currZc = re.getStr("MAXZC");
+                } else if(simpleDateFormat.parse(currDate).getTime() < simpleDateFormat.parse(minRq).getTime()) {
+                    currZc = re.getStr("MINZC");
+                }
+            } catch (ParseException var9) {
+                var9.printStackTrace();
+            }
+        }
+
+        return currZc;
+    }
+
+    private static String getXq(String xq) {
+        if(xq.equals("12")) {
+            xq = "2";
+        } else if(xq.equals("3")) {
+            xq = "1";
+        }
+
+        return xq;
+    }
+
+    public static void main(String[] args) throws Exception {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = simpleDateFormat.parse("2019-04-21");
+        System.out.println(date.getTime());
+        System.out.println(date);
+    }
+}

@@ -49,8 +49,8 @@ public class ElectronicInvoiceApi {
                 returnCode = cc.getString("result");
                 byte[] messages = base64.decode(cc.getString("message"));
                 String returnMsg = new String(messages, "UTF-8");
-                JSONObject jsRms = JSONObject.parseObject(returnMsg);
                 if ("S0000".equals(returnCode)) {
+                    JSONObject jsRms = JSONObject.parseObject(returnMsg);
                     //电子票据代码
                     String eBillCode = jsRms.getString("eBillCode");
                     //电子票据号码

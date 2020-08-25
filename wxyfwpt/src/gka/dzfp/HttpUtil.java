@@ -59,7 +59,7 @@ public class HttpUtil {
                 System.out.println(state);
                 HttpEntity responseEntity = response.getEntity();
                 String jsonString = EntityUtils.toString(responseEntity);
-                System.out.println("======" + jsonString);
+                System.out.println("==========" + jsonString);
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();

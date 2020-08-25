@@ -71,7 +71,7 @@ public class CommonDao {
         if (re != null) {
             currZc = re.getStr("ZC");
         } else {
-            sql = "SELECT  MAX(RQ) MAXRQ,MIN(RQ),MAX(ZC) MAXZC,MIN(ZC) MINZC  FROM  V_WPT_XL WHERE XNXQ=?";
+            sql = "SELECT  MAX(RQ) MAXRQ,MIN(RQ) MINRQ,MAX(ZC) MAXZC,MIN(ZC) MINZC  FROM  V_WPT_XL WHERE XNXQ=?";
             re = Db.findFirst(sql, currXnxq);
             //当前学年学期最校历表中最后一天
             String maxRq = re.getStr("MAXRQ");

@@ -81,12 +81,18 @@ layui.use('form', function () {
                     //加载学年学期下拉
                     if (xnxqList) {
                         var options = "";
+                        var flag = false;
                         for (var index in xnxqList) {
                             var xnxq = xnxqList[index].XNXQ;
                             if (currXnxq == xnxq) {
                                 options += "<option value='" + xnxq + "' selected>" + xnxq + "</option>";
+                                flag = true;
                             } else {
-                                options += "<option value='" + xnxq + "'>" + xnxq + "</option>";
+                                if (index == (xnxqList.length - 1) && !flag) {
+                                    options += "<option value='" + xnxq + "' selected>" + xnxq + "</option>";
+                                } else {
+                                    options += "<option value='" + xnxq + "'>" + xnxq + "</option>";
+                                }
                             }
                         }
                         $("#ccj_xq").html(options);

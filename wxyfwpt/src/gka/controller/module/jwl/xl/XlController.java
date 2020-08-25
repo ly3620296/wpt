@@ -36,7 +36,6 @@ public class XlController extends Controller {
         }
         result.put("returnInfo", returnInfo);
         renderJson(result);
-
     }
 
 }
