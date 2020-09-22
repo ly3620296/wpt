@@ -16,7 +16,7 @@
     //    System.out.println("============");
 //    String orderId = "1590909008009nrtargb";
 //    ThreadPoolUtil.execute(new SendDzfp(orderId));
-    Test.main(null);
+//    Test.main(null);
 %>
 <%--<%--%>
 
