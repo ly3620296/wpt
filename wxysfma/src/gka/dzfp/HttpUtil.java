@@ -33,6 +33,9 @@ public class HttpUtil {
     private final static int readTimeoutMs = 30 * 1000;
     private final static int connectTimeoutMs = 30 * 1000;
 
+//    private final static int readTimeoutMs = 100;
+//    private final static int connectTimeoutMs = 100;
+
     /**
      * post请求（用于请求json格式的参数）
      *

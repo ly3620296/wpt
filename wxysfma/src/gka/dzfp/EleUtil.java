@@ -72,6 +72,22 @@ public class EleUtil {
         return jsonObject;
     }
 
+    /**
+     * 生成请求报文
+     */
+    public JSONObject genRequestBody_bak(String object) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("appid", appId);
+        JSONObject encData = JSONObject.parseObject(object);
+        jsonObject.put("data", base64(encData));
+        jsonObject.put("noise", genNoise());
+        jsonObject.put("version", version);
+        //签名
+        sign(jsonObject);
+        System.out.println(jsonObject);
+        return jsonObject;
+    }
+
     public static String genBusNo() {
         String busNo = UUID.randomUUID().toString().replaceAll("-", "");
         return busNo;

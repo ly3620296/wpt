@@ -147,7 +147,7 @@
                             area: ['70%', '90%'],
                             shade: 0,
                             fixed: true,
-                            content: ' http://139.215.214.162:18001/billcheck/html/index.html'
+                            content: 'http://139.215.214.162:18001/billcheck/html/index.html'
                         });
                     }
                 });
