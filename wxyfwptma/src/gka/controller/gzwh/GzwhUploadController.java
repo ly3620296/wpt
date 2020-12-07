@@ -1,5 +1,6 @@
 package gka.controller.gzwh;
 
+import com.gka.pub.util.Util;
 import com.jfinal.aop.Clear;
 import com.jfinal.ext.route.ControllerBind;
 import com.jfinal.plugin.activerecord.Db;
@@ -66,7 +67,7 @@ public class GzwhUploadController extends ServiceController {
                             Map map = list.get(i);
                             if (i == 0) {
                                 int sum = Integer.parseInt(Db.findFirst("select count(1) from wptma_gzsyzd").getStr("count(1)"));
-                                for (int a = 2; a < map.size(); a++) {
+                                for (int a = 1; a < map.size(); a++) {
                                     String ms = map.get(a).toString();
                                     Record record = Db.findFirst("select ZD from wptma_gzsyzd where ms=?", ms);
                                     if (record != null) {
@@ -83,18 +84,18 @@ public class GzwhUploadController extends ServiceController {
                                 if (list_zd == null) {
                                     list_zd = Db.find("select * from wptma_gzzdb t where id=? order by sx", id);
                                 }
-                                String sql = "insert into wptma_gzsjb (id,yhm,xm [aaaaa]) values(?,?,? [bbbbb])";
+                                String sql = "insert into wptma_gzsjb (id,yhm [aaaaa]) values(?,? [bbbbb])";
                                 String aaaaa = "";
                                 String bbbbb = "";
                                 for (int c = 0; c < list_zd.size(); c++) {
                                     Record record = list_zd.get(c);
                                     aaaaa += "," + (record.get("zd") == null ? "" : record.get("zd").toString() + "");
 //                                String str = StrKit.isBlank(map.get(c + 2).toString()) ? "" : map.get(c + 2).toString();
-                                    bbbbb += ",'" + (map.get(c + 2) == null ? "" : map.get(c + 2).toString()) + "'";
+                                    bbbbb += ",'" + (map.get(c + 1) == null ? "" : map.get(c + 1).toString()) + "'";
                                 }
                                 sql = sql.replace("[aaaaa]", aaaaa);
                                 sql = sql.replace("[bbbbb]", bbbbb);
-                                Db.update(sql, id, map.get(0), map.get(1));
+                                Db.update(sql, id, map.get(0));
                                 System.out.println("sql===========" + sql);
                             }
                         }

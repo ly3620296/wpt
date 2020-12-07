@@ -64,8 +64,8 @@ public class GzwhController extends Controller {
         String id = getPara("id");
         try {
             Map map = new HashMap();
-            List<Record> list = Db.find("select zd,zdms from wptma_gzzdb t where id=? order by sx ", id);
-            String sql = "select yhm,xm aaaaa from wptma_gzsjb where id=?";
+            List<Record> list = Db.find("select zd,zdms,zdfa from wptma_gzzdb t where id=? order by sx ", id);
+            String sql = "select yhm aaaaa from wptma_gzsjb where id=?";
             String aaaaa = "";
             for (int i = 0; i < list.size(); i++) {
                 aaaaa += "," + (list.get(i).get("zd") == null ? "" : list.get(i).get("zd").toString());

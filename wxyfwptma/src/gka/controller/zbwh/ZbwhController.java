@@ -38,6 +38,8 @@ public class ZbwhController extends Controller {
             if (array.length > 0) {
                 for (int i = 0; i < array.length; i++) {
                     Db.update("delete wptma_zbbtb where id=?", array[i]);
+                    Db.update("delete wptma_zbsjb where id=?", array[i]);
+                    Db.update("delete wptma_zbzdb where id=?", array[i]);
                 }
                 renderJson(ReturnKit.retOk());
             } else {

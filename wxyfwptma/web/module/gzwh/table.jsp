@@ -12,18 +12,21 @@
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/layui-2.4.5/layui.js"></script>
     <script type="text/javascript" src="<%=Constant.server_name%>js-lib/base.js"></script>
     <style type="text/css">
-        .tablelist{
+        .tablelist {
             width: 100%;
-
         }
-        .tablelist td{
+
+        .tablelist td {
             font-size: 14px;
             text-align: center;
             padding: 8px 0;
             background: #ffffff;
             border: 1px solid #e4eff5;
         }
-        .tablelist tr:first-child td{
+
+        .tablelist tr th {
+            padding: 8px 0;
+            font-size: 14px;
             text-align: center;
             color: #ffffff;
             background: #009688;
@@ -59,10 +62,11 @@
                 if (data.RETURN_STATE == "SUCCESS") {
                     var headList = data.OUT_DATA.headList;
                     var bodyList = data.OUT_DATA.bodyList;
-                    var html = '<tr><td>工号</td><td>姓名</td>';
+                    var html = '<tr><th>工号</th>';
                     if (headList != null) {
                         for (var i = 0; i < headList.length; i++) {
-                            html += '<td>' + headList[i].ZDMS + '</td>'
+                            var zdms = headList[i].ZDMS == null ? "" : headList[i].ZDMS
+                            html += '<th>' + zdms + '</th>'
                         }
                         html += '</tr>';
                     } else {
@@ -73,10 +77,10 @@
                     if (bodyList != null) {
                         for (var i = 0; i < bodyList.length; i++) {
                             html += '<tr><td>' + bodyList[i].YHM + '</td>'
-                            html += '<td>' + bodyList[i].XM + '</td>'
+//                            html += '<td>' + bodyList[i].XM + '</td>'
                             for (var a = 0; a < headList.length; a++) {
                                 var body = bodyList[i]
-                                html += '<td>' + (body[(headList[a].ZD).toUpperCase()]==null?"": body[(headList[a].ZD).toUpperCase()])+ '</td>'
+                                html += '<td>' + (body[(headList[a].ZD).toUpperCase()] == null ? "" : body[(headList[a].ZD).toUpperCase()]) + '</td>'
                             }
                             html += '</tr>';
                         }
