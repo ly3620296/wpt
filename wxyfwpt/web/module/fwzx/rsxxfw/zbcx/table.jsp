@@ -29,13 +29,6 @@
             background: #ffffff;
             border-bottom: 2px solid #e4eff5;
         }
-        /*#table tr :nth-child(2){*/
-            /*text-align: center;*/
-            /* text-indent: 2em; */
-            /*width: 30%;*/
-            /*background: #e9f8ff;*/
-            /*border-bottom: 2px solid #fff;*/
-        /*}*/
         #table tr :nth-child(1){
             text-align: center;
             /* text-indent: 2em; */
@@ -58,7 +51,7 @@
         <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png"
              onclick="javascript:window.location.replace(document.referrer)"/>
 
-        <p class="titleName">工资查询</p>
+        <p class="titleName">值班查询</p>
     </div>
     <div class="divname">
         <img class="leftimg" src="<%=Constant.server_name%>img/icon_jiaofei.png"/>
@@ -72,7 +65,7 @@
         </div>
     </div>
     <div class="sflistDiv">
-        <p class="time">工资条明细</p>
+        <p class="time">值班表明细</p>
 
         <div class="layui-collapse" lay-accordion="" id="myMsg">
             <table border="1" cellspacing="1" cellpadding="1" id="table" class="tablelist">
@@ -102,7 +95,7 @@
             return false;
         }
         $.ajax({
-            url: wpt_serverName + "gzcx/table",
+            url: wpt_serverName + "zbcx/table",
             type: 'post',
             dataType: 'json',
             data: {id: id, zh: zh},
@@ -122,7 +115,7 @@
                         }
                         $("#table").html(html)
                     } else {
-                        layer.alert("暂无您的工资信息!", function (index) {
+                        layer.alert("暂无您的值班信息!", function (index) {
                             layer.closeAll()
                         });
                     }

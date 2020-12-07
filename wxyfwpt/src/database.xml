@@ -5,7 +5,7 @@
         <dataSource>main</dataSource>
         <dbType>oracle</dbType>
         <driver>oracle.jdbc.driver.OracleDriver</driver>
-        <jdbcUrl>jdbc:oracle:thin:@124.235.118.6:1521:orcl</jdbcUrl>
+        <jdbcUrl>jdbc:oracle:thin:@39.100.10.209:1521:orcl</jdbcUrl>
         <!--<jdbcUrl>jdbc:oracle:thin:@47.95.194.194:1521:orcl</jdbcUrl>-->
         <username>ldwpt</username>
         <password>ldwpt</password>

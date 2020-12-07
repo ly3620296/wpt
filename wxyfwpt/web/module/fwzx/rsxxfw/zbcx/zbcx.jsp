@@ -18,31 +18,6 @@
         .layui-layer-loading0 {
             margin-left: 45%;
         }
-        .tablelist{
-            width: 100%;
-
-        }
-        .tablelist td{
-            font-size: 14px;
-            text-align: center;
-            padding: 8px 0;
-            background: #ffffff;
-            border-bottom: 2px solid #e4eff5;
-        }
-        /*#table tr :nth-child(2){*/
-            /*text-align: center;*/
-            /* text-indent: 2em; */
-            /*width: 30%;*/
-            /*background: #e9f8ff;*/
-            /*border-bottom: 2px solid #fff;*/
-        /*}*/
-        #table tr :nth-child(1){
-            text-align: center;
-            /* text-indent: 2em; */
-            width: 45%;
-            background: #e9f8ff;
-            border-bottom: 2px solid #fff;
-        }
     </style>
 </head>
 <body style="background: #f3f3f3;">
@@ -52,13 +27,22 @@
     if (wptUser == null) {
         wptUser = new WptUserInfo();
     }
+    String pageSource = request.getParameter("pageSource");
+    if (pageSource != null) {
+        if (pageSource.equals("fwzx")) {
+            pageSource = Constant.server_name + "module/fwzx/fwzxapp.jsp";
+        } else if (pageSource.equals("main")) {
+            pageSource = Constant.server_name + "module/main/main.jsp";
+        }
+
+    }
 %>
 <div class="gzcx">
     <div class="titledddiv">
         <img class="fh-icon" src="<%=Constant.server_name%>img/fh-icon.png"
-             onclick="javascript:window.location.replace(document.referrer)"/>
+             onclick="javascript:window.location.replace('<%=pageSource%>')"/>
 
-        <p class="titleName">工资查询</p>
+        <p class="titleName">值班查询</p>
     </div>
     <div class="divname">
         <img class="leftimg" src="<%=Constant.server_name%>img/icon_jiaofei.png"/>
@@ -72,12 +56,10 @@
         </div>
     </div>
     <div class="sflistDiv">
-        <p class="time">工资条明细</p>
+        <p class="time">值班表</p>
 
         <div class="layui-collapse" lay-accordion="" id="myMsg">
-            <table border="1" cellspacing="1" cellpadding="1" id="table" class="tablelist">
 
-            </table>
         </div>
     </div>
 </div>
@@ -94,35 +76,27 @@
             });
             return false;
         }
-        var id = getURLParameter("id");
-        if (id == undefined || id == "" || id == null) {
-            layer.alert('未获取到ID!', function (index) {
-                parent.closeAll()
-            });
-            return false;
-        }
         $.ajax({
-            url: wpt_serverName + "gzcx/table",
+            url: wpt_serverName + "zbcx/list",
             type: 'post',
             dataType: 'json',
-            data: {id: id, zh: zh},
+            data: {zh: zh},
             timeout: 10000,
             beforeSend: function () {
                 loadIndex = layer.load(0, {shade: [0.2, '#393D49']});
             },
             success: function (data) {
                 if (data.RETURN_STATE == "SUCCESS") {
-                    var headList = data.OUT_DATA.headList;
-                    var bodyList = data.OUT_DATA.bodyList;
-                    var html = '';
-                    if (headList != null && bodyList != null) {
-                        html += '<tr><td>工号</td><td>' + bodyList.YHM + '</td></tr>'
-                        for (var i = 0; i < headList.length; i++) {
-                            html += '<tr><td>' + headList[i].ZDMS + '</td><td>' + (bodyList[(headList[i].ZD).toUpperCase()] == null ? "" : bodyList[(headList[i].ZD).toUpperCase()]) + '</td></tr>'
+                    var list = data.OUT_DATA.list;
+                    if (list.length > 0) {
+                        var html = '';
+                        for (var i = 0; i < list.length; i++) {
+                            html += '<div class="layui-colla-item"> ' +
+                            '<a href="table.jsp?id=' + list[i].ID + '"><h2 class="layui-colla-title">' + list[i].BT + '</h2></a> </div>'
                         }
-                        $("#table").html(html)
+                        $("#myMsg").html(html)
                     } else {
-                        layer.alert("暂无您的工资信息!", function (index) {
+                        layer.alert("暂无您的值班信息!", function (index) {
                             layer.closeAll()
                         });
                     }
@@ -137,9 +111,6 @@
             }
         })
     });
-    function getURLParameter(name) {
-        return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
-    }
 </script>
 </body>
 
